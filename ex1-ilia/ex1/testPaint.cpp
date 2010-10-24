@@ -39,11 +39,13 @@ int main(){
 		cout << "Please enter x and y coordinates for the second end of the line:" << endl;
 		cin >> x1 >> y1;
 		Line inputLine = Line(x0,y0,x1,y1);
+		inputLine.
+
 		clearBoard();
 		inputLine.draw(paintBoard);
 		printBoard();
 	}
-
+/*
 	if (SQUARE){
 		Vertex tl,shift;
 		tl._x = 10.0;
@@ -91,8 +93,12 @@ int main(){
 			myStairs.rotate(90);
 			gotoTop();
 			sleep(1000);
-		}	
+		}
+
+*/	
+
 	}
+
 	return 0;
 }
 
