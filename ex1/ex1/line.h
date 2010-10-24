@@ -23,7 +23,7 @@ private:
 	Vertex _start;
 	Vertex _end;
 
-	void checkCorectCoordinates();
+	void checkCorectCoordinates(float x0, float y0, float x1, float y1);
 
 	float	_len;
 	float	_angle;
