@@ -6,7 +6,7 @@
 	{
 		_start	= ends0;
 		_end	= ends1;
-		checkCorectCoordinates();
+		checkCorectCoordinates(_start._x,_start._y,_end._x,_end._y);
 	}	//	end function constructor Line
 
 	// start cunstruct function Line
@@ -14,7 +14,7 @@
 	{
 		_start	= ends[0];
 		_end	= ends[1];
-		checkCorectCoordinates();
+		checkCorectCoordinates(_start._x,_start._y,_end._x,_end._y);
 	}	//	end function constructor Line
 
 	// start cunstruct function Line
@@ -23,8 +23,7 @@
 		_start._x	= x0;
 		_end._x		= x1;
 		_start._y	= y0;
-		_end._y		= y1;
-		checkCorectCoordinates();
+		_end._y		= y1;	
 
 	}	//	end function constructor Line
 
@@ -58,11 +57,11 @@
 	//	Function draw
 	void Line::draw(bool board[][MAX_Y+1]) // INT
 	{
-		for(int i=0;i<MAX_X;i++)
+		for(int i=1;i<=MAX_X;i++)
 		{
-			for(int y=0;y<MAX_Y;y++)
+			for(int y=1;y<=MAX_Y;y++)
 			{
-				if(_start._x == i && _start._y==y)
+				if(y == (int)(((_end._y-_start._y)/(_end._x-_start._x))*(i-_start._x)+_start._y) )
 					board[i][y] = true;
 
 			}
@@ -72,15 +71,14 @@
 
 	}	//	end function draw
 
-	void Line::CorectCoordinates()
+	void Line::checkCorectCoordinates(float x0, float y0, float x1, float y1)
 	{
-		if(_start._x < 0 || _start._x > MAX_X || _end._x < 0 || _end._x > MAX_X 
-			|| _start._y < 0 || _start._y > MAX_Y || _end._y < 0 || _end._y > MAX_Y)
+		if(x0 < 0 || x0 > MAX_X || x1 < 0 || x1 > MAX_X || y0 < 0 || y0 > MAX_Y || y1 < 0 || y1 > MAX_Y)
 		{
 			_start._x	=	0;
 			_start._y	=	0;
 			_end._x		=	10;
-			_end._y		=	10
+			_end._y		=	10;
 		}
 	}
 

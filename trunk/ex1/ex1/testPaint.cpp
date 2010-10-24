@@ -1,6 +1,11 @@
 //includes
 #include <iostream>
 #include <time.h>
+
+#include <stdlib.h>	// for rand
+#include <time.h>
+
+
 #include <windows.h>
 #include "macros.h" 
 #include "Line.h"
@@ -8,6 +13,7 @@
 #include "Vertex.h"
 #include "Stairs.h"
 #include "Square.h"
+
 
 //Name spaces 
 using namespace std;
@@ -17,7 +23,7 @@ using namespace std;
 const bool LINE = true;
 const bool STAIRS = false;
 const bool PLUS = false;
-const bool SQUARE = false;
+const bool SQUARE = true;
 
 //Global variables declaration
 bool paintBoard[MAX_X+1][MAX_Y+1]; 
@@ -36,15 +42,52 @@ int main(){
 		cout << "Please enter x and y coordinates for one end of the line separated by spaces:" << endl;
 		float x0,y0,x1,y1;
 		cin >> x0 >> y0; 
+
+
+
 		cout << "Please enter x and y coordinates for the second end of the line:" << endl;
 		cin >> x1 >> y1;
 		Line inputLine = Line(x0,y0,x1,y1);
 		clearBoard();
 		inputLine.draw(paintBoard);
 		printBoard();
+
+		Vertex v1;
+		Vertex v2;
+		srand ((int)(x1*x0));
+		v1._x = (float)(rand()% 70);
+		v2._x = (float)(rand()% 70);
+		v1._y = (float)(rand()% 50);
+		v2._y = (float)(rand()% 50);		
+		Line inputLine1 = Line(v1,v2);
+		clearBoard();
+		inputLine1.draw(paintBoard);
+		printBoard();
+
+
+		Vertex v_arr[1];
+	
+		v_arr[0]._x = (float)(rand()% 70);
+		v_arr[1]._x = (float)(rand()% 70);
+		v_arr[0]._y = (float)(rand()% 50);
+		v_arr[1]._y = (float)(rand()% 50);		
+		Line inputLine2 = Line(v_arr);
+		clearBoard();
+		inputLine2.draw(paintBoard);
+		printBoard();
+
+		Vertex v3;
+
+	
+		v3._x = (float)(rand()% 70);
+		v3._y = (float)(rand()% 50);	
+		Line inputLine4 = Line(v3,2,4);
+		clearBoard();
+		inputLine4.draw(paintBoard);
+		printBoard();
 	}
 
-	/*
+
 	if (SQUARE){
 		Vertex tl,shift;
 		tl._x = 10.0;
@@ -61,7 +104,7 @@ int main(){
 			sleep(1000);
 		}	
 	}
-
+	/*
 	if (PLUS){
 		Vertex t2;
 		t2._x = 15.0;
