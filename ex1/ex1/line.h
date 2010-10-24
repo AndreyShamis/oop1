@@ -23,4 +23,10 @@ private:
 	Vertex _start;
 	Vertex _end;
 
+	void checkCorectCoordinates();
+
+	float	_len;
+	float	_angle;
+
+
 };
