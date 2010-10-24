@@ -14,7 +14,7 @@ using namespace std;
 
 //Constants
 
-const bool LINE = false;
+const bool LINE = true;
 const bool STAIRS = false;
 const bool PLUS = false;
 const bool SQUARE = false;
@@ -44,6 +44,7 @@ int main(){
 		printBoard();
 	}
 
+	/*
 	if (SQUARE){
 		Vertex tl,shift;
 		tl._x = 10.0;
@@ -93,6 +94,7 @@ int main(){
 			sleep(1000);
 		}	
 	}
+	*/
 	return 0;
 }
 
