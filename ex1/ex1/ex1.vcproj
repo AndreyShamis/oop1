@@ -170,12 +170,40 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath=".\testPaint.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\Line.h"
+				>
+			</File>
+			<File
+				RelativePath=".\macros.h"
+				>
+			</File>
+			<File
+				RelativePath=".\plus.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Square.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Stairs.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Vertex.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
