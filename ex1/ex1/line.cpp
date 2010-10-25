@@ -4,7 +4,7 @@
 	// start cunstruct function Line
 	Line::Line(Vertex ends0,Vertex ends1)
 	{
-		_start	= ends0;
+		_start	= ends0;	//
 		_end	= ends1;
 		checkCorectCoordinates(_start._x,_start._y,_end._x,_end._y);
 	}	//	end function constructor Line
