@@ -1,5 +1,5 @@
 #labels 27.10.10
-<pre dir="rtl">
+<p dir="rtl">
 
 
 
@@ -27,4 +27,4 @@ time(int, int, int);
 
 
 
-</pre>
+</p>
