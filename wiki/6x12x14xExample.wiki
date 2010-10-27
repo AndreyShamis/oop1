@@ -1,11 +1,11 @@
 #labels 27.10.10
-{{{<pre dir="rtl">
+<pre dir="rtl">
 
 
 
 
 מודולרי א'
-
+{{{
 Circle Arr[10]; // defined with default builder!
 
 Circle c1;
@@ -13,7 +13,7 @@ Circle c1(3,3,9); // Error!
 
 Circle c1;
 C1.set(3,3,9) // OK!
-
+}}}
 הערות לדוגמא 6.12-14
 
 1.	הגדרת ערכי ברירת מחדל לארגומנטים רק בהצהרת המחלקה ולא במימוש. 
@@ -27,4 +27,4 @@ time(int, int, int);
 
 
 
-</pre>}}}
+</pre>
