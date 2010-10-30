@@ -1,5 +1,6 @@
 #include "line.h"
-
+#include <stdlib.h>
+#include <stdio.h>
 
 	// start cunstruct function Line
 	Line::Line(Vertex ends0,Vertex ends1)
@@ -57,9 +58,15 @@
 	//	Function draw
 	void Line::draw(bool board[][MAX_Y+1]) // INT
 	{
-		for(int i=1;i<=MAX_X;i++)
+		float min_s,max_s,min_e,max_e;
+
+		min_s=__min(_start._x,_end._x);
+		min_e=__min(_start._y,_end._y);
+		max_s=__max(_start._x,_end._x);
+		max_e=__max(_start._y,_end._y);
+		for(int i=min_s;i<=max_s;i++)
 		{
-			for(int y=1;y<=MAX_Y;y++)
+			for(int y=min_e;y<=max_e;y++)
 			{
 				if(y == (int)(((_end._y-_start._y)/(_end._x-_start._x))*(i-_start._x)+_start._y) )
 					board[i][y] = true;

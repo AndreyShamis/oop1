@@ -65,6 +65,7 @@ int main(){
 		printBoard();
 
 
+		/*
 		Vertex v_arr[1];
 	
 		v_arr[0]._x = (float)(rand()% 70);
@@ -76,18 +77,18 @@ int main(){
 		inputLine2.draw(paintBoard);
 		printBoard();
 
-		Vertex v3;
+		//Vertex v3;
 
-	
-		v3._x = (float)(rand()% 70);
-		v3._y = (float)(rand()% 50);	
-		Line inputLine4 = Line(v3,2,4);
-		clearBoard();
-		inputLine4.draw(paintBoard);
-		printBoard();
+	*/
+		//v3._x = (float)(rand()% 70);
+		//v3._y = (float)(rand()% 50);	
+		//Line inputLine4 = Line(v3,2,4);
+		//clearBoard();
+		//inputLine4.draw(paintBoard);
+		//printBoard();
 	}
 
-
+/*
 	if (SQUARE){
 		Vertex tl,shift;
 		tl._x = 10.0;
@@ -104,7 +105,7 @@ int main(){
 			sleep(1000);
 		}	
 	}
-	/*
+	
 	if (PLUS){
 		Vertex t2;
 		t2._x = 15.0;
