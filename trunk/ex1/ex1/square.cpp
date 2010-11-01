@@ -5,12 +5,14 @@
 	{
 		_leftUp = topLeft;
 		_size	= size;
+		correctCheck();
 	}
 
 
 	void Square::move(Vertex shift)
 	{
-		sclearBoard();
+		//clearBoard();
+		;
 	}
 
 

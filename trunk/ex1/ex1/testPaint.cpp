@@ -18,10 +18,10 @@ using namespace std;
 
 //Constants
 
-const bool LINE = true;
+const bool LINE = false;
 const bool STAIRS = false;
-const bool PLUS = false;
-const bool SQUARE = true;
+const bool PLUS = true;
+const bool SQUARE = false;
 
 //Global variables declaration
 bool paintBoard[MAX_X+1][MAX_Y+1]; 
@@ -106,24 +106,24 @@ int main(){
 			sleep(1000);
 		//}	
 	}
-	/*
+	
 	if (PLUS){
 		Vertex t2;
 		t2._x = 15.0;
 		t2._y = 15.0;
 		Plus myPlus = Plus(t2,5);
-		for (int i=0; i< 5; i++)
-		{
+		//for (int i=0; i< 5; i++)
+		//{
 			clearBoard();
 			myPlus.draw(paintBoard);
 			printBoard();
 			myPlus.grow(1);
 			gotoTop();
 			sleep(1000);
-		}	
+		//}	
 
 	}
-
+/*
 	if (STAIRS){
 		Vertex t2;
 		t2._x = 20.0;
