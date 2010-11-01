@@ -1,6 +1,7 @@
 #pragma once
 #include "Vertex.h"
 #include "macros.h"
+#include "line.h"
 
 class Plus
 {
@@ -18,5 +19,8 @@ public:
 
 
 private:
+	Vertex _point;
+	float _size;
 
+	void correct_check();
 };
