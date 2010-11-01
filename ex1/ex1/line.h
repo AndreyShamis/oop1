@@ -27,6 +27,7 @@ private:
 
 	float	_len;
 	float	_angle;
-
+	
+	void swap(int &x,int &y);
 
 };

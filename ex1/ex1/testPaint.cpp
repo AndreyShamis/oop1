@@ -3,8 +3,6 @@
 #include <time.h>
 
 #include <stdlib.h>	// for rand
-#include <time.h>
-
 
 #include <windows.h>
 #include "macros.h" 
@@ -51,7 +49,7 @@ int main(){
 		clearBoard();
 		inputLine.draw(paintBoard);
 		printBoard();
-
+	
 		Vertex v1;
 		Vertex v2;
 		srand ((int)(x1*x0));
@@ -60,12 +58,12 @@ int main(){
 		v1._y = (float)(rand()% 50);
 		v2._y = (float)(rand()% 50);		
 		Line inputLine1 = Line(v1,v2);
-		clearBoard();
+
 		inputLine1.draw(paintBoard);
 		printBoard();
+		clearBoard();
 
-
-		/*
+	
 		Vertex v_arr[1];
 	
 		v_arr[0]._x = (float)(rand()% 70);
@@ -76,36 +74,39 @@ int main(){
 		clearBoard();
 		inputLine2.draw(paintBoard);
 		printBoard();
-
+		clearBoard();
 		//Vertex v3;
 
-	*/
+	
 		//v3._x = (float)(rand()% 70);
 		//v3._y = (float)(rand()% 50);	
 		//Line inputLine4 = Line(v3,2,4);
 		//clearBoard();
 		//inputLine4.draw(paintBoard);
 		//printBoard();
+
+	
 	}
 
-/*
+
 	if (SQUARE){
 		Vertex tl,shift;
 		tl._x = 10.0;
 		tl._y = 10.0;
 		shift._x = 2.0;
 		shift._y = 2.0;
-		for (int i=0; i< 5; i++)
-		{
+		//for (int i=0; i< 5; i++)
+		//{
 			clearBoard();
+			Square mySquare = Square(tl,5);
 			mySquare.draw(paintBoard);
 			printBoard();
-			mySquare.move(shift);
+			//mySquare.move(shift);
 			gotoTop();
 			sleep(1000);
-		}	
+		//}	
 	}
-	
+	/*
 	if (PLUS){
 		Vertex t2;
 		t2._x = 15.0;
