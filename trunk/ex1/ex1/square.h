@@ -1,4 +1,6 @@
+#include <iostream>
 #pragma once
+
 #include "Vertex.h"
 #include "macros.h"
 
@@ -17,4 +19,8 @@ public:
 
 
 private:
+	void correctCheck();
+	Vertex	_leftUp;
+	float	_size;
+
 };
