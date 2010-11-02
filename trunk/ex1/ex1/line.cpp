@@ -36,8 +36,8 @@
 		_len		= length;	//	set lentgh
 		_angle		= angle;
 
-		_end._x		=	_start._x+_len*cos(angle);
-		_end._y		=	_start._y-_len*sin(angle);	// TODO #########################
+		_end._x		=	_start._y+_len*cos(angle);
+		_end._y		=	_start._x-_len*sin(angle);	// TODO #########################
 
 		checkCorectCoordinates();
 
