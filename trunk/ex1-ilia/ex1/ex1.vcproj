@@ -171,19 +171,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\line.cpp"
+				RelativePath=".\Line.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\plus.cpp"
+				RelativePath=".\Plus.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\square.cpp"
+				RelativePath=".\Square.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\stairs.cpp"
+				RelativePath=".\Stairs.cpp"
 				>
 			</File>
 			<File
@@ -197,7 +197,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\line.h"
+				RelativePath=".\Line.h"
 				>
 			</File>
 			<File
@@ -205,15 +205,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\plus.h"
+				RelativePath=".\Plus.h"
 				>
 			</File>
 			<File
-				RelativePath=".\square.h"
+				RelativePath=".\Square.h"
 				>
 			</File>
 			<File
-				RelativePath=".\stairs.h"
+				RelativePath=".\Stairs.h"
 				>
 			</File>
 			<File
