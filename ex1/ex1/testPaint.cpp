@@ -100,11 +100,12 @@ int main(){
 
 		for(int op=0;op<20;op++)
 		{
-			int ll = rand()%20 + 1;
+			float ll = (float)(rand()%20) + 1;
 		v3._x = (float)(rand()% 70);
-		v3._y = (float)(rand()% 50);	
+		v3._y = (float)(rand()% 50);
+			float grad =(float)(rand()% 359)+1;
 
-		Line inputLine4 = Line(v3,ll,45);
+		Line inputLine4 = Line(v3,ll,grad);
 
 		print_data(inputLine4.getEnd1());
 		print_data(inputLine4.getEnd2());
