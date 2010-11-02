@@ -50,7 +50,7 @@ int main(){
 	if(LINE){
 		srand ((int)(time(0)));
 		cout << time(0) << "\n";
-		/*
+		
 		cout << "Please enter x and y coordinates for one end of the line separated by spaces:" << endl;
 		float x0,y0,x1,y1;
 		cin >> x0 >> y0; 
@@ -60,7 +60,25 @@ int main(){
 		clearBoard();
 		inputLine.draw(paintBoard);
 		printBoard();
-		*/
+		
+		Vertex a1;
+		a1._x= x0;
+		a1._y = y0;
+
+		while(x1 != y1 && y1 != 99)
+		{
+		cout << "Please enter Lentgh and Zavit" << endl;
+		cout << "Cancel : Enter : 99 99" << endl;
+
+		cin >> x1 >> y1;		
+		inputLine = Line(a1,x1,y1);
+		clearBoard();
+		inputLine.draw(paintBoard);
+		printBoard();
+		}
+
+
+
 		Vertex v1;
 		Vertex v2;
 		
