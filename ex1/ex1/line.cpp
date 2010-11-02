@@ -7,7 +7,7 @@
 	{
 		_start	= ends0;	//
 		_end	= ends1;
-		checkCorectCoordinates(_start._x,_start._y,_end._x,_end._y);
+		checkCorectCoordinates();
 	}	//	end function constructor Line
 
 	// start cunstruct function Line
@@ -15,7 +15,7 @@
 	{
 		_start	= ends[0];
 		_end	= ends[1];
-		checkCorectCoordinates(_start._x,_start._y,_end._x,_end._y);
+		checkCorectCoordinates();
 	}	//	end function constructor Line
 
 	// start cunstruct function Line
@@ -25,6 +25,7 @@
 		_end._x		= x1;
 		_start._y	= y0;
 		_end._y		= y1;	
+		checkCorectCoordinates();
 
 	}	//	end function constructor Line
 
@@ -34,6 +35,11 @@
 		_start		= start;	//	set coordinates	
 		_len		= length;	//	set lentgh
 		_angle		= angle;
+
+		_end._x		=	_start._x+_len*cos(angle);
+		_end._y		=	_start._y-_len*sin(angle);
+
+		checkCorectCoordinates();
 
 	}	//	end function constructor Line
 
@@ -215,9 +221,10 @@
 		}
 	}	//	end function draw
 
-	void Line::checkCorectCoordinates(float x0, float y0, float x1, float y1)
+	void Line::checkCorectCoordinates()
 	{
-		if(x0 < 0 || x0 > MAX_X || x1 < 0 || x1 > MAX_X || y0 < 0 || y0 > MAX_Y || y1 < 0 || y1 > MAX_Y)
+		if(_start._x < 0 || _start._x > MAX_X || _end._x < 0 || _end._x > MAX_X 
+			|| _start._y < 0 || _start._y > MAX_Y || _end._y < 0 || _end._y > MAX_Y)
 		{
 			_start._x	=	0;
 			_start._y	=	0;
