@@ -1,20 +1,23 @@
+
+
 //includes
 #include <iostream>
 #include <time.h>
 #include <windows.h>
 #include "macros.h" 
 #include "Line.h"
-#include "Plus.h"
+//#include "Plus.h"
 #include "Vertex.h"
-#include "Stairs.h"
-#include "Square.h"
+//#include "Stairs.h"
+//#include "Square.h"
+
 
 //Name spaces 
 using namespace std;
 
 //Constants
 
-const bool LINE = false;
+const bool LINE = true;
 const bool STAIRS = false;
 const bool PLUS = false;
 const bool SQUARE = false;
@@ -39,7 +42,6 @@ int main(){
 		cout << "Please enter x and y coordinates for the second end of the line:" << endl;
 		cin >> x1 >> y1;
 		Line inputLine = Line(x0,y0,x1,y1);
-		inputLine.
 
 		clearBoard();
 		inputLine.draw(paintBoard);
@@ -97,8 +99,10 @@ int main(){
 
 */	
 
-	}
+	//}
 
+	int xx;
+	cin >> xx;
 	return 0;
 }
 
