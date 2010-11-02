@@ -65,7 +65,7 @@ int main(){
 		a1._x= x0;
 		a1._y = y0;
 
-		while(x1 != y1 && y1 != 99)
+		while(x1 != 99 && y1 != 99)
 		{
 		cout << "Please enter Lentgh and Zavit" << endl;
 		cout << "Cancel : Enter : 99 99" << endl;
@@ -75,6 +75,8 @@ int main(){
 		clearBoard();
 		inputLine.draw(paintBoard);
 		printBoard();
+		print_data(inputLine.getEnd1());
+		print_data(inputLine.getEnd2());
 		}
 
 
