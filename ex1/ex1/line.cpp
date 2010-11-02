@@ -37,7 +37,7 @@
 		_angle		= angle;
 
 		_end._x		=	_start._x+_len*cos(angle);
-		_end._y		=	_start._y-_len*sin(angle);
+		_end._y		=	_start._y-_len*sin(angle);	// TODO #########################
 
 		checkCorectCoordinates();
 
@@ -46,19 +46,19 @@
 	// start  function getEnd1
 	Vertex Line::getEnd1()
 	{
-		return _start;
+		return (_start);
 	}	//	end function getEnd1
 
 	// start  function getEnd2
 	Vertex Line::getEnd2()
 	{
-		return _end;
+		return (_end);
 	}	//	end function getEnd2
 
 	// start  function getLength
 	float Line::getLength()
 	{
-		return _len;
+		return (_len);
 	}	//	end function getLength
 
 	//	Function draw
