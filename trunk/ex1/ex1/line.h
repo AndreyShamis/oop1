@@ -1,3 +1,4 @@
+#include <iostream>
 #pragma once
 #include "Vertex.h"
 #include "macros.h"
@@ -23,7 +24,7 @@ private:
 	Vertex _start;
 	Vertex _end;
 
-	void checkCorectCoordinates(float x0, float y0, float x1, float y1);
+	void checkCorectCoordinates();
 
 	float	_len;
 	float	_angle;

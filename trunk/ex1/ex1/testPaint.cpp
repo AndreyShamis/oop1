@@ -1,7 +1,7 @@
 //includes
 #include <iostream>
 #include <time.h>
-
+#include <iomanip>	//	for setw
 #include <stdlib.h>	// for rand
 
 #include <windows.h>
@@ -18,9 +18,9 @@ using namespace std;
 
 //Constants
 
-const bool LINE = false;
-const bool STAIRS = false;
-const bool PLUS = true;
+const bool LINE = true;
+const bool STAIRS = true;
+const bool PLUS = false;
 const bool SQUARE = false;
 
 //Global variables declaration
@@ -33,57 +33,88 @@ void sleep(unsigned int mseconds);
 void gotoTop();
 
 
+
+void print_data(Vertex x)
+{
+	float x1 = x._x;
+	float x2 = x._y;
+		cout << "------------------------------------------\n" 
+			<<"cord 1: " << x1 << "\n"
+			<<"cord 2: " << x2 << "\n"
+			<< "\n";
+}
+
 int main(){
 	clearBoard();
 	
 	if(LINE){
+		srand ((int)(time(0)));
+		cout << time(0) << "\n";
+		/*
 		cout << "Please enter x and y coordinates for one end of the line separated by spaces:" << endl;
 		float x0,y0,x1,y1;
 		cin >> x0 >> y0; 
-
-
-
 		cout << "Please enter x and y coordinates for the second end of the line:" << endl;
 		cin >> x1 >> y1;
 		Line inputLine = Line(x0,y0,x1,y1);
 		clearBoard();
 		inputLine.draw(paintBoard);
 		printBoard();
-	
+		*/
 		Vertex v1;
 		Vertex v2;
-		srand ((int)(x1*x0));
+		
 		v1._x = (float)(rand()% 70);
 		v2._x = (float)(rand()% 70);
 		v1._y = (float)(rand()% 50);
-		v2._y = (float)(rand()% 50);		
+		v2._y = (float)(rand()% 50);	
+
 		Line inputLine1 = Line(v1,v2);
+
+		print_data(inputLine1.getEnd1());
+		print_data(inputLine1.getEnd2());
 
 		inputLine1.draw(paintBoard);
 		printBoard();
 		clearBoard();
 
-	
+	/*
 		Vertex v_arr[1];
 	
 		v_arr[0]._x = (float)(rand()% 70);
 		v_arr[1]._x = (float)(rand()% 70);
 		v_arr[0]._y = (float)(rand()% 50);
-		v_arr[1]._y = (float)(rand()% 50);		
+		v_arr[1]._y = (float)(rand()% 50);
+
 		Line inputLine2 = Line(v_arr);
-		clearBoard();
+
+		print_data(inputLine2.getEnd1());
+		print_data(inputLine2.getEnd2());
+
+
 		inputLine2.draw(paintBoard);
 		printBoard();
 		clearBoard();
-		//Vertex v3;
+		*/
+		Vertex v3;
 
-	
-		//v3._x = (float)(rand()% 70);
-		//v3._y = (float)(rand()% 50);	
-		//Line inputLine4 = Line(v3,2,4);
-		//clearBoard();
-		//inputLine4.draw(paintBoard);
-		//printBoard();
+		for(int op=0;op<20;op++)
+		{
+			int ll = rand()%20 + 1;
+		v3._x = (float)(rand()% 70);
+		v3._y = (float)(rand()% 50);	
+
+		Line inputLine4 = Line(v3,ll,45);
+
+		print_data(inputLine4.getEnd1());
+		print_data(inputLine4.getEnd2());
+
+		inputLine4.draw(paintBoard);
+		printBoard();
+		clearBoard();
+
+		}
+
 
 	
 	}
@@ -103,8 +134,9 @@ int main(){
 			printBoard();
 			//mySquare.move(shift);
 			gotoTop();
-			sleep(1000);
+			sleep(100);
 		//}	
+
 	}
 	
 	if (PLUS){
@@ -117,29 +149,58 @@ int main(){
 			clearBoard();
 			myPlus.draw(paintBoard);
 			printBoard();
-			myPlus.grow(1);
-			gotoTop();
-			sleep(1000);
+			//myPlus.grow(1);
+			//gotoTop();
+			//sleep(1000);
 		//}	
 
 	}
-/*
+
 	if (STAIRS){
 		Vertex t2;
 		t2._x = 20.0;
 		t2._y = 20.0;
 		Stairs myStairs = Stairs(t2,3,3,2);
-		for (int i=0; i< 12; i++)
+
+		myStairs.draw(paintBoard);
+		printBoard();
+		clearBoard();
+
+		float hh,ww;
+		int st;
+		srand ((int)(time(0)));
+
+		for (int i=0; i< 0; i++)
 		{
 			clearBoard();
-			myStairs.draw(paintBoard);
+			t2._x = (float)(rand()% MAX_X);
+			t2._y = (float)(rand()% MAX_Y);
+
+			hh = (float)((rand()% 7)+1);
+			ww = (float)((rand()% 7)+1);
+			st = (int)(rand()%5 )+ 1;
+			{
+
+			Stairs myStairs1 = Stairs(t2,hh,ww,st);
+
+			print_data(myStairs1.getBotLeft());
+
+			cout	<< "\nHeight | :	" << hh
+					<< "\nWidth  - :	" << ww
+					<< "\nStep::		" << st
+					<< "\n";
+			
+			myStairs1.draw(paintBoard);
+			}
 			printBoard();
-			myStairs.rotate(90);
-			gotoTop();
-			sleep(1000);
-		}	
+			//myStairs.rotate(90);
+			//gotoTop();
+			//sleep(20);
+
+			cout << "\n\n";
+		}
 	}
-	*/
+	
 	return 0;
 }
 
@@ -165,7 +226,7 @@ void printBoard(){
 				cout << '*';
 			else{
 				//Draw the axes 
-				(i==0) ? cout << '|' : ((j==0) ? cout << '-' : cout << '#');
+				(i==0) ? cout << setw(3) << j << '|' : ((j==0) ? cout << '-' : cout << '#');
 			}		
 		}
 		cout << endl;
