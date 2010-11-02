@@ -69,10 +69,10 @@
 	*	http://www.codekeep.net/snippets/e39b2d9e-0843-4405-8e31-44e212ca1c45.aspx
 	*
 	*/
-		int p1x = (int)(_start._x);
-		int p1y = (int)(_start._y);
-		int p2x = (int)(_end._x);
-		int p2y = (int)(_end._y);
+		int p1x = (int)(_start._x+1);
+		int p1y = (int)(_start._y+1);
+		int p2x = (int)(_end._x+1);
+		int p2y = (int)(_end._y+1);
 		
 		int F, x, y;
 
