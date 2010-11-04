@@ -1,5 +1,6 @@
 #include "plus.h"
 
+
 	Plus::Plus(Vertex topLeft,float size)
 	{
 		_point = topLeft;
@@ -46,7 +47,36 @@
   
 	void Plus::draw(bool board[][MAX_Y+1])
 	{
-		Line l1 = Line(_point._x,_point._y,_point._x,_point._y+_size);
+		_tempPoint = _point;
+		
+		
+		Square tempSquare = Square(_tempPoint, _size);
+		tempSquare.draw(board);
+		
+		
+		_tempPoint._y += _size;
+		tempSquare = Square(_tempPoint, _size);
+		tempSquare.draw(board);
+
+
+		_tempPoint._y += _size;
+		tempSquare = Square(_tempPoint, _size);
+		tempSquare.draw(board);
+
+
+		_tempPoint._x -= _size;
+		tempSquare = Square(_tempPoint, _size);
+		tempSquare.draw(board);
+
+
+		_tempPoint._x += _size*2;
+		tempSquare = Square(_tempPoint, _size);
+		tempSquare.draw(board);
+
+
+
+
+		/*Line l1 = Line(_point._x,_point._y,_point._x,_point._y+_size);
 		l1.draw(board);
 
 		
@@ -61,7 +91,7 @@
 		l1.draw(board);	
 
 		l1 = Line(_point._x,_point._y+(_size*3),_point._x+_size,_point._y-_size+(_size*3));
-		l1.draw(board);
+		l1.draw(board);*/
 
 		
 

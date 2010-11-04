@@ -18,9 +18,9 @@ using namespace std;
 
 //Constants
 
-const bool LINE = true;
-const bool STAIRS = true;
-const bool PLUS = false;
+const bool LINE = false;
+const bool STAIRS = false;
+const bool PLUS = true;
 const bool SQUARE = false;
 
 //Global variables declaration
@@ -155,7 +155,7 @@ int main(){
 			printBoard();
 			//mySquare.move(shift);
 			gotoTop();
-			sleep(100);
+			sleep(10000);
 		//}	
 
 	}
@@ -172,7 +172,7 @@ int main(){
 			printBoard();
 			//myPlus.grow(1);
 			//gotoTop();
-			//sleep(1000);
+			sleep(100000);
 		//}	
 
 	}
