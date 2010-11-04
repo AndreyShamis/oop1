@@ -162,9 +162,9 @@ int main(){
 	
 	if (PLUS){
 		Vertex t2;
-		t2._x = 15.0;
-		t2._y = 15.0;
-		Plus myPlus = Plus(t2,5);
+		t2._x = 10.0;
+		t2._y = 5.0;
+		Plus myPlus = Plus(t2,10);
 		//for (int i=0; i< 5; i++)
 		//{
 			clearBoard();
