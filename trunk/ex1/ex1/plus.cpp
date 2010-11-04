@@ -48,17 +48,15 @@
 	void Plus::draw(bool board[][MAX_Y+1])
 	{
 		_tempPoint = _point;
+
+		_tempPoint._x++;
+		_tempPoint._y++;
 		
 		
 		Square tempSquare = Square(_tempPoint, _size);
 		tempSquare.draw(board);
 		
 		
-		_tempPoint._y += _size;
-		tempSquare = Square(_tempPoint, _size);
-		tempSquare.draw(board);
-
-
 		_tempPoint._y += _size;
 		tempSquare = Square(_tempPoint, _size);
 		tempSquare.draw(board);
@@ -72,6 +70,15 @@
 		_tempPoint._x += _size*2;
 		tempSquare = Square(_tempPoint, _size);
 		tempSquare.draw(board);
+
+
+		_tempPoint._x -= _size;
+		_tempPoint._y += _size;
+		tempSquare = Square(_tempPoint, _size);
+		tempSquare.draw(board);
+
+
+		
 
 
 
@@ -100,7 +107,7 @@
 
 	void Plus::correct_check()
 	{
-		if(_point._x < 0 || _point._y < 5 || _point._y > (_size*2) || _point._x > (_size*3) )
+		if(_point._x < _size || _point._y < 0 || _point._y > (MAX_Y - _size*3 -1) || _point._x > (MAX_X - _size*2 -1) )
 		{
 			_point._x = 15;
 			_point._y = 15;
