@@ -35,9 +35,10 @@
 		_start		= start;	//	set coordinates	
 		_len		= length;	//	set lentgh
 		_angle		= angle;
-
+		const double PI = 3.14159265;
+		double angleRad = (angle*PI)/180.0 ;
 		_end._x		=	_start._y+_len*cos(angle);
-		_end._y		=	_start._x-_len*sin(angle);	// TODO #########################
+		_end._y		=	_start._x+_len*sin(angle);	// TODO #########################
 
 		checkCorectCoordinates();
 
