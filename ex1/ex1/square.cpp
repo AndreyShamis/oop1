@@ -52,7 +52,7 @@
 				if(i == _leftUp._x || y == _leftUp._y
 				|| i== _leftUp._x +_size  || y ==_leftUp._y+_size)
 				{
-					board[i][y] = true;
+					board[i][y] = !board[i][y];
 				}
 			}
 		}

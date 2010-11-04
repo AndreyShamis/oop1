@@ -2,6 +2,7 @@
 #include "Vertex.h"
 #include "macros.h"
 #include "line.h"
+#include "square.h"
 
 class Plus
 {
@@ -20,6 +21,7 @@ public:
 
 private:
 	Vertex _point;
+	Vertex _tempPoint;
 	float _size;
 
 	void correct_check();
