@@ -162,18 +162,36 @@ int main(){
 	
 	if (PLUS){
 		Vertex t2;
-		t2._x = 10.0;
+		Vertex shift;
+
+		shift._x = 1;
+		shift._y = -1;
+
+
+
+		t2._x = 5.0;
 		t2._y = 5.0;
-		Plus myPlus = Plus(t2,10);
-		//for (int i=0; i< 5; i++)
-		//{
+		Plus myPlus = Plus(t2,5);
+		
+		clearBoard();
+		myPlus.draw(paintBoard);
+		printBoard();
+			//myPlus.grow(1);
+			//gotoTop();
+		sleep(1000);
+		
+
+		for (int i=0; i< 100; i++)
+		{
+			
+			myPlus.move(shift);
 			clearBoard();
 			myPlus.draw(paintBoard);
 			printBoard();
-			//myPlus.grow(1);
-			//gotoTop();
-			sleep(100000);
-		//}	
+			sleep(1000);
+
+			
+		}	
 
 	}
 

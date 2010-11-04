@@ -24,5 +24,7 @@ private:
 	Vertex _tempPoint;
 	float _size;
 
-	void correct_check();
+	bool correct_check();
+
+	void setDefault();
 };
