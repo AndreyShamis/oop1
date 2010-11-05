@@ -19,7 +19,7 @@ public:
 
 private:
 	void setDefault();
-	bool correctCheck();
+	bool correctCheck(float x, float y, float carrSize);
 	Vertex	_leftUp;
 	float	_size;
 

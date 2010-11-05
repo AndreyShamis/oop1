@@ -178,10 +178,9 @@ int main(){
 		for (int i=0; i< 100; i++)
 		{
 			clearBoard();
-			Square mySquare = Square(tl,5);
+			mySquare.move(shift);
 			mySquare.draw(paintBoard);
 			printBoard();
-			mySquare.move(shift);
 			gotoTop();
 			sleep(100);
 		}	

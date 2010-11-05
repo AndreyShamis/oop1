@@ -5,11 +5,9 @@
 	{
 		_leftUp = topLeft;
 
-		_leftUp._x;
-		_leftUp._y;
 
 		_size	= size;
-		if(!correctCheck())
+		if(!correctCheck(_leftUp._x, _leftUp._y, _size))
 			setDefault();
 
 	}
@@ -17,15 +15,11 @@
 
 	void Square::move(Vertex shift)
 	{
-		Vertex tempPoint;
-
-		tempPoint = _leftUp;
-		_leftUp._x += shift._x;
-		_leftUp._y += shift._y;
-
-		if(!correctCheck())
-			_leftUp = tempPoint;
-
+		if(correctCheck(_leftUp._x + shift._x, _leftUp._y  + shift._y, _size))
+		{	
+			_leftUp._x += shift._x;
+			_leftUp._y += shift._y;
+		}
 	}
 
 
@@ -75,14 +69,12 @@
 		}
 	}
 
-	bool Square::correctCheck()
+	bool Square::correctCheck(float x, float y, float carrSize)
 	{
-
-		if (_leftUp._x >= MAX_X -_size || _leftUp._y >= MAX_Y -_size
-			|| _leftUp._x < 0 || _leftUp._y <0 || _size < 1)
+		if (x >= MAX_X - carrSize || y >= MAX_Y - carrSize
+			|| x < 0 || y <0 || carrSize < 1)
 
 			return false;
-		
 		
 		return true;
 	}
