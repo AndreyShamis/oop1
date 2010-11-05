@@ -163,11 +163,19 @@ int main(){
 
 	if (SQUARE){
 		Vertex tl,shift;
-		tl._x = 10.0;
-		tl._y = 10.0;
+		tl._x = 0.0;
+		tl._y = 0.0;
 		shift._x = 2.0;
-		shift._y = 0.0;
-		for (int i=0; i< 5; i++)
+		shift._y = 1.0;
+
+		clearBoard();
+		Square mySquare = Square(tl,5);
+		mySquare.draw(paintBoard);
+		printBoard();
+		gotoTop();
+		sleep(100);
+
+		for (int i=0; i< 100; i++)
 		{
 			clearBoard();
 			Square mySquare = Square(tl,5);
@@ -175,7 +183,7 @@ int main(){
 			printBoard();
 			mySquare.move(shift);
 			gotoTop();
-			sleep(1000);
+			sleep(100);
 		}	
 
 	}

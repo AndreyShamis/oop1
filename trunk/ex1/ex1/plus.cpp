@@ -21,9 +21,6 @@
 		if(!correct_check())
 		
 			_point = _tempPoint;
-		
-		
-		return;
 	}
 
 	Vertex  Plus::getTopLeft()
@@ -65,8 +62,8 @@
 	{
 		_tempPoint = _point;
 
-		_tempPoint._x++;
-		_tempPoint._y++;
+		//_tempPoint._x++;
+		//_tempPoint._y++;
 		
 		
 		Square tempSquare = Square(_tempPoint, _size);

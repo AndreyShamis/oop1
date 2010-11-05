@@ -4,6 +4,10 @@
 	Square::Square(Vertex topLeft,float size)
 	{
 		_leftUp = topLeft;
+
+		_leftUp._x;
+		_leftUp._y;
+
 		_size	= size;
 		if(!correctCheck())
 			setDefault();
@@ -53,13 +57,17 @@
 
 	void Square::draw(bool board[][MAX_Y+1])
 	{
+		Vertex tempPoint;
 
-		for(int i =(int)(_leftUp._x);i<=(_size+_leftUp._x);i++ )
+		tempPoint._x = _leftUp._x + 1;
+		tempPoint._y = _leftUp._y + 1;
+
+		for(int i =(int)(tempPoint._x);i<=(_size+tempPoint._x);i++ )
 		{
-			for(int y=(int)(_leftUp._y); y <=(_size+_leftUp._y);y++)
+			for(int y=(int)(tempPoint._y); y <=(_size+tempPoint._y);y++)
 			{
-				if(i == _leftUp._x || y == _leftUp._y
-				|| i== _leftUp._x +_size  || y ==_leftUp._y+_size)
+				if(i == tempPoint._x || y == tempPoint._y
+				|| i== tempPoint._x +_size  || y ==tempPoint._y+_size)
 				{
 					board[i][y] = !board[i][y];
 				}
@@ -70,12 +78,13 @@
 	bool Square::correctCheck()
 	{
 
-		if (_leftUp._x-_size > MAX_X || _leftUp._y -_size > MAX_Y 
-			|| _leftUp._x < 0 || _leftUp._y <0 )
-			return(false);
+		if (_leftUp._x >= MAX_X -_size || _leftUp._y >= MAX_Y -_size
+			|| _leftUp._x < 0 || _leftUp._y <0 || _size < 1)
+
+			return false;
 		
 		
-		return(true);
+		return true;
 	}
 
 	void Square::setDefault()
