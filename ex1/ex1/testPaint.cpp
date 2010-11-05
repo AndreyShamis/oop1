@@ -20,8 +20,8 @@ using namespace std;
 
 const bool LINE = false;
 const bool STAIRS = false;
-const bool PLUS = false;
-const bool SQUARE = true;
+const bool PLUS = true;
+const bool SQUARE = false;
 
 //Global variables declaration
 bool paintBoard[MAX_X+1][MAX_Y+1]; 
