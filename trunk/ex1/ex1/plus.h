@@ -25,7 +25,7 @@ private:
 	float _size;
 	float _tempSize;
 
-	bool correct_check();
+	bool correctCheck(float x, float y, float carrSize);
 
 	void setDefault();
 };

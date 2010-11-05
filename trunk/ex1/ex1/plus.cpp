@@ -6,7 +6,7 @@
 		_point = topLeft;
 		_size = size;
 
-		if(!correct_check())
+		if(!correctCheck(_point._x, _point._y, _size))
 		
 			setDefault();
 	}
@@ -14,13 +14,12 @@
 
 	void Plus::move(Vertex shift)
 	{
-		_tempPoint = _point;
-		_point._x += shift._x;
-		_point._y += shift._y;
-		
-		if(!correct_check())
-		
-			_point = _tempPoint;
+
+		if(correctCheck(_point._x + shift._x, _point._y + shift._y, _size))
+		{
+			_point._x += shift._x;
+			_point._y += shift._y;
+		}
 	}
 
 	Vertex  Plus::getTopLeft()
@@ -37,7 +36,7 @@
 
 	float Plus::getArea()
 	{
-		return(1);
+		return(_size * _size * 5);
 	}
 
  
@@ -49,15 +48,14 @@
   
 	void Plus::grow(float delta)
 	{
-		_tempSize = _size;
-		_size += delta;
 
-		if(!correct_check())
-			_size = _tempSize;
-
+		if(correctCheck(_point._x, _point._y,_size + delta))
+		{
+			_size += delta;
+		}
 	}
 
-  
+
 	void Plus::draw(bool board[][MAX_Y+1])
 	{
 		_tempPoint = _point;
@@ -91,13 +89,13 @@
 		tempSquare.draw(board);
 	}
 
-
-	bool Plus::correct_check()
+	bool Plus::correctCheck(float x, float y, float currSize)
 	{
-		if((_size < 1 ) || (_point._x < _size) || (_point._y < 0) || (_point._y > (MAX_Y - (_size*3 +1))) || (_point._x > (MAX_X - (_size*2 +1))) )
-		{
+		if((x < currSize) || (y < 0) || (y > (MAX_Y - (currSize*3 +1))) || 
+		   (x > (MAX_X - (currSize*2 +1))) || (currSize < 1 ))
+		
 			return false;
-		}
+		
 		return true;
 	}
  
