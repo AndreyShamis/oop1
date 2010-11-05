@@ -19,15 +19,12 @@
 		_point._y += shift._y;
 		
 		if(!correct_check())
-		{
+		
 			_point = _tempPoint;
-		}
+		
 		
 		return;
 	}
-
-
-
 
 	Vertex  Plus::getTopLeft()
 	{
@@ -55,7 +52,15 @@
   
 	void Plus::grow(float delta)
 	{
-		;
+		_tempSize = _size;
+		_size += delta;
+
+		if(!correct_check())
+		
+			_size = _tempSize;
+
+		return;
+
 	}
 
   
@@ -95,7 +100,7 @@
 
 	bool Plus::correct_check()
 	{
-		if(_point._x < _size || _point._y < 0 || _point._y > (MAX_Y - _size*3 -1) || _point._x > (MAX_X - _size*2 -1) )
+		if((_size < 1 ) || (_point._x < _size) || (_point._y < 0) || (_point._y > (MAX_Y - (_size*3 +1))) || (_point._x > (MAX_X - (_size*2 +1))) )
 		{
 			return false;
 		}

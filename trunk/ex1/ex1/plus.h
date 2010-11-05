@@ -23,6 +23,7 @@ private:
 	Vertex _point;
 	Vertex _tempPoint;
 	float _size;
+	float _tempSize;
 
 	bool correct_check();
 

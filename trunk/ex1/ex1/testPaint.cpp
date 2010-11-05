@@ -164,21 +164,25 @@ int main(){
 		Vertex t2;
 		Vertex shift;
 
-		shift._x = 1;
-		shift._y = -1;
+		shift._x = 2;
+		shift._y = 1;
+
+		float delta = 1;
 
 
 
-		t2._x = 5.0;
-		t2._y = 5.0;
-		Plus myPlus = Plus(t2,5);
+		t2._x = 2.0;
+		t2._y = 0.0;
+		Plus myPlus = Plus(t2,2);
 		
 		clearBoard();
 		myPlus.draw(paintBoard);
 		printBoard();
-			//myPlus.grow(1);
-			//gotoTop();
+		clearBoard();
+		myPlus.grow(delta);
+		gotoTop();
 		sleep(1000);
+		gotoTop();
 		
 
 		for (int i=0; i< 100; i++)
@@ -186,9 +190,20 @@ int main(){
 			
 			myPlus.move(shift);
 			clearBoard();
+			//myPlus.draw(paintBoard);
+			//printBoard();                    ////todo
+			//sleep(1);
+			gotoTop();
+
+
+			myPlus.grow(delta);
+			clearBoard();
 			myPlus.draw(paintBoard);
 			printBoard();
-			sleep(1000);
+			sleep(1);
+			gotoTop();
+
+			
 
 			
 		}	
@@ -277,7 +292,7 @@ void printBoard(){
 */
 void sleep(unsigned int mseconds)
 {
-	clock_t goal = mseconds + clock();
+	clock_t goal = mseconds + (clock());
 	while (goal > clock());
 }
 
