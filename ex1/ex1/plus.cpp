@@ -56,10 +56,7 @@
 		_size += delta;
 
 		if(!correct_check())
-		
 			_size = _tempSize;
-
-		return;
 
 	}
 
