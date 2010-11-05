@@ -3,6 +3,7 @@
 #include "Vertex.h"
 #include "macros.h"
 
+const double _PI = 3.14159265;
 
 class Line {
 
@@ -29,6 +30,7 @@ private:
 	float	_len;
 	float	_angle;
 	
+
 	void swap(int &x,int &y);
 
 };

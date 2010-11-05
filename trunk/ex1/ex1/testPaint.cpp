@@ -65,19 +65,39 @@ int main(){
 		a1._x= x0;
 		a1._y = y0;
 
-		while(x1 != 99 && y1 != 99)
+		//while(x1 != 99 && y1 != 99)
+		//{
+		
+		for(int op=0;op<360;op=op+5)
 		{
-		cout << "Please enter Lentgh and Zavit" << endl;
-		cout << "Cancel : Enter : 99 99" << endl;
-
-		cin >> x1 >> y1;		
-		inputLine = Line(a1,x1,y1);
+		inputLine = Line(a1,7,(float)op);
 		clearBoard();
 		inputLine.draw(paintBoard);
 		printBoard();
 		print_data(inputLine.getEnd1());
 		print_data(inputLine.getEnd2());
+		
+		gotoTop();
+		
+		sleep(100);
+
 		}
+
+		/*
+
+		cout << "Please enter Lentgh and Zavit" << endl;
+		cout << "Cancel : Enter : 99 99" << endl;
+		y1++;
+		//cin >> x1 >> y1;		
+		inputLine = Line(a1,7,y1);
+		clearBoard();
+		inputLine.draw(paintBoard);
+		printBoard();
+		print_data(inputLine.getEnd1());
+		print_data(inputLine.getEnd2());
+
+		*/
+		//}
 
 
 
@@ -118,7 +138,7 @@ int main(){
 		*/
 		Vertex v3;
 
-		for(int op=0;op<20;op++)
+		for(int op=0;op<0;op++)
 		{
 			float ll = (float)(rand()%20) + 1;
 		v3._x = (float)(rand()% 70);
@@ -178,10 +198,11 @@ int main(){
 		clearBoard();
 		myPlus.draw(paintBoard);
 		printBoard();
+		print_data(myPlus.getTopLeft());
 		clearBoard();
 		myPlus.grow(delta);
 		gotoTop();
-		sleep(1000);
+		sleep(3000);
 		gotoTop();
 		
 
