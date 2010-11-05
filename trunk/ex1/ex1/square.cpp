@@ -6,7 +6,7 @@
 		_leftUp = topLeft;
 		_size	= size;
 		if(!correctCheck())
-			SetDefault();
+			setDefault();
 
 	}
 
@@ -14,9 +14,10 @@
 	void Square::move(Vertex shift)
 	{
 		Vertex tempPoint;
+
 		tempPoint = _leftUp;
-		tempPoint._x += shift._x;
-		tempPoint._y += shift._y;
+		_leftUp._x += shift._x;
+		_leftUp._y += shift._y;
 
 		if(!correctCheck())
 			_leftUp = tempPoint;

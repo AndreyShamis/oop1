@@ -166,7 +166,7 @@ int main(){
 		tl._x = 10.0;
 		tl._y = 10.0;
 		shift._x = 2.0;
-		shift._y = 2.0;
+		shift._y = 0.0;
 		for (int i=0; i< 5; i++)
 		{
 			clearBoard();
@@ -175,7 +175,7 @@ int main(){
 			printBoard();
 			mySquare.move(shift);
 			gotoTop();
-			sleep(10000);
+			sleep(1000);
 		}	
 
 	}

@@ -18,7 +18,7 @@ public:
 
 
 private:
-	void SetDefault();
+	void setDefault();
 	bool correctCheck();
 	Vertex	_leftUp;
 	float	_size;
