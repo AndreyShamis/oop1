@@ -20,8 +20,8 @@ using namespace std;
 
 const bool LINE = false;
 const bool STAIRS = false;
-const bool PLUS = true;
-const bool SQUARE = false;
+const bool PLUS = false;
+const bool SQUARE = true;
 
 //Global variables declaration
 bool paintBoard[MAX_X+1][MAX_Y+1]; 
@@ -167,16 +167,16 @@ int main(){
 		tl._y = 10.0;
 		shift._x = 2.0;
 		shift._y = 2.0;
-		//for (int i=0; i< 5; i++)
-		//{
+		for (int i=0; i< 5; i++)
+		{
 			clearBoard();
 			Square mySquare = Square(tl,5);
 			mySquare.draw(paintBoard);
 			printBoard();
-			//mySquare.move(shift);
+			mySquare.move(shift);
 			gotoTop();
 			sleep(10000);
-		//}	
+		}	
 
 	}
 	
@@ -184,20 +184,22 @@ int main(){
 		Vertex t2;
 		Vertex shift;
 
-		shift._x = 2;
-		shift._y = 1;
+		shift._x = 0;
+		shift._y = -1;
 
 		float delta = 1;
 
 
 
-		t2._x = 2.0;
-		t2._y = 0.0;
+		t2._x = 61.0;
+		t2._y = 25.0;
 		Plus myPlus = Plus(t2,2);
 		
 		clearBoard();
 		myPlus.draw(paintBoard);
 		printBoard();
+		
+		sleep(1000);
 		print_data(myPlus.getTopLeft());
 		clearBoard();
 		myPlus.grow(delta);
@@ -209,23 +211,20 @@ int main(){
 		for (int i=0; i< 100; i++)
 		{
 			
-			myPlus.move(shift);
-			clearBoard();
+			//myPlus.move(shift);
+			//clearBoard();
 			//myPlus.draw(paintBoard);
 			//printBoard();                    ////todo
 			//sleep(1);
-			gotoTop();
+			//gotoTop();
 
 
 			myPlus.grow(delta);
 			clearBoard();
 			myPlus.draw(paintBoard);
 			printBoard();
-			sleep(1);
 			gotoTop();
-
-			
-
+			sleep(100);
 			
 		}	
 

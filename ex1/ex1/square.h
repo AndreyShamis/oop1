@@ -18,8 +18,12 @@ public:
 
 
 private:
-	void correctCheck();
+	void SetDefault();
+	bool correctCheck();
 	Vertex	_leftUp;
 	float	_size;
+
+
+
 
 };
