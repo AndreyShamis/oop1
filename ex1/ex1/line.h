@@ -1,12 +1,21 @@
-#include <iostream>
+// A class that reprisent Line.
+
 #pragma once
+
+//                               Include section
+//=============================================================================
 #include "Vertex.h"
 #include "macros.h"
 
-const double _PI = 3.14159265;
+
+//                                Const section
+//=============================================================================
+const double _PAI = 3.14159265;
 
 class Line {
 
+//                               Function section
+//=============================================================================
 public:
 
 	Line(Vertex ends0, Vertex ends1);
@@ -22,15 +31,22 @@ public:
 
 private:
 
-	Vertex _start;
-	Vertex _end;
-
-	void checkCorectCoordinates();
-
-	float	_len;
-	float	_angle;
-	
-
+	void setDefault();
+	bool correctCheck(Vertex start, Vertex end);
 	void swap(int &x,int &y);
 
+//                              veribel section
+//=============================================================================
+
+	// Difine struct of coordinate of the one end of line.
+	Vertex _start;
+
+	// Difine struct of coordinate of the enother end of line.
+	Vertex _end;
+
+	// Difine lenth of line.
+	float	_len;
+
+	// Difine angle of line at graph.
+	float	_angle;
 };

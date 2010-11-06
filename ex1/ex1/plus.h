@@ -1,11 +1,14 @@
+// A class that reprisent plus.
+
 #pragma once
+
+//                               Include section
+//=============================================================================
 #include "Vertex.h"
 #include "macros.h"
-#include "line.h"
 #include "square.h"
 
-class Plus
-{
+class Plus{
 
 public:
 
@@ -20,12 +23,17 @@ public:
 
 
 private:
-	Vertex _point;
-	Vertex _tempPoint;
-	float _size;
-	float _tempSize;
 
 	bool correctCheck(float x, float y, float carrSize);
-
 	void setDefault();
+
+
+	//                              veribel section
+//=============================================================================
+
+	// Difine struct of coordinate of the left corner of the plus.
+	Vertex _point;
+
+	// Difine size of plus
+	float _size;
 };

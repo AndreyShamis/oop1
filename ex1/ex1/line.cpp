@@ -1,22 +1,38 @@
+// A class that reprisent Line.
+
+//                               Include section
+//=============================================================================
 #include "line.h"
-#include <stdlib.h>
-#include <stdio.h>
+
+
+//                             Function section
+//=============================================================================
 
 	// start cunstruct function Line
 	Line::Line(Vertex ends0,Vertex ends1)
 	{
-		_start	= ends0;	//
+		_start	= ends0;
 		_end	= ends1;
-		checkCorectCoordinates();
-	}	//	end function constructor Line
+
+		// Check if the seted data is correct.
+		if(!correctCheck(_start, _end))
+
+			// If not correct - set default data.
+			setDefault();
+	}	
 
 	// start cunstruct function Line
 	Line::Line(Vertex ends[2]) 
 	{
 		_start	= ends[0];
 		_end	= ends[1];
-		checkCorectCoordinates();
-	}	//	end function constructor Line
+		
+		// Check if the seted data is correct.
+		if(!correctCheck(_start, _end))
+
+			// If not correct - set default data.
+			setDefault();
+	}
 
 	// start cunstruct function Line
 	Line::Line(float x0, float y0, float x1, float y1) 
@@ -25,9 +41,13 @@
 		_end._x		= x1;
 		_start._y	= y0;
 		_end._y		= y1;	
-		checkCorectCoordinates();
+		
+		// Check if the seted data is correct.
+		if(!correctCheck(_start, _end))
 
-	}	//	end function constructor Line
+			// If not correct - set default data.
+			setDefault();
+	}
 
 	// start cunstruct function Line
 	Line::Line(Vertex start, float length, float angle)
@@ -36,13 +56,16 @@
 		_len		= length;	//	set lentgh
 		_angle		= angle;
 		
-		double angleRad = (angle*_PI)/180.0 ;
+		double angleRad = (angle*_PAI)/180.0 ;
 		_end._x		=	_start._y+(float)(_len*cos(angleRad));
 		_end._y		=	_start._x+(float)(_len*sin(angleRad));	// TODO #########################
 
-		checkCorectCoordinates();
+		// Check if the seted data is correct.
+		if(!correctCheck(_start, _end))
 
-	}	//	end function constructor Line
+			// If not correct - set default data.
+			setDefault();
+	}
 
 	// start  function getEnd1
 	Vertex Line::getEnd1()
@@ -69,7 +92,7 @@
 	*	// source of code
 	*	http://www.codekeep.net/snippets/e39b2d9e-0843-4405-8e31-44e212ca1c45.aspx
 	*
-	*/
+    */
 		int p1x = (int)(_start._x+1);
 		int p1y = (int)(_start._y+1);
 		int p2x = (int)(_end._x+1);
@@ -220,26 +243,34 @@
 				}
 			}
 		}
-	}	//	end function draw
-
-	void Line::checkCorectCoordinates()
-	{
-		if(_start._x < 0 || _start._x > MAX_X || _end._x < 0 || _end._x > MAX_X 
-			|| _start._y < 0 || _start._y > MAX_Y || _end._y < 0 || _end._y > MAX_Y)
-		{
-			_start._x	=	0;
-			_start._y	=	0;
-			_end._x		=	10;
-			_end._y		=	10;
-		}
-
-
-
 	}
+
 
 	void Line::swap(int &x,int &y)
 	{
 		int temp = y;
 		y	=	x;
 		x	=	temp;
+	}
+
+	// A function that check the cooordinate for corection.
+	// Input: coordinate of two ends of line.
+	// Output: true if corect, atherwise return false.
+	bool Line::correctCheck(Vertex start, Vertex end)
+	{
+		if(_start._x < 0 || _start._x > MAX_X || _end._x < 0 || _end._x > MAX_X 
+			|| _start._y < 0 || _start._y > MAX_Y || _end._y < 0 || _end._y > MAX_Y)
+		
+			return false;
+
+		return true;
+	}
+
+	// A fanction that set default coordinate of two ends of line.
+	void Line::setDefault()
+	{
+		_start._x	=	0;
+		_start._y	=	0;
+		_end._x		=	10;
+		_end._y		=	10;
 	}
