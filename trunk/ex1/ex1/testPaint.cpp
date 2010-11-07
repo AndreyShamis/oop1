@@ -251,7 +251,7 @@ int main(){
 		//int st;
 		srand ((int)(time(0)));
 
-		for (int i=0; i< 40; i++)
+		for (int i=0; i< 90; i++)
 		{
 			clearBoard();
 			//t2._x = (float)(rand()% MAX_X);
@@ -270,20 +270,21 @@ int main(){
 			//		<< "\nWidth  - :	" << ww
 			//		<< "\nStep::		" << st
 			//		<< "\n";
-			myStairs.rotate(i);
+			myStairs.rotate(1);
 			myStairs.draw(paintBoard);
 			printBoard();
 			//myStairs.rotate(90);
 			//gotoTop();
 			//sleep(20);
-	sleep (1000);	
+	sleep (100);	
 	clearBoard();
 	Vertex pp;
-	pp._x = 1;
-	pp._y = 3;
+	pp._x = 0;
+	pp._y = 1;
 	myStairs.move(pp);
+	myStairs.draw(paintBoard);
 	printBoard();
-	sleep(2000);
+	sleep(100);
 		
 		//	cout << "\n\n";
 		}

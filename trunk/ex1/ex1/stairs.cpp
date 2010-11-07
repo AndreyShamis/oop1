@@ -50,24 +50,46 @@
 	}
 	bool Stairs::rotate(int angle)
 	{
-		_angle = angle;
+		float tmp_h;
+		float tmp_w;
+		bool temp_mirror = _mirror;
+		_angle+= angle;
 
-		if(_angle%4 == 1)
+		tmp_h = _height_use;
+		tmp_w = _width_use;
+
+
+		if(_angle%4 == 0)
 		{
-			_height_use = _height*(-1);
-			_width_use = _width * (1);	
+			_mirror = true;
+			resetParam();
+		}
+		else if(_angle%4 == 1)
+		{
+			_mirror = false;
+			_height_use = _height*(1);
+			//_width_use = _width * (1);	
 		}
 		else if(_angle%4==2)
 		{
+			_mirror = true;
 			_height_use = _height * (-1);
 			_width_use  = _width * (-1);
 		}
 		else if(_angle%4 == 3)
+		{	
 			_width_use = _width*(-1);
+			_mirror = false;
+		}
+
 
 		if(!correctCheck(_bottomLeft))
 		{
-			resetParam();		
+
+			//resetParam();
+			_height_use = tmp_h;
+			_width_use = tmp_w;
+			_mirror = temp_mirror;
 			return(false);
 		}
 		
@@ -87,10 +109,10 @@
 		for(int step=0;step < _numOfStairs;step++)
 		{
 
-			if(_angle%4 == 0 || _angle%4 == 2)
+			if(_mirror)
 				y1-=_height_use;
 			else
-				x1-=_height_use;
+				x1+=_height_use;
 
 				Line up = Line(x0,y0,x1,y1);
 				up.draw(board);
@@ -100,7 +122,7 @@
 			y0 = y1;
 			x0 = x1;
 
-			if(_angle%4 == 0 || _angle%4 == 2)
+			if(_mirror)
 				x1+= _width_use;
 			else
 				y1+=_width_use;
@@ -108,25 +130,45 @@
 			up = Line(x0,y0,x1,y1);
 			up.draw(board);
 
-			if(_angle%4 == 0 || _angle%4 == 2)
+			if(_mirror)
 				x0+=_width_use;
 			else
 				y0+=_width_use;
 
 		}
 
-		resetParam();
+		//resetParam();
 	}
 
 
 	bool Stairs::correctCheck(Vertex coor)
 	{
 		
-		if(coor._x <0 || (coor._x+_width_use*_numOfStairs) > MAX_X
-			|| coor._y > MAX_Y || (coor._y - _height_use*_numOfStairs) < 0)
-		{
-			return(false);
-		}
+		if( (coor._x <0 ||coor._y > MAX_Y || coor._x > MAX_X ||coor._y <0 )
+			||	(_mirror && (coor._x+_width_use*_numOfStairs>MAX_X 
+							|| coor._x+_width_use*_numOfStairs<0
+							|| coor._y+_height_use*_numOfStairs>MAX_Y
+							|| coor._y+_height_use*_numOfStairs<0)  
+							
+				) 
+			||	(!_mirror && (coor._x+_height_use*_numOfStairs>MAX_X 
+							|| coor._x+_height_use*_numOfStairs<0
+							|| coor._y+_width_use*_numOfStairs>MAX_Y
+							|| coor._y+_width_use*_numOfStairs<0)  
+				
+				)
+			)
+			/*
+			(coor._x <0 ||coor._y > MAX_Y )||
+				(	_mirror && (coor._x+_width_use*_numOfStairs>MAX_X
+					|| coor._y - _height_use*_numOfStairs<0 )
+				) 
+			||	(!_mirror && (coor._x+_height_use*_numOfStairs>MAX_X
+			|| coor._y - _width_use*_numOfStairs<0)
+				)
+				)*/
+				return(false);
+		
 		return(true);
 	}
 

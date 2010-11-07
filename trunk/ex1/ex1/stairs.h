@@ -32,7 +32,8 @@ private:
 
 	float _width_use;
 	float _height_use;
-	
+	bool _mirror; // 2 and 4 square
+
 	int _angle;
 	int _numOfStairs;
 	void setDefault();
