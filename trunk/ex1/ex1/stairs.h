@@ -1,14 +1,7 @@
 #pragma once
-
 #include "Vertex.h"
 #include "macros.h"
 
-
-struct VertexLine
-{
-	Vertex _start;
-	Vertex _end;
-};
 
 class Stairs
 {
