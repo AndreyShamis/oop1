@@ -6,6 +6,12 @@
 #include "macros.h"
 
 
+struct VertexLine
+{
+	Vertex _start;
+	Vertex _end;
+};
+
 class Stairs
 {
 
@@ -23,7 +29,13 @@ private:
 	Vertex _bottomLeft;
 	float _height;
 	float _width;
-	int _numOfStairs;
 
-	void correctCheck();
+	float _width_use;
+	float _height_use;
+	
+	int _angle;
+	int _numOfStairs;
+	void setDefault();
+	bool correctCheck(Vertex coor);
+	void resetParam();
 };
