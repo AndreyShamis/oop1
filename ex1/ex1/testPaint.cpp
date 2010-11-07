@@ -243,51 +243,81 @@ int main(){
 		t2._y = 30.0;
 		Stairs myStairs = Stairs(t2,2,7,2);
 
+
+		myStairs.rotate(0);
 		myStairs.draw(paintBoard);
 		printBoard();
 		clearBoard();
+		gotoTop();
+		sleep(9000);
 
+
+		myStairs.rotate(270);
+		myStairs.draw(paintBoard);
+		printBoard();
+		clearBoard();
+		gotoTop();
 		//float hh,ww;
 		//int st;
 		srand ((int)(time(0)));
 
+		for (int i=0; i< 60; i++)
+		{
+			clearBoard();
+			Vertex pp;
+			pp._x = -1;
+			pp._y = 0;
+			myStairs.move(pp);
+			myStairs.draw(paintBoard);
+			printBoard();
+			sleep(1);
+			gotoTop();
+		
+		}
+		
+		for (int i=0; i< 60; i++)
+		{
+			clearBoard();
+			Vertex pp;
+			pp._x = 1;
+			pp._y = 0;
+			myStairs.move(pp);
+			myStairs.draw(paintBoard);
+			printBoard();
+			sleep(1);
+			gotoTop();
+		}
+
 		for (int i=0; i< 90; i++)
 		{
 			clearBoard();
-			//t2._x = (float)(rand()% MAX_X);
-			//t2._y = (float)(rand()% MAX_Y);
-
-			//hh = (float)((rand()% 7)+1);
-			//ww = (float)((rand()% 7)+1);
-			//st = (int)(rand()%5 )+ 1;
-		
-
-			//Stairs myStairs1 = Stairs(t2,hh,ww,st);
-
-			//print_data(myStairs1.getBotLeft());
-
-			//cout	<< "\nHeight | :	" << hh
-			//		<< "\nWidth  - :	" << ww
-			//		<< "\nStep::		" << st
-			//		<< "\n";
-			myStairs.rotate(1);
+			Vertex pp;
+			pp._x = 0;
+			pp._y = -1;
+			myStairs.move(pp);
 			myStairs.draw(paintBoard);
 			printBoard();
-			//myStairs.rotate(90);
-			//gotoTop();
-			//sleep(20);
-	sleep (100);	
-	clearBoard();
-	Vertex pp;
-	pp._x = 1;
-	pp._y = 0;
-	myStairs.move(pp);
-	myStairs.draw(paintBoard);
-	printBoard();
-	sleep(100);
-		
-		//	cout << "\n\n";
+			sleep(1);
+			gotoTop();
 		}
+
+				for (int i=0; i< 90; i++)
+		{
+			clearBoard();
+			Vertex pp;
+			pp._x = 0;
+			pp._y = 1;
+			myStairs.move(pp);
+			myStairs.draw(paintBoard);
+			printBoard();
+			sleep(1);
+			gotoTop();
+		}
+
+
+
+
+
 	}
 	
 	return 0;

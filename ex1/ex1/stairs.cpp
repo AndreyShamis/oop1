@@ -67,25 +67,26 @@
 		tmp_w = _width_use;
 
 
-		if(_angle%4 == 0)
+		if(_angle%360 == 0)
 		{
 			_mirror = true;
 			resetParam();
 		}
-		else if(_angle%4 == 1)
+		else if((_angle%360) == 90 || _angle%360 == -270)
 		{
 			_mirror = false;
 			_height_use = _height*(1);
 		}
-		else if(_angle%4==2)
+		else if(_angle%360 == 180 || _angle%360 == -180)
 		{
 			_mirror = true;
 			_height_use = _height * (-1);
 			_width_use  = _width * (-1);
 		}
-		else if(_angle%4 == 3)
+		else if(_angle%360 == 270 || _angle%360 == -90)
 		{	
-			_width_use = _width*(-1);
+			_width_use  = _width * (-1);
+			_height_use = _height* (-1);
 			_mirror = false;
 		}
 
