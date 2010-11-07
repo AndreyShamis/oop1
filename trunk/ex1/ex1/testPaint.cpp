@@ -19,8 +19,8 @@ using namespace std;
 //Constants
 
 const bool LINE = false;
-const bool STAIRS = false;
-const bool PLUS = true;
+const bool STAIRS = true;
+const bool PLUS = false;
 const bool SQUARE = false;
 
 //Global variables declaration
@@ -241,44 +241,51 @@ int main(){
 		Vertex t2;
 		t2._x = 20.0;
 		t2._y = 20.0;
-		Stairs myStairs = Stairs(t2,3,3,2);
+		Stairs myStairs = Stairs(t2,2,7,2);
 
 		myStairs.draw(paintBoard);
 		printBoard();
 		clearBoard();
 
-		float hh,ww;
-		int st;
+		//float hh,ww;
+		//int st;
 		srand ((int)(time(0)));
 
-		for (int i=0; i< 0; i++)
+		for (int i=0; i< 40; i++)
 		{
 			clearBoard();
-			t2._x = (float)(rand()% MAX_X);
-			t2._y = (float)(rand()% MAX_Y);
+			//t2._x = (float)(rand()% MAX_X);
+			//t2._y = (float)(rand()% MAX_Y);
 
-			hh = (float)((rand()% 7)+1);
-			ww = (float)((rand()% 7)+1);
-			st = (int)(rand()%5 )+ 1;
-			{
+			//hh = (float)((rand()% 7)+1);
+			//ww = (float)((rand()% 7)+1);
+			//st = (int)(rand()%5 )+ 1;
+		
 
-			Stairs myStairs1 = Stairs(t2,hh,ww,st);
+			//Stairs myStairs1 = Stairs(t2,hh,ww,st);
 
-			print_data(myStairs1.getBotLeft());
+			//print_data(myStairs1.getBotLeft());
 
-			cout	<< "\nHeight | :	" << hh
-					<< "\nWidth  - :	" << ww
-					<< "\nStep::		" << st
-					<< "\n";
-			
-			myStairs1.draw(paintBoard);
-			}
+			//cout	<< "\nHeight | :	" << hh
+			//		<< "\nWidth  - :	" << ww
+			//		<< "\nStep::		" << st
+			//		<< "\n";
+			myStairs.rotate(i);
+			myStairs.draw(paintBoard);
 			printBoard();
 			//myStairs.rotate(90);
 			//gotoTop();
 			//sleep(20);
-
-			cout << "\n\n";
+	sleep (1000);	
+	clearBoard();
+	Vertex pp;
+	pp._x = 1;
+	pp._y = 3;
+	myStairs.move(pp);
+	printBoard();
+	sleep(2000);
+		
+		//	cout << "\n\n";
 		}
 	}
 	
