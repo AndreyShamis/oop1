@@ -8,11 +8,14 @@
 		_width = width;
 		_numOfStairs = numOfStairs;
 
-		_angle = 0;
+		_angle = 0;					//	set angle for default
+									//	becouse used in drow evry time
 		
-		resetParam();
-		if(!correctCheck(_bottomLeft))
-			setDefault();
+		resetParam();				//	reset and seting
+		// parameters width_use and heigth_use
+
+		if(!correctCheck(_bottomLeft))	//	check correct coordinates
+			setDefault();				//	set defult coordinates
 
 
 	}
