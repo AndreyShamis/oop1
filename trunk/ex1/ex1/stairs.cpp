@@ -1,9 +1,19 @@
+// A class that reprisent Stairs.
+
+//                               Include section
+//=============================================================================
 #include "stairs.h"
 #include "line.h"
 
+
+//                             Function section
+//=============================================================================
+
+	// Constarctor of Stairs.
 	Stairs::Stairs(Vertex bottomLeft,float height,float width,int numOfStairs)
 	{
-		_bottomLeft = bottomLeft;
+		
+		_bottomLeft = bottomLeft;	
 		_height = height;
 		_width = width;
 		_numOfStairs = numOfStairs;
@@ -19,7 +29,7 @@
 
 
 	}
-	
+	// A fanction that moving the steirs by seting shift.
 	void Stairs::move(Vertex shift)
 	{
 		Vertex temp;			// temporary coordinate
@@ -35,17 +45,21 @@
 
 	}
 
-
+	// A fanction that return start coordinate in Vertex.
 	Vertex  Stairs::getBotLeft()
 	{
 		return(_bottomLeft);
 
 	}
+
+	// A fanction that return height.
 	float Stairs::getHeight()
 	{
 		return(_height);
 
 	}
+
+	// A fanction that return width.
 	float Stairs::getWidth()
 	{
 		return(_width);
@@ -58,7 +72,7 @@
 		float tmp_h;					//	previuos height use
 		float tmp_w;					//	previous width_use
 		bool temp_mirror = _mirror;		//	set previuos mirror
-		int temp_angle = angle;			//	set for temp previous ahgle
+		int temp_angle = _angle;		//	set for temp previous ahgle
 
 		//	set new angle
 		_angle+= angle;
@@ -72,6 +86,7 @@
 			_mirror = true;
 			resetParam();
 		}
+
 		else if((_angle%360) == 90 || _angle%360 == -270)
 		{
 			_mirror = false;
@@ -102,8 +117,10 @@
 		}
 		
 		return(true);
-
 	}
+
+	// A function that drow the stairs on the boolian board.
+	// Input: boolian board. 
 	void Stairs::draw(bool board[][MAX_Y+1])
 	{
 	
@@ -126,8 +143,6 @@
 				Line up = Line(x0,y0,x1,y1);
 				up.draw(board);
 			
-
-
 			y0 = y1;
 			x0 = x1;
 
@@ -143,13 +158,13 @@
 				x0+=_width_use;
 			else
 				y0+=_width_use;
-
 		}
-
-		//resetParam();
 	}
 
 
+	// A function that check the cooordinate for corection.
+	// Input: Square coordinate of stairs.
+	// Output: true if corect, atherwise return false.
 	bool Stairs::correctCheck(Vertex coor)
 	{
 		float x_lim = 0;
@@ -174,7 +189,7 @@
 		return(true);
 	}
 
-
+	// A fanction that set default coordinate and size of side of stairs.
 	void Stairs::setDefault()
 	{
 		_bottomLeft._x	=	10;

@@ -58,7 +58,7 @@
 		
 		double angleRad = (angle*_PAI)/180.0 ;
 		_end._x		=	_start._y+(float)(_len*cos(angleRad));
-		_end._y		=	_start._x+(float)(_len*sin(angleRad));	// TODO #########################
+		_end._y		=	_start._x+(float)(_len*sin(angleRad));
 
 		// Check if the seted data is correct.
 		if(!correctCheck(_start, _end))
@@ -85,14 +85,15 @@
 		return (_len);
 	}	//	end function getLength
 
-	//	Function draw
+	// Function that Draws a line between two points p1(p1x,p1y) 
+	// and p2(p2x,p2y).
 	void Line::draw(bool board[][MAX_Y+1]) // INT
 	{
-	/*
-	*	// source of code
-	*	http://www.codekeep.net/snippets/e39b2d9e-0843-4405-8e31-44e212ca1c45.aspx
-	*
-    */
+/*
+*	// source of code
+*	http://www.codekeep.net/snippets/e39b2d9e-0843-4405-8e31-44e212ca1c45.aspx
+*
+*/
 		int p1x = (int)(_start._x+1);
 		int p1y = (int)(_start._y+1);
 		int p2x = (int)(_end._x+1);
@@ -259,7 +260,8 @@
 	bool Line::correctCheck(Vertex start, Vertex end)
 	{
 		if(_start._x < 0 || _start._x > MAX_X || _end._x < 0 || _end._x > MAX_X 
-			|| _start._y < 0 || _start._y > MAX_Y || _end._y < 0 || _end._y > MAX_Y)
+			|| _start._y < 0 || _start._y > MAX_Y || _end._y < 0 || 
+			_end._y > MAX_Y)
 		
 			return false;
 

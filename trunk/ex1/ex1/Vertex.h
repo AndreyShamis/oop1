@@ -1,3 +1,6 @@
+
+
+
 #pragma once
 
 //A struct that repsresents a point in a cartesian coorsinates system
