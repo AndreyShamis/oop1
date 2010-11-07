@@ -7,6 +7,7 @@
 #include "Vertex.h"
 #include "macros.h"
 
+#pragma once
 
 //                                Const section
 //=============================================================================

@@ -65,7 +65,8 @@
 	// Input: boolian board.
 	void Square::draw(bool board[][MAX_Y+1])
 	{
-		// Difine struct of temprorary coordinate of the left corner of the square..
+		// Difine struct of temprorary coordinate of the left corner of the 
+		// square..
 		Vertex tempPoint;
 
 		// Set temp coordinate

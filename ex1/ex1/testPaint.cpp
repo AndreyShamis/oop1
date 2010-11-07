@@ -19,8 +19,8 @@ using namespace std;
 //Constants
 
 const bool LINE = false;
-const bool STAIRS = true;
-const bool PLUS = false;
+const bool STAIRS = false;
+const bool PLUS = true;
 const bool SQUARE = false;
 
 //Global variables declaration
@@ -198,7 +198,7 @@ int main(){
 
 
 
-		t2._x = 61.0;
+		t2._x = 20.0;
 		t2._y = 25.0;
 		Plus myPlus = Plus(t2,2);
 		
@@ -252,7 +252,7 @@ int main(){
 		sleep(9000);
 
 
-		myStairs.rotate(270);
+		myStairs.rotate(-90);
 		myStairs.draw(paintBoard);
 		printBoard();
 		clearBoard();
@@ -272,6 +272,18 @@ int main(){
 			printBoard();
 			sleep(1);
 			gotoTop();
+
+
+
+
+			myStairs.rotate(-90);
+			myStairs.draw(paintBoard);
+			printBoard();
+			clearBoard();
+			gotoTop();
+
+
+
 		
 		}
 		
