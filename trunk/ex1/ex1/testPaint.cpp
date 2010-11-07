@@ -239,8 +239,8 @@ int main(){
 
 	if (STAIRS){
 		Vertex t2;
-		t2._x = 20.0;
-		t2._y = 20.0;
+		t2._x = 40.0;
+		t2._y = 30.0;
 		Stairs myStairs = Stairs(t2,2,7,2);
 
 		myStairs.draw(paintBoard);
@@ -279,8 +279,8 @@ int main(){
 	sleep (100);	
 	clearBoard();
 	Vertex pp;
-	pp._x = 0;
-	pp._y = 1;
+	pp._x = 1;
+	pp._y = 0;
 	myStairs.move(pp);
 	myStairs.draw(paintBoard);
 	printBoard();
