@@ -59,14 +59,31 @@ void GameController::Play()
 }
 
 void GameController::Calculate()
-{
+{	
+	if(Bomb)
+	{	bombLen + Bomb.chekLen;
+
+		if(
+
+
 	_gameStat._map_Game[_user1._nextCoordinates._x][_user1._nextCoordinates._y] = 'P';
 	_gameStat._map_Game[_user2._nextCoordinates._x][_user2._nextCoordinates._y] = 'L';
 
 
-	for(int i =0; i < BombLen;i++)
+	for(int i =0; i < BombCount;i++)
 	{
+		_gameStat._map_Game[Bomb.x][Bomb.y]--;
+		if(_gameStat._map_Game[Bomb.x][Bomb.y] == 0 )
+		{
+			for(int x = Bomb[i].x-1;x<Bomb[i].x+1;x++)
+			{
+				
+			}
+			for(int i = Bomb.y-1;i<Bomb.y+1;i++)
+			{
 
+			}
+		}
 	}
 
 }
