@@ -3,6 +3,7 @@
 #include "load_game.h"
 #include "drow.h"
 #include "io.h"
+#include "bomb.h"
 
 
 struct GameStatus
@@ -11,12 +12,14 @@ struct GameStatus
 	int				_userStep;		//	1 = first 2=first
 	//unsigned int	_userA_exp;
 	//unsigned int	_userB_exp;
-	char			_map_Game[MAP_X][MAP_Y];
+	char			_map_Game[MAP_Y][MAP_X];
 	char			_menu[8][10];
 	char			_statusWindow[10][10];
 	bool			_exitGame;
 
 	char			_screen[100][100];
+
+	Bomb			*bombs;
 
 
 };
@@ -33,6 +36,6 @@ public:
 private:
 		GameStatus _gameStat;
 		
-		Player _user1;
-		Player _user2;
+		Player *_user1;
+		Player *_user2;
 };

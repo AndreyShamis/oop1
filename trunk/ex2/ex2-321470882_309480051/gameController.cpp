@@ -3,18 +3,23 @@
 	
 GameController::GameController()
 {
-	//_gameStat._map_Game = LoagGame.Map;
+	LoadMap(_gameStat._map_Game);
+
+
 	//_gameStat._menu		=	LaodMenu.menu;
 	//_gameStat._statusWindow	= LoadStatus.status
 	_gameStat._userStep = 1;
 	_gameStat._movesCounter	=	0;
 	_gameStat._exitGame	=	false;
 	
-	_user1._coordinates._x = 3;
-	_user1._coordinates._y = 3;
-
-	_user2._coordinates._x = 17;
-	_user2._coordinates._y = 17;	
+	Vertex user1_start, user2_start;
+	user1_start._x	=	1;
+	user1_start._y	=	1;
+	user2_start._x	=	16;
+	user2_start._y	=	16;
+	_user1 = new Player(user1_start,false);
+	_user2 = new Player(user2_start,true);	
+	_gameStat.bombs	=	new Bomb();
 }
 
 
@@ -24,10 +29,36 @@ void GameController::Play()
 {
 
 
-	LoadMap(_gameStat._map_Game);
-	PrintMap(_gameStat._map_Game);
+	
+	PrintMap(_gameStat._map_Game,0);
 
-	GetTurn();
+	
+
+	while(1==1)
+	{
+		while(_user1->HaveTurn())
+		{
+			_user1->Turn(_gameStat._map_Game,_gameStat.bombs);
+			PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
+		}
+		while(_user2->HaveTurn())
+		{
+			_user2->Turn(_gameStat._map_Game,_gameStat.bombs);
+			PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
+		}
+
+		_gameStat.bombs->DrowBomb(_gameStat._map_Game);
+		
+		PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
+
+		_user1->giveNewTurn();
+		_user2->giveNewTurn();
+
+		_gameStat.bombs->bombTurn();
+
+	}
+
+		
 //		Drow board =	Drow;
 
 
