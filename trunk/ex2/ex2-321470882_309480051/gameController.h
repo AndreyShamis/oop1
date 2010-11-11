@@ -2,6 +2,8 @@
 #include "player.h"
 #include "load_game.h"
 #include "drow.h"
+#include "io.h"
+
 
 struct GameStatus
 {
