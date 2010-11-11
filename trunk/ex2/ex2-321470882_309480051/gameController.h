@@ -1,5 +1,7 @@
 #include "config.h"
 #include "player.h"
+#include "load_game.h"
+#include "drow.h"
 
 struct GameStatus
 {
