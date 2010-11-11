@@ -22,10 +22,12 @@ GameController::GameController()
 
 void GameController::Play()
 {
-	//char map[20][20];
+
 
 	LoadMap(_gameStat._map_Game);
 	PrintMap(_gameStat._map_Game);
+
+	GetTurn();
 //		Drow board =	Drow;
 
 
