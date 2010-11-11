@@ -22,7 +22,10 @@ GameController::GameController()
 
 void GameController::Play()
 {
-	;
+	//char map[20][20];
+
+	LoadMap(_gameStat._map_Game);
+	PrintMap(_gameStat._map_Game);
 //		Drow board =	Drow;
 
 
@@ -60,6 +63,8 @@ void GameController::Play()
 
 void GameController::Calculate()
 {	
+	;
+	/*
 	if(Bomb)
 	{	bombLen + Bomb.chekLen;
 
@@ -85,5 +90,6 @@ void GameController::Calculate()
 			}
 		}
 	}
+	*/
 
 }

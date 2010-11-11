@@ -1,10 +1,13 @@
 #include <stdlib.h>
 #include "gameController.h"
 
+
 int main()
 {
-	GameController game = GameController();
 
+
+	GameController game = GameController();
+	
 	game.Play();
 	return(0);
 }
