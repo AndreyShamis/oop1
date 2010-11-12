@@ -2,18 +2,57 @@
 
 
 
-Player::Player(Vertex coordinate,bool Computer)
+Player::Player()
 {
-	_coordinate		=	coordinate;
+	//_coordinate		=	coordinate;
 	_haveTurn		=	true;
 	_haveBomb		=	true;
-	_computerPlayer	=	Computer;
+	this->setWantStop(false);
+	//_computerPlayer	=	Computer;
+	_alive			=	true;
 	srand ((int)(time(0)));
+
+}
+
+
+
+void Player::setCoordinate(Vertex coordinate)
+{
+	_coordinate = coordinate;
+
+}
+
+void Player::setIfComputer(bool value)
+{
+	_computerPlayer = value;
 
 }
 Vertex Player::getCoordinate()
 {
 	return(_coordinate);
+}
+
+bool Player::getAlive()
+{
+	return(_alive);
+}
+
+void Player::setAlive(bool value)
+{
+	_alive = value;
+}
+bool Player::ifHaveTurn(const char map[][MAP_X],Vertex cord)
+{
+	int x =	cord._x;
+	int y = cord._y;
+	if(map[y-1][x] != ' ' && map[y+1][x] != ' '
+		&& map[y][x-1] != ' ' && map[y][x+1] != ' ')
+			return(false);
+	//  ##
+	//  #PB
+	//	##
+	return(true);
+
 }
 
 bool Player::HaveBomb()
@@ -36,20 +75,52 @@ int	Player::getInput()
 {
 	if(_computerPlayer)
 	{
-		
-		int turnCode	=	(rand()% 4) + 1	;
+		int turnCode	=	(rand()% 5) + 1	;
+		int bomBrand    =	(rand()% 2) + 1	;
+
+		if(bomBrand == 2 && turnCode == 5)
+			turnCode	=	(rand()% 4) + 1;
+			
 		return(turnCode);
 	}
 	return(GetTurn());
 }
 
+void Player::setWantStop(bool value)
+{
+	_wantStop = value;
+}
+
+bool Player::getWantStop()
+{
+	return(_wantStop);
+}
 void Player::Turn(char map[][MAP_X],Bomb *bombs)
 {
-	int turnCode;
+	int		turnCode;
+	char		user;
+
+	if(!ifHaveTurn(map,_coordinate))
+		_haveTurn = false;
+
+	
+	if(_computerPlayer)
+		user = 'X';
+	else
+		user = 'P';
 
 	while(_haveTurn)
 	{
 		turnCode = getInput();
+
+		if(turnCode == 10 && questionMess())
+			exit(EXIT_SUCCESS);
+
+		else if(turnCode == 30 && questionMess())
+		{
+			setWantStop(true);
+			break;
+		}
 
 		_newCoordinate	=	_coordinate;
 
@@ -57,7 +128,7 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs)
 		{
 			_newCoordinate._y--;
 		}
-		else if(turnCode == 2 && _coordinate._y+1 < MAP_Y-1)
+		else if(turnCode == 2 && _coordinate._y+1 < MAP_Y -1)
 		{
 			_newCoordinate._y++;
 		}
@@ -77,36 +148,33 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs)
 		else
 			continue;
 
-
-		if(CheckCorrect(map,_newCoordinate) && turnCode < 5)
+		if(this->CheckCorrect(map,_newCoordinate) && turnCode < 5)
 		{
 			map[_coordinate._y][_coordinate._x] = ' ';
 			_coordinate		=	_newCoordinate;
 			_haveTurn		=	false;
 
-			if(_computerPlayer)
-				map[_coordinate._y][_coordinate._x] = 'X';
-			else
-				map[_coordinate._y][_coordinate._x] = 'P';
+			map[_coordinate._y][_coordinate._x] = user;
 
 			break;
-			//PrintMap(map);
-			//turnCode = GetTurn();
+
 		}
 		else
 		{
 			continue;
 		}
 
-		if(turnCode == 99)
-		{
-			;
-		}
+
 		
 		
 	}
+
+	
+	if(bombs->checkBomb(map,_newCoordinate,user))
+		setAlive(false);
 	
 }
+
 
 bool Player::CheckCorrect(const char map[][MAP_X], Vertex &newcoordinate)
 {

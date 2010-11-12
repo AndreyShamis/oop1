@@ -8,6 +8,6 @@ int main()
 
 	GameController game = GameController();
 	
-	game.Play();
+	game.Menu();
 	return(0);
 }

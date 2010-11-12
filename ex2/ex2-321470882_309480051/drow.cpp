@@ -5,6 +5,7 @@ void PrintMap(const char map[][MAP_X],int bombCounter)
 {
 	int x	=	0;
 		
+
 	gotoTop();
 	for(x=0;x<MAP_Y;x++)
 	{

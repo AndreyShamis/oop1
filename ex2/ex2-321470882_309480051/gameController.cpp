@@ -3,49 +3,105 @@
 	
 GameController::GameController()
 {
+
+	
+
+
+	_user1 = new Player();
+	_user2 = new Player();	
+	_gameStat.bombs	=	new Bomb();
+
+}
+void GameController::NewGame()
+{
 	LoadMap(_gameStat._map_Game);
 
 
 	//_gameStat._menu		=	LaodMenu.menu;
 	//_gameStat._statusWindow	= LoadStatus.status
-	_gameStat._userStep = 1;
+
 	_gameStat._movesCounter	=	0;
 	_gameStat._exitGame	=	false;
-	
-	Vertex user1_start, user2_start;
+
+	Vertex	user1_start, 
+			user2_start;
+
 	user1_start._x	=	1;
 	user1_start._y	=	1;
-	user2_start._x	=	16;
-	user2_start._y	=	16;
-	_user1 = new Player(user1_start,false);
-	_user2 = new Player(user2_start,true);	
-	_gameStat.bombs	=	new Bomb();
+	user2_start._x	=	18;
+	user2_start._y	=	18;
+
+	_user1->setCoordinate( user1_start);
+	_user1->setIfComputer(false);
+	_user1->setAlive(true);
+
+	_user2->setCoordinate( user2_start);
+	_user2->setIfComputer(true);
+	_user2->setAlive(true);
+
+	_gameStat.bombs->clearBombsAll();
+
 }
-
-
-
-
-void GameController::Play()
+GameController::~GameController()
 {
 
 
+	delete _user1;
+	delete _user2;
+	delete _gameStat.bombs;
 	
-	PrintMap(_gameStat._map_Game,0);
+}
 
-	
+void GameController::PrintMenu()
+{
+	cout	<<	"n - New Game\n"
+			<<	"x - Exit.\n";
 
-	while(1==1)
+}
+void GameController::Menu()
+{
+	int		menuCode	=	0;
+
+	while(menuCode!= 10)
 	{
-		while(_user1->HaveTurn())
+		PrintMenu();
+
+		menuCode = GetTurn();
+
+		
+		system("cls");
+		switch(menuCode)
 		{
+			case	30:
+				Play();
+				break;
+
+		}
+		
+
+	}
+}
+
+void GameController::Play()
+{
+	NewGame();
+
+	
+	PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
+	while(_user1->getAlive() && _user2->getAlive() && !_user1->getWantStop())
+	{
+		//while(_user1->HaveTurn())
+		//{
 			_user1->Turn(_gameStat._map_Game,_gameStat.bombs);
-			PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
-		}
-		while(_user2->HaveTurn())
-		{
-			_user2->Turn(_gameStat._map_Game,_gameStat.bombs);
-			PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
-		}
+			_gameStat.bombs->DrowBomb(_gameStat._map_Game);
+			//PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
+		//}
+		//while(_user2->HaveTurn())
+		//{
+			if(!_user1->getWantStop())
+				_user2->Turn(_gameStat._map_Game,_gameStat.bombs);
+			//PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
+		//}
 
 		_gameStat.bombs->DrowBomb(_gameStat._map_Game);
 		
@@ -58,71 +114,11 @@ void GameController::Play()
 
 	}
 
-		
-//		Drow board =	Drow;
-
-
-		//	while(!_gameStat.exitGame)
-		//	{
-				// drow
-
-				//while( user get not legall input)
-				//{	// get user 1 legal input\
-				//	
-				//	get step
-				//	if(1/2/3/4/5) if(checkIlegal)
-						
-				//
-				//		user1.next step < 1 2 3 4 5
-				//  else
-				//		get step
-				//	second while
-				//	if(6/7/8)
-				//	6	reset Play
-				//	7 save second while continue
-				//	8 exit destructor exit
-				//	------------------
-				//}
-
-				//while( user get not legall input)
-				//{	// get user 2 legal input\
-				//	if(get 1 / 2 / 3 / 4 / 5)
-						
-				//}
-
-				//calcilate
-			//}
-}
-
-void GameController::Calculate()
-{	
-	;
-	/*
-	if(Bomb)
-	{	bombLen + Bomb.chekLen;
-
-		if(
-
-
-	_gameStat._map_Game[_user1._nextCoordinates._x][_user1._nextCoordinates._y] = 'P';
-	_gameStat._map_Game[_user2._nextCoordinates._x][_user2._nextCoordinates._y] = 'L';
-
-
-	for(int i =0; i < BombCount;i++)
-	{
-		_gameStat._map_Game[Bomb.x][Bomb.y]--;
-		if(_gameStat._map_Game[Bomb.x][Bomb.y] == 0 )
-		{
-			for(int x = Bomb[i].x-1;x<Bomb[i].x+1;x++)
-			{
-				
-			}
-			for(int i = Bomb.y-1;i<Bomb.y+1;i++)
-			{
-
-			}
-		}
-	}
-	*/
+	if(_user1->getAlive() == _user2->getAlive())
+		std::cout << "Teko!\n";
+	else if(_user1->getAlive())
+		std::cout << "!!!!!!!!!!!!!!!!!You WIN!!!!!!!!!!!!!!!!!!!\n";
+	else if(_user2->getAlive())
+		std::cout << "\t\t###\tYou LOSE!\t###\n";
 
 }
