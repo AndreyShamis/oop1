@@ -1,6 +1,6 @@
 #pragma once
 #include <conio.h>
-
+#include <iostream>
 
 //================== Get turn function ========================================
 //	return
@@ -16,5 +16,6 @@
 //=============================================================================
 int GetTurn();
 
+bool questionMess();
 
 

@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-void LoadMap(char map[][MAP_Y])
+void LoadMap(char map[][MAP_X])
 {
 
 	 ifstream myReadFile;

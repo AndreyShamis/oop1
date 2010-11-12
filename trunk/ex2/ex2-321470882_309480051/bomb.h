@@ -1,7 +1,6 @@
 #pragma once
 #include "config.h"
 #include <vector>
-
 struct Bomb_S
 {
 	Vertex		_coordinate;
@@ -13,13 +12,14 @@ class Bomb
 {
 public:
 	Bomb();
-	bool putBomb(Vertex coordinate);
-	void bombTurn();
-	int bombCount();
-	void DrowBomb(char map[][MAP_X]);
-	void BlowUp(char map[][MAP_X],Vertex BlowCoordinate);
-	void EraseBlowUp(char map[][MAP_X],Vertex BlowCoordinate);
-	
+	bool	putBomb(Vertex coordinate);
+	void	bombTurn();
+	int		bombCount();
+	void	DrowBomb(char map[][MAP_X]);
+	void	BlowUp(char map[][MAP_X],Vertex BlowCoordinate);
+	void	EraseBlowUp(char map[][MAP_X],Vertex BlowCoordinate);
+	void	clearBombsAll();
+	bool	checkBomb(const char map[][MAP_X],Vertex cord,char user);
 
 	
 private:
