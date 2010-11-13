@@ -27,11 +27,8 @@ public :
 	void giveNewTurn();
 	bool getAlive();
 	void setAlive(bool);
-	
 	bool ifHaveTurn(const char map[][MAP_X],Vertex cord);
-
 	void setIfComputer(bool value);
-
 	void setWantStop(bool value);
 	bool getWantStop();
 
@@ -51,5 +48,6 @@ private:
 	bool	_computerPlayer;
 	bool	_alive;
 	bool	_wantStop;
+	
 
 };
