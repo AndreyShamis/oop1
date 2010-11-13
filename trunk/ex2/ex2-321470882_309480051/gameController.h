@@ -2,10 +2,8 @@
 #include "config.h"
 #include "io.h"
 #include "drow.h"
-
 #include "player.h"
 #include "bomb.h"
-
 #include "load_game.h"
 
 
@@ -18,10 +16,7 @@ struct GameStatus
 	bool			_exitGame;
 	Bomb			*bombs;
 
-
 };
-
-
 
 
 class GameController

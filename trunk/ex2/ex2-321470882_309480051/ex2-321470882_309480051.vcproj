@@ -247,7 +247,11 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\map.txt"
+				RelativePath=".\map1.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\map2.txt"
 				>
 			</File>
 		</Filter>

@@ -44,11 +44,10 @@ void Bomb::BlowUp(char map[][MAP_X],Vertex BlowCoordinate)
 	{
 		if(x1 != BlowCoordinate._x)
 		{
-
-			if(map[BlowCoordinate._y][x1] == 'O' )
-				map[BlowCoordinate._y][x1] = '$';
-			else if(map[BlowCoordinate._y][x1] != '#' )
+			if(map[BlowCoordinate._y][x1] == ' ' )
 				map[BlowCoordinate._y][x1] = '*';
+			else if(map[BlowCoordinate._y][x1] == 'O' )
+				map[BlowCoordinate._y][x1] = '$';
 		}
 	}
 	for(int y1 = y;y1 < y+3;y1++)

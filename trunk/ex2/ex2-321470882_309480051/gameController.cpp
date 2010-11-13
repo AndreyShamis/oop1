@@ -45,7 +45,6 @@ void GameController::NewGame()
 GameController::~GameController()
 {
 
-
 	delete _user1;
 	delete _user2;
 	delete _gameStat.bombs;
@@ -65,9 +64,7 @@ void GameController::Menu()
 	while(menuCode!= 10)
 	{
 		PrintMenu();
-
 		menuCode = GetTurn();
-
 		
 		system("cls");
 		switch(menuCode)
@@ -75,10 +72,7 @@ void GameController::Menu()
 			case	30:
 				Play();
 				break;
-
 		}
-		
-
 	}
 }
 
@@ -88,8 +82,9 @@ void GameController::Play()
 
 	
 	PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
-	while(_user1->getAlive() && _user2->getAlive() && !_user1->getWantStop())
+	while(_user1->getAlive() && _user2->getAlive() )
 	{
+		//&& !_user1->getWantStop()
 		//while(_user1->HaveTurn())
 		//{
 			_user1->Turn(_gameStat._map_Game,_gameStat.bombs);
@@ -98,7 +93,7 @@ void GameController::Play()
 		//}
 		//while(_user2->HaveTurn())
 		//{
-			if(!_user1->getWantStop())
+			//if(!_user1->getWantStop())
 				_user2->Turn(_gameStat._map_Game,_gameStat.bombs);
 			//PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
 		//}
@@ -120,5 +115,12 @@ void GameController::Play()
 		std::cout << "!!!!!!!!!!!!!!!!!You WIN!!!!!!!!!!!!!!!!!!!\n";
 	else if(_user2->getAlive())
 		std::cout << "\t\t###\tYou LOSE!\t###\n";
+	
+	//char a='0';
+
+	cout << "Press q to exit to menu...\n";
+	
+	while(getChar() != 'q'){};
+		 
 
 }

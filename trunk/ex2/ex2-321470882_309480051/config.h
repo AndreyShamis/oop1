@@ -4,9 +4,6 @@
 #define MAP_Y 20
 
 
-
-
-
 struct Vertex
 {
 		int _x;

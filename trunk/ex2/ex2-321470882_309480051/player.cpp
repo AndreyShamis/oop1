@@ -1,25 +1,35 @@
 #include "player.h"
 
 
-
+//======== Constructor ====================================
 Player::Player()
 {
-	//_coordinate		=	coordinate;
-	_haveTurn		=	true;
-	_haveBomb		=	true;
-	this->setWantStop(false);
-	//_computerPlayer	=	Computer;
-	_alive			=	true;
-	srand ((int)(time(0)));
+	_haveTurn		=	true;	// can get new turn on map
+	_haveBomb		=	true;	// can put bombs on map
+	_alive			=	true;	// not killed
+	srand ((int)(time(0)));		// rand for computer turns
 
 }
-
-
-
+//======== SET coordinate =================================
 void Player::setCoordinate(Vertex coordinate)
 {
 	_coordinate = coordinate;
 
+}
+//======== GET coordinate =================================
+Vertex Player::getCoordinate()
+{
+	return(_coordinate);
+}
+//======== SET Alive ======================================
+void Player::setAlive(bool value)
+{
+	_alive = value;
+}
+//======== GET Alive ======================================
+bool Player::getAlive()
+{
+	return(_alive);
 }
 
 void Player::setIfComputer(bool value)
@@ -27,30 +37,23 @@ void Player::setIfComputer(bool value)
 	_computerPlayer = value;
 
 }
-Vertex Player::getCoordinate()
-{
-	return(_coordinate);
-}
 
-bool Player::getAlive()
-{
-	return(_alive);
-}
 
-void Player::setAlive(bool value)
-{
-	_alive = value;
-}
+
 bool Player::ifHaveTurn(const char map[][MAP_X],Vertex cord)
 {
 	int x =	cord._x;
 	int y = cord._y;
-	if(map[y-1][x] != ' ' && map[y+1][x] != ' '
-		&& map[y][x-1] != ' ' && map[y][x+1] != ' ')
+
+	//if(this->CheckCorrect(map,)
+
+	if(map[y-1][x] != ' ' && map[y+1][x] != ' ' && map[y-1][x] != '$' && map[y+1][x] != '$'
+		&& map[y][x-1] != ' ' && map[y][x+1] != ' '&& map[y][x-1] != '$' && map[y][x+1] != '$')
 			return(false);
 	//  ##
 	//  #PB
 	//	##
+	//*/
 	return(true);
 
 }
@@ -112,7 +115,7 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs)
 	while(_haveTurn)
 	{
 		turnCode = getInput();
-
+		/*
 		if(turnCode == 10 && questionMess())
 			exit(EXIT_SUCCESS);
 
@@ -121,25 +124,19 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs)
 			setWantStop(true);
 			break;
 		}
+		*/
 
-		_newCoordinate	=	_coordinate;
+		//	set new coordinate be real coordinate
+		_newCoordinate	=	_coordinate;	
 
 		if(turnCode == 1 && _coordinate._y-1 > 0)
-		{
 			_newCoordinate._y--;
-		}
 		else if(turnCode == 2 && _coordinate._y+1 < MAP_Y -1)
-		{
 			_newCoordinate._y++;
-		}
 		else if(turnCode == 3 && _coordinate._x-1 >0)
-		{
 			_newCoordinate._x--;
-		}
 		else if(turnCode == 4 && _coordinate._x+1 < MAP_X-1)
-		{
 			_newCoordinate._x++;
-		}
 		else if(turnCode	==	5 && _haveBomb)
 		{
 			bombs->putBomb(_coordinate);
@@ -153,19 +150,11 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs)
 			map[_coordinate._y][_coordinate._x] = ' ';
 			_coordinate		=	_newCoordinate;
 			_haveTurn		=	false;
-
 			map[_coordinate._y][_coordinate._x] = user;
-
 			break;
-
 		}
 		else
-		{
-			continue;
-		}
-
-
-		
+			continue;	
 		
 	}
 
