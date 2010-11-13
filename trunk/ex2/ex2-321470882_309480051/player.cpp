@@ -8,12 +8,14 @@ Player::Player()
 	_haveBomb		=	true;	// can put bombs on map
 	_alive			=	true;	// not killed
 	srand ((int)(time(0)));		// rand for computer turns
+	_userSymbol		=	'+';
 
 }
 //======== SET coordinate =================================
 void Player::setCoordinate(Vertex coordinate)
 {
-	_coordinate = coordinate;
+	_coordinate		=	coordinate;
+	_newCoordinate	=	coordinate;
 
 }
 //======== GET coordinate =================================
@@ -35,7 +37,10 @@ bool Player::getAlive()
 void Player::setIfComputer(bool value)
 {
 	_computerPlayer = value;
-
+	if(_computerPlayer)
+		_userSymbol = 'X';
+	else
+		_userSymbol = 'P';
 }
 
 
@@ -101,30 +106,13 @@ bool Player::getWantStop()
 void Player::Turn(char map[][MAP_X],Bomb *bombs)
 {
 	int		turnCode;
-	char		user;
 
 	if(!ifHaveTurn(map,_coordinate))
 		_haveTurn = false;
 
-	
-	if(_computerPlayer)
-		user = 'X';
-	else
-		user = 'P';
-
 	while(_haveTurn)
 	{
 		turnCode = getInput();
-		/*
-		if(turnCode == 10 && questionMess())
-			exit(EXIT_SUCCESS);
-
-		else if(turnCode == 30 && questionMess())
-		{
-			setWantStop(true);
-			break;
-		}
-		*/
 
 		//	set new coordinate be real coordinate
 		_newCoordinate	=	_coordinate;	
@@ -147,10 +135,7 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs)
 
 		if(this->CheckCorrect(map,_newCoordinate) && turnCode < 5)
 		{
-			map[_coordinate._y][_coordinate._x] = ' ';
-			_coordinate		=	_newCoordinate;
-			_haveTurn		=	false;
-			map[_coordinate._y][_coordinate._x] = user;
+			this->drowOnMap(map);
 			break;
 		}
 		else
@@ -159,12 +144,18 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs)
 	}
 
 	
-	if(bombs->checkBomb(map,_newCoordinate,user))
+	if(bombs->checkBomb(map,_newCoordinate,_userSymbol))
 		setAlive(false);
 	
 }
 
-
+void Player::drowOnMap(char map[][MAP_X])
+{
+	map[_coordinate._y][_coordinate._x] = ' ';
+	_coordinate		=	_newCoordinate;
+	_haveTurn		=	false;
+	map[_coordinate._y][_coordinate._x] = _userSymbol;
+}
 bool Player::CheckCorrect(const char map[][MAP_X], Vertex &newcoordinate)
 {
 	char value = map[newcoordinate._y][newcoordinate._x];

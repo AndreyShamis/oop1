@@ -26,10 +26,10 @@ void GameController::NewGame()
 	Vertex	user1_start, 
 			user2_start;
 
-	user1_start._x	=	1;
-	user1_start._y	=	1;
-	user2_start._x	=	18;
-	user2_start._y	=	18;
+	user1_start._x	=	2;
+	user1_start._y	=	2;
+	user2_start._x	=	MAP_Y-3;
+	user2_start._y	=	MAP_X-3-1;
 
 	_user1->setCoordinate( user1_start);
 	_user1->setIfComputer(false);
@@ -54,7 +54,7 @@ GameController::~GameController()
 void GameController::PrintMenu()
 {
 	cout	<<	"n - New Game\n"
-			<<	"x - Exit.\n";
+			<<	"q - Exit.\n";
 
 }
 void GameController::Menu()
@@ -80,7 +80,9 @@ void GameController::Play()
 {
 	NewGame();
 
-	
+	_user1->drowOnMap(_gameStat._map_Game);
+	_user2->drowOnMap(_gameStat._map_Game);
+
 	PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
 	while(_user1->getAlive() && _user2->getAlive() )
 	{
@@ -118,9 +120,9 @@ void GameController::Play()
 	
 	//char a='0';
 
-	cout << "Press q to exit to menu...\n";
+	cout << "Press x to exit to menu...\n";
 	
-	while(getChar() != 'q'){};
+	while(getChar() != 'x'){};
 		 
 
 }

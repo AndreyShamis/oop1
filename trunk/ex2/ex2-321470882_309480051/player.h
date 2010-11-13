@@ -32,6 +32,7 @@ public :
 	void setWantStop(bool value);
 	bool getWantStop();
 
+	void	drowOnMap(char map[][MAP_X]);
 
 
 private:
@@ -48,6 +49,7 @@ private:
 	bool	_computerPlayer;
 	bool	_alive;
 	bool	_wantStop;
+	char	_userSymbol;
 	
 
 };
