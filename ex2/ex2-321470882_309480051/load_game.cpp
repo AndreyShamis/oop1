@@ -6,7 +6,7 @@ void LoadMap(char map[][MAP_X])
 {
 
 	 ifstream myReadFile;
-	 myReadFile.open("map.txt");
+	 myReadFile.open("map2.txt");
 
 	 
 	 if (myReadFile.is_open()) 
