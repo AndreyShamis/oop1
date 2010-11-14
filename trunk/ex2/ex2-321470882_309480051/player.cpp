@@ -135,6 +135,8 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs)
 
 		if(this->CheckCorrect(map,_newCoordinate) && turnCode < 5)
 		{
+			if(map[_newCoordinate._y][_newCoordinate._x] = '$')
+				//	CreateSurprise;
 			this->drowOnMap(map);
 			break;
 		}

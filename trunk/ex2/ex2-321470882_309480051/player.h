@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <time.h>
 #include <windows.h>
 #include <stdlib.h>	// for rand
 #include <time.h>
