@@ -202,6 +202,10 @@
 				RelativePath=".\player.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\surprise.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -238,6 +242,10 @@
 			</File>
 			<File
 				RelativePath=".\player.h"
+				>
+			</File>
+			<File
+				RelativePath=".\surprise.h"
 				>
 			</File>
 		</Filter>
