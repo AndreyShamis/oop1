@@ -33,4 +33,5 @@ private:
 		void Play();
 		Player *_user1;
 		Player *_user2;
+		unsigned int _turnCounter;
 };

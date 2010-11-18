@@ -9,6 +9,7 @@ Player::Player()
 	_alive			=	true;	// not killed
 	srand ((int)(time(0)));		// rand for computer turns
 	_userSymbol		=	'+';
+	_life			=	3;
 
 }
 //======== SET coordinate =================================
@@ -25,7 +26,8 @@ Vertex Player::getCoordinate()
 }
 //======== SET Alive ======================================
 void Player::setAlive(bool value)
-{
+{	
+	_life =	3;
 	_alive = value;
 }
 //======== GET Alive ======================================
@@ -63,15 +65,7 @@ bool Player::ifHaveTurn(const char map[][MAP_X],Vertex cord)
 
 }
 
-bool Player::HaveBomb()
-{
-	return(_haveBomb);
-}
 
-bool Player::HaveTurn()
-{
-	return(_haveTurn);
-}
 
 void Player::giveNewTurn()
 {
@@ -102,6 +96,19 @@ void Player::setWantStop(bool value)
 bool Player::getWantStop()
 {
 	return(_wantStop);
+}
+short Player::getLife()
+{
+	return(_life);
+}
+
+void Player::decLife()
+{
+	this->_life--;
+
+	if(this->_life<0)
+		this->setAlive(false);
+
 }
 void Player::Turn(char map[][MAP_X],Bomb *bombs)
 {
@@ -147,8 +154,7 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs)
 
 	
 	if(bombs->checkBomb(map,_newCoordinate,_userSymbol))
-		setAlive(false);
-	
+		this->decLife();
 }
 
 void Player::drowOnMap(char map[][MAP_X])
@@ -158,6 +164,7 @@ void Player::drowOnMap(char map[][MAP_X])
 	_haveTurn		=	false;
 	map[_coordinate._y][_coordinate._x] = _userSymbol;
 }
+
 bool Player::CheckCorrect(const char map[][MAP_X], Vertex &newcoordinate)
 {
 	char value = map[newcoordinate._y][newcoordinate._x];
@@ -167,4 +174,14 @@ bool Player::CheckCorrect(const char map[][MAP_X], Vertex &newcoordinate)
 
 	return false;
 
+}
+
+bool Player::HaveBomb()
+{
+	return(_haveBomb);
+}
+
+bool Player::HaveTurn()
+{
+	return(_haveTurn);
 }

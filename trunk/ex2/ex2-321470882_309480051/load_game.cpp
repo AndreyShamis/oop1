@@ -5,25 +5,21 @@
 void LoadMap(char map[][MAP_X])
 {
 
-	 ifstream myReadFile;
-	 myReadFile.open("map2.txt");
+	ifstream myReadFile;
+	myReadFile.open("map3.txt");
 
-	 
-	 if (myReadFile.is_open()) 
-	 {
-		 int counter = 0;
+	if (myReadFile.is_open()) 
+	{
+		int counter = 0;
 		while (!myReadFile.eof())
 		{
 
 			myReadFile.getline(map[counter],MAP_X);
 			
-			//cout<<map[counter] << "\n";
-
 			counter++;
-
-
 		}
 	}
+
 	myReadFile.close();
 
 }

@@ -30,14 +30,14 @@ public :
 	void setIfComputer(bool value);
 	void setWantStop(bool value);
 	bool getWantStop();
-
+	short getLife();
 	void	drowOnMap(char map[][MAP_X]);
 
 
 private:
 
 	int		getInput();
-	
+	void decLife();	
 
 	Vertex	_coordinate;
 	Vertex	_newCoordinate;
@@ -49,6 +49,8 @@ private:
 	bool	_alive;
 	bool	_wantStop;
 	char	_userSymbol;
+
+	short int	_life;
 	
 
 };

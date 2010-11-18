@@ -20,19 +20,20 @@ void GameController::NewGame()
 	//_gameStat._menu		=	LaodMenu.menu;
 	//_gameStat._statusWindow	= LoadStatus.status
 
+	_turnCounter	=	0;
 	_gameStat._movesCounter	=	0;
 	_gameStat._exitGame	=	false;
 
 	Vertex	user1_start, 
 			user2_start;
 
-	user1_start._x	=	2;
-	user1_start._y	=	2;
+	user1_start._x	=	3;
+	user1_start._y	=	3;
 	user2_start._x	=	MAP_Y-3;
-	user2_start._y	=	MAP_X-3-1;
+	user2_start._y	=	MAP_X-3;
 
 	_user1->setCoordinate( user1_start);
-	_user1->setIfComputer(false);
+	_user1->setIfComputer(true);
 	_user1->setAlive(true);
 
 	_user2->setCoordinate( user2_start);
@@ -86,6 +87,7 @@ void GameController::Play()
 	PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
 	while(_user1->getAlive() && _user2->getAlive() )
 	{
+		
 		//&& !_user1->getWantStop()
 		//while(_user1->HaveTurn())
 		//{
@@ -108,6 +110,10 @@ void GameController::Play()
 		_user2->giveNewTurn();
 
 		_gameStat.bombs->bombTurn();
+
+		printLifes(_user1->getLife(),_user2->getLife());
+		printTurnCounter(_turnCounter);
+		_turnCounter++;
 
 	}
 
