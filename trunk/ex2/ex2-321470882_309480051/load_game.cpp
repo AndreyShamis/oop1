@@ -20,6 +20,7 @@ void LoadMap(char map[][MAP_X])
 		}
 	}
 
+
 	myReadFile.close();
 
 }
