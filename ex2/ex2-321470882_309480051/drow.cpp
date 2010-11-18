@@ -1,7 +1,7 @@
 #include "drow.h"
 #include <windows.h>
 
-void PrintMap(const char map[][MAP_X],int bombCounter)
+void PrintMap(const char map[][MAP_X])
 {
 	int x	=	0;
 		
@@ -12,8 +12,6 @@ void PrintMap(const char map[][MAP_X],int bombCounter)
 		cout << map[x];
 		cout << "\n";
 	}
-
-	cout << bombCounter << "\n";
 	
 }
 

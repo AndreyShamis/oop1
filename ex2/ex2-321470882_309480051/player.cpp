@@ -38,13 +38,15 @@ bool Player::getAlive()
 	return(_alive);
 }
 
-void Player::setIfComputer(bool value)
+void Player::setUserSymbol(const char new_sym)
+{
+		_userSymbol = new_sym;
+
+}
+void Player::setIfComputer(const bool value)
 {
 	_computerPlayer = value;
-	if(_computerPlayer)
-		_userSymbol = 'X';
-	else
-		_userSymbol = 'P';
+
 }
 
 
@@ -119,8 +121,8 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp)
 	if(!ifHaveTurn(map,_coordinate))
 		_haveTurn = false;
 
-	while(_haveTurn)
-	{
+	//while(_haveTurn)
+	//{
 		turnCode = getInput();
 
 		//	set new coordinate be real coordinate
@@ -136,11 +138,14 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp)
 			_newCoordinate._x++;
 		else if(turnCode	==	5 && _haveBomb)
 		{
-			bombs->putBomb(_coordinate);
-			_haveBomb	=	false;
+			if(map[_coordinate._y][_coordinate._x] != BOMB)
+			{
+				bombs->putBomb(_coordinate);
+				_haveBomb	=	false;
+			}
 		}
-		else
-			continue;
+		//else
+		//	continue;
 
 		if(this->CheckCorrect(map,_newCoordinate) && turnCode < 5)
 		{
@@ -152,12 +157,12 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp)
 			}	
 
 			this->drowOnMap(map);
-			break;
+			//break;
 		}
-		else
-			continue;	
+		//else
+		//	continue;	
 		
-	}
+	//}
 
 	
 	if(bombs->checkBomb(map,_newCoordinate,_userSymbol))

@@ -58,5 +58,9 @@ short Surprise::deleteSuprise(const Vertex cord)
 
 	return(present_type);
 }
-
+void Surprise::deleteAllSuprise()
+{
+	_PrHeap.clear();
+	_presentCounter	=	0;
+}
 

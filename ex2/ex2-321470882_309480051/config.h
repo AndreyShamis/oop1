@@ -15,6 +15,7 @@
 #define BOMB_BLOW	2
 #define BOMB_RAND	3
 
+
 struct Vertex
 {
 		int _x;
