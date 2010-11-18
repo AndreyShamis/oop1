@@ -20,24 +20,24 @@ public :
 
 	void setCoordinate(Vertex coordinate);
 
-	bool HaveBomb();
-	bool HaveTurn();
-	void Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp);
-	void giveNewTurn();
-	bool getAlive();
-	void setAlive(bool);
-	bool ifHaveTurn(const char map[][MAP_X],Vertex cord);
-	void setIfComputer(bool value);
-	void setWantStop(bool value);
-	bool getWantStop();
-	short getLife();
+	bool	HaveBomb();
+	bool	HaveTurn();
+	void	Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp);
+	void	giveNewTurn();
+	bool	getAlive();
+	void	setAlive(bool);
+	bool	ifHaveTurn(const char map[][MAP_X],Vertex cord);
+	void	setIfComputer(const bool value);
+	void	setWantStop(bool value);
+	bool	getWantStop();
+	short	getLife();
 	void	drowOnMap(char map[][MAP_X]);
-
+	void	setUserSymbol(const char new_sym);
 
 private:
 
 	int		getInput();
-	void decLife();	
+	void	decLife();	
 
 	Vertex	_coordinate;
 	Vertex	_newCoordinate;

@@ -2,10 +2,14 @@
 #include "config.h"
 #include "surprise.h"
 #include <vector>
+
+#define START_TIME 4
+
 struct Bomb_S
 {
 	Vertex		_coordinate;
 	short int	_timer;
+	short int	_alltime;
 
 };
 
@@ -25,7 +29,7 @@ public:
 	
 private:
 
-	void DeleteBomb(int indexOfBomb);
+	void	DeleteBomb(int indexOfBomb);
 	void	BlowUp(char map[][MAP_X],Vertex BlowCoord,Surprise *surp);
 
 	void	increaaseTimer();

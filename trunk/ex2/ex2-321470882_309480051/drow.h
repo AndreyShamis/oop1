@@ -5,7 +5,7 @@
 using namespace std;	// TODO
 
 
-void PrintMap(const char map[][MAP_X],int bombCounter);
+void PrintMap(const char map[][MAP_X]);
 
 /*
 * Places the cursor in the top left corner of the console screen

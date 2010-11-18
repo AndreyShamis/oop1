@@ -35,6 +35,8 @@ void	Bomb::increaaseTimer()
 	{
 		if(_bombs[i]._timer >= 0)
 			_bombs[i]._timer +=5;
+		if(_bombs[i]._timer > 9)
+			_bombs[i]._timer = 9;
 	}	
 }
 
@@ -52,16 +54,19 @@ bool Bomb::putBomb(Vertex coordinate)
 	Bomb_S temp_bomb;
 
 	temp_bomb._coordinate	=	coordinate;
-	temp_bomb._timer		=	4;
+	temp_bomb._timer		=	START_TIME;
+	temp_bomb._alltime		=	START_TIME;
 	_bombs.push_back(temp_bomb);
 	_bombCounter++;
+	
 	return(true);
 }
 void Bomb::bombTurn()
 {
 	for (int i = 0; i < _bombCounter; i++)
 	{
-		_bombs[i]._timer-=1;
+		_bombs[i]._timer	-=1;
+		_bombs[i]._alltime	-=1;
 
 	}
 }
@@ -165,7 +170,7 @@ void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)
 {
 	for (int i = 0; i < _bombCounter; i++)
 	{
-		if(_bombs[i]._timer == 4)
+		if(_bombs[i]._timer == START_TIME && _bombs[i]._alltime == START_TIME)
 			map[_bombs[i]._coordinate._y][_bombs[i]._coordinate._x] = 'B';
 		else if(_bombs[i]._timer == 0)
 		{
@@ -179,7 +184,7 @@ void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)
 			_bombs.erase(_bombs.begin()+i);
 			_bombCounter--;
 		}
-		else
+		else	//MAGIC
 			map[_bombs[i]._coordinate._y][_bombs[i]._coordinate._x] =  _bombs[i]._timer + 48;
 	}
 }

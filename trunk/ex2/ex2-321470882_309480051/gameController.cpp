@@ -23,18 +23,20 @@ void GameController::NewGame()
 	user1_start._x	=	3;
 	user1_start._y	=	3;
 	user2_start._x	=	MAP_Y-3;
-	user2_start._y	=	MAP_X-3;
+	user2_start._y	=	MAP_X-3-1;
 
 	_user1->setCoordinate( user1_start);
 	_user1->setIfComputer(false);
 	_user1->setAlive(true);
+	_user1->setUserSymbol('P');
 
 	_user2->setCoordinate( user2_start);
 	_user2->setIfComputer(true);
 	_user2->setAlive(true);
+	_user2->setUserSymbol('X');
 
 	_gameStat.bombs->clearBombsAll();
-	//_gameStat.presents CLEARE ALL PRESENTS //TODO
+	_gameStat.presents->deleteAllSuprise();
 
 }
 GameController::~GameController()
@@ -79,27 +81,19 @@ void GameController::Play()
 	_user1->drowOnMap(_gameStat._map_Game);
 	_user2->drowOnMap(_gameStat._map_Game);
 
-	PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
+	PrintMap(_gameStat._map_Game);
+
 	while(_user1->getAlive() && _user2->getAlive() )
 	{
 		_gameStat.presents->DrowSurprise(_gameStat._map_Game);
-		//&& !_user1->getWantStop()
-		//while(_user1->HaveTurn())
-		//{
-			_user1->Turn(_gameStat._map_Game,_gameStat.bombs,_gameStat.presents);
-			_gameStat.bombs->DrowBomb(_gameStat._map_Game,_gameStat.presents);
-			//PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
-		//}
-		//while(_user2->HaveTurn())
-		//{
-			//if(!_user1->getWantStop())
-				_user2->Turn(_gameStat._map_Game,_gameStat.bombs,_gameStat.presents);
-			//PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
-		//}
 
+		_user1->Turn(_gameStat._map_Game,_gameStat.bombs,_gameStat.presents);
+		_gameStat.bombs->DrowBomb(_gameStat._map_Game,_gameStat.presents);
+
+		_user2->Turn(_gameStat._map_Game,_gameStat.bombs,_gameStat.presents);
 		_gameStat.bombs->DrowBomb(_gameStat._map_Game,_gameStat.presents);
 		
-		PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
+		PrintMap(_gameStat._map_Game);
 
 		_user1->giveNewTurn();
 		_user2->giveNewTurn();
