@@ -33,7 +33,7 @@ void GameController::NewGame()
 	user2_start._y	=	MAP_X-3;
 
 	_user1->setCoordinate( user1_start);
-	_user1->setIfComputer(true);
+	_user1->setIfComputer(false);
 	_user1->setAlive(true);
 
 	_user2->setCoordinate( user2_start);

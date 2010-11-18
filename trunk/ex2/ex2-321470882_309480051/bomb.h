@@ -20,7 +20,9 @@ public:
 	void	EraseBlowUp(char map[][MAP_X],Vertex BlowCoordinate);
 	void	clearBombsAll();
 	bool	checkBomb(const char map[][MAP_X],Vertex cord,char user);
-
+	void	increaaseTimer();
+	void	BlowUpAll();
+	void	putRandom(char map[][MAP_X]);
 	
 private:
 

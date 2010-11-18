@@ -11,6 +11,23 @@ void Bomb::clearBombsAll()
 	_bombCounter	=	0;
 	_bombs.clear();
 }
+void	Bomb::increaaseTimer()
+{
+	for (int i = 0; i < _bombCounter; i++)
+	{
+		if(_bombs[i]._timer >= 0)
+			_bombs[i]._timer +=5;
+	}	
+}
+
+void	Bomb::BlowUpAll()
+{
+	for (int i = 0; i < _bombCounter; i++)
+	{
+		if(_bombs[i]._timer >= 0)
+			_bombs[i]._timer =0;
+	}	
+}
 
 bool Bomb::putBomb(Vertex coordinate)
 {
@@ -44,20 +61,20 @@ void Bomb::BlowUp(char map[][MAP_X],Vertex BlowCoordinate)
 	{
 		if(x1 != BlowCoordinate._x)
 		{
-			if(map[BlowCoordinate._y][x1] == ' ' )
+			if(map[BlowCoordinate._y][x1] == LANE )
 				map[BlowCoordinate._y][x1] = '*';
-			else if(map[BlowCoordinate._y][x1] == 'O' )
-				map[BlowCoordinate._y][x1] = '$';
+			else if(map[BlowCoordinate._y][x1] == BARREL )
+				map[BlowCoordinate._y][x1] = PRESENT;
 		}
 	}
 	for(int y1 = y;y1 < y+3;y1++)
 	{
 		if(y1 != BlowCoordinate._y)
 		{
-			if(map[y1][BlowCoordinate._x] == ' ' )
+			if(map[y1][BlowCoordinate._x] == LANE )
 				map[y1][BlowCoordinate._x] = '*';
-			else if(map[y1][BlowCoordinate._x] == 'O' )
-				map[y1][BlowCoordinate._x] = '$';
+			else if(map[y1][BlowCoordinate._x] == BARREL )
+				map[y1][BlowCoordinate._x] = PRESENT;
 		}
 	}
 	map[BlowCoordinate._y][BlowCoordinate._x] = '*';
@@ -67,7 +84,7 @@ void Bomb::BlowUp(char map[][MAP_X],Vertex BlowCoordinate)
 
 void Bomb::EraseBlowUp(char map[][MAP_X],Vertex BlowCoordinate)
 {
-	map[BlowCoordinate._y][BlowCoordinate._x] = ' ';
+	map[BlowCoordinate._y][BlowCoordinate._x] = LANE;
 
 	int x = BlowCoordinate._x -1; 
 	int y = BlowCoordinate._y -1; ; 
@@ -75,19 +92,41 @@ void Bomb::EraseBlowUp(char map[][MAP_X],Vertex BlowCoordinate)
 	{
 		if(x1 != BlowCoordinate._x)
 		{
-			if(map[BlowCoordinate._y][x1] == '*' )
-				map[BlowCoordinate._y][x1] = ' ';
+			if(map[BlowCoordinate._y][x1] == FIRE )
+				map[BlowCoordinate._y][x1] = LANE;
 		}
 	}
 	for(int y1 = y;y1 < y+3;y1++)
 	{
 		if(y1 != BlowCoordinate._y)
 		{
-			if(map[y1][BlowCoordinate._x] == '*' )
-				map[y1][BlowCoordinate._x] = ' ';
+			if(map[y1][BlowCoordinate._x] == FIRE )
+				map[y1][BlowCoordinate._x] = LANE;
 		}
 	}
 
+}
+
+void Bomb::putRandom(char map[][MAP_X])
+{
+	int x,y;
+
+	while(true)
+	{
+		x = rand()%(MAP_X-2)+1;
+		y = rand()%(MAP_X-1)+1;
+
+		if(map[y][x] == LANE)
+		{
+			Vertex coordinate;
+			coordinate._x = x;
+			coordinate._y = y;
+			putBomb(coordinate);
+			break;
+		}
+		else
+			continue;
+	}
 }
 
 void Bomb::DrowBomb(char map[][MAP_X])
