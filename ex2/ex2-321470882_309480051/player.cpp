@@ -7,9 +7,11 @@ Player::Player()
 	_haveTurn		=	true;	// can get new turn on map
 	_haveBomb		=	true;	// can put bombs on map
 	_alive			=	true;	// not killed
-	srand ((int)(time(0)));		// rand for computer turns
 	_userSymbol		=	'+';
 	_life			=	3;
+
+	srand ((int)(time(0)));		// rand for computer turns
+
 
 }
 //======== SET coordinate =================================
@@ -54,8 +56,8 @@ bool Player::ifHaveTurn(const char map[][MAP_X],Vertex cord)
 
 	//if(this->CheckCorrect(map,)
 
-	if(map[y-1][x] != ' ' && map[y+1][x] != ' ' && map[y-1][x] != '$' && map[y+1][x] != '$'
-		&& map[y][x-1] != ' ' && map[y][x+1] != ' '&& map[y][x-1] != '$' && map[y][x+1] != '$')
+	if(map[y-1][x] != LANE && map[y+1][x] != LANE && map[y-1][x] != PRESENT && map[y+1][x] != PRESENT
+		&& map[y][x-1] != LANE && map[y][x+1] != LANE && map[y][x-1] != PRESENT && map[y][x+1] != PRESENT)
 			return(false);
 	//  ##
 	//  #PB
@@ -142,8 +144,9 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs)
 
 		if(this->CheckCorrect(map,_newCoordinate) && turnCode < 5)
 		{
-			if(map[_newCoordinate._y][_newCoordinate._x] = '$')
-				//	CreateSurprise;
+			if(map[_newCoordinate._y][_newCoordinate._x] == PRESENT)
+				bombs->putRandom(map);
+				
 			this->drowOnMap(map);
 			break;
 		}
@@ -159,7 +162,7 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs)
 
 void Player::drowOnMap(char map[][MAP_X])
 {
-	map[_coordinate._y][_coordinate._x] = ' ';
+	map[_coordinate._y][_coordinate._x] = LANE;
 	_coordinate		=	_newCoordinate;
 	_haveTurn		=	false;
 	map[_coordinate._y][_coordinate._x] = _userSymbol;
@@ -169,7 +172,7 @@ bool Player::CheckCorrect(const char map[][MAP_X], Vertex &newcoordinate)
 {
 	char value = map[newcoordinate._y][newcoordinate._x];
 
-	if(value == ' ' || value == '$' )
+	if(value == LANE || value == PRESENT )
 		return true;
 
 	return false;
