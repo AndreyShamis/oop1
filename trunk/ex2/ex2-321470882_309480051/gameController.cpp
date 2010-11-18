@@ -3,22 +3,15 @@
 	
 GameController::GameController()
 {
-
-	
-
-
 	_user1 = new Player();
 	_user2 = new Player();	
 	_gameStat.bombs	=	new Bomb();
+	_gameStat.presents	=	new Surprise();
 
 }
 void GameController::NewGame()
 {
 	LoadMap(_gameStat._map_Game);
-
-
-	//_gameStat._menu		=	LaodMenu.menu;
-	//_gameStat._statusWindow	= LoadStatus.status
 
 	_turnCounter	=	0;
 	_gameStat._movesCounter	=	0;
@@ -41,6 +34,7 @@ void GameController::NewGame()
 	_user2->setAlive(true);
 
 	_gameStat.bombs->clearBombsAll();
+	//_gameStat.presents CLEARE ALL PRESENTS //TODO
 
 }
 GameController::~GameController()
@@ -49,6 +43,7 @@ GameController::~GameController()
 	delete _user1;
 	delete _user2;
 	delete _gameStat.bombs;
+	delete _gameStat.presents;
 	
 }
 
@@ -87,22 +82,22 @@ void GameController::Play()
 	PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
 	while(_user1->getAlive() && _user2->getAlive() )
 	{
-		
+		_gameStat.presents->DrowSurprise(_gameStat._map_Game);
 		//&& !_user1->getWantStop()
 		//while(_user1->HaveTurn())
 		//{
-			_user1->Turn(_gameStat._map_Game,_gameStat.bombs);
-			_gameStat.bombs->DrowBomb(_gameStat._map_Game);
+			_user1->Turn(_gameStat._map_Game,_gameStat.bombs,_gameStat.presents);
+			_gameStat.bombs->DrowBomb(_gameStat._map_Game,_gameStat.presents);
 			//PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
 		//}
 		//while(_user2->HaveTurn())
 		//{
 			//if(!_user1->getWantStop())
-				_user2->Turn(_gameStat._map_Game,_gameStat.bombs);
+				_user2->Turn(_gameStat._map_Game,_gameStat.bombs,_gameStat.presents);
 			//PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
 		//}
 
-		_gameStat.bombs->DrowBomb(_gameStat._map_Game);
+		_gameStat.bombs->DrowBomb(_gameStat._map_Game,_gameStat.presents);
 		
 		PrintMap(_gameStat._map_Game,_gameStat.bombs->bombCount());
 

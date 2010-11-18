@@ -3,16 +3,15 @@
 Surprise::Surprise()
 {
 	srand((int)(time(0)));
+	_presentCounter = 0;
 }
 Surprise::~Surprise()
 {
 	_PrHeap.clear();
 }
-//Surprise::~Surprise()
-//{
-//}
 
-void Surprise::CreateSurpise(Vertex coordinate)
+
+void Surprise::CreateSurpise(const Vertex coordinate)
 {
 	struct PresentHeap new_present;
 
@@ -20,8 +19,11 @@ void Surprise::CreateSurpise(Vertex coordinate)
 	new_present._type = RandSurprise();
 
 	_PrHeap.push_back(new_present);
+	_presentCounter++;
+
 }
 
+//void Surprise::
 int Surprise::RandSurprise()
 {
 	int new_surp =0;
@@ -29,3 +31,32 @@ int Surprise::RandSurprise()
 	new_surp = (rand()%3) + 1;
 	return(new_surp);
 }
+
+void Surprise::DrowSurprise(char map[][MAP_X])
+{
+	for (int i = 0; i < _presentCounter; i++)
+	{
+		map[_PrHeap[i]._coord._y][_PrHeap[i]._coord._x] = PRESENT;
+	}	
+}
+
+short Surprise::deleteSuprise(const Vertex cord)
+{
+	int present_type = 0;
+
+	for (int i = 0; i < _presentCounter; i++)
+	{
+		if(_PrHeap[i]._coord._x == cord._x 
+			&& _PrHeap[i]._coord._y == cord._y)
+		{
+			present_type = _PrHeap[i]._type;
+			_PrHeap.erase(_PrHeap.begin()+i);
+			_presentCounter--;
+			break;
+		}
+	}
+
+	return(present_type);
+}
+
+
