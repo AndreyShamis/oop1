@@ -12,7 +12,6 @@
 
 struct GameStatus
 {
-	unsigned int	_movesCounter;
 	char			_map_Game[MAP_Y][MAP_X];
 	bool			_exitGame;
 	Bomb			*bombs;
@@ -29,6 +28,7 @@ public:
 		
 		void Menu();
 private:
+		void RestartGame();
 		void PrintMenu();
 		void NewGame();
 		GameStatus _gameStat;

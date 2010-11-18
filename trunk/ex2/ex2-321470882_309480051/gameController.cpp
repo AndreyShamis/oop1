@@ -8,14 +8,11 @@ GameController::GameController()
 	_gameStat.bombs	=	new Bomb();
 	_gameStat.presents	=	new Surprise();
 
+
 }
-void GameController::NewGame()
+void GameController::RestartGame()
 {
 	LoadMap(_gameStat._map_Game);
-
-	_turnCounter	=	0;
-	_gameStat._movesCounter	=	0;
-	_gameStat._exitGame	=	false;
 
 	Vertex	user1_start, 
 			user2_start;
@@ -26,17 +23,30 @@ void GameController::NewGame()
 	user2_start._y	=	MAP_X-3-1;
 
 	_user1->setCoordinate( user1_start);
+	_user2->setCoordinate( user2_start);
+
+	_gameStat.bombs->clearBombsAll();
+	_gameStat.presents->deleteAllSuprise();
+
+}
+void GameController::NewGame()
+{
+	
+
+	_turnCounter	=	0;
+	_gameStat._exitGame	=	false;
+
+	
 	_user1->setIfComputer(false);
 	_user1->setAlive(true);
 	_user1->setUserSymbol('P');
 
-	_user2->setCoordinate( user2_start);
+	
 	_user2->setIfComputer(true);
 	_user2->setAlive(true);
 	_user2->setUserSymbol('X');
 
-	_gameStat.bombs->clearBombsAll();
-	_gameStat.presents->deleteAllSuprise();
+	this->RestartGame();
 
 }
 GameController::~GameController()
@@ -51,8 +61,10 @@ GameController::~GameController()
 
 void GameController::PrintMenu()
 {
-	cout	<<	"n - New Game\n"
-			<<	"q - Exit.\n";
+	system("cls");
+	cout	<<	"\n\t\t### GAME MENU ###\n"
+			<<	"\t\t * n - New Game\n"
+			<<	"\t\t * q - Exit.\n";
 
 }
 void GameController::Menu()
@@ -64,7 +76,7 @@ void GameController::Menu()
 		PrintMenu();
 		menuCode = GetTurn();
 		
-		system("cls");
+		
 		switch(menuCode)
 		{
 			case	30:
@@ -78,6 +90,8 @@ void GameController::Play()
 {
 	NewGame();
 
+	int user1_prev_life,user2_prev_life;
+
 	_user1->drowOnMap(_gameStat._map_Game);
 	_user2->drowOnMap(_gameStat._map_Game);
 
@@ -87,35 +101,48 @@ void GameController::Play()
 	{
 		_gameStat.presents->DrowSurprise(_gameStat._map_Game);
 
+		user1_prev_life = _user1->getLife();
+		user2_prev_life = _user2->getLife();
+		//	Get turn from fierst user
 		_user1->Turn(_gameStat._map_Game,_gameStat.bombs,_gameStat.presents);
 		_gameStat.bombs->DrowBomb(_gameStat._map_Game,_gameStat.presents);
-
+		//	Get turn from secons user
 		_user2->Turn(_gameStat._map_Game,_gameStat.bombs,_gameStat.presents);
 		_gameStat.bombs->DrowBomb(_gameStat._map_Game,_gameStat.presents);
 		
-		PrintMap(_gameStat._map_Game);
+		PrintMap(_gameStat._map_Game);	//	Print MAP to screen
 
-		_user1->giveNewTurn();
-		_user2->giveNewTurn();
+		_user1->giveNewTurn();			//	set have turns for 1 user
+		_user2->giveNewTurn();			//	set have turns for 2 user
 
 		_gameStat.bombs->bombTurn();
 
 		printLifes(_user1->getLife(),_user2->getLife());
-		printTurnCounter(_turnCounter);
 		_turnCounter++;
+		printTurnCounter(_turnCounter);
+
+		if(user1_prev_life != _user1->getLife() 
+			|| user2_prev_life != _user2->getLife())
+		{
+			this->RestartGame();
+			_user1->drowOnMap(_gameStat._map_Game);
+			_user2->drowOnMap(_gameStat._map_Game);
+			PrintMap(_gameStat._map_Game);	//	Print MAP to screen
+		}
+		
 
 	}
 
 	if(_user1->getAlive() == _user2->getAlive())
 		std::cout << "Teko!\n";
 	else if(_user1->getAlive())
-		std::cout << "!!!!!!!!!!!!!!!!!You WIN!!!!!!!!!!!!!!!!!!!\n";
+		std::cout << "\t\t###\t !!!!!! You WIN !!!!!! \t###\n";
 	else if(_user2->getAlive())
 		std::cout << "\t\t###\tYou LOSE!\t###\n";
 	
 	//char a='0';
 
-	cout << "Press x to exit to menu...\n";
+	cout << "\n\t\tPress x to exit to menu...\n";
 	
 	while(getChar() != 'x'){};
 		 

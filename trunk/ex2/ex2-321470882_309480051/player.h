@@ -24,7 +24,7 @@ public :
 	bool	HaveTurn();
 	void	Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp);
 	void	giveNewTurn();
-	bool	getAlive();
+	bool	getAlive()const;
 	void	setAlive(bool);
 	bool	ifHaveTurn(const char map[][MAP_X],Vertex cord);
 	void	setIfComputer(const bool value);
