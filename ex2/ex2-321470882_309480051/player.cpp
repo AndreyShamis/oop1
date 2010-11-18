@@ -29,11 +29,13 @@ Vertex Player::getCoordinate()
 //======== SET Alive ======================================
 void Player::setAlive(bool value)
 {	
-	_life =	3;
+	if(value)
+		_life =	3;
+
 	_alive = value;
 }
 //======== GET Alive ======================================
-bool Player::getAlive()
+bool Player::getAlive() const
 {
 	return(_alive);
 }
@@ -110,7 +112,7 @@ void Player::decLife()
 {
 	this->_life--;
 
-	if(this->_life<0)
+	if(this->_life == 0)
 		this->setAlive(false);
 
 }

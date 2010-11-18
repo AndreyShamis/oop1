@@ -5,8 +5,8 @@ void PrintMap(const char map[][MAP_X])
 {
 	int x	=	0;
 		
-
-	gotoTop();
+	system("cls");
+	//gotoTop();
 	for(x=0;x<MAP_Y;x++)
 	{
 		cout << map[x];
@@ -26,6 +26,16 @@ void printTurnCounter(const int &counter)
 {
 	cout << "TURN: " << counter << "\n";
 }
+
+
+void PrintMenu()
+{
+	cout	<<	"\n\t\t### GAME MENU ###\n"
+			<<	"\t\tn - New Game\n"
+			<<	"\t\tq - Exit.\n";
+
+}
+
 /*
 * Places the cursor in the top left corner of the console screen
 */
