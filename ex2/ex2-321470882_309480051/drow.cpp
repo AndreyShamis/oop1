@@ -17,7 +17,17 @@ void PrintMap(const char map[][MAP_X],int bombCounter)
 	
 }
 
+void printLifes(const int &user1Life,const int &user2Life)
+{
+	cout << "You have " << user1Life << " lifes.\n";
+	cout << "Computer have " << user2Life << " lifes.\n";
 
+}
+
+void printTurnCounter(const int &counter)
+{
+	cout << "TURN: " << counter << "\n";
+}
 /*
 * Places the cursor in the top left corner of the console screen
 */
