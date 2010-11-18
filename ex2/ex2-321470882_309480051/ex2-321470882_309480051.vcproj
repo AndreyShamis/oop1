@@ -262,6 +262,10 @@
 				RelativePath=".\map2.txt"
 				>
 			</File>
+			<File
+				RelativePath=".\map3.txt"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
