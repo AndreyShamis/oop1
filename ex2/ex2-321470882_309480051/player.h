@@ -22,7 +22,7 @@ public :
 
 	bool HaveBomb();
 	bool HaveTurn();
-	void Turn(char map[][MAP_X],Bomb *bombs);
+	void Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp);
 	void giveNewTurn();
 	bool getAlive();
 	void setAlive(bool);

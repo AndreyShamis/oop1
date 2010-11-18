@@ -5,6 +5,7 @@
 #include "player.h"
 #include "bomb.h"
 #include "load_game.h"
+#include "surprise.h"
 
 
 
@@ -15,6 +16,7 @@ struct GameStatus
 	char			_map_Game[MAP_Y][MAP_X];
 	bool			_exitGame;
 	Bomb			*bombs;
+	Surprise		*presents;
 
 };
 

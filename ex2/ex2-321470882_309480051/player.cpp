@@ -112,7 +112,7 @@ void Player::decLife()
 		this->setAlive(false);
 
 }
-void Player::Turn(char map[][MAP_X],Bomb *bombs)
+void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp)
 {
 	int		turnCode;
 
@@ -145,8 +145,12 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs)
 		if(this->CheckCorrect(map,_newCoordinate) && turnCode < 5)
 		{
 			if(map[_newCoordinate._y][_newCoordinate._x] == PRESENT)
-				bombs->putRandom(map);
-				
+			{
+				int surp_type =surp->deleteSuprise(_newCoordinate);
+				if(surp_type)
+					bombs->putSurpriseBomb(surp_type,map);
+			}	
+
 			this->drowOnMap(map);
 			break;
 		}
