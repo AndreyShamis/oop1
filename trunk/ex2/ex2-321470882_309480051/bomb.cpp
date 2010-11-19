@@ -228,31 +228,3 @@ bool Bomb::checkExplodeBomb(const Vertex &user_cord)
 	return false;
 }
 
-
-//		FUNCTION NOT USET ENY MORE 
-/*
-bool Bomb::checkBomb(const char map[][MAP_X],Vertex cord,char user)
-{
- 
-	for (int i = 0; i < _bombCounter; i++)
-	{
-		int x = _bombs[i]._coordinate._x -1; 
-		int y = _bombs[i]._coordinate._y -1; 
-
-		if(_bombs[i]._timer == 0)
-		{
-			for(int x1 = x;x1 < x+3;x1++)
-					if(map[_bombs[i]._coordinate._y][x1] == user )
-						return(true);
-
-			for(int y1 = y;y1 < y+3;y1++)
-					if(map[y1][_bombs[i]._coordinate._x] == user )
-						return(true);
-		}
-	}
-
-
-	return false;
-
-
-}*/
