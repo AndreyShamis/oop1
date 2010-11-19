@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 
+//=============================================================================
 void LoadMap(char map[][MAP_X])
 {
 
@@ -19,7 +20,6 @@ void LoadMap(char map[][MAP_X])
 			counter++;
 		}
 	}
-
 
 	myReadFile.close();
 
