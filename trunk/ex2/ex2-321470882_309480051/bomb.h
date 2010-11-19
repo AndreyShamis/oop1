@@ -23,6 +23,7 @@ public:
 	void	DrowBomb(char map[][MAP_X],Surprise *surp);
 
 	void	clearBombsAll();
+	bool	checkExplodeBomb(const Vertex &user_cord);
 	bool	checkBomb(const char map[][MAP_X],Vertex cord,char user);
 	void	putSurpriseBomb(const short type,char map[][MAP_X]);
 

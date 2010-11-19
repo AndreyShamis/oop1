@@ -61,6 +61,7 @@ bool Bomb::putBomb(Vertex coordinate)
 	
 	return(true);
 }
+
 void Bomb::bombTurn()
 {
 	for (int i = 0; i < _bombCounter; i++)
@@ -78,13 +79,16 @@ int Bomb::bombCount()
 
 void Bomb::BlowUp(char map[][MAP_X],Vertex BlowCoord,Surprise *surp)
 {
+
 	int x = BlowCoord._x -1; 
 	int y = BlowCoord._y -1;
 	Vertex pres_cord;
 
-	for(int x1 = x;x1 < x+3;x1++)
+	int x1,y1;
+
+	for( x1 = x ,y1 = y;x1 < x+3 && y1 < y+3;x1++,y1++)
 	{
-		if(x1 != BlowCoord._x)
+		if(x1 != BlowCoord._x && y1 != BlowCoord._y)
 		{
 			if(map[BlowCoord._y][x1] == LANE )
 				map[BlowCoord._y][x1] = FIRE;
@@ -95,12 +99,6 @@ void Bomb::BlowUp(char map[][MAP_X],Vertex BlowCoord,Surprise *surp)
 				pres_cord._y = BlowCoord._y;
 				surp->CreateSurpise(pres_cord);
 			}
-		}
-	}
-	for(int y1 = y;y1 < y+3;y1++)
-	{
-		if(y1 != BlowCoord._y)
-		{
 			if(map[y1][BlowCoord._x] == LANE )
 				map[y1][BlowCoord._x] = FIRE;
 			else if(map[y1][BlowCoord._x] == BARREL )
@@ -114,8 +112,8 @@ void Bomb::BlowUp(char map[][MAP_X],Vertex BlowCoord,Surprise *surp)
 			}
 		}
 	}
-	map[BlowCoord._y][BlowCoord._x] = FIRE;
 
+	map[BlowCoord._y][BlowCoord._x] = FIRE;
 
 }
 
@@ -125,21 +123,18 @@ void Bomb::EraseBlowUp(char map[][MAP_X],Vertex BlowCoord,Surprise *surp)
 
 	int x = BlowCoord._x -1; 
 	int y = BlowCoord._y -1; ; 
-	for(int x1 = x;x1 < x+3;x1++)
+	int x1,y1;
+
+	for( x1 = x ,y1 = y;x1 < x+3 && y1 < y+3;x1++,y1++)
 	{
-		if(x1 != BlowCoord._x)
+		if(x1 != BlowCoord._x && y1 != BlowCoord._y)
 		{
 			if(map[BlowCoord._y][x1] == FIRE )
 				map[BlowCoord._y][x1] = LANE;
-		}
-	}
-	for(int y1 = y;y1 < y+3;y1++)
-	{
-		if(y1 != BlowCoord._y)
-		{
 			if(map[y1][BlowCoord._x] == FIRE )
 				map[y1][BlowCoord._x] = LANE;
 		}
+
 	}
 
 }
@@ -189,6 +184,32 @@ void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)
 	}
 }
 
+//check if the player is now on the bomb that will explode now
+bool Bomb::checkExplodeBomb(const Vertex &user_cord)
+{
+	for (int i = 0; i < _bombCounter; i++)
+	{
+		int x = _bombs[i]._coordinate._x -1; 
+		int y = _bombs[i]._coordinate._y -1; 
+
+		if(_bombs[i]._timer == 0)
+		{
+			for(int x1 = x;x1 <x+3;x1++)
+					if(x1 == user_cord._x && _bombs[i]._coordinate._y == user_cord._y )
+						return(true);
+
+			for(int y1 = y;y1 <y+3;y1++)
+					if(y1 == user_cord._y && _bombs[i]._coordinate._x == user_cord._x )
+						return(true);
+		}
+	}
+
+
+	return false;
+}
+
+
+//		FUNCTION NOT USET ENY MORE 
 bool Bomb::checkBomb(const char map[][MAP_X],Vertex cord,char user)
 {
  

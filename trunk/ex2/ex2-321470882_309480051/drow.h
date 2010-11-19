@@ -1,9 +1,18 @@
+#include <windows.h>
+#include <winbase.h>
+#include <time.h>
 #pragma once
 #include <iostream>
+
+
 #include "config.h"
+
 
 using namespace std;	// TODO
 
+
+
+void sleep(unsigned int mseconds);
 
 void PrintMap(const char map[][MAP_X]);
 

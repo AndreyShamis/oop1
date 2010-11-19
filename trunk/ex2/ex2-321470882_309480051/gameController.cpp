@@ -37,7 +37,7 @@ void GameController::NewGame()
 	_gameStat._exitGame	=	false;
 
 	
-	_user1->setIfComputer(true);
+	_user1->setIfComputer(false);
 	_user1->setAlive(true);
 	_user1->setUserSymbol('P');
 
