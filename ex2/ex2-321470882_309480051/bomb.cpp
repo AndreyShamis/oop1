@@ -19,14 +19,14 @@ void	Bomb::putSurpriseBomb(const short type,char map[][MAP_X])
 	switch(type)
 	{
 	case BOMB_INC:
-		this->increaaseTimer();
+		increaaseTimer();
 		break;
 	case BOMB_BLOW:
-		this->BlowUpAll();
+		BlowUpAll();
 		break;
 
 	case BOMB_RAND:
-		this->putRandom(map);
+		putRandom(map);
 		break;
 
 	}	
@@ -173,6 +173,9 @@ void Bomb::putRandom(char map[][MAP_X])
 }
 
 //=============================================================================
+//	A function that draws the bombing, and also sets the time 
+//	on the map before the explosion for each bomb. After the 
+//	explosion the next move traces of the explosion is removed.
 void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)
 {
 	for (int i = 0; i < _bombCounter; i++)
