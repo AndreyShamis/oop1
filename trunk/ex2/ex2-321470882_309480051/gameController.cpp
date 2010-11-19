@@ -103,9 +103,11 @@ void GameController::Play()
 
 		user1_prev_life = _user1->getLife();
 		user2_prev_life = _user2->getLife();
+
 		//	Get turn from fierst user
 		_user1->Turn(_gameStat._map_Game,_gameStat.bombs,_gameStat.presents);
 		_gameStat.bombs->DrowBomb(_gameStat._map_Game,_gameStat.presents);
+
 		//	Get turn from secons user
 		_user2->Turn(_gameStat._map_Game,_gameStat.bombs,_gameStat.presents);
 		_gameStat.bombs->DrowBomb(_gameStat._map_Game,_gameStat.presents);
@@ -115,36 +117,47 @@ void GameController::Play()
 		_user1->giveNewTurn();			//	set have turns for 1 user
 		_user2->giveNewTurn();			//	set have turns for 2 user
 
-		_gameStat.bombs->bombTurn();
+		_gameStat.bombs->bombTurn();	//	do bomb work
 
 		printLifes(_user1->getLife(),_user2->getLife());
 		_turnCounter++;
 		printTurnCounter(_turnCounter);
 
-		if(user1_prev_life != _user1->getLife() 
-			|| user2_prev_life != _user2->getLife())
-		{
-			this->RestartGame();
-			_user1->drowOnMap(_gameStat._map_Game);
-			_user2->drowOnMap(_gameStat._map_Game);
-			PrintMap(_gameStat._map_Game);	//	Print MAP to screen
-		}
+
+		this->reloadGameChek(user1_prev_life,user2_prev_life);
 		
 
 	}
 
+
+	this->PrintGameResult();
+		 
+
+}
+
+void GameController::reloadGameChek(const int &us1_l,const int &us2_l)
+{
+	if((us1_l != _user1->getLife() || us2_l != _user2->getLife()) 
+		&& _user1->getLife()> 0 && _user2->getLife() > 0)
+	{
+		this->RestartGame();
+		_user1->drowOnMap(_gameStat._map_Game);
+		_user2->drowOnMap(_gameStat._map_Game);
+		PrintMap(_gameStat._map_Game);	//	Print MAP to screen
+	}
+}
+
+void GameController::PrintGameResult()
+{
 	if(_user1->getAlive() == _user2->getAlive())
-		std::cout << "Teko!\n";
+		std::cout << "\n\t\t $$$$ - $$ Draw! $$ - $$$$ \n";
 	else if(_user1->getAlive())
 		std::cout << "\t\t###\t !!!!!! You WIN !!!!!! \t###\n";
 	else if(_user2->getAlive())
 		std::cout << "\t\t###\tYou LOSE!\t###\n";
-	
-	//char a='0';
 
 	cout << "\n\t\tPress x to exit to menu...\n";
 	
 	while(getChar() != 'x'){};
-		 
 
 }

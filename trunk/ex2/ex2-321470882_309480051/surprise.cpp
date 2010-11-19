@@ -11,7 +11,7 @@ Surprise::~Surprise()
 }
 
 
-void Surprise::CreateSurpise(const Vertex coordinate)
+void Surprise::CreateSurpise(const Vertex &coordinate)
 {
 	struct PresentHeap new_present;
 
@@ -40,7 +40,7 @@ void Surprise::DrowSurprise(char map[][MAP_X])
 	}	
 }
 
-short Surprise::deleteSuprise(const Vertex cord)
+short Surprise::deleteSuprise(const Vertex &cord)
 {
 	int present_type = 0;
 

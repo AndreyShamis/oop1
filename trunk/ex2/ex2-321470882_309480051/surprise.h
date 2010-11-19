@@ -16,8 +16,8 @@ public:
 	Surprise();
 	~Surprise();
 	void DrowSurprise(char map[][MAP_X]);
-	void CreateSurpise(const Vertex coordinate);
-	short deleteSuprise(const Vertex cord);
+	void CreateSurpise(const Vertex &coordinate);
+	short deleteSuprise(const Vertex &cord);
 	void deleteAllSuprise();
 
 private:
