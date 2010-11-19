@@ -20,19 +20,19 @@ void PrintMap(const char map[][MAP_X])
 //=============================================================================
 void printLifes(const int &user1Life,const int &user2Life)
 {
-	cout << "You have " << user1Life << " lifes.\n";
-	cout << "Computer have " << user2Life << " lifes.\n";
+	cout << "\n\t# - You have " << user1Life << " lifes.\n";
+	cout << "\t# - Computer have " << user2Life << " lifes.\n";
 
 }
 
 //=============================================================================
 void printTurnCounter(const int &counter)
 {
-	cout << "TURN: " << counter << "\n";
+	cout << "\t TURN N: " << counter << ".\n";
 }
 
 //=============================================================================
-void PrintMenu()
+/*void PrintMenu()
 {
 	cout	<<	"\n\t\t### GAME MENU ###\n"
 			<<	"\t\tn - New Game\n"

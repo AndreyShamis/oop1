@@ -8,34 +8,26 @@
 #include "surprise.h"
 
 
-
-
-struct GameStatus
-{
-	char			_map_Game[MAP_Y][MAP_X];
-	bool			_exitGame;
-	Bomb			*bombs;
-	Surprise		*presents;
-
-};
-
-
 class GameController
 {
-public:
+public:		
 		GameController();
-		~GameController();
-		
-		void Menu();
+		void	Menu();
 private:
-		void RestartGame();
-		void PrintMenu();
-		void NewGame();
-		void PrintGameResult();
-		void reloadGameChek(const int &us1_l,const int &us2_l);
-		GameStatus _gameStat;
-		void Play();
-		Player *_user1;
-		Player *_user2;
-		unsigned int _turnCounter;
+		Player		*_user1;
+		Player		*_user2;
+
+		void	RestartGame();
+		void	PrintMenu();
+		void	NewGame();
+		void	PrintGameResult();
+		void	reloadGameChek(const int &us1_l,const int &us2_l);
+		void	Play();
+		void	clearMemory();
+
+		char			_map_Game[MAP_Y][MAP_X];
+		bool			_exitGame;
+		Bomb			*_bombs;
+		Surprise		*_presents;
+		unsigned int	_turnCounter;
 };

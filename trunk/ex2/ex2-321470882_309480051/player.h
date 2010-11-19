@@ -19,7 +19,7 @@ public :
 	void	setCoordinate(const Vertex &coordinate);
 	bool	HaveBomb() const;
 	bool	HaveTurn() const;
-	void	Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp);
+	void	Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp,bool &exit);
 	void	giveNewTurn();
 	bool	getAlive()const;
 	void	setAlive(bool);

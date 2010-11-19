@@ -62,7 +62,7 @@ bool Player::ifHaveTurn(const char map[][MAP_X],Vertex cord)
 	int x =	cord._x;
 	int y = cord._y;
 
-	//if(this->CheckCorrect(map,)
+	//if(CheckCorrect(map,)
 
 	if(map[y-1][x] != LANE && map[y+1][x] != LANE && map[y-1][x] != PRESENT && map[y+1][x] != PRESENT
 		&& map[y][x-1] != LANE && map[y][x+1] != LANE && map[y][x-1] != PRESENT && map[y][x+1] != PRESENT)
@@ -121,15 +121,15 @@ short Player::getLife() const
 //=============================================================================
 void Player::decLife()
 {
-	this->_life--;
+	_life--;
 
-	if(this->_life == 0)
-		this->setAlive(false);
+	if(_life == 0)
+		setAlive(false);
 
 }
 
 //=============================================================================
-void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp)
+void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp,bool &exit)
 {
 	int		turnCode;
 
@@ -143,15 +143,15 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp)
 	//	set new coordinate be real coordinate
 	_newCoordinate	=	_coordinate;	
 
-	if(turnCode == 1 && _coordinate._y-1 > 0)
+	if(turnCode == KEY_UP && _coordinate._y-1 > 0)
 		_newCoordinate._y--;
-	else if(turnCode == 2 && _coordinate._y+1 < MAP_Y -1)
+	else if(turnCode == KEY_DOWN && _coordinate._y+1 < MAP_Y -1)
 		_newCoordinate._y++;
-	else if(turnCode == 3 && _coordinate._x-1 >0)
+	else if(turnCode == KEY_LEFT && _coordinate._x-1 >0)
 		_newCoordinate._x--;
-	else if(turnCode == 4 && _coordinate._x+1 < MAP_X-1)
+	else if(turnCode == KEY_RIGHT && _coordinate._x+1 < MAP_X-1)
 		_newCoordinate._x++;
-	else if(turnCode	==	5 && _haveBomb)
+	else if(turnCode ==	KEY_BOMB && _haveBomb)
 	{
 		if(map[_coordinate._y][_coordinate._x] != BOMB)
 		{
@@ -159,9 +159,11 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp)
 			_haveBomb	=	false;
 		}
 	}
+	else if(turnCode ==	EXIT_GAME)
+		exit = true;
 
 
-	if(this->CheckCorrect(map,_newCoordinate) && turnCode < 5)
+	if(CheckCorrect(map,_newCoordinate) && turnCode < 5)
 	{
 		if(map[_newCoordinate._y][_newCoordinate._x] == PRESENT)
 		{
@@ -170,13 +172,13 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp)
 				bombs->putSurpriseBomb(surp_type,map);
 		}	
 
-		this->drowOnMap(map);
+		drowOnMap(map);
 	}
 
 	if(bombs->checkExplodeBomb(_coordinate))
-		this->decLife();
+		decLife();
 	//if(bombs->checkBomb(map,_newCoordinate,_userSymbol))
-	//	this->decLife();
+	//	decLife();
 
 	
 }
