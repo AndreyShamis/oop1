@@ -30,7 +30,7 @@ public:
 	
 private:
 
-	void	DeleteBomb(int indexOfBomb);
+	//void	DeleteBomb(const int &indexOfBomb);
 	void	BlowUp(char map[][MAP_X],Vertex BlowCoord,Surprise *surp);
 
 	void	increaaseTimer();

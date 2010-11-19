@@ -31,6 +31,8 @@ private:
 		void RestartGame();
 		void PrintMenu();
 		void NewGame();
+		void PrintGameResult();
+		void reloadGameChek(const int &us1_l,const int &us2_l);
 		GameStatus _gameStat;
 		void Play();
 		Player *_user1;
