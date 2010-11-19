@@ -29,26 +29,30 @@ Vertex Player::getCoordinate() const
 //======== SET Alive ======================================
 void Player::setAlive(bool value)
 {	
-	if(value)
-		_life =	3;
+	if(value)		//	if seting alive
+		_life =	3;	//	give to user 3 life
 
-	_alive = value;
+	_alive = value;	//	set value
 }
-//======== GET Alive ======================================
+
+//======== GET Alive =========================================================
 bool Player::getAlive() const
 {
 	return(_alive);
 }
 
+//======== SET SYMBOL ========================================================
+//	may be X or P
 void Player::setUserSymbol(const char new_sym)
 {
-		_userSymbol = new_sym;
+	_userSymbol = new_sym;
 
 }
+
+//======== SET IF COMPUTER PLAYER ============================================
 void Player::setIfComputer(const bool value)
 {
 	_computerPlayer = value;
-
 }
 
 
@@ -72,13 +76,14 @@ bool Player::ifHaveTurn(const char map[][MAP_X],Vertex cord)
 }
 */
 
-
+//=============================================================================
 void Player::giveNewTurn()
 {
 	_haveTurn	=	true;
 	_haveBomb	=	true;
 }
 
+//=============================================================================
 int	Player::getInput() const
 {
 	if(_computerPlayer)
@@ -107,11 +112,13 @@ bool Player::getWantStop()
 	return(_wantStop);
 }
 */
+//=============================================================================
 short Player::getLife() const
 {
 	return(_life);
 }
 
+//=============================================================================
 void Player::decLife()
 {
 	this->_life--;
@@ -120,6 +127,8 @@ void Player::decLife()
 		this->setAlive(false);
 
 }
+
+//=============================================================================
 void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp)
 {
 	int		turnCode;
@@ -164,8 +173,6 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp)
 		this->drowOnMap(map);
 	}
 
-
-
 	if(bombs->checkExplodeBomb(_coordinate))
 		this->decLife();
 	//if(bombs->checkBomb(map,_newCoordinate,_userSymbol))
@@ -174,6 +181,7 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp)
 	
 }
 
+//=============================================================================
 void Player::drowOnMap(char map[][MAP_X])
 {
 	map[_coordinate._y][_coordinate._x] = LANE;
@@ -182,6 +190,7 @@ void Player::drowOnMap(char map[][MAP_X])
 	map[_coordinate._y][_coordinate._x] = _userSymbol;
 }
 
+//=============================================================================
 bool Player::CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate)
 {
 	char value = map[newcoordinate._y][newcoordinate._x];
@@ -193,11 +202,13 @@ bool Player::CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate)
 
 }
 
+//=============================================================================
 bool Player::HaveBomb() const
 {
 	return(_haveBomb);
 }
 
+//=============================================================================
 bool Player::HaveTurn() const
 {
 	return(_haveTurn);

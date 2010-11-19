@@ -1,6 +1,7 @@
 #include "drow.h"
 #include <windows.h>
 
+//=============================================================================
 void PrintMap(const char map[][MAP_X])
 {
 	int x	=	0;
@@ -16,6 +17,7 @@ void PrintMap(const char map[][MAP_X])
 	
 }
 
+//=============================================================================
 void printLifes(const int &user1Life,const int &user2Life)
 {
 	cout << "You have " << user1Life << " lifes.\n";
@@ -23,12 +25,13 @@ void printLifes(const int &user1Life,const int &user2Life)
 
 }
 
+//=============================================================================
 void printTurnCounter(const int &counter)
 {
 	cout << "TURN: " << counter << "\n";
 }
 
-
+//=============================================================================
 void PrintMenu()
 {
 	cout	<<	"\n\t\t### GAME MENU ###\n"
@@ -49,6 +52,7 @@ void gotoTop()
 	SetConsoleCursorPosition(screen_buffer_handle, coord);
 }
 
+//=============================================================================
 void sleep(unsigned int mseconds)
 {
 	clock_t goal = mseconds + (clock());

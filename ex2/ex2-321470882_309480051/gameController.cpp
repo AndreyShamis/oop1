@@ -1,6 +1,6 @@
 #include "gameController.h"
 
-	
+//=============================================================================
 GameController::GameController()
 {
 	_user1 = new Player();
@@ -8,8 +8,9 @@ GameController::GameController()
 	_gameStat.bombs	=	new Bomb();
 	_gameStat.presents	=	new Surprise();
 
-
 }
+
+//=============================================================================
 void GameController::RestartGame()
 {
 	LoadMap(_gameStat._map_Game);
@@ -29,19 +30,17 @@ void GameController::RestartGame()
 	_gameStat.presents->deleteAllSuprise();
 
 }
+
+//=============================================================================
 void GameController::NewGame()
 {
-	
-
 	_turnCounter	=	0;
 	_gameStat._exitGame	=	false;
 
-	
 	_user1->setIfComputer(false);
 	_user1->setAlive(true);
 	_user1->setUserSymbol('P');
 
-	
 	_user2->setIfComputer(true);
 	_user2->setAlive(true);
 	_user2->setUserSymbol('X');
@@ -49,9 +48,10 @@ void GameController::NewGame()
 	this->RestartGame();
 
 }
+
+//=============================================================================
 GameController::~GameController()
 {
-
 	delete _user1;
 	delete _user2;
 	delete _gameStat.bombs;
@@ -59,6 +59,7 @@ GameController::~GameController()
 	
 }
 
+//=============================================================================
 void GameController::PrintMenu()
 {
 	system("cls");
@@ -67,6 +68,8 @@ void GameController::PrintMenu()
 			<<	"\t\t * q - Exit.\n";
 
 }
+
+//=============================================================================
 void GameController::Menu()
 {
 	int		menuCode	=	0;
@@ -75,7 +78,6 @@ void GameController::Menu()
 	{
 		PrintMenu();
 		menuCode = GetTurn();
-		
 		
 		switch(menuCode)
 		{
@@ -86,6 +88,7 @@ void GameController::Menu()
 	}
 }
 
+//=============================================================================
 void GameController::Play()
 {
 	NewGame();
@@ -126,15 +129,13 @@ void GameController::Play()
 
 		this->reloadGameChek(user1_prev_life,user2_prev_life);
 		
-
 	}
-
 
 	this->PrintGameResult();
 		 
-
 }
 
+//=============================================================================
 void GameController::reloadGameChek(const int &us1_l,const int &us2_l)
 {
 	if((us1_l != _user1->getLife() || us2_l != _user2->getLife()) 
@@ -147,6 +148,7 @@ void GameController::reloadGameChek(const int &us1_l,const int &us2_l)
 	}
 }
 
+//=============================================================================
 void GameController::PrintGameResult()
 {
 	if(_user1->getAlive() == _user2->getAlive())

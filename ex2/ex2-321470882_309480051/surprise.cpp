@@ -1,16 +1,19 @@
 #include "surprise.h"
 
+//=============================================================================
 Surprise::Surprise()
 {
 	srand((int)(time(0)));
 	_presentCounter = 0;
 }
+
+//=============================================================================
 Surprise::~Surprise()
 {
 	_PrHeap.clear();
 }
 
-
+//=============================================================================
 void Surprise::CreateSurpise(const Vertex &coordinate)
 {
 	struct PresentHeap new_present;
@@ -23,7 +26,7 @@ void Surprise::CreateSurpise(const Vertex &coordinate)
 
 }
 
-
+//=============================================================================
 int Surprise::RandSurprise()
 {
 	int new_surp =	0;
@@ -34,6 +37,7 @@ int Surprise::RandSurprise()
 
 }
 
+//=============================================================================
 void Surprise::DrowSurprise(char map[][MAP_X])
 {
 	for (int i = 0; i < _presentCounter; i++)
@@ -42,6 +46,7 @@ void Surprise::DrowSurprise(char map[][MAP_X])
 	}	
 }
 
+//=============================================================================
 short Surprise::deleteSuprise(const Vertex &cord)
 {
 	int present_type = 0;
@@ -60,6 +65,8 @@ short Surprise::deleteSuprise(const Vertex &cord)
 
 	return(present_type);
 }
+
+//=============================================================================
 void Surprise::deleteAllSuprise()
 {
 	_PrHeap.clear();

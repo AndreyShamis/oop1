@@ -1,16 +1,19 @@
 #include "bomb.h"
 
-
+//=============================================================================
 Bomb::Bomb()
 {
 	_bombCounter	=	0;
 }
 
+//=============================================================================
 void Bomb::clearBombsAll()
 {	
 	_bombCounter	=	0;
 	_bombs.clear();
 }
+
+//=============================================================================
 void	Bomb::putSurpriseBomb(const short type,char map[][MAP_X])
 {
 	switch(type)
@@ -29,6 +32,7 @@ void	Bomb::putSurpriseBomb(const short type,char map[][MAP_X])
 	}	
 }
 
+//=============================================================================
 void	Bomb::increaaseTimer()
 {
 	for (int i = 0; i < _bombCounter; i++)
@@ -40,6 +44,7 @@ void	Bomb::increaaseTimer()
 	}	
 }
 
+//=============================================================================
 void	Bomb::BlowUpAll()
 {
 	for (int i = 0; i < _bombCounter; i++)
@@ -49,6 +54,7 @@ void	Bomb::BlowUpAll()
 	}	
 }
 
+//=============================================================================
 bool Bomb::putBomb(Vertex coordinate)
 {
 	Bomb_S temp_bomb;
@@ -62,6 +68,7 @@ bool Bomb::putBomb(Vertex coordinate)
 	return(true);
 }
 
+//=============================================================================
 void Bomb::bombTurn()
 {
 	for (int i = 0; i < _bombCounter; i++)
@@ -72,11 +79,13 @@ void Bomb::bombTurn()
 	}
 }
 
+//=============================================================================
 int Bomb::bombCount()
 {
 	return(_bombCounter);
 }
 
+//=============================================================================
 void Bomb::BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp)
 {
 
@@ -117,6 +126,7 @@ void Bomb::BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp)
 
 }
 
+//=============================================================================
 void Bomb::EraseBlowUp(char map[][MAP_X],const Vertex &BlowCoord)
 {
 	map[BlowCoord._y][BlowCoord._x] = LANE;
@@ -139,6 +149,7 @@ void Bomb::EraseBlowUp(char map[][MAP_X],const Vertex &BlowCoord)
 
 }
 
+//=============================================================================
 void Bomb::putRandom(char map[][MAP_X])
 {
 	int x,y;
@@ -161,6 +172,7 @@ void Bomb::putRandom(char map[][MAP_X])
 	}
 }
 
+//=============================================================================
 void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)
 {
 	for (int i = 0; i < _bombCounter; i++)
@@ -169,21 +181,26 @@ void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)
 			map[_bombs[i]._coordinate._y][_bombs[i]._coordinate._x] = 'B';
 		else if(_bombs[i]._timer == 0)
 		{
-			BlowUp(map,_bombs[i]._coordinate,surp);
-			
-
+			BlowUp(map,_bombs[i]._coordinate,surp);	
 		}
 		else if(_bombs[i]._timer < 0)
 		{
-			EraseBlowUp(map,_bombs[i]._coordinate);
-			_bombs.erase(_bombs.begin()+i);
-			_bombCounter--;
+			EraseBlowUp(map,_bombs[i]._coordinate);	//	erase * from map
+			_bombs.erase(_bombs.begin()+i);		//	delete this bomb
+			_bombCounter--;						//	decrease counter
 		}
-		else	//MAGIC
-			map[_bombs[i]._coordinate._y][_bombs[i]._coordinate._x] =  _bombs[i]._timer + 48;
+		else
+		{
+			int x_cord = _bombs[i]._coordinate._x;
+			int y_cord = _bombs[i]._coordinate._y;
+			//MAGIC
+			map[y_cord][x_cord] =  _bombs[i]._timer + 48;
+	
+		}
 	}
 }
 
+//=============================================================================
 //check if the player is now on the bomb that will explode now
 bool Bomb::checkExplodeBomb(const Vertex &user_cord)
 {
