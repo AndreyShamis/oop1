@@ -4,9 +4,10 @@
 void PrintMap(const char map[][MAP_X])
 {
 	int x	=	0;
-		
+	
+	
 	system("cls");
-	//gotoTop();
+	
 	for(x=0;x<MAP_Y;x++)
 	{
 		cout << map[x];
@@ -48,3 +49,8 @@ void gotoTop()
 	SetConsoleCursorPosition(screen_buffer_handle, coord);
 }
 
+void sleep(unsigned int mseconds)
+{
+	clock_t goal = mseconds + (clock());
+	while (goal > clock());
+}

@@ -88,7 +88,9 @@ int	Player::getInput()
 
 		if(bomBrand == 2 && turnCode == 5)
 			turnCode	=	(rand()% 4) + 1;
-			
+		
+		sleep(50);
+
 		return(turnCode);
 	}
 	return(GetTurn());
@@ -120,55 +122,54 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp)
 {
 	int		turnCode;
 
-	if(!ifHaveTurn(map,_coordinate))
-		_haveTurn = false;
+	// if not have space to do turn set dont have turn 
+	//if(!ifHaveTurn(map,_coordinate))
+	//	_haveTurn = false;
 
-	//while(_haveTurn)
-	//{
-		turnCode = getInput();
 
-		//	set new coordinate be real coordinate
-		_newCoordinate	=	_coordinate;	
+	turnCode = getInput();
 
-		if(turnCode == 1 && _coordinate._y-1 > 0)
-			_newCoordinate._y--;
-		else if(turnCode == 2 && _coordinate._y+1 < MAP_Y -1)
-			_newCoordinate._y++;
-		else if(turnCode == 3 && _coordinate._x-1 >0)
-			_newCoordinate._x--;
-		else if(turnCode == 4 && _coordinate._x+1 < MAP_X-1)
-			_newCoordinate._x++;
-		else if(turnCode	==	5 && _haveBomb)
+	//	set new coordinate be real coordinate
+	_newCoordinate	=	_coordinate;	
+
+	if(turnCode == 1 && _coordinate._y-1 > 0)
+		_newCoordinate._y--;
+	else if(turnCode == 2 && _coordinate._y+1 < MAP_Y -1)
+		_newCoordinate._y++;
+	else if(turnCode == 3 && _coordinate._x-1 >0)
+		_newCoordinate._x--;
+	else if(turnCode == 4 && _coordinate._x+1 < MAP_X-1)
+		_newCoordinate._x++;
+	else if(turnCode	==	5 && _haveBomb)
+	{
+		if(map[_coordinate._y][_coordinate._x] != BOMB)
 		{
-			if(map[_coordinate._y][_coordinate._x] != BOMB)
-			{
-				bombs->putBomb(_coordinate);
-				_haveBomb	=	false;
-			}
+			bombs->putBomb(_coordinate);
+			_haveBomb	=	false;
 		}
-		//else
-		//	continue;
+	}
 
-		if(this->CheckCorrect(map,_newCoordinate) && turnCode < 5)
+
+	if(this->CheckCorrect(map,_newCoordinate) && turnCode < 5)
+	{
+		if(map[_newCoordinate._y][_newCoordinate._x] == PRESENT)
 		{
-			if(map[_newCoordinate._y][_newCoordinate._x] == PRESENT)
-			{
-				int surp_type =surp->deleteSuprise(_newCoordinate);
-				if(surp_type)
-					bombs->putSurpriseBomb(surp_type,map);
-			}	
+			int surp_type =surp->deleteSuprise(_newCoordinate);
+			if(surp_type)
+				bombs->putSurpriseBomb(surp_type,map);
+		}	
 
-			this->drowOnMap(map);
-			//break;
-		}
-		//else
-		//	continue;	
-		
-	//}
+		this->drowOnMap(map);
+	}
+
+
+
+	if(bombs->checkExplodeBomb(_coordinate))
+		this->decLife();
+	//if(bombs->checkBomb(map,_newCoordinate,_userSymbol))
+	//	this->decLife();
 
 	
-	if(bombs->checkBomb(map,_newCoordinate,_userSymbol))
-		this->decLife();
 }
 
 void Player::drowOnMap(char map[][MAP_X])
