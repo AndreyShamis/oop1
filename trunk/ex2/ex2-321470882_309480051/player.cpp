@@ -15,14 +15,14 @@ Player::Player()
 
 }
 //======== SET coordinate =================================
-void Player::setCoordinate(Vertex coordinate)
+void Player::setCoordinate(const Vertex &coordinate)
 {
 	_coordinate		=	coordinate;
 	_newCoordinate	=	coordinate;
 
 }
 //======== GET coordinate =================================
-Vertex Player::getCoordinate()
+Vertex Player::getCoordinate() const
 {
 	return(_coordinate);
 }
@@ -52,7 +52,7 @@ void Player::setIfComputer(const bool value)
 }
 
 
-
+/*
 bool Player::ifHaveTurn(const char map[][MAP_X],Vertex cord)
 {
 	int x =	cord._x;
@@ -66,11 +66,11 @@ bool Player::ifHaveTurn(const char map[][MAP_X],Vertex cord)
 	//  ##
 	//  #PB
 	//	##
-	//*/
+	//
 	return(true);
 
 }
-
+*/
 
 
 void Player::giveNewTurn()
@@ -79,7 +79,7 @@ void Player::giveNewTurn()
 	_haveBomb	=	true;
 }
 
-int	Player::getInput()
+int	Player::getInput() const
 {
 	if(_computerPlayer)
 	{
@@ -96,7 +96,8 @@ int	Player::getInput()
 	return(GetTurn());
 }
 
-void Player::setWantStop(bool value)
+/*
+void Player::setWantStop(const bool value)
 {
 	_wantStop = value;
 }
@@ -105,7 +106,8 @@ bool Player::getWantStop()
 {
 	return(_wantStop);
 }
-short Player::getLife()
+*/
+short Player::getLife() const
 {
 	return(_life);
 }
@@ -180,7 +182,7 @@ void Player::drowOnMap(char map[][MAP_X])
 	map[_coordinate._y][_coordinate._x] = _userSymbol;
 }
 
-bool Player::CheckCorrect(const char map[][MAP_X], Vertex &newcoordinate)
+bool Player::CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate)
 {
 	char value = map[newcoordinate._y][newcoordinate._x];
 
@@ -191,12 +193,12 @@ bool Player::CheckCorrect(const char map[][MAP_X], Vertex &newcoordinate)
 
 }
 
-bool Player::HaveBomb()
+bool Player::HaveBomb() const
 {
 	return(_haveBomb);
 }
 
-bool Player::HaveTurn()
+bool Player::HaveTurn() const
 {
 	return(_haveTurn);
 }

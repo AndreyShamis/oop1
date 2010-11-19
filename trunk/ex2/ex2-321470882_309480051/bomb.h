@@ -24,20 +24,19 @@ public:
 
 	void	clearBombsAll();
 	bool	checkExplodeBomb(const Vertex &user_cord);
-	bool	checkBomb(const char map[][MAP_X],Vertex cord,char user);
+	//bool	checkBomb(const char map[][MAP_X],Vertex cord,char user);
 	void	putSurpriseBomb(const short type,char map[][MAP_X]);
 
 	
 private:
 
 	//void	DeleteBomb(const int &indexOfBomb);
-	void	BlowUp(char map[][MAP_X],Vertex BlowCoord,Surprise *surp);
-
+	void	BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp);
 	void	increaaseTimer();
 	void	BlowUpAll();
 	void	putRandom(char map[][MAP_X]);
+	void	EraseBlowUp(char map[][MAP_X],const Vertex &BlowCoord);
 
-	void	EraseBlowUp(char map[][MAP_X],Vertex BlowCoord,Surprise *surp);
 	int				_bombCounter;
 	std::vector <Bomb_S>_bombs;
 
