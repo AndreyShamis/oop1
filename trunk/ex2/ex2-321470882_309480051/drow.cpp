@@ -6,7 +6,6 @@ void PrintMap(const char map[][MAP_X])
 {
 	int x	=	0;
 	
-	
 	system("cls");
 	
 	for(x=0;x<MAP_Y;x++)
