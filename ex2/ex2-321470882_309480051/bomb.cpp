@@ -77,7 +77,7 @@ int Bomb::bombCount()
 	return(_bombCounter);
 }
 
-void Bomb::BlowUp(char map[][MAP_X],Vertex BlowCoord,Surprise *surp)
+void Bomb::BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp)
 {
 
 	int x = BlowCoord._x -1; 
@@ -117,7 +117,7 @@ void Bomb::BlowUp(char map[][MAP_X],Vertex BlowCoord,Surprise *surp)
 
 }
 
-void Bomb::EraseBlowUp(char map[][MAP_X],Vertex BlowCoord,Surprise *surp)
+void Bomb::EraseBlowUp(char map[][MAP_X],const Vertex &BlowCoord)
 {
 	map[BlowCoord._y][BlowCoord._x] = LANE;
 
@@ -175,7 +175,7 @@ void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)
 		}
 		else if(_bombs[i]._timer < 0)
 		{
-			EraseBlowUp(map,_bombs[i]._coordinate,surp);
+			EraseBlowUp(map,_bombs[i]._coordinate);
 			_bombs.erase(_bombs.begin()+i);
 			_bombCounter--;
 		}
@@ -210,6 +210,7 @@ bool Bomb::checkExplodeBomb(const Vertex &user_cord)
 
 
 //		FUNCTION NOT USET ENY MORE 
+/*
 bool Bomb::checkBomb(const char map[][MAP_X],Vertex cord,char user)
 {
  
@@ -234,4 +235,4 @@ bool Bomb::checkBomb(const char map[][MAP_X],Vertex cord,char user)
 	return false;
 
 
-}
+}*/

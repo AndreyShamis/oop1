@@ -23,13 +23,15 @@ void Surprise::CreateSurpise(const Vertex &coordinate)
 
 }
 
-//void Surprise::
+
 int Surprise::RandSurprise()
 {
-	int new_surp =0;
+	int new_surp =	0;
 
 	new_surp = (rand()%3) + 1;
+
 	return(new_surp);
+
 }
 
 void Surprise::DrowSurprise(char map[][MAP_X])

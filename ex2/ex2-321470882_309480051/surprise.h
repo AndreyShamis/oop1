@@ -6,8 +6,8 @@
 
 struct PresentHeap
 {
-	Vertex	_coord;
-	int		_type;
+	Vertex		_coord;
+	int			_type;
 };
 
 class Surprise
@@ -15,13 +15,15 @@ class Surprise
 public:
 	Surprise();
 	~Surprise();
-	void DrowSurprise(char map[][MAP_X]);
-	void CreateSurpise(const Vertex &coordinate);
-	short deleteSuprise(const Vertex &cord);
-	void deleteAllSuprise();
+	void	DrowSurprise(char map[][MAP_X]);
+	void	CreateSurpise(const Vertex &coordinate);
+	short	deleteSuprise(const Vertex &cord);
+	void	deleteAllSuprise();
 
 private:
-	int RandSurprise();
-	int _presentCounter;
+	int		RandSurprise();
+
+	int			_presentCounter;
 	std::vector <PresentHeap> _PrHeap;
+
 };

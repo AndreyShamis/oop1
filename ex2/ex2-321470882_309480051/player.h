@@ -15,41 +15,35 @@ class Player
 {
 public :
 	Player();
-
-	Vertex getCoordinate();
-
-	void setCoordinate(Vertex coordinate);
-
-	bool	HaveBomb();
-	bool	HaveTurn();
+	Vertex	getCoordinate()const;
+	void	setCoordinate(const Vertex &coordinate);
+	bool	HaveBomb() const;
+	bool	HaveTurn() const;
 	void	Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp);
 	void	giveNewTurn();
 	bool	getAlive()const;
 	void	setAlive(bool);
-	bool	ifHaveTurn(const char map[][MAP_X],Vertex cord);
 	void	setIfComputer(const bool value);
-	void	setWantStop(bool value);
-	bool	getWantStop();
-	short	getLife();
+	short	getLife() const;
 	void	drowOnMap(char map[][MAP_X]);
 	void	setUserSymbol(const char new_sym);
-
+	
+	//bool	ifHaveTurn(const char map[][MAP_X],Vertex cord);
+	//void	setWantStop(const bool value);
+	//bool	getWantStop();
 private:
-
-	int		getInput();
+	int		getInput() const; 
 	void	decLife();	
+	bool	CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate);
 
-	Vertex	_coordinate;
-	Vertex	_newCoordinate;
-	bool	CheckCorrect(const char map[][MAP_X], Vertex &newcoordinate);
-
-	bool	_haveBomb;
-	bool	_haveTurn;
-	bool	_computerPlayer;
-	bool	_alive;
-	bool	_wantStop;
-	char	_userSymbol;
-
+	Vertex		_coordinate;
+	Vertex		_newCoordinate;
+	bool		_haveBomb;
+	bool		_haveTurn;
+	bool		_computerPlayer;
+	bool		_alive;
+	//bool		_wantStop;
+	char		_userSymbol;
 	short int	_life;
 	
 
