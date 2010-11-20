@@ -1,21 +1,25 @@
+// Configuration file.
+
 #pragma once
 
-#define MAP_X 21
+// map limits:
+#define MAP_X 21	
 #define MAP_Y 20
 
-#define PRESENT '$'
+// Define sign on map:
+#define PRESENT '$'	
 #define BOMB	'B'
 #define FENCE	'#'
 #define LANE	' '
 #define BARREL	'O'
 #define FIRE	'*'
 
-//	surprise type
+//	surprise type:
 #define BOMB_INC	1
 #define BOMB_BLOW	2
 #define BOMB_RAND	3
 
-#define MAP_PATH_LEN 20
+#define MAP_PATH_LEN 20	// lenth of row.
 
 #define EXIT_GAME	10	//-	exit -game
 #define SAVE_GAME	20	//-	save
@@ -26,7 +30,7 @@
 #define KEY_RIGHT 	4	//right
 #define KEY_BOMB	5	//put bomb
 
-struct Vertex
+struct Vertex			// Coordinate.
 {
 		int _x;
 		int _y;
