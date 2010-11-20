@@ -1,3 +1,5 @@
+// A class that reprisent drowing to the screen tasks.
+
 #include "drow.h"
 #include <windows.h>
 
@@ -31,38 +33,14 @@ void printTurnCounter(const int &counter)
 }
 
 //=============================================================================
-void printSurpriseInfo(const int &usr1_pr,const int &usr2_pr)
+/*void PrintMenu()
 {
-	if(usr1_pr)
-	{
-		std::cout << "Player 1 get ";
-		surpDescription(usr1_pr) ;
-		std::cout << ".\n";
-	}
-	if(usr2_pr)
-	{
-		std::cout << "Player 2 get ";
-		surpDescription(usr2_pr) ;
-		std::cout << ".\n";
-	}
+	cout	<<	"\n\t\t### GAME MENU ###\n"
+			<<	"\t\tn - New Game\n"
+			<<	"\t\tq - Exit.\n";
+
 }
 
-void surpDescription(const short &pr)
-{
-	switch(pr)
-	{
-	case BOMB_INC:
-		std::cout << " increase time by +5";
-		break;
-	case BOMB_BLOW:
-		std::cout << " blowup all bombs";
-		break;
-	case BOMB_RAND:
-		std::cout << " put random bomb";
-		break;
-
-	}
-}
 /*
 * Places the cursor in the top left corner of the console screen
 */
