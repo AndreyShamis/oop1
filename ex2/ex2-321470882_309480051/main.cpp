@@ -1,5 +1,5 @@
 /*
- * EX2:: A program that 
+ * EX2:: GAME: BOMBER.
  *
  * 
  * 

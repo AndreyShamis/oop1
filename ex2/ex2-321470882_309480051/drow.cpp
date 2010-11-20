@@ -1,4 +1,4 @@
-// A class (////TODO) that reprisent drowing to the screen tasks.
+// A modul (class ////TODO) that reprisent drowing to the screen tasks.
 
 //                               Include section
 //=============================================================================
