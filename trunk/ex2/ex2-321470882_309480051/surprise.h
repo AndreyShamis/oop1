@@ -1,17 +1,28 @@
+// A class that reprisent surprise.
+
+//                               Include section
+//=============================================================================
 #include <stdlib.h>	// for rand
 #include <time.h>
 #include <vector>
 #include "config.h"
 #pragma once
 
+//                               Structur section
+//=============================================================================
 struct PresentHeap
 {
 	Vertex		_coord;
 	int			_type;
 };
 
+
+
 class Surprise
 {
+
+//                               Function section
+//=============================================================================
 public:
 	Surprise();
 	~Surprise();
@@ -23,6 +34,9 @@ public:
 private:
 	int		RandSurprise();
 
+
+//                              veribel section
+//=============================================================================
 	int			_presentCounter;
 	std::vector <PresentHeap> _PrHeap;
 
