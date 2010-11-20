@@ -1,7 +1,13 @@
+// A class that reprisent player.
+
+//                               Include section
+//=============================================================================
 #include "player.h"
 
+//                               Function section
+//=============================================================================
 
-//======== Constructor ====================================
+//======== Constructor ========================================================
 Player::Player()
 {
 	_haveTurn		=	true;	// can get new turn on map
@@ -16,20 +22,22 @@ Player::Player()
 
 
 }
-//======== SET coordinate =================================
+//======== SET coordinate =====================================================
+// Input: new coordinate of player at map.
 void Player::setCoordinate(const Vertex &coordinate)
 {
 	_coordinate		=	coordinate;	//	set start coordinates
 	_newCoordinate	=	coordinate;	//	temp start coordinates
 
 }
-//======== GET coordinate =================================
-//	return user coordinates
+//======== GET coordinate =====================================================
+// Output: return user coordinates
 Vertex Player::getCoordinate() const
 {
 	return(_coordinate);
 }
-//======== SET Alive ======================================
+//======== SET Alive ==========================================================
+// Input: if life - true, otherwise - false.
 void Player::setAlive(bool value)
 {	
 	if(value)		//	if seting alive
@@ -38,14 +46,14 @@ void Player::setAlive(bool value)
 	_alive = value;	//	set value
 }
 
-//======== GET Alive =========================================================
+//======== GET Alive ==========================================================
 bool Player::getAlive() const
 {
 	return(_alive);
 }
 
-//======== SET SYMBOL ========================================================
-//	may be X or P
+//======== SET SYMBOL =========================================================
+// Input: symbol of player. may be X or P
 void Player::setUserSymbol(const char new_sym)
 {
 	_userSymbol = new_sym;
@@ -54,15 +62,15 @@ void Player::setUserSymbol(const char new_sym)
 
 //======== SET IF COMPUTER PLAYER =============================================
 //	set if the player is computer
-//	true - computer
-//	false - human
+//	Input:  true - computer
+//			false - human
 void Player::setIfComputer(const bool value)
 {
 	_computerPlayer = value;
 }
 
+// A function that give to user new turn in new cycle.
 //=============================================================================
-//	give to user new turn in new cycle
 void Player::giveNewTurn()
 {
 	_haveTurn	=	true;	//	give options turn
@@ -70,8 +78,10 @@ void Player::giveNewTurn()
 	setPresent(0);			//	set don`t have any presents
 }
 
+// A function that get turn derection from user.
 //=============================================================================
-//	return turn derection
+// Input: map.	
+// Output: return turn derection.
 int	Player::getInput(const char map[][MAP_X])
 {
 	//	computer logic
@@ -91,15 +101,15 @@ int	Player::getInput(const char map[][MAP_X])
 	return(GetTurn());
 }
 
+// A function that return how meny life player have.
 //=============================================================================
-//	return how meny life player have
 short Player::getLife() const
 {
 	return(_life);
 }
 
+// A function that decrease life counter.
 //=============================================================================
-//	decrease life counter
 void Player::decLife()
 {
 	_life--;				//	decrese life
@@ -109,8 +119,10 @@ void Player::decLife()
 
 }
 
+// A function that make player turn.
 //=============================================================================
-void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp,bool &exit)
+// Input: map, pointer to object bomb, pointer to object surprise, exit status.
+void Player::Turn(char map[][MAP_X], Bomb *bombs, Surprise *surp, bool &exit)
 {
 	int		turnCode;
 
@@ -172,6 +184,7 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp,bool &exit)
 	
 }
 
+// A function that set type of present to user.
 //=============================================================================
 //	set if user get new presnt 1-3
 //	0 dont have any present
@@ -181,15 +194,17 @@ void	Player::setPresent(const short &value)
 
 }
 
+// A function that get which present user get-have.
 //=============================================================================
-//	get which present user get-have
+//Output: return which present user get-have
 short	Player::getPresent() const
 {
 	return(_presentGeted);	
 }
 
+// A function that drow on map the user. 
 //=============================================================================
-//	drow on map the user 
+// Input: map.
 void Player::drowOnMap(char map[][MAP_X])
 {
 	//	drow on map empty space in previous cell
@@ -202,9 +217,10 @@ void Player::drowOnMap(char map[][MAP_X])
 	map[_coordinate._y][_coordinate._x] = _userSymbol;
 }
 
+// A function that check if new coordinates is correct 
 //=============================================================================
-//	check if new coordinates is correct
-//	if yes return true
+// Input: map, new coordinate.
+// Output: if yes return true, otherwise return false.
 bool Player::CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate)
 {
 	//	char to know what is located on the cell
@@ -219,15 +235,17 @@ bool Player::CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate)
 
 }
 
+// A function that difine if user have bomb in this cycle.
 //=============================================================================
-//	return if user have bomb in this cycle
+// Output: return true if user have bomb in this cycle.
 bool Player::HaveBomb() const
 {
 	return(_haveBomb);
 }
 
+// A function that report if the user have turn.
 //=============================================================================
-//	return if user have turn in this cycle
+// Output: return true if user have turn in this cycle
 bool Player::HaveTurn() const
 {
 	return(_haveTurn);

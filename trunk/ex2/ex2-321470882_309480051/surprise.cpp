@@ -8,7 +8,7 @@
 //=============================================================================
 
 
-
+// Constractor of class surprise.
 //=============================================================================
 Surprise::Surprise()
 {
@@ -16,25 +16,34 @@ Surprise::Surprise()
 	_presentCounter = 0;
 }
 
+// Distractor of class surprise.
 //=============================================================================
 Surprise::~Surprise()
 {
+	// clear all surprise.
 	_PrHeap.clear();
 }
 
+// A function that creat surpris.
 //=============================================================================
+// Input: coordinate to surprise at map.
 void Surprise::CreateSurpise(const Vertex &coordinate)
 {
+	// Difine new present.
 	struct PresentHeap new_present;
 
 	new_present._coord = coordinate;
 	new_present._type = RandSurprise();
 
+	// Put the new present at vector of presents. 
 	_PrHeap.push_back(new_present);
+
+	// Increase presents counter.
 	_presentCounter++;
 
 }
 
+// A function that lottrait type of surprise.
 //=============================================================================
 int Surprise::RandSurprise()
 {
@@ -46,35 +55,43 @@ int Surprise::RandSurprise()
 
 }
 
+// A function that drow surprises at map.
 //=============================================================================
 void Surprise::DrowSurprise(char map[][MAP_X])
-{
+{ 
 	for (int i = 0; i < _presentCounter; i++)
 	{
 		map[_PrHeap[i]._coord._y][_PrHeap[i]._coord._x] = PRESENT;
 	}	
 }
 
+// A function that delete surprise from vector of surprises.
 //=============================================================================
+// Input: coordinate of surprise that need to be delete.
+// Output:         //TODO
 short Surprise::deleteSuprise(const Vertex &cord)
 {
 	int present_type = 0;
 
+	// Search for surprise that need to be delete.
 	for (int i = 0; i < _presentCounter; i++)
 	{
 		if(_PrHeap[i]._coord._x == cord._x 
 			&& _PrHeap[i]._coord._y == cord._y)
-		{
+		{	
+			// Delete surprise.
 			present_type = _PrHeap[i]._type;
 			_PrHeap.erase(_PrHeap.begin()+i);
+
+			// Decrease counter of presents.
 			_presentCounter--;
 			break;
 		}
 	}
-
 	return(present_type);
 }
 
+// A function that delete all surprises from vector of surprises.
 //=============================================================================
 void Surprise::deleteAllSuprise()
 {
