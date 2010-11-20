@@ -25,6 +25,40 @@ void PrintMap(const char map[][MAP_X])				//TODO
 	
 }
 
+//=============================================================================
+void printSurpriseInfo(const int &usr1_pr,const int &usr2_pr)
+{
+        if(usr1_pr)
+        {
+                std::cout << "Player 1 get ";
+                surpDescription(usr1_pr) ;
+                std::cout << ".\n";
+        }
+        if(usr2_pr)
+        {
+                std::cout << "Player 2 get ";
+                surpDescription(usr2_pr) ;
+                std::cout << ".\n";
+        }
+}
+
+void surpDescription(const short &pr)
+{
+        switch(pr)
+        {
+        case BOMB_INC:
+                std::cout << " increase time by +5";
+                break;
+        case BOMB_BLOW:
+                std::cout << " blowup all bombs";
+                break;
+        case BOMB_RAND:
+                std::cout << " put random bomb";
+                break;
+
+        }
+}
+
 // A function that print life status of user and the computer.
 //=============================================================================
 // Input: user and computer life couners (resived by refference)

@@ -32,5 +32,6 @@ void printLifes(const int &user1Life,const int &user2Life);
 // A function that print turn counter
 void printTurnCounter(const int &counter);
 
-
+void printSurpriseInfo(const int &,const int &);
+void surpDescription(const short &pr)
 
