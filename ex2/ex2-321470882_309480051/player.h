@@ -34,7 +34,7 @@ public :
 	//void	setWantStop(const bool value);
 	//bool	getWantStop();
 private:
-	int		getInput() const; 
+	int		getInput(const char map[][MAP_X]); 
 	void	decLife();	
 	void	setPresent(const short &value);
 	bool	CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate);

@@ -72,7 +72,7 @@ void Player::giveNewTurn()
 
 //=============================================================================
 //	return turn derection
-int	Player::getInput() const
+int	Player::getInput(const char map[][MAP_X])
 {
 	//	computer logic
 	if(_computerPlayer)
@@ -114,7 +114,7 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp,bool &exit)
 {
 	int		turnCode;
 
-	turnCode = getInput();
+	turnCode = getInput(map);
 
 	//	set new coordinate be real coordinate
 	_newCoordinate	=	_coordinate;	

@@ -15,6 +15,7 @@
 #define BOMB_BLOW	2
 #define BOMB_RAND	3
 
+#define MAP_PATH_LEN 20
 
 #define EXIT_GAME	10	//-	exit -game
 #define SAVE_GAME	20	//-	save
