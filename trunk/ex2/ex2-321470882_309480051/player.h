@@ -25,6 +25,8 @@ public :
 	void	setAlive(bool);
 	void	setIfComputer(const bool value);
 	short	getLife() const;
+	short	getPresent() const;
+	
 	void	drowOnMap(char map[][MAP_X]);
 	void	setUserSymbol(const char new_sym);
 	
@@ -34,6 +36,7 @@ public :
 private:
 	int		getInput() const; 
 	void	decLife();	
+	void	setPresent(const short &value);
 	bool	CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate);
 
 	Vertex		_coordinate;
@@ -45,6 +48,7 @@ private:
 	//bool		_wantStop;
 	char		_userSymbol;
 	short int	_life;
+	short int	_presentGeted;
 	
 
 };
