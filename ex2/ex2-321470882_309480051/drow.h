@@ -33,5 +33,5 @@ void printLifes(const int &user1Life,const int &user2Life);
 void printTurnCounter(const int &counter);
 
 void printSurpriseInfo(const int &,const int &);
-void surpDescription(const short &pr)
+void surpDescription(const short &pr);
 
