@@ -21,7 +21,8 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			UseOfATL="0"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -260,6 +261,10 @@
 			</File>
 			<File
 				RelativePath=".\map4.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\README.txt"
 				>
 			</File>
 		</Filter>
