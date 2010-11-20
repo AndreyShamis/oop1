@@ -1,3 +1,5 @@
+// A class that reprisent drowing to the screen tasks.
+
 #include <windows.h>
 #include <winbase.h>
 #include <time.h>
@@ -15,8 +17,7 @@ using namespace std;	// TODO
 void sleep(unsigned int mseconds);
 
 void PrintMap(const char map[][MAP_X]);
-void printSurpriseInfo(const int &,const int &);
-void surpDescription(const short &pr);
+
 /*
 * Places the cursor in the top left corner of the console screen
 */
