@@ -1,9 +1,11 @@
 #include "gameController.h"
 
 //=============================================================================
+//	Constractor
 GameController::GameController()
 {
-	_exitGame = false;
+	_exitGame = false;	//	variable to know when user wants to exit
+	//	this also relaited to computer player
 }
 
 //=============================================================================
@@ -28,6 +30,7 @@ void GameController::RestartGame()
 	_bombs->clearBombsAll();
 	_presents->deleteAllSuprise();
 
+	_turnCounter	=	0;					//	SET TURN counter 
 }
 
 //=============================================================================
@@ -41,7 +44,6 @@ void GameController::NewGame()
 	_bombs		=	new Bomb();
 	_presents	=	new Surprise();
 
-	_turnCounter	=	0;					//	SET TURN counter // TODO
 	_exitGame	=	false;
 
 	//	Initialize setings for first player
@@ -153,6 +155,7 @@ void GameController::Play()
 		PrintMap(_map_Game);	//	Print MAP to screen
 		printLifes(_user1->getLife(),_user2->getLife());
 		printTurnCounter(_turnCounter);
+		printSurpriseInfo(_user1->getPresent(),_user2->getPresent());
 
 		_user1->giveNewTurn();			//	set have turns for 1 user
 		_user2->giveNewTurn();			//	set have turns for 2 user

@@ -7,9 +7,11 @@ Player::Player()
 	_haveTurn		=	true;	// can get new turn on map
 	_haveBomb		=	true;	// can put bombs on map
 	_alive			=	true;	// not killed
-	_userSymbol		=	'+';
-	_life			=	3;
-
+	_userSymbol		=	'+';	// set unset user symbol
+	_life			=	3;		// give user 3 life
+	setPresent(0);				// set unset presents have
+	
+	//	rand for computer player
 	srand ((int)(time(0)));		// rand for computer turns
 
 
@@ -17,11 +19,12 @@ Player::Player()
 //======== SET coordinate =================================
 void Player::setCoordinate(const Vertex &coordinate)
 {
-	_coordinate		=	coordinate;
-	_newCoordinate	=	coordinate;
+	_coordinate		=	coordinate;	//	set start coordinates
+	_newCoordinate	=	coordinate;	//	temp start coordinates
 
 }
 //======== GET coordinate =================================
+//	return user coordinates
 Vertex Player::getCoordinate() const
 {
 	return(_coordinate);
@@ -49,43 +52,29 @@ void Player::setUserSymbol(const char new_sym)
 
 }
 
-//======== SET IF COMPUTER PLAYER ============================================
+//======== SET IF COMPUTER PLAYER =============================================
+//	set if the player is computer
+//	true - computer
+//	false - human
 void Player::setIfComputer(const bool value)
 {
 	_computerPlayer = value;
 }
 
-
-/*
-bool Player::ifHaveTurn(const char map[][MAP_X],Vertex cord)
-{
-	int x =	cord._x;
-	int y = cord._y;
-
-	//if(CheckCorrect(map,)
-
-	if(map[y-1][x] != LANE && map[y+1][x] != LANE && map[y-1][x] != PRESENT && map[y+1][x] != PRESENT
-		&& map[y][x-1] != LANE && map[y][x+1] != LANE && map[y][x-1] != PRESENT && map[y][x+1] != PRESENT)
-			return(false);
-	//  ##
-	//  #PB
-	//	##
-	//
-	return(true);
-
-}
-*/
-
 //=============================================================================
+//	give to user new turn in new cycle
 void Player::giveNewTurn()
 {
-	_haveTurn	=	true;
-	_haveBomb	=	true;
+	_haveTurn	=	true;	//	give options turn
+	_haveBomb	=	true;	//	give oprions put bombs
+	setPresent(0);			//	set don`t have any presents
 }
 
 //=============================================================================
+//	return turn derection
 int	Player::getInput() const
 {
+	//	computer logic
 	if(_computerPlayer)
 	{
 		int turnCode	=	(rand()% 5) + 1	;
@@ -98,33 +87,25 @@ int	Player::getInput() const
 
 		return(turnCode);
 	}
+	//	player logic
 	return(GetTurn());
 }
 
-/*
-void Player::setWantStop(const bool value)
-{
-	_wantStop = value;
-}
-
-bool Player::getWantStop()
-{
-	return(_wantStop);
-}
-*/
 //=============================================================================
+//	return how meny life player have
 short Player::getLife() const
 {
 	return(_life);
 }
 
 //=============================================================================
+//	decrease life counter
 void Player::decLife()
 {
-	_life--;
+	_life--;				//	decrese life
 
-	if(_life == 0)
-		setAlive(false);
+	if(_life == 0)			//	if no more life
+		setAlive(false);	//	set dead
 
 }
 
@@ -133,16 +114,12 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp,bool &exit)
 {
 	int		turnCode;
 
-	// if not have space to do turn set dont have turn 
-	//if(!ifHaveTurn(map,_coordinate))
-	//	_haveTurn = false;
-
-
 	turnCode = getInput();
 
 	//	set new coordinate be real coordinate
 	_newCoordinate	=	_coordinate;	
 
+	//	turn logic
 	if(turnCode == KEY_UP && _coordinate._y-1 > 0)
 		_newCoordinate._y--;
 	else if(turnCode == KEY_DOWN && _coordinate._y+1 < MAP_Y -1)
@@ -153,8 +130,10 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp,bool &exit)
 		_newCoordinate._x++;
 	else if(turnCode ==	KEY_BOMB && _haveBomb)
 	{
+		//	bomb logic
 		if(map[_coordinate._y][_coordinate._x] != BOMB)
 		{
+			//	put bomb to bomb database
 			bombs->putBomb(_coordinate);
 			_haveBomb	=	false;
 		}
@@ -162,41 +141,77 @@ void Player::Turn(char map[][MAP_X],Bomb *bombs,Surprise *surp,bool &exit)
 	else if(turnCode ==	EXIT_GAME)
 		exit = true;
 
-
+	//	check if new coordinates have correct values
 	if(CheckCorrect(map,_newCoordinate) && turnCode < 5)
-	{
+	{	
+		//	check if this(next) cell have present
 		if(map[_newCoordinate._y][_newCoordinate._x] == PRESENT)
 		{
+			//	get type of presnt and delete the present
+			//	from heap
 			int surp_type =surp->deleteSuprise(_newCoordinate);
-			if(surp_type)
+			
+			//	check if surp_type > 0but it is unnessory
+			if(surp_type) 
+			{	//	do this surprise whith bombs
+				//	thats mean to function 
+				//	in bomb class
 				bombs->putSurpriseBomb(surp_type,map);
+				//	set type to user for show on screen 
+				//	which surprise the player get
+				setPresent(surp_type);
+			}
 		}	
 
-		drowOnMap(map);
+		drowOnMap(map);	//	drow on map new position of player
 	}
 
+	//	check if user in aproximity to a blowup
 	if(bombs->checkExplodeBomb(_coordinate))
-		decLife();
-	//if(bombs->checkBomb(map,_newCoordinate,_userSymbol))
-	//	decLife();
-
+		decLife();	//	if yes decrease life
 	
 }
 
 //=============================================================================
+//	set if user get new presnt 1-3
+//	0 dont have any present
+void	Player::setPresent(const short &value)
+{
+	_presentGeted = value;
+
+}
+
+//=============================================================================
+//	get which present user get-have
+short	Player::getPresent() const
+{
+	return(_presentGeted);	
+}
+
+//=============================================================================
+//	drow on map the user 
 void Player::drowOnMap(char map[][MAP_X])
 {
+	//	drow on map empty space in previous cell
 	map[_coordinate._y][_coordinate._x] = LANE;
+	//	reset coordinates
 	_coordinate		=	_newCoordinate;
+	//	dont have turn in this cicle
 	_haveTurn		=	false;
+	//	drow user on new cell positions
 	map[_coordinate._y][_coordinate._x] = _userSymbol;
 }
 
 //=============================================================================
+//	check if new coordinates is correct
+//	if yes return true
 bool Player::CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate)
 {
+	//	char to know what is located on the cell
 	char value = map[newcoordinate._y][newcoordinate._x];
 
+	//	check if this empty space
+	//	or present 
 	if(value == LANE || value == PRESENT )
 		return true;
 
@@ -205,12 +220,14 @@ bool Player::CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate)
 }
 
 //=============================================================================
+//	return if user have bomb in this cycle
 bool Player::HaveBomb() const
 {
 	return(_haveBomb);
 }
 
 //=============================================================================
+//	return if user have turn in this cycle
 bool Player::HaveTurn() const
 {
 	return(_haveTurn);
