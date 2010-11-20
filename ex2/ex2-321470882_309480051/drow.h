@@ -32,6 +32,9 @@ void printLifes(const int &user1Life,const int &user2Life);
 // A function that print turn counter
 void printTurnCounter(const int &counter);
 
+// A function that print surprise information.
 void printSurpriseInfo(const int &,const int &);
+
+// A function that print surprise discription depend on surprise type.
 void surpDescription(const short &pr);
 

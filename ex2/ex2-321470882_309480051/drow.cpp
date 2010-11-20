@@ -25,15 +25,19 @@ void PrintMap(const char map[][MAP_X])				//TODO
 	
 }
 
+// A function that print surprise information.
 //=============================================================================
+// Input: users type of surprises.
 void printSurpriseInfo(const int &usr1_pr,const int &usr2_pr)
 {
+		// If user 1 have surprise - print this surprise information
         if(usr1_pr)
         {
                 std::cout << "Player 1 get ";
                 surpDescription(usr1_pr) ;
                 std::cout << ".\n";
         }
+		// If user 2 have surprise - print this surprise information
         if(usr2_pr)
         {
                 std::cout << "Player 2 get ";
@@ -42,6 +46,9 @@ void printSurpriseInfo(const int &usr1_pr,const int &usr2_pr)
         }
 }
 
+// A function that print surprise discription depend on surprise type.
+//=============================================================================
+// Input: type of surprise.
 void surpDescription(const short &pr)
 {
         switch(pr)
