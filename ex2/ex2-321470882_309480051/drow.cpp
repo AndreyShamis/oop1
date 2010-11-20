@@ -1,10 +1,17 @@
-// A class that reprisent drowing to the screen tasks.
+// A class (////TODO) that reprisent drowing to the screen tasks.
 
+//                               Include section
+//=============================================================================
 #include "drow.h"
 #include <windows.h>
 
+//                               Function section
 //=============================================================================
-void PrintMap(const char map[][MAP_X])
+
+// A function that print the map of game fild.
+//=============================================================================
+// Input: map.
+void PrintMap(const char map[][MAP_X])				//TODO
 {
 	int x	=	0;
 	
@@ -18,7 +25,9 @@ void PrintMap(const char map[][MAP_X])
 	
 }
 
+// A function that print life status of user and the computer.
 //=============================================================================
+// Input: user and computer life couners (resived by refference)
 void printLifes(const int &user1Life,const int &user2Life)
 {
 	cout << "\n\t# - You have " << user1Life << " lifes.\n";
@@ -26,7 +35,9 @@ void printLifes(const int &user1Life,const int &user2Life)
 
 }
 
+// A function that print turn counter
 //=============================================================================
+// Input: turn counter.
 void printTurnCounter(const int &counter)
 {
 	cout << "\t TURN N: " << counter << ".\n";
@@ -44,6 +55,10 @@ void printTurnCounter(const int &counter)
 /*
 * Places the cursor in the top left corner of the console screen
 */
+
+// A function that Places the cursor in the top left corner of the console 
+// screen.
+//=============================================================================
 void gotoTop()
 {
 	HANDLE screen_buffer_handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -53,7 +68,9 @@ void gotoTop()
 	SetConsoleCursorPosition(screen_buffer_handle, coord);
 }
 
+// A function that make dilay.
 //=============================================================================
+// Input: dilay time (in seconds).
 void sleep(unsigned int mseconds)
 {
 	clock_t goal = mseconds + (clock());

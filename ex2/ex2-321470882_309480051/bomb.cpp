@@ -1,6 +1,11 @@
 // A class that reprisent bomb.
 
+//                               Include section
+//=============================================================================
 #include "bomb.h"
+
+//                               Function section
+//=============================================================================
 
 
 // Bomb class constractor
@@ -247,7 +252,7 @@ void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)	//TODO - Dobavit tiud.
 		{
 			int x_cord = _bombs[i]._coordinate._x;
 			int y_cord = _bombs[i]._coordinate._y;
-			//MAGIC
+			//MAGIC												//TODO
 			map[y_cord][x_cord] =  _bombs[i]._timer + 48;
 	
 		}
