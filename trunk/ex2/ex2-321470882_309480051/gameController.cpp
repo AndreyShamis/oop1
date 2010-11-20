@@ -51,8 +51,8 @@ void GameController::RestartGame()
 //	the game.
 void GameController::NewGame()
 {
-	_user1		= new Player();
-	_user2		= new Player();	
+	_user1		=	new Player();
+	_user2		=	new Player();	
 	_bombs		=	new Bomb();
 	_presents	=	new Surprise();
 
