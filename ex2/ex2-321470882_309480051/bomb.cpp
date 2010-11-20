@@ -1,3 +1,5 @@
+// A class that reprisent bomb.
+
 #include "bomb.h"
 
 
@@ -20,7 +22,7 @@ void Bomb::clearBombsAll()
 // A fanction that realize the implications of surpris on bombs.
 //=============================================================================
 // Input: type of surprise, map.
-void	Bomb::putSurpriseBomb(const short type,char map[][MAP_X])
+void Bomb::putSurpriseBomb(const short type,char map[][MAP_X])
 {
 	switch(type)
 	{
@@ -42,45 +44,65 @@ void	Bomb::putSurpriseBomb(const short type,char map[][MAP_X])
 	}	
 }
 
+// A function that increase timers of all boms. 
 //=============================================================================
-void	Bomb::increaaseTimer()
+void Bomb::increaaseTimer()
 {
+	// Loop through all bobs.
 	for (int i = 0; i < _bombCounter; i++)
 	{
+		// If current bomb timer is still activated - increase in 5 cycle.
 		if(_bombs[i]._timer >= 0)
 			_bombs[i]._timer +=5;
+
+		// If the increasing of bomb timer that was made befor set timer to be 
+		// biger then 9 - set bomb timer to be 9.
 		if(_bombs[i]._timer > 9)
 			_bombs[i]._timer = 9;
 	}	
 }
 
+// A fanction that blowup all bomb at the map.
 //=============================================================================
-void	Bomb::BlowUpAll()
+void Bomb::BlowUpAll()
 {
+	// Loop through all bobs.
 	for (int i = 0; i < _bombCounter; i++)
 	{
+		// Set curnt bomb timer to 0.
 		if(_bombs[i]._timer >= 0)
 			_bombs[i]._timer = 0;
 	}	
 }
 
+// A function that criate new bomb and put it at the map.
 //=============================================================================
+// Input: coordinate of new bomb.
+// Output:											depend on TODO.
 bool Bomb::putBomb(Vertex coordinate)
 {
+	// Difine new bomb  
 	Bomb_S temp_bomb;
 
+	// Set new bomb features.
 	temp_bomb._coordinate	=	coordinate;
 	temp_bomb._timer		=	START_TIME;
 	temp_bomb._alltime		=	START_TIME;
+
+	// add the new bomb to the vector of bobs.
 	_bombs.push_back(temp_bomb);
+
+	// Increase bombs counter.
 	_bombCounter++;
 	
-	return(true);
+	return(true);                                   // TODO
 }
 
+// A function that deccrease timers of all bombs.
 //=============================================================================
 void Bomb::bombTurn()
 {
+	// Loop through all bobs.
 	for (int i = 0; i < _bombCounter; i++)
 	{
 		_bombs[i]._timer	-=1;
@@ -89,23 +111,29 @@ void Bomb::bombTurn()
 	}
 }
 
+// A function that return bomb counter.         //TODO - chenge name.
 //=============================================================================
 int Bomb::bombCount()
 {
 	return(_bombCounter);
 }
 
+// A function that									//TODO
 //=============================================================================
+// Input: map, explosion coordinate, pointer to surprise object surp.
 void Bomb::BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp)
 {
-
+	
 	int x = BlowCoord._x -1; 
 	int y = BlowCoord._y -1;
+
+	
 	Vertex pres_cord;
 
+	// Loop integers.
 	int x1,y1;
 
-	for( x1 = x, y1 = y; x1 < x+3 && y1 < y+3; x1++,y1++)
+	for( x1 = x, y1 = y; x1 < x+3 && y1 < y+3; x1++, y1++)
 	{
 		if(x1 != BlowCoord._x && y1 != BlowCoord._y)
 		{
@@ -136,17 +164,25 @@ void Bomb::BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp)
 
 }
 
+// A fanction that erase the blowed-up bomb
 //=============================================================================
+// Input: map, explosion coordinate.
 void Bomb::EraseBlowUp(char map[][MAP_X],const Vertex &BlowCoord)
 {
+	// Erase bomb it self.
 	map[BlowCoord._y][BlowCoord._x] = LANE;
 
+	// Difine up-left coordiate of explosion.
 	int x = BlowCoord._x -1; 
 	int y = BlowCoord._y -1; ; 
+
+	// Loop integers.
 	int x1,y1;
 
+	// Loop though explosion erea.
 	for( x1 = x ,y1 = y;x1 < x+3 && y1 < y+3;x1++,y1++)
 	{
+		// If there is a fire sign - erase it.
 		if(x1 != BlowCoord._x && y1 != BlowCoord._y)
 		{
 			if(map[BlowCoord._y][x1] == FIRE )
@@ -159,16 +195,21 @@ void Bomb::EraseBlowUp(char map[][MAP_X],const Vertex &BlowCoord)
 
 }
 
+// A function that rundomly put bomb at map.
 //=============================================================================
+// Input: map.
 void Bomb::putRandom(char map[][MAP_X])
 {
+	// Difine temprorary coordinates
 	int x,y;
 
+	// Loop until we get coordinate of free space at map to put bomb.
 	while(true)
 	{
 		x = rand()%(MAP_X-2)+1;
 		y = rand()%(MAP_X-1)+1;
 
+		// If it is free space - put bomb.
 		if(map[y][x] == LANE)
 		{
 			Vertex coordinate;
@@ -181,12 +222,12 @@ void Bomb::putRandom(char map[][MAP_X])
 			continue;
 	}
 }
-
-//=============================================================================
 //	A function that draws the bombing, and also sets the time 
 //	on the map before the explosion for each bomb. After the 
 //	explosion the next move traces of the explosion is removed.
-void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)
+//=============================================================================
+// Input: map, pointer to surprise object surp.
+void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)	//TODO - Dobavit tiud.
 {
 	for (int i = 0; i < _bombCounter; i++)
 	{
@@ -213,28 +254,37 @@ void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)
 	}
 }
 
+// A function that check if the player is now on the bomb that will explode now
 //=============================================================================
-//check if the player is now on the bomb that will explode now
+// Input: coordinate of plaeyr.
+// Output:														 // TODO
 bool Bomb::checkExplodeBomb(const Vertex &user_cord)
 {
+	// Loop through all bobs.
 	for (int i = 0; i < _bombCounter; i++)
 	{
+		// Difine up-left coordinate to start chek curent bomb eplosion with 
+		// plaeyr.
 		int x = _bombs[i]._coordinate._x -1; 
 		int y = _bombs[i]._coordinate._y -1; 
 
+		// If curent bomb will blowup next turn - make a chek.
 		if(_bombs[i]._timer == 0)
 		{
 			for(int x1 = x; x1 < x+3; x1++)
-					if(x1 == user_cord._x && _bombs[i]._coordinate._y == user_cord._y )
+					if(x1 == user_cord._x && 
+						_bombs[i]._coordinate._y == user_cord._y )
+
 						return(true);
 
 			for(int y1 = y;y1 <y+3;y1++)
-					if(y1 == user_cord._y && _bombs[i]._coordinate._x == user_cord._x )
+					if(y1 == user_cord._y && 
+						_bombs[i]._coordinate._x == user_cord._x )
+
 						return(true);
 		}
 	}
-
-
 	return false;
+
 }
 
