@@ -1,11 +1,15 @@
 #include "bomb.h"
 
+
+// Bomb class constractor
 //=============================================================================
 Bomb::Bomb()
 {
+	// Set bomb couner to 0.
 	_bombCounter	=	0;
 }
 
+// A function that clear all boms from game fild and reset bomb counter.
 //=============================================================================
 void Bomb::clearBombsAll()
 {	
@@ -13,21 +17,27 @@ void Bomb::clearBombsAll()
 	_bombs.clear();
 }
 
+// A fanction that realize the implications of surpris on bombs.
 //=============================================================================
+// Input: type of surprise, map.
 void	Bomb::putSurpriseBomb(const short type,char map[][MAP_X])
 {
 	switch(type)
 	{
-	case BOMB_INC:
-		increaaseTimer();
-		break;
-	case BOMB_BLOW:
-		BlowUpAll();
-		break;
+		// Increase timers of all bobms.
+		case BOMB_INC:
+			increaaseTimer();
+			break;
 
-	case BOMB_RAND:
-		putRandom(map);
-		break;
+		// Blowup all bombs at the map.
+		case BOMB_BLOW:
+			BlowUpAll();
+			break;
+
+		// Randomly put bomb at map.
+		case BOMB_RAND:
+			putRandom(map);
+			break;
 
 	}	
 }
@@ -50,7 +60,7 @@ void	Bomb::BlowUpAll()
 	for (int i = 0; i < _bombCounter; i++)
 	{
 		if(_bombs[i]._timer >= 0)
-			_bombs[i]._timer =0;
+			_bombs[i]._timer = 0;
 	}	
 }
 
@@ -95,7 +105,7 @@ void Bomb::BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp)
 
 	int x1,y1;
 
-	for( x1 = x ,y1 = y;x1 < x+3 && y1 < y+3;x1++,y1++)
+	for( x1 = x, y1 = y; x1 < x+3 && y1 < y+3; x1++,y1++)
 	{
 		if(x1 != BlowCoord._x && y1 != BlowCoord._y)
 		{
@@ -214,7 +224,7 @@ bool Bomb::checkExplodeBomb(const Vertex &user_cord)
 
 		if(_bombs[i]._timer == 0)
 		{
-			for(int x1 = x;x1 <x+3;x1++)
+			for(int x1 = x; x1 < x+3; x1++)
 					if(x1 == user_cord._x && _bombs[i]._coordinate._y == user_cord._y )
 						return(true);
 
