@@ -5,4 +5,4 @@
 
 using namespace std;	// TODO
 
-void LoadMap(char map[][MAP_X]);
+bool LoadMap(char map[][MAP_X], char path[MAP_PATH_LEN]);

@@ -14,23 +14,35 @@ GameController::GameController()
 //	reload the map and user parameters.
 void GameController::RestartGame()
 {
-	LoadMap(_map_Game);
 
-	Vertex	user1_start, 
-			user2_start;
+	//	second parameter must be smaller then MAP_PATH_LEN
+	if(LoadMap(_map_Game,"map3.txt"))
+	{
+		Vertex	user1_start, 
+				user2_start;
 
-	user1_start._x	=	3;
-	user1_start._y	=	3;
-	user2_start._x	=	MAP_Y-3;
-	user2_start._y	=	MAP_X-3-1;
+		user1_start._x	=	3;
+		user1_start._y	=	3;
+		user2_start._x	=	MAP_Y-3;
+		user2_start._y	=	MAP_X-3-1;
 
-	_user1->setCoordinate( user1_start);
-	_user2->setCoordinate( user2_start);
+		_user1->setCoordinate( user1_start);
+		_user2->setCoordinate( user2_start);
 
-	_bombs->clearBombsAll();
-	_presents->deleteAllSuprise();
+		_bombs->clearBombsAll();
+		_presents->deleteAllSuprise();
 
-	_turnCounter	=	0;					//	SET TURN counter 
+		_turnCounter	=	0;					//	SET TURN counter 
+	}
+	else
+	{
+		std::cout	<< "\n\t\t\tWARNING !!!\n"
+					<< "\t\tGame map path incorrect!\n";
+		sleep(3000);
+		exit(EXIT_FAILURE);
+
+	}
+
 }
 
 //=============================================================================

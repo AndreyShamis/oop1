@@ -3,11 +3,11 @@
 #include <iostream>
 
 //=============================================================================
-void LoadMap(char map[][MAP_X])
+bool LoadMap(char map[][MAP_X], char path[MAP_PATH_LEN])
 {
 
 	ifstream myReadFile;
-	myReadFile.open("map3.txt");
+	myReadFile.open(path);
 
 	if (myReadFile.is_open()) 
 	{
@@ -20,7 +20,11 @@ void LoadMap(char map[][MAP_X])
 			counter++;
 		}
 	}
-
+	else
+	{
+		return(false);
+	}
 	myReadFile.close();
 
+	return(true);
 }
