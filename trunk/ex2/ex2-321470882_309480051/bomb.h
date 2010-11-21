@@ -54,6 +54,7 @@ public:
 	// A fanction that realize the implications of surpris on bombs.
 	void	putSurpriseBomb(const short type,char map[][MAP_X]);
 
+	bool	checkIfCellHaveBomb(const Vertex &cell);
 	
 private:
 
