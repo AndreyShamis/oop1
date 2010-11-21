@@ -1,5 +1,7 @@
-// A modul (class ////TODO) that reprisent drowing to the screen tasks.
-
+// A module  that reprisent drowing to the screen tasks.
+//	Module drawing maps on the screen.
+//	Output information about game see function desc
+//
 //                               Include section
 //=============================================================================
 #include <windows.h>

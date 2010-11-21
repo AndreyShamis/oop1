@@ -1,5 +1,4 @@
-// A class that reprisent surprise.
-
+//	A class that reprisent surprise.
 //                               Include section
 //=============================================================================
 #include "surprise.h"

@@ -1,5 +1,10 @@
 // A class that reprisent player.
-
+//	Class player. The entire logic of the player and the computer logic 
+//	is in that file. For better understanding see the description of 
+//	functions. It is worth noting that the class starts in two copies, 
+//	one for the player and one for the computer.
+//	There is also an interesting option to install the game between two 
+//	computers. This is done in the class gameController(see readme)
 #pragma once
 
 //                               Include section

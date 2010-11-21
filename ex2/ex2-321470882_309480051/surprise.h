@@ -1,5 +1,7 @@
-// A class that reprisent surprise.
-
+//		A class that reprisent surprise.
+//	Management class gifts in the game.
+//	The class runs in a single copy and keeps a database of 
+//	gifts in the form of a vector.
 //                               Include section
 //=============================================================================
 #include <stdlib.h>	// for rand

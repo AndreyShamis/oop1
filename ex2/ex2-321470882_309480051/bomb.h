@@ -1,4 +1,7 @@
 // A class that reprisent bomb.
+//	Management class bombs in the game.
+//	The class runs in a single copy and keeps a database 
+//	of bombs as a vector.
 
 #pragma once
 
