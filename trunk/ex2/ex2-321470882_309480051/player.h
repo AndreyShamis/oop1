@@ -76,6 +76,8 @@ private:
 	
 	bool checkEnemyinBombRaound();
 
+	short CompIntellect(const char map[][MAP_X],Bomb *bombs);
+
 
 //                              veribel section
 //=============================================================================

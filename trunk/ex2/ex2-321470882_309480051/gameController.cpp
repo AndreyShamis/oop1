@@ -16,14 +16,14 @@ void GameController::RestartGame()
 {
 
 	//	second parameter must be smaller then MAP_PATH_LEN
-	if(LoadMap(_map_Game,"map3.txt"))
+	if(LoadMap(_map_Game,"map2.txt"))
 	{
 		Vertex	user1_start, 
 				user2_start;
 
 		user1_start._x	=	3;
 		user1_start._y	=	3;
-		user2_start._x	=	MAP_X-3-1;
+		user2_start._x	=	MAP_X-4-1;
 		user2_start._y	=	MAP_Y-4;
 
 		_user1->setCoordinate( user1_start);

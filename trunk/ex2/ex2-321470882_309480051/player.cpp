@@ -79,44 +79,129 @@ void Player::giveNewTurn()
 	setPresent(0);			//	set don`t have any presents
 }
 
+//=============================================================================
 //	try to detect derection to enemy
+//	return derection
 short Player::getTurnCodeByDetectEnemy()
 {
+	//	get diference between coordinates
 	int derection_x = ((_enemyCord._x) - (_coordinate._x));
 	int derection_y = ((_enemyCord._y) - (_coordinate._y));
 
+	//	get the bigger difference
 	if(abs(derection_x) >=abs(derection_y))
 	{
-		if(derection_x<0 && _coordinate._x < _enemyCord._x)
-			return KEY_UP;
-		else
-			return KEY_DOWN;
-
-	}
-	else
-	{
-		if(derection_y<0 && _coordinate._y < _enemyCord._y)
+		//	select direction
+		if(_coordinate._x > _enemyCord._x)
 			return KEY_LEFT;
 		else
 			return KEY_RIGHT;
 
 	}
-	return 0;
+	else
+	{	//	select direction
+		if(_coordinate._y > _enemyCord._y)
+			return KEY_UP;
+		else
+			return KEY_DOWN;
+
+	}
+
+	//	else not happened
+	//	but if return zero
+	return (0);
 }
 
-
-
+//=============================================================================
+//	========== check if can put bomb and enemy can be blowed
+//	if yes return true
+//	else return false
+//	the parameter can be changed
 bool Player::checkEnemyinBombRaound()
 {
-	int derection_x = abs(_enemyCord._x) - abs(_coordinate._x);
-	int derection_y = abs(_enemyCord._y) - abs(_coordinate._y);
-
+	//	get the len between two players
+	int derection_x = _enemyCord._x - _coordinate._x;
+	int derection_y = _enemyCord._y - _coordinate._y;
+	
+	//	if the len smaller then 2 return true
 	if(abs(derection_x) < 2 &&  abs(derection_y) < 2)
 		return (true);
 
 	return (false);
+
 }
 
+short Player::CompIntellect(const char map[][MAP_X],Bomb *bombs)
+{
+	int turnCode;					//	variable be return
+
+	bool give = false;				//	to exit from while
+	bool try_detect_enemy = true;	//	try in cycle get intellect code
+	short int computer_trys = 15;	//	emergency exit
+	
+	_computerTryDetectEnemy++;		//	add to global try intellect
+
+	//	compter can try do turn only 15 
+	//	after this hi still stay
+	while(!give && computer_trys >0)
+	{
+		//	decrease trys
+		computer_trys--;
+		//	reset new coordinates
+		_newCoordinate = _coordinate;
+		//	get random code
+		turnCode	=	(rand()% 4) + 1	;
+
+		if(checkEnemyinBombRaound())//	check if player in araound
+			return(KEY_BOMB);
+		//	check if have barrel in arround and don`t have bombs
+		else if((map[_coordinate._y-1][_coordinate._x] == BARREL || 
+			map[_coordinate._y+1][_coordinate._x] == BARREL||
+			map[_coordinate._y][_coordinate._x-1] == BARREL ||
+			map[_coordinate._y][_coordinate._x+1] == BARREL) && 
+			!bombs->checkExplodeBomb(_coordinate,2) )
+			return(KEY_BOMB);
+		else if(try_detect_enemy && _computerTryDetectEnemy > 4)
+		{
+			//	
+			_computerTryDetectEnemy = 0;
+			//	get derection to enemy
+			int try_detect_code = getTurnCodeByDetectEnemy();
+			//	check Intellect corect		
+			if(!try_detect_code)	
+				try_detect_enemy = false;
+			else		//	if returned illegal code [1-4]
+				turnCode = try_detect_code;
+		}
+		
+		//	if returned illegal code [1-4] or rand
+		if(turnCode<5)
+		{
+			//	do logic to new coorinates
+			turnLogic(turnCode);
+			//	check on the map 
+			if(CheckCorrect(map,_newCoordinate))
+			{	
+				//	if correct turn
+				//	check if in next turn no bombs whith timer 1
+				if(bombs->checkExplodeBomb(_newCoordinate,1))
+					continue;	//	try another turn
+				else
+					give = true;//	do new turn
+			}
+			else	//	incorrect param
+				continue;
+
+		}
+		//	any else stay
+		give = true;
+		
+	}
+	//	sleep to give user see position
+	sleep(5);
+	//	return code
+	return(turnCode);
+}
 // A function that get turn derection from user.
 //=============================================================================
 // Input: map.	
@@ -126,58 +211,7 @@ int	Player::getInput(const char map[][MAP_X],Bomb *bombs)
 	//	computer logic
 	if(_computerPlayer)
 	{
-		int turnCode;
-		//int bomBrand;
-
-		bool give = false;	//	to exit from while
-		bool try_detect_enemy = true;
-		short int computer_trys = 15; // emergency exit
-		
-		_computerTryDetectEnemy++;
-
-		while(!give && computer_trys >0)
-		{
-			computer_trys--;
-			_newCoordinate = _coordinate;
-			turnCode	=	(rand()% 4) + 1	;
-
-			if(checkEnemyinBombRaound())//	check if player in araound
-				return(KEY_BOMB);			
-			else if((map[_coordinate._y-1][_coordinate._x] == BARREL || 
-				map[_coordinate._y+1][_coordinate._x] == BARREL||
-				map[_coordinate._y][_coordinate._x-1] == BARREL ||
-				map[_coordinate._y][_coordinate._x+1] == BARREL) && 
-				!bombs->checkExplodeBomb(_coordinate,2) )
-				return(KEY_BOMB);
-			else if(try_detect_enemy && _computerTryDetectEnemy > 3)
-			{
-				//	
-				_computerTryDetectEnemy = 0;
-				//	get derection to enemy
-				int try_detect_code = getTurnCodeByDetectEnemy();
-				if(!try_detect_code)
-					try_detect_enemy = false;
-				else
-					turnCode = try_detect_code;
-					//return(try_detect_code);//					turnLogic(try_detect_code);
-			}
-			
-			if(turnCode<5)
-			{
-
-				turnLogic(turnCode);
-				//	check on the map 
-				if(CheckCorrect(map,_newCoordinate))
-					give = true;
-				else
-					continue;
-
-			}
-			give = true;
-			
-		}
-		sleep(5);
-		return(turnCode);
+		return(CompIntellect(map,bombs));
 	}
 	//	player logic
 	return(GetTurn());
@@ -206,7 +240,11 @@ void Player::decLife()
 
 }
 
-
+//=============================================================================
+//	complite logic turn to new coordinates
+//	but the newcoordinates must be checked
+//	so it is not exactly new coordinates
+//	its temporary new coordinates
 void Player::turnLogic(const int &turnCode)
 {
 	//	turn logic
