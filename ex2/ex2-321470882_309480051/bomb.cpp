@@ -298,3 +298,18 @@ bool Bomb::checkExplodeBomb(const Vertex &user_cord, const int &intime)
 
 }
 
+//=============================================================================
+// Input: coordinate of cell.
+// Output:	return true if find bomb 
+bool Bomb::checkIfCellHaveBomb(const Vertex &cell)
+{
+	// Loop through all bobs.
+	for (int i = 0; i < _bombCounter; i++)
+	{
+		if(_bombs[i]._coordinate._x == cell._x 
+			&& _bombs[i]._coordinate._y == cell._y)
+			return(true);
+	}
+	return false;
+
+}
