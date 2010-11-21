@@ -157,10 +157,12 @@ short Player::CompIntellect(const char map[][MAP_X],Bomb *bombs)
 		//	get random code
 		turnCode	=	(rand()% 4) + 1	;
 
-		if(checkEnemyinBombRaound())//	check if player in araound
+		if(checkEnemyinBombRaound() 
+			&& !bombs->checkIfCellHaveBomb(_coordinate))//	check if player in araound
 			return(KEY_BOMB);
 		//	check if have barrel in arround and don`t have bombs
-		else if((map[_coordinate._y-1][_coordinate._x] == BARREL || 
+		else if(!bombs->checkIfCellHaveBomb(_coordinate) &&
+			(map[_coordinate._y-1][_coordinate._x] == BARREL || 
 			map[_coordinate._y+1][_coordinate._x] == BARREL||
 			map[_coordinate._y][_coordinate._x-1] == BARREL ||
 			map[_coordinate._y][_coordinate._x+1] == BARREL) && 
