@@ -79,9 +79,9 @@ void Player::giveNewTurn()
 	setPresent(0);			//	set don`t have any presents
 }
 
+// A function that try to detect derection to enemy.
 //=============================================================================
-//	try to detect derection to enemy
-//	return derection
+// Output: if success to detect - return derection, otherwise - retur false.
 short Player::getTurnCodeByDetectEnemy()
 {
 	//	get diference between coordinates
@@ -109,14 +109,15 @@ short Player::getTurnCodeByDetectEnemy()
 
 	//	else not happened
 	//	but if return zero
-	return (0);
+	return (false);
 }
 
+// A function that check if can put bomb and enemy can be blowed.
 //=============================================================================
-//	========== check if can put bomb and enemy can be blowed
-//	if yes return true
-//	else return false
-//	the parameter can be changed
+// Output: if yes return true
+// else return false.
+// ****  the parameter can be changed.
+// #### By chenging this parameter, we candifine the game Difficulty.
 bool Player::checkEnemyinBombRaound()
 {
 	//	get the len between two players
@@ -131,6 +132,10 @@ bool Player::checkEnemyinBombRaound()
 
 }
 
+// A function that performs computer intellect.
+//=============================================================================
+// Input: map, pointer to object of class bomb.
+// Output: return logic code that difine potential next turn of enemy.
 short Player::CompIntellect(const char map[][MAP_X],Bomb *bombs)
 {
 	int turnCode;					//	variable be return
@@ -204,7 +209,7 @@ short Player::CompIntellect(const char map[][MAP_X],Bomb *bombs)
 }
 // A function that get turn derection from user.
 //=============================================================================
-// Input: map.	
+// Input: map, pointer to object of class bomb.
 // Output: return turn derection.
 int	Player::getInput(const char map[][MAP_X],Bomb *bombs)
 {
@@ -224,6 +229,8 @@ short Player::getLife() const
 	return(_life);
 }
 
+// A function that set enemy coordinate.
+//=============================================================================
 void Player::setEnemyCord(Vertex cord)
 {
 	_enemyCord = cord;
@@ -240,11 +247,12 @@ void Player::decLife()
 
 }
 
+// A function that convert logic code of potential next step of computer 
+// player.
 //=============================================================================
-//	complite logic turn to new coordinates
-//	but the newcoordinates must be checked
-//	so it is not exactly new coordinates
-//	its temporary new coordinates
+// Input: logic code that difine potential next turn of enemy.
+// (complite logic turn to new coordinates but the newcoordinates must be 
+// checked so it is not exactly new coordinates, its potential new coordinates.
 void Player::turnLogic(const int &turnCode)
 {
 	//	turn logic

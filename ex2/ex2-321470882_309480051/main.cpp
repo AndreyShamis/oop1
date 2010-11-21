@@ -1,5 +1,5 @@
 /*
- * EX2:: GAME: BOMBER.
+ * EX2:: GAME: BOMBER MAN.
  *
  * 
  * 
