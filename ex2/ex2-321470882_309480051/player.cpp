@@ -370,7 +370,7 @@ bool Player::CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate)
 
 	//	check if this empty space
 	//	or present 
-	if(value == LANE || value == PRESENT || value ==FIRE)
+	if(value == LANE || value == PRESENT || value == FIRE)
 		return true;
 
 	return false;
