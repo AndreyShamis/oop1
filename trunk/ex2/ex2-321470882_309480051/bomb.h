@@ -38,7 +38,7 @@ public:
 	// A function that deccrease timers of all bombs.
 	void	bombTurn();
 
-	// A function that return bomb counter.         //TODO - chenge name.
+	// A function that return bomb counter.         
 	int		bombCount();
 
 	//	A function that draws the bombing.
@@ -57,7 +57,7 @@ public:
 	
 private:
 
-	// A function that									//TODO
+	// A function that drow bombs blowup end erease the fire from map
 	void	BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp);
 
 	// A function that increase timers of all boms. 

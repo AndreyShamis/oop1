@@ -68,7 +68,7 @@ void Surprise::DrowSurprise(char map[][MAP_X])
 // A function that delete surprise from vector of surprises.
 //=============================================================================
 // Input: coordinate of surprise that need to be delete.
-// Output:         //TODO
+// Output:  present type it was
 short Surprise::deleteSuprise(const Vertex &cord)
 {
 	int present_type = 0;

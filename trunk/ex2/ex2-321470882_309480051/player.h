@@ -91,7 +91,8 @@ private:
 	bool		_alive;			// Difine if the player is alive.
 	char		_userSymbol;	// Difine player Symbol.
 	short int	_life;			// Difine life counter.
-	short int	_presentGeted;	//														//TODO
+	short int	_presentGeted;	// The type of presnt which was geted 
+								//	in last time
 	
 	int			_computerTryDetectEnemy;
 

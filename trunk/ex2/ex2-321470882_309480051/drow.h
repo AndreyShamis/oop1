@@ -10,7 +10,7 @@
 #include "config.h"
 
 
-using namespace std;	// TODO
+using namespace std;
 
 
 //                               Function section

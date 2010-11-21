@@ -83,7 +83,9 @@ void Bomb::BlowUpAll()
 // A function that criate new bomb and put it at the map.
 //=============================================================================
 // Input: coordinate of new bomb.
-// Output:											depend on TODO.
+// Output: return true if bomb was puted
+//	But it is every time return true
+//	it need for future, for example if player can have maximum only 2 bombs
 bool Bomb::putBomb(Vertex coordinate)
 {
 	// Difine new bomb  
@@ -100,7 +102,7 @@ bool Bomb::putBomb(Vertex coordinate)
 	// Increase bombs counter.
 	_bombCounter++;
 	
-	return(true);                                   // TODO
+	return(true);
 }
 
 // A function that deccrease timers of all bombs.
@@ -116,14 +118,14 @@ void Bomb::bombTurn()
 	}
 }
 
-// A function that return bomb counter.         //TODO - chenge name.
+// A function that return bomb counter.
 //=============================================================================
 int Bomb::bombCount()
 {
 	return(_bombCounter);
 }
 
-// A function that									//TODO
+// A function that drow on map the fire and erese him from map
 //=============================================================================
 // Input: map, explosion coordinate, pointer to surprise object surp.
 void Bomb::BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp)
@@ -232,27 +234,29 @@ void Bomb::putRandom(char map[][MAP_X])
 //	explosion the next move traces of the explosion is removed.
 //=============================================================================
 // Input: map, pointer to surprise object surp.
-void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)	//TODO - Dobavit tiud.
+void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)	
 {
+	//	for number bombs
 	for (int i = 0; i < _bombCounter; i++)
-	{
+	{	//	check if bomb was puted in this turn cycle
 		if(_bombs[i]._timer == START_TIME && _bombs[i]._alltime == START_TIME)
 			map[_bombs[i]._coordinate._y][_bombs[i]._coordinate._x] = 'B';
 		else if(_bombs[i]._timer == 0)
-		{
+		{	//	drow fire on map
 			BlowUp(map,_bombs[i]._coordinate,surp);	
 		}
 		else if(_bombs[i]._timer < 0)
-		{
+		{	//	clear fire from the map
 			EraseBlowUp(map,_bombs[i]._coordinate);	//	erase * from map
 			_bombs.erase(_bombs.begin()+i);		//	delete this bomb
 			_bombCounter--;						//	decrease counter
 		}
 		else
 		{
+			//	temp variables
 			int x_cord = _bombs[i]._coordinate._x;
 			int y_cord = _bombs[i]._coordinate._y;
-			//MAGIC												//TODO
+			//	ascii logic
 			map[y_cord][x_cord] =  _bombs[i]._timer + 48;
 	
 		}
@@ -262,7 +266,8 @@ void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)	//TODO - Dobavit tiud.
 // A function that check if the player is now on the bomb that will explode now
 //=============================================================================
 // Input: coordinate of plaeyr.
-// Output:														 // TODO
+//	time of bomb: becose it is used in computer intellect function
+// Output:	return true if find bomb 
 bool Bomb::checkExplodeBomb(const Vertex &user_cord, const int &intime)
 {
 	// Loop through all bobs.
