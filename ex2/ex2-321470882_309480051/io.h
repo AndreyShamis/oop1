@@ -14,8 +14,9 @@
 
 int GetTurn();	//Get turn function.
 
-
-char getChar();																	//TODO
+//	geting char used in player when the game is over
+//	and for show last time tu user the map
+char getChar();
 
 
 bool questionMess();	// Afunction that ask user if he want to exit the game.

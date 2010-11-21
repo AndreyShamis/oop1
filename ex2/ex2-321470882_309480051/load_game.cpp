@@ -12,8 +12,8 @@
 
 // A function that load from txt file, map of the game.
 //=============================================================================
-// Input: 2D char array,															//TODO
-/// Output: true if the map load was secsesful.
+// Input: array to put map , and path to map file															
+// Output: true if the map load was secsesful.
 bool LoadMap(char map[][MAP_X], char path[MAP_PATH_LEN])
 {
 	// Open file.
