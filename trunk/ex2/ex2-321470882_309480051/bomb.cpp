@@ -263,7 +263,7 @@ void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)	//TODO - Dobavit tiud.
 //=============================================================================
 // Input: coordinate of plaeyr.
 // Output:														 // TODO
-bool Bomb::checkExplodeBomb(const Vertex &user_cord)
+bool Bomb::checkExplodeBomb(const Vertex &user_cord, const int &intime)
 {
 	// Loop through all bobs.
 	for (int i = 0; i < _bombCounter; i++)
@@ -274,7 +274,7 @@ bool Bomb::checkExplodeBomb(const Vertex &user_cord)
 		int y = _bombs[i]._coordinate._y -1; 
 
 		// If curent bomb will blowup next turn - make a chek.
-		if(_bombs[i]._timer == 0)
+		if(_bombs[i]._timer < intime)
 		{
 			for(int x1 = x; x1 < x+3; x1++)
 					if(x1 == user_cord._x && 

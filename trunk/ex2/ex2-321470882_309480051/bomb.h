@@ -49,7 +49,7 @@ public:
 
 	// A function that check if the player is now on the bomb that will explode
 	// now
-	bool	checkExplodeBomb(const Vertex &user_cord);
+	bool	checkExplodeBomb(const Vertex &user_cord, const int &intime);
 
 	// A fanction that realize the implications of surpris on bombs.
 	void	putSurpriseBomb(const short type,char map[][MAP_X]);
