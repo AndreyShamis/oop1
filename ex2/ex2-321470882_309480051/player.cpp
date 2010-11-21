@@ -18,6 +18,7 @@ Player::Player()
 	setPresent(0);				// set unset presents have
 	
 	//	rand for computer player
+	_computerTryDetectEnemy = 0;
 	srand ((int)(time(0)));		// rand for computer turns
 
 
@@ -78,23 +79,104 @@ void Player::giveNewTurn()
 	setPresent(0);			//	set don`t have any presents
 }
 
+//	try to detect derection to enemy
+short Player::getTurnCodeByDetectEnemy()
+{
+	int derection_x = ((_enemyCord._x) - (_coordinate._x));
+	int derection_y = ((_enemyCord._y) - (_coordinate._y));
+
+	if(abs(derection_x) >=abs(derection_y))
+	{
+		if(derection_x<0 && _coordinate._x < _enemyCord._x)
+			return KEY_UP;
+		else
+			return KEY_DOWN;
+
+	}
+	else
+	{
+		if(derection_y<0 && _coordinate._y < _enemyCord._y)
+			return KEY_LEFT;
+		else
+			return KEY_RIGHT;
+
+	}
+	return 0;
+}
+
+
+
+bool Player::checkEnemyinBombRaound()
+{
+	int derection_x = abs(_enemyCord._x) - abs(_coordinate._x);
+	int derection_y = abs(_enemyCord._y) - abs(_coordinate._y);
+
+	if(abs(derection_x) < 2 &&  abs(derection_y) < 2)
+		return (true);
+
+	return (false);
+}
+
 // A function that get turn derection from user.
 //=============================================================================
 // Input: map.	
 // Output: return turn derection.
-int	Player::getInput(const char map[][MAP_X])
+int	Player::getInput(const char map[][MAP_X],Bomb *bombs)
 {
 	//	computer logic
 	if(_computerPlayer)
 	{
-		int turnCode	=	(rand()% 5) + 1	;
-		int bomBrand    =	(rand()% 2) + 1	;
+		int turnCode;
+		//int bomBrand;
 
-		if(bomBrand == 2 && turnCode == 5)
-			turnCode	=	(rand()% 4) + 1;
+		bool give = false;	//	to exit from while
+		bool try_detect_enemy = true;
+		short int computer_trys = 15; // emergency exit
 		
-		sleep(50);
+		_computerTryDetectEnemy++;
 
+		while(!give && computer_trys >0)
+		{
+			computer_trys--;
+			_newCoordinate = _coordinate;
+			turnCode	=	(rand()% 4) + 1	;
+
+			if(checkEnemyinBombRaound())//	check if player in araound
+				return(KEY_BOMB);			
+			else if((map[_coordinate._y-1][_coordinate._x] == BARREL || 
+				map[_coordinate._y+1][_coordinate._x] == BARREL||
+				map[_coordinate._y][_coordinate._x-1] == BARREL ||
+				map[_coordinate._y][_coordinate._x+1] == BARREL) && 
+				!bombs->checkExplodeBomb(_coordinate,2) )
+				return(KEY_BOMB);
+			else if(try_detect_enemy && _computerTryDetectEnemy > 3)
+			{
+				//	
+				_computerTryDetectEnemy = 0;
+				//	get derection to enemy
+				int try_detect_code = getTurnCodeByDetectEnemy();
+				if(!try_detect_code)
+					try_detect_enemy = false;
+				else
+					turnCode = try_detect_code;
+					//return(try_detect_code);//					turnLogic(try_detect_code);
+			}
+			
+			if(turnCode<5)
+			{
+
+				turnLogic(turnCode);
+				//	check on the map 
+				if(CheckCorrect(map,_newCoordinate))
+					give = true;
+				else
+					continue;
+
+			}
+			give = true;
+			
+		}
+		sleep(5);
 		return(turnCode);
 	}
 	//	player logic
@@ -108,6 +190,11 @@ short Player::getLife() const
 	return(_life);
 }
 
+void Player::setEnemyCord(Vertex cord)
+{
+	_enemyCord = cord;
+}
+
 // A function that decrease life counter.
 //=============================================================================
 void Player::decLife()
@@ -119,18 +206,9 @@ void Player::decLife()
 
 }
 
-// A function that make player turn.
-//=============================================================================
-// Input: map, pointer to object bomb, pointer to object surprise, exit status.
-void Player::Turn(char map[][MAP_X], Bomb *bombs, Surprise *surp, bool &exit)
+
+void Player::turnLogic(const int &turnCode)
 {
-	int		turnCode;
-
-	turnCode = getInput(map);
-
-	//	set new coordinate be real coordinate
-	_newCoordinate	=	_coordinate;	
-
 	//	turn logic
 	if(turnCode == KEY_UP && _coordinate._y-1 > 0)
 		_newCoordinate._y--;
@@ -140,6 +218,21 @@ void Player::Turn(char map[][MAP_X], Bomb *bombs, Surprise *surp, bool &exit)
 		_newCoordinate._x--;
 	else if(turnCode == KEY_RIGHT && _coordinate._x+1 < MAP_X-1)
 		_newCoordinate._x++;
+}
+// A function that make player turn.
+//=============================================================================
+// Input: map, pointer to object bomb, pointer to object surprise, exit status.
+void Player::Turn(char map[][MAP_X], Bomb *bombs, Surprise *surp, bool &exit)
+{
+	int		turnCode;
+
+	turnCode = getInput(map,bombs);
+
+	//	set new coordinate be real coordinate
+	_newCoordinate	=	_coordinate;	
+
+	if(turnCode > 0 && turnCode <5)
+		turnLogic(turnCode);
 	else if(turnCode ==	KEY_BOMB && _haveBomb)
 	{
 		//	bomb logic
@@ -179,7 +272,7 @@ void Player::Turn(char map[][MAP_X], Bomb *bombs, Surprise *surp, bool &exit)
 	}
 
 	//	check if user in aproximity to a blowup
-	if(bombs->checkExplodeBomb(_coordinate))
+	if(bombs->checkExplodeBomb(_coordinate,0))
 		decLife();	//	if yes decrease life
 	
 }

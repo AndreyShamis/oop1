@@ -50,6 +50,7 @@ public :
 	// A function that get which present user get-have.
 	short	getPresent() const;
 	
+	void setEnemyCord(Vertex cord);
 	// A function that drow on map the user. 
 	void	drowOnMap(char map[][MAP_X]);
 
@@ -57,8 +58,10 @@ public :
 	
 private:
 
+	void turnLogic(const int &turnCode);
+
 	// A function that get turn derection from user.
-	int		getInput(const char map[][MAP_X]);
+	int		getInput(const char map[][MAP_X],Bomb *bombs);
 
 	// A function that decrease life counter.
 	void	decLife();	
@@ -69,12 +72,17 @@ private:
 	// A function that check if new coordinates is correct 
 	bool	CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate);
 
+	short getTurnCodeByDetectEnemy();
+	
+	bool checkEnemyinBombRaound();
+
 
 //                              veribel section
 //=============================================================================
 
 	Vertex		_coordinate;	// curent step.
 	Vertex		_newCoordinate; // next step.
+	Vertex		_enemyCord;
 	bool		_haveBomb;		// Difine bomb.
 	bool		_haveTurn;		// Difine howes Turn.
 	bool		_computerPlayer; // Difine if the player is computer.
@@ -83,5 +91,6 @@ private:
 	short int	_life;			// Difine life counter.
 	short int	_presentGeted;	//														//TODO
 	
+	int			_computerTryDetectEnemy;
 
 };
