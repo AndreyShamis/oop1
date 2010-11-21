@@ -284,7 +284,8 @@ void Player::Turn(char map[][MAP_X], Bomb *bombs, Surprise *surp, bool &exit)
 	else if(turnCode ==	KEY_BOMB && _haveBomb)
 	{
 		//	bomb logic
-		if(map[_coordinate._y][_coordinate._x] != BOMB)
+		//if(map[_coordinate._y][_coordinate._x] != BOMB)
+		if(!bombs->checkIfCellHaveBomb(_coordinate))
 		{
 			//	put bomb to bomb database
 			bombs->putBomb(_coordinate);
@@ -320,7 +321,7 @@ void Player::Turn(char map[][MAP_X], Bomb *bombs, Surprise *surp, bool &exit)
 	}
 
 	//	check if user in aproximity to a blowup
-	if(bombs->checkExplodeBomb(_coordinate,0))
+	if(bombs->checkExplodeBomb(_coordinate,1))
 		decLife();	//	if yes decrease life
 	
 }
