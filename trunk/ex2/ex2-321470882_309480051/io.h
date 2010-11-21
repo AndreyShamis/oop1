@@ -1,5 +1,6 @@
 // A modul that manage input and output.
-
+//	Module to work with user input .
+//	Main function GetTurn, return game vector parameter
 #pragma once
 
 //                               Include section

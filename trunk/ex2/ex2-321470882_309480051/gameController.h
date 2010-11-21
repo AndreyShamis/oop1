@@ -1,3 +1,10 @@
+//	Game CONTROLLER
+//	This class is the heart of the game. The class is able to download the 
+//	game and while some may be a player runs out three lives is the game 
+//	cycle. After that displays a menu where you can leave the game or start
+//	a new game.
+//
+//=============================================================================
 #pragma once
 #include "config.h"
 #include "io.h"
@@ -8,26 +15,28 @@
 #include "surprise.h"
 
 
+//	Game controller class
 class GameController
 {
 public:		
-		GameController();
-		void	Menu();
+		GameController();				//	constructor
+		void	Menu();					//	menu called from main
 private:
-		Player		*_user1;
-		Player		*_user2;
+		Player		*_user1;			//	player structure
+		Player		*_user2;			//	player 2 structure
 
-		void	RestartGame();
-		void	PrintMenu();
-		void	NewGame();
-		void	PrintGameResult();
+		void	RestartGame();			//	rload game
+		void	PrintMenu();			//	print menu
+		void	NewGame();				//	do new game
+		void	PrintGameResult();		//	printing gmae rsult
+		//	check if need reload nnew game
 		void	reloadGameChek(const int &us1_l,const int &us2_l);
-		void	Play();
-		void	clearMemory();
+		void	Play();					//	play function to start game cycle
+		void	clearMemory();			//	clear used db structure
 
-		char			_map_Game[MAP_Y][MAP_X];
-		bool			_exitGame;
-		Bomb			*_bombs;
-		Surprise		*_presents;
-		unsigned int	_turnCounter;
+		char			_map_Game[MAP_Y][MAP_X];	//	map structure
+		bool			_exitGame;					//	bool if need to exit
+		Bomb			*_bombs;					//	bombs structure
+		Surprise		*_presents;					//	surprise structure
+		unsigned int	_turnCounter;				//	turn counter
 };

@@ -1,5 +1,4 @@
-// A class that reprisent bomb.
-
+//			A class that reprisent bomb.
 //                               Include section
 //=============================================================================
 #include "bomb.h"

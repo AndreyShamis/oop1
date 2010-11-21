@@ -1,5 +1,8 @@
-// A modul that load game maps from txt file.
-
+//				A modul that load game maps from txt file.
+//	The function module is responsible for downloading maps from a 
+//	text file on disk in an array of characters who receives, 
+//	who also returns to the same function.
+//
 //                               Include section
 //=============================================================================
 #include "config.h"
