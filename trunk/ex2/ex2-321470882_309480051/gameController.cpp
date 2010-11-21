@@ -23,8 +23,8 @@ void GameController::RestartGame()
 
 		user1_start._x	=	3;
 		user1_start._y	=	3;
-		user2_start._x	=	MAP_X-4-1;
-		user2_start._y	=	MAP_Y-4;
+		user2_start._x	=	MAP_X-3-1;
+		user2_start._y	=	MAP_Y-3;
 
 		_user1->setCoordinate( user1_start);
 		_user2->setCoordinate( user2_start);
@@ -59,7 +59,7 @@ void GameController::NewGame()
 	_exitGame	=	false;
 
 	//	Initialize setings for first player
-	_user1->setIfComputer(true);			//	Not computer
+	_user1->setIfComputer(false);			//	Not computer
 	_user1->setAlive(true);					//	Have lifes
 	_user1->setUserSymbol('P');				//	show on map LIKE P
 
@@ -153,10 +153,10 @@ void GameController::Play()
 		_user1->Turn(_map_Game,_bombs,_presents,_exitGame);
 		if(_exitGame)
 			break;
+
+
 		_bombs->DrowBomb(_map_Game,_presents);
 		_user2->setEnemyCord(_user1->getCoordinate());
-		
-
 
 		//	Get turn from secons user
 		_user2->Turn(_map_Game,_bombs,_presents,_exitGame);
