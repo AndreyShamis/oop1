@@ -5,6 +5,7 @@
 // map limits:
 #define MAP_X 21	
 #define MAP_Y 20
+//	this file include all constants used in program
 
 // Define sign on map:
 #define PRESENT '$'	
