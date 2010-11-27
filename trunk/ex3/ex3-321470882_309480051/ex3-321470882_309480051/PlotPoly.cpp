@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <windows.h>
 #include <GL/gl.h>
-#include <GL/glut.h>
+#include "glut.h"
 #include <cmath>
 #include "Poly.h"
 #include "Vertex.h"
