@@ -44,7 +44,7 @@ private:
 //                              veribel section
 //=============================================================================
 
-	std::vector <Monom> polinom;	
+	std::vector <Monom> polynom;	
 
 
 };
