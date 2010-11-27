@@ -28,7 +28,7 @@ public:
 	Poly(); // Defaul constractor
 	Poly(Poly *otherPoly); // Copy constractor.
 	Poly(double &scal);
-	Poly(double X[], double Y[], int n);
+	//Poly(double X[], double Y[], int n);
 
 
 private:

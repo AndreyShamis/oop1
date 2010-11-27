@@ -10,7 +10,10 @@
 
 // Poly class constractor
 //=============================================================================
-//Poly::Poly()
+Poly::Poly()
+{
+	;
+}
 
 // Copy constractor
 Poly::Poly(double coeffs[], unsigned int arrSize)
@@ -110,13 +113,13 @@ Poly Poly::operator+(Poly *otherPoly)
 	return (sumPoly);
 
 }
-
-// Relouded of operator "+=" for class poly.
-Poly Poly::operator+=(Poly *otherPoly)
-{
-	return(this + *otherPoly);
-}
-
+//
+//// Relouded of operator "+=" for class poly.
+//Poly Poly::operator+=(Poly *otherPoly)
+//{
+//	return (this + *otherPoly);
+//}
+//
 // Relouded of operator "=" for class poly.
 Poly Poly::operator=(Poly *otherPoly)
 {
@@ -124,39 +127,39 @@ Poly Poly::operator=(Poly *otherPoly)
 
 	return *this;
 }
-
-// Relouded of operator "*" for class poly.
-Poly Poly::operator*(Poly *otherPoly)
-{
-	Poly sumPoly = Poly();
-	Poly mulMonom = Poly();
-
-	Monom tempMonom;
-
-	for(int thisIndex = 0; thisIndex < (int)polynom.size(); thisIndex++)
-	{
-		for(int otherindex = 0; otherindex < (int)otherPoly->polynom.size(); 
-			otherindex++)
-		{
-			tempMonom.power = polynom[thisIndex].power + 
-							  otherPoly->polynom[otherindex].power;
-
-			tempMonom.scalar = polynom[thisIndex].scalar *
-							   otherPoly->polynom[otherindex].scalar;
-
-			mulMonom.polynom.push_back(tempMonom);
-
-			sumPoly += mulMonom;
-		}
-	}
-	return (sumPoly);
-
-}
-
-// Relouded of operator "*=" for class poly.
-Poly Poly::operator*=(Poly *otherPoly)
-{
-	return(this * *otherPoly);
-}
-
-//Poly Poly::operator<<(Poly *otherPoly)				//TODO
+//
+//// Relouded of operator "*" for class poly.
+//Poly Poly::operator*(Poly *otherPoly)
+//{
+//	Poly sumPoly = Poly();
+//	Poly mulMonom = Poly();
+//
+//	Monom tempMonom;
+//
+//	for(int thisIndex = 0; thisIndex < (int)polynom.size(); thisIndex++)
+//	{
+//		for(int otherindex = 0; otherindex < (int)otherPoly->polynom.size(); 
+//			otherindex++)
+//		{
+//			tempMonom.power = polynom[thisIndex].power + 
+//							  otherPoly->polynom[otherindex].power;
+//
+//			tempMonom.scalar = polynom[thisIndex].scalar *
+//							   otherPoly->polynom[otherindex].scalar;
+//
+//			mulMonom.polynom.push_back(tempMonom);
+//
+//			sumPoly += mulMonom;
+//		}
+//	}
+//	return (sumPoly);
+//
+//}
+//
+//// Relouded of operator "*=" for class poly.
+//Poly Poly::operator*=(Poly *otherPoly)
+//{
+//	return(this * *otherPoly);
+//}
+//
+////Poly Poly::operator<<(Poly *otherPoly)				//TODO
