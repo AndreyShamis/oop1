@@ -10,7 +10,7 @@
 
 // Poly class constractor
 //=============================================================================
-Poly::Poly()
+//Poly::Poly()
 
 // Copy constractor
 Poly::Poly(double coeffs[], unsigned int arrSize)
@@ -30,13 +30,13 @@ Poly::Poly(double coeffs[], unsigned int arrSize)
 }
 
 // Copy constractor.
-Poly::Poly(Poly *otherPoly)
-{
-	polinom.push_back(otherPoly->polinom);
-}
+//Poly::Poly(Poly *otherPoly)
+//{
+//	polinom.push_back(otherPoly->polinom);
+//}
 
 // Scalar polinom constractor 
-Poly::poly(double &scal)
+Poly::Poly(double &scal)
 {
 	Monom tempMonom;
 
