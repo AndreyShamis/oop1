@@ -24,18 +24,18 @@ Poly::Poly(double coeffs[], unsigned int arrSize)
 			tempMonom.scalar = coeffs[i];
 			tempMonom.power = arrSize - i - 1;
 
-			polinom.push_back (tempMonom);
+			polynom.push_back (tempMonom);
 		}
 	}	
 }
 
 // Copy constractor.
-//Poly::Poly(Poly *otherPoly)
-//{
-//	polinom.push_back(otherPoly->polinom);
-//}
+Poly::Poly(Poly *otherPoly)
+{
+	polynom.push_back(otherPoly->polynom);
+}
 
-// Scalar polinom constractor 
+// Scalar polynom constractor 
 Poly::Poly(double &scal)
 {
 	Monom tempMonom;
@@ -43,7 +43,7 @@ Poly::Poly(double &scal)
 	tempMonom.scalar = scal;
 	tempMonom.power = 0;
 
-	polinom.push_back(tempMonom);
+	polynom.push_back(tempMonom);
 }
 
 //Poly::Poly(double X[], double Y[], int n)
@@ -69,14 +69,14 @@ Poly Poly::operator+(Poly *otherPoly)
 
 	int thisIndex = 0, otherIndex = 0;
 
-	while(thisIndex < polynom.size() && otherIndex < otherPoly->polynom.size())
+	while(thisIndex < (int)polynom.size() && otherIndex < (int)otherPoly->polynom.size())
 	{
-		if(polinom[thisIndex].power > otherPoly->polynom[otherIndex].power)
+		if(polynom[thisIndex].power > otherPoly->polynom[otherIndex].power)
 		{
 			sumPoly.polynom.push_back(polynom[thisIndex]);
 			thisIndex ++;
 		}
-		else if(polynom[thisIndex].power < otherPoly.polynom[otherIndex].power)
+		else if(polynom[thisIndex].power < otherPoly->polynom[otherIndex].power)
 		{
 			sumPoly.polynom.push_back(otherPoly->polynom[otherIndex]);
 			otherIndex ++;
@@ -94,13 +94,13 @@ Poly Poly::operator+(Poly *otherPoly)
 		}
 	}
 
-	while(thisIndex < polinom.lenth)
+	while(thisIndex < (int)polynom.size())
 	{
-		sumPoly.polynom.push_back(polinom[thisIndex]);
+		sumPoly.polynom.push_back(polynom[thisIndex]);
 
 		thisIndex ++;
 	}
-	while(otherindex < otherPoly.polynom.lenth)
+	while(otherIndex < (int)otherPoly->polynom.size())
 	{
 		sumPoly.polynom.push_back(otherPoly->polynom[otherIndex]);
 
@@ -132,9 +132,9 @@ Poly Poly::operator*(Poly *otherPoly)
 
 	Monom tempMonom;
 
-	for(int thisIndex = 0; thisIndex < polinom.size(); thisIndex++)
+	for(int thisIndex = 0; thisIndex < (int)polynom.size(); thisIndex++)
 	{
-		for(int otherindex = 0; otherindex < otherPoly->polynom.size(); 
+		for(int otherindex = 0; otherindex < (int)otherPoly->polynom.size(); 
 			otherindex++)
 		{
 			tempMonom.power = polynom[thisIndex].power + 
@@ -147,7 +147,7 @@ Poly Poly::operator*(Poly *otherPoly)
 
 			sumPolynom += mulMonom;
 		}
-
+	}
 }
 
 // Relouded of operator "*=" for class poly.
