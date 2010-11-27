@@ -32,7 +32,7 @@ Poly::Poly(double coeffs[], unsigned int arrSize)
 // Copy constractor.
 Poly::Poly(Poly *otherPoly)
 {
-	polynom.push_back(otherPoly->polynom);
+	polynom = otherPoly->polynom;
 }
 
 // Scalar polynom constractor 
@@ -85,8 +85,9 @@ Poly Poly::operator+(Poly *otherPoly)
 		{
 			Monom tempMonom;
 
-			tempMonom.scalar = polynom.skalar + otherPoly->polynom.skalar;
-			tempMonom.power = polynom.power;
+			tempMonom.scalar = polynom[thisIndex].scalar + 
+							   otherPoly->polynom[otherIndex].scalar;
+			tempMonom.power = polynom[thisIndex].power;
 			sumPoly.polynom.push_back(tempMonom );
 
 			thisIndex ++;
@@ -113,7 +114,7 @@ Poly Poly::operator+(Poly *otherPoly)
 // Relouded of operator "+=" for class poly.
 Poly Poly::operator+=(Poly *otherPoly)
 {
-	return(*this + *otherPoly);
+	return(this + *otherPoly);
 }
 
 // Relouded of operator "=" for class poly.
@@ -145,15 +146,17 @@ Poly Poly::operator*(Poly *otherPoly)
 
 			mulMonom.polynom.push_back(tempMonom);
 
-			sumPolynom += mulMonom;
+			sumPoly += mulMonom;
 		}
 	}
+	return (sumPoly);
+
 }
 
 // Relouded of operator "*=" for class poly.
 Poly Poly::operator*=(Poly *otherPoly)
 {
-	return(*this * *otherPoly);
+	return(this * *otherPoly);
 }
 
 //Poly Poly::operator<<(Poly *otherPoly)				//TODO
