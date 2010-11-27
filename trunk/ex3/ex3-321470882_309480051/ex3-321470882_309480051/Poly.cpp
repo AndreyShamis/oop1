@@ -10,7 +10,7 @@
 
 // Poly class constractor
 //=============================================================================
-Poly::Poly()
+//Poly::Poly()
 
 // Copy constractor
 Poly::Poly(double coeffs[], unsigned int arrSize)
@@ -155,4 +155,4 @@ Poly Poly::operator*=(Poly *otherPoly)
 	return(*this * *otherPoly);
 }
 
-Poly Poly::operator<<(Poly *otherPoly)
+//Poly Poly::operator<<(Poly *otherPoly)				//TODO
