@@ -25,10 +25,11 @@ Poly::Poly(double coeffs[], unsigned int arrSize)
 			tempMonom.power = arrSize - i - 1;
 
 			polinom.push_back (tempMonom);
+		}
 	}	
 }
 
-// Constractor
+// Copy constractor.
 Poly::Poly(Poly *otherPoly)
 {
 	polinom.push_back(otherPoly->polinom);
@@ -68,14 +69,14 @@ Poly Poly::operator+(Poly *otherPoly)
 
 	int thisIndex = 0, otherIndex = 0;
 
-	while(thisIndex < polinom.size() && otherindex < otherPoly->polynom.size())
+	while(thisIndex < polynom.size() && otherindex < otherPoly->polynom.size())
 	{
 		if(polinom[thisIndex].power > otherPoly->polynom[otherindex].power)
 		{
-			sumPoly.polynom.push_back(polinom[thisIndex]);
+			sumPoly.polynom.push_back(polynom[thisIndex]);
 			thisIndex ++;
 		}
-		else if(polinom[thisIndex].power < otherPoly.polynom[otherindex].power)
+		else if(polynom[thisIndex].power < otherPoly.polynom[otherindex].power)
 		{
 			sumPoly.polynom.push_back(otherPoly->polynom[otherIndex]);
 			otherIndex ++;
@@ -84,7 +85,7 @@ Poly Poly::operator+(Poly *otherPoly)
 		{
 			Monom tempMonom;
 
-			tempMonom.scalar = polinom.skalar + otherPoly->polinom.skalar;
+			tempMonom.scalar = polynom.skalar + otherPoly->polynom.skalar;
 			tempMonom.power = polynom.power;
 			sumPoly.polynom.push_back(tempMonom );
 
