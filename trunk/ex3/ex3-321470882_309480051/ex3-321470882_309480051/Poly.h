@@ -25,7 +25,7 @@ class Poly
 public:
 
 	Poly(double coeffs[], unsigned int arrSize);
-	//poly(); // Defaul constractor
+	poly(); // Defaul constractor
 	Poly(Poly *otherPoly); // Copy constractor.
 	poly(double &scal);
 	Poly(double X[], double Y[], int n);

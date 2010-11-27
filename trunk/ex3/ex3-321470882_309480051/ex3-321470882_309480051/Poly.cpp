@@ -10,7 +10,7 @@
 
 // Poly class constractor
 //=============================================================================
-//Poly::Poly()
+Poly::Poly()
 
 // Copy constractor
 Poly::Poly(double coeffs[], unsigned int arrSize)
@@ -69,14 +69,14 @@ Poly Poly::operator+(Poly *otherPoly)
 
 	int thisIndex = 0, otherIndex = 0;
 
-	while(thisIndex < polynom.size() && otherindex < otherPoly->polynom.size())
+	while(thisIndex < polynom.size() && otherIndex < otherPoly->polynom.size())
 	{
-		if(polinom[thisIndex].power > otherPoly->polynom[otherindex].power)
+		if(polinom[thisIndex].power > otherPoly->polynom[otherIndex].power)
 		{
 			sumPoly.polynom.push_back(polynom[thisIndex]);
 			thisIndex ++;
 		}
-		else if(polynom[thisIndex].power < otherPoly.polynom[otherindex].power)
+		else if(polynom[thisIndex].power < otherPoly.polynom[otherIndex].power)
 		{
 			sumPoly.polynom.push_back(otherPoly->polynom[otherIndex]);
 			otherIndex ++;
