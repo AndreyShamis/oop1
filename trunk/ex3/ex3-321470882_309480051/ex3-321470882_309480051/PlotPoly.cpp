@@ -120,10 +120,10 @@ int main(int argc, char** argv)
 	
 
 
-	double coeffs[1] = {2};
-	Poly obj= Poly(coeffs,1);
+	double coeffs[2] = {2,3};
+	Poly obj= Poly(coeffs,2);
 
-   double coeffs2[2] = {2,-1};
+   double coeffs2[2] = {0};
    Poly obj2= Poly(coeffs2,2);
 	obj.print();
 	obj2.print();
@@ -137,6 +137,12 @@ int main(int argc, char** argv)
 cout << "Second obj: ";
 	
 	obj3.print();
+	double X[3] = {2,4,6};
+	double Y[3] = {3,5,17};
+
+	Poly lagrang = Poly(X,Y,3);
+
+	lagrang.print();
 
 	//cout << 
 

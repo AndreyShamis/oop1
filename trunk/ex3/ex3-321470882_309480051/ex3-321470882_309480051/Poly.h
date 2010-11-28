@@ -28,7 +28,7 @@ public:
 	Poly(); // Defaul constractor
 	Poly(Poly *otherPoly); // Copy constractor.
 	Poly(double &scal);
-	//Poly(double X[], double Y[], int n);
+	Poly(double X[], double Y[], int n);
 	Poly(const struct Monom &value);
 
 	Poly operator+(Poly &otherPoly);
@@ -40,11 +40,6 @@ public:
 	void print();
 
 private:
-
-	
-
-
-
 
 
 //                              veribel section

@@ -60,22 +60,49 @@ Poly::Poly(double &scal)
 	polynom.push_back(tempMonom);
 }
 
-//Poly::Poly(double X[], double Y[], int n)
-//{
-//	double f = 0;
-//	int i,j;
-//	for(i=0;i!=n;++i)
-//	{
-//		double L = 1.0;
-//		for(j=0;j!=n;++j)
-//	 
-//			if(i!=j) 
-//				L = L *(xx-x[j])/(x[i]-x[j]);
-//
-//		f = f + L*Y[i];
-//	}
+Poly::Poly(double X[], double Y[], int n)
+{
+	int i,j;
+	Poly sumPoly = Poly();
 
+	for(i=0;i<n;i++)
+	{
+		double temp_d[2];// = {0,1};
+		//Poly yi = Poly(temp_d,2);
 
+		temp_d[0] =0;
+		temp_d[1] =Y[i];
+		Poly ya = Poly(temp_d,2);
+
+		for(j=0;j<n;j++)
+		{
+			if(i!=j)
+			{
+				double x1,x2 ;
+				x1 =X[i]-X[j]; 
+				if(x1)
+					x1 = 1/x1;
+				
+				x2 =X[i]-X[j]; 
+
+				if(x2)
+					x2 = X[j] /x2;
+
+				x2=x2*(-1);
+
+				temp_d[0] = x1;
+				temp_d[1] = x2;
+				Poly temp =Poly(temp_d,2);
+				ya*=temp;
+			}
+		}
+		sumPoly+= ya;//*yi;
+		//f = f + L*Y[i];
+	}
+	polynom=sumPoly.polynom;
+	//*this = sumPoly;
+
+}
 // Relouded of operator "+" for class poly.
 Poly Poly::operator+(Poly &otherPoly)
 {
