@@ -60,49 +60,55 @@ Poly::Poly(double &scal)
 	polynom.push_back(tempMonom);
 }
 
+
+// Constractor Lagrange
+// Using formula of lagrange:
+// <math> f(x) = \frac{x-x_b}{x_a-x_b} y_a - \frac{x-x_a}{x_a-x_b} y_b </math>
 Poly::Poly(double X[], double Y[], int n)
 {
-	int i,j;
+	int j, k; // Indexes of the formula.
+
+	// Create new empty polynom object that summarize sub polynoms.
 	Poly sumPoly = Poly();
 
-	for(i=0;i<n;i++)
+
+	for(j = 0; j < n; j++)
 	{
-		double temp_d[2];// = {0,1};
-		//Poly yi = Poly(temp_d,2);
+		double temp_d[2];
+
 
 		temp_d[0] =0;
-		temp_d[1] =Y[i];
+		temp_d[1] =Y[j];
 		Poly ya = Poly(temp_d,2);
 
-		for(j=0;j<n;j++)
+		for(k = 0; k < n; k++)
 		{
-			if(i!=j)
+			if(j != k)
 			{
-				double x1,x2 ;
-				x1 =X[i]-X[j]; 
+				double x1, x2 ;
+				x1 = X[j] - X[k]; 
 				if(x1)
-					x1 = 1/x1;
+					x1 = 1 / x1;
 				
-				x2 =X[i]-X[j]; 
+				x2 = X[j]-X[k]; 
 
 				if(x2)
-					x2 = X[j] /x2;
+					x2 = X[k] / x2;
 
-				x2=x2*(-1);
+				x2 = x2 * (-1);
 
 				temp_d[0] = x1;
 				temp_d[1] = x2;
-				Poly temp =Poly(temp_d,2);
-				ya*=temp;
+				Poly temp = Poly(temp_d, 2);
+				ya *= temp;
 			}
 		}
-		sumPoly+= ya;//*yi;
-		//f = f + L*Y[i];
+		sumPoly += ya;
+	
 	}
-	polynom=sumPoly.polynom;
-	//*this = sumPoly;
-
+	polynom = sumPoly.polynom;
 }
+
 // Relouded of operator "+" for class poly.
 Poly Poly::operator+(Poly &otherPoly)
 {
@@ -129,7 +135,8 @@ Poly Poly::operator+(Poly &otherPoly)
 			tempMonom.scalar = polynom[thisIndex].scalar + 
 							   otherPoly.polynom[otherIndex].scalar;
 			tempMonom.power = polynom[thisIndex].power;
-			sumPoly.polynom.push_back(tempMonom );
+			if(tempMonom.scalar)
+				sumPoly.polynom.push_back(tempMonom );
 
 			thisIndex ++;
 			otherIndex ++;
