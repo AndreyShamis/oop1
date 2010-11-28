@@ -7,6 +7,8 @@
 //                               Function section
 //=============================================================================
 
+using namespace std;
+
 
 // Poly class constractor
 //=============================================================================
@@ -14,6 +16,15 @@ Poly::Poly()
 {
 	;
 }
+
+
+Poly::Poly(const struct Monom &value)
+{
+	polynom.push_back(value);
+}
+
+
+
 
 // Copy constractor
 Poly::Poly(double coeffs[], unsigned int arrSize)
@@ -66,22 +77,22 @@ Poly::Poly(double &scal)
 
 
 // Relouded of operator "+" for class poly.
-Poly Poly::operator+(Poly *otherPoly)
+Poly Poly::operator+(Poly &otherPoly)
 {
 	Poly sumPoly = Poly();
 
 	int thisIndex = 0, otherIndex = 0;
 
-	while(thisIndex < (int)polynom.size() && otherIndex < (int)otherPoly->polynom.size())
+	while(thisIndex < (int)polynom.size() && otherIndex < (int)otherPoly.polynom.size())
 	{
-		if(polynom[thisIndex].power > otherPoly->polynom[otherIndex].power)
+		if(polynom[thisIndex].power > otherPoly.polynom[otherIndex].power)
 		{
 			sumPoly.polynom.push_back(polynom[thisIndex]);
 			thisIndex ++;
 		}
-		else if(polynom[thisIndex].power < otherPoly->polynom[otherIndex].power)
+		else if(polynom[thisIndex].power < otherPoly.polynom[otherIndex].power)
 		{
-			sumPoly.polynom.push_back(otherPoly->polynom[otherIndex]);
+			sumPoly.polynom.push_back(otherPoly.polynom[otherIndex]);
 			otherIndex ++;
 		}
 		else
@@ -89,7 +100,7 @@ Poly Poly::operator+(Poly *otherPoly)
 			Monom tempMonom;
 
 			tempMonom.scalar = polynom[thisIndex].scalar + 
-							   otherPoly->polynom[otherIndex].scalar;
+							   otherPoly.polynom[otherIndex].scalar;
 			tempMonom.power = polynom[thisIndex].power;
 			sumPoly.polynom.push_back(tempMonom );
 
@@ -104,9 +115,9 @@ Poly Poly::operator+(Poly *otherPoly)
 
 		thisIndex ++;
 	}
-	while(otherIndex < (int)otherPoly->polynom.size())
+	while(otherIndex < (int)otherPoly.polynom.size())
 	{
-		sumPoly.polynom.push_back(otherPoly->polynom[otherIndex]);
+		sumPoly.polynom.push_back(otherPoly.polynom[otherIndex]);
 
 		otherIndex ++;
 	}
@@ -115,51 +126,72 @@ Poly Poly::operator+(Poly *otherPoly)
 }
 //
 //// Relouded of operator "+=" for class poly.
-//Poly Poly::operator+=(Poly *otherPoly)
-//{
-//	return (this + *otherPoly);
-//}
-//
-// Relouded of operator "=" for class poly.
-Poly Poly::operator=(Poly *otherPoly)
+Poly Poly::operator+=(Poly &otherPoly)
 {
-	polynom = otherPoly->polynom;
+	//Poly temp; 
+	*this = *this + otherPoly;
+	return (*this);
+}
+
+// Relouded of operator "=" for class poly.
+Poly Poly::operator=(Poly &otherPoly)
+{
+	polynom = otherPoly.polynom;
 
 	return *this;
 }
 //
 //// Relouded of operator "*" for class poly.
-//Poly Poly::operator*(Poly *otherPoly)
-//{
-//	Poly sumPoly = Poly();
-//	Poly mulMonom = Poly();
-//
-//	Monom tempMonom;
-//
-//	for(int thisIndex = 0; thisIndex < (int)polynom.size(); thisIndex++)
-//	{
-//		for(int otherindex = 0; otherindex < (int)otherPoly->polynom.size(); 
-//			otherindex++)
-//		{
-//			tempMonom.power = polynom[thisIndex].power + 
-//							  otherPoly->polynom[otherindex].power;
-//
-//			tempMonom.scalar = polynom[thisIndex].scalar *
-//							   otherPoly->polynom[otherindex].scalar;
-//
-//			mulMonom.polynom.push_back(tempMonom);
-//
-//			sumPoly += mulMonom;
-//		}
-//	}
-//	return (sumPoly);
-//
-//}
-//
-//// Relouded of operator "*=" for class poly.
-//Poly Poly::operator*=(Poly *otherPoly)
-//{
-//	return(this * *otherPoly);
-//}
-//
+Poly Poly::operator*(Poly &otherPoly)
+{
+	Poly sumPoly = Poly();
+	
+
+	Monom tempMonom;
+
+	for(int thisIndex = 0; thisIndex < (int)polynom.size(); thisIndex++)
+	{
+		for(int otherindex = 0; otherindex < (int)otherPoly.polynom.size(); 
+			otherindex++)
+		{
+			tempMonom.power = polynom[thisIndex].power + 
+							  otherPoly.polynom[otherindex].power;
+
+			tempMonom.scalar = polynom[thisIndex].scalar *
+							   otherPoly.polynom[otherindex].scalar;
+
+			//double *arr = new double[tempMonom.power+1];
+			//memset(arr,0,(tempMonom.power+1) * sizeof(double));
+			//arr[0] = tempMonom.scalar;
+			//Poly mulMonom = Poly(arr,tempMonom.power+1);
+			Poly mulMonom = Poly(tempMonom);
+			//delete arr;
+			sumPoly += mulMonom;
+		}
+	}
+	return (sumPoly);
+
+}
+
+// Relouded of operator "*=" for class poly.
+Poly Poly::operator*=(Poly &otherPoly)
+{
+	*this = *this * otherPoly;
+	return(*this);
+}
+
 ////Poly Poly::operator<<(Poly *otherPoly)				//TODO
+
+
+
+void Poly::print()
+{
+	for(int i=0; i < (int)polynom.size(); i++)
+	{
+		std::cout << polynom[i].scalar<< "^" << polynom[i].power <<" ";
+	}
+
+	if(! (int)polynom.size())
+		cout << "0";
+	cout << endl;
+}
