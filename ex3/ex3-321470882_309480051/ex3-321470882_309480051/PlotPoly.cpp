@@ -118,6 +118,30 @@ int main(int argc, char** argv)
     init ();
 
 	
+
+
+	double coeffs[1] = {2};
+	Poly obj= Poly(coeffs,1);
+
+   double coeffs2[2] = {2,-1};
+   Poly obj2= Poly(coeffs2,2);
+	obj.print();
+	obj2.print();
+	Poly obj3 = obj * obj2;
+	//obj += obj2;
+	obj *= obj2;
+	cout << "First obj: ";
+	obj.print();
+
+
+cout << "Second obj: ";
+	
+	obj3.print();
+
+	//cout << 
+
+
+
 	/***************************
 	//here comes your code!!!!
 	//you should fill X and Y with the interpolation points(from the user)
