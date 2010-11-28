@@ -29,15 +29,21 @@ public:
 	Poly(Poly *otherPoly); // Copy constractor.
 	Poly(double &scal);
 	//Poly(double X[], double Y[], int n);
+	Poly(const struct Monom &value);
 
+	Poly operator+(Poly &otherPoly);
+	Poly operator+=(Poly &otherPoly);
+	Poly operator=(Poly &otherPoly);
+	Poly operator*(Poly &otherPoly);
+	Poly operator*=(Poly &otherPoly);
+
+	void print();
 
 private:
 
-	Poly operator+(Poly *otherPoly);
-	Poly operator+=(Poly *otherPoly);
-	Poly operator=(Poly *otherPoly);
-	Poly operator*(Poly *otherPoly);
-	Poly operator*=(Poly *otherPoly);
+	
+
+
 
 
 
