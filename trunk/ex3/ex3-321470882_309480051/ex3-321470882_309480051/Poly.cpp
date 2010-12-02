@@ -135,7 +135,8 @@ Poly Poly::operator+(Poly &otherPoly)
 			tempMonom.scalar = polynom[thisIndex].scalar + 
 							   otherPoly.polynom[otherIndex].scalar;
 			tempMonom.power = polynom[thisIndex].power;
-			if(tempMonom.scalar)
+
+			if(tempMonom.scalar)	//	if the power not zero
 				sumPoly.polynom.push_back(tempMonom );
 
 			thisIndex ++;
@@ -228,4 +229,51 @@ void Poly::print()
 	if(! (int)polynom.size())
 		cout << "0";
 	cout << endl;
+}
+
+std::ostream& operator<<(std::ostream& pout, Poly &otherPoly)				//TODO const
+{
+	Monom tempMonom;
+
+	
+
+
+
+
+	int polySize = otherPoly.getSize();
+
+
+	//tempMonom = otherPoly.getMonom(0);
+	//pout << tempMonom.scalar << "*x^" << tempMonom.power;
+
+	for(int index = 0; index < polySize; index++)
+	{
+		tempMonom = otherPoly.getMonom(index);
+
+		if((int)tempMonom.scalar > 0 && index != 0)
+		{
+			pout << "+";
+		}
+		//((tempMonom.power != 0)? tempMonom.power : "")
+
+		pout << tempMonom.scalar << ((tempMonom.power != 0)? "*x^" : "*x");
+		if(tempMonom.power != 0)
+		{
+			pout << tempMonom.power;
+		}
+	}
+
+	pout << endl;
+	return pout;
+}
+
+
+Monom Poly::getMonom(int index)
+{
+	return(polynom[index]);
+}
+
+int Poly::getSize()
+{
+	return((int)polynom.size());
 }

@@ -20,6 +20,9 @@ struct Monom
 
 class Poly
 {
+	//friend std::ostream& operator<<(std::ostream& pout, Poly &otherPoly);			//TODO const
+
+
 //                               Function section
 //=============================================================================
 public:
@@ -30,7 +33,8 @@ public:
 	Poly(double &scal);
 	Poly(double X[], double Y[], int n);
 	Poly(const struct Monom &value);
-
+	
+	friend std::ostream& operator<<(std::ostream& pout, Poly &otherPoly);			//TODO const
 	Poly operator+(Poly &otherPoly);
 	Poly operator+=(Poly &otherPoly);
 	Poly operator=(Poly &otherPoly);
@@ -38,6 +42,9 @@ public:
 	Poly operator*=(Poly &otherPoly);
 
 	void print();
+	Monom getMonom(int index);
+	int Poly::getSize();
+
 
 private:
 
