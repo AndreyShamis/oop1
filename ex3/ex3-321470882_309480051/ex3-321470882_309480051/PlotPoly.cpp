@@ -125,8 +125,13 @@ int main(int argc, char** argv)
 
    double coeffs2[2] = {2,3};
    Poly obj2= Poly(coeffs2,2);
+
 	obj.print();
+	cout << obj << endl;
+
 	obj2.print();
+	cout << obj2 << endl;
+
 	Poly obj3 = obj + obj2;
 	//obj += obj2;
 	obj *= obj2;
@@ -153,6 +158,7 @@ cout << "Lagrange"  << endl;
 	cout << lagrang << endl; 
 
 
+	cout << obj3(-5);
 
 
 	//cout << obj << " " << obj3; 
