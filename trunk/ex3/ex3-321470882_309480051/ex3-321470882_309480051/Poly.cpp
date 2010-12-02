@@ -234,17 +234,7 @@ void Poly::print()
 std::ostream& operator<<(std::ostream& pout, Poly &otherPoly)				//TODO const
 {
 	Monom tempMonom;
-
-	
-
-
-
-
 	int polySize = otherPoly.getSize();
-
-
-	//tempMonom = otherPoly.getMonom(0);
-	//pout << tempMonom.scalar << "*x^" << tempMonom.power;
 
 	for(int index = 0; index < polySize; index++)
 	{
@@ -254,16 +244,19 @@ std::ostream& operator<<(std::ostream& pout, Poly &otherPoly)				//TODO const
 		{
 			pout << "+";
 		}
-		//((tempMonom.power != 0)? tempMonom.power : "")
+		pout << tempMonom.scalar;
 
-		pout << tempMonom.scalar << ((tempMonom.power != 0)? "*x^" : "*x");
-		if(tempMonom.power != 0)
+		if(tempMonom.power > 1)
 		{
-			pout << tempMonom.power;
+			pout << "*x^" << tempMonom.power;
+		}
+
+		if(tempMonom.power == 1)
+		{
+			pout << "*x";
 		}
 	}
-
-	pout << endl;
+	//pout << endl;
 	return pout;
 }
 

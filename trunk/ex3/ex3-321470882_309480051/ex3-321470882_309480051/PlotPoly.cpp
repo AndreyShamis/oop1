@@ -130,24 +130,32 @@ int main(int argc, char** argv)
 	Poly obj3 = obj + obj2;
 	//obj += obj2;
 	obj *= obj2;
-	cout << "First obj: ";
+cout << "First obj: "  << endl;
+
+	
 	obj.print();
+	cout << obj << endl;
 
 
-cout << "Second obj: ";
+cout << "Second obj: "  << endl;
 	
 	obj3.print();
-	double X[5] = {2,3,4,5,6};
-	double Y[5] = {3,2.75,5,9.75,17};
+	cout << obj3 << endl;
+
+	double X[8] = {2,3,4,5,6,7,8,9};
+	double Y[8] = {3,2.75,5,9.75,17,6,8,3};
 
 	Poly lagrang = Poly(X,Y,5);
 
+
+cout << "Lagrange"  << endl;
 	lagrang.print();
+	cout << lagrang << endl; 
 
 
 
 
-	cout << obj; 
+	//cout << obj << " " << obj3; 
 
 
 
