@@ -260,6 +260,28 @@ std::ostream& operator<<(std::ostream& pout, Poly &otherPoly)				//TODO const
 	return pout;
 }
 
+double Poly::operator()(double x)
+{
+	int polySize = getSize();
+
+	if(!polySize)
+
+		return (0);
+
+	double fx = 0;
+
+	for(int index = 0; index < polySize; index++)
+	{
+		fx += polynom[index].scalar * pow(x ,polynom[index].power);
+	}
+
+	return(fx);
+}
+
+
+
+
+
 
 Monom Poly::getMonom(int index)
 {

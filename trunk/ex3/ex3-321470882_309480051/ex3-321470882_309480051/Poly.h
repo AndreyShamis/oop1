@@ -7,6 +7,7 @@
 //#include "macros.h"
 #include <vector>
 #include <iostream>
+#include <cmath> //
 
 //                               Structur section
 //=============================================================================
@@ -40,6 +41,7 @@ public:
 	Poly operator=(Poly &otherPoly);
 	Poly operator*(Poly &otherPoly);
 	Poly operator*=(Poly &otherPoly);
+	double operator()(double x);
 
 	void print();
 	Monom getMonom(int index);
