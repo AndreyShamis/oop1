@@ -26,7 +26,7 @@ double maxX,maxY,minX,minY;
 
 
 
-
+//std::ostream& operator<<(std::ostream& pout, const Poly &otherPoly);
 
 void display(void)
 {
@@ -144,7 +144,10 @@ cout << "Second obj: ";
 
 	lagrang.print();
 
-	//cout << 
+
+
+
+	cout << obj; 
 
 
 
