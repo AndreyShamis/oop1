@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <windows.h>
 #include <GL/gl.h>
-#include "glut.h"
+#include <glut.h>
 #include <cmath>
 #include "Poly.h"
 #include "Vertex.h"
@@ -108,6 +108,22 @@ void init (void)
  *  Register callback function to display graphics.
  *  Enter main loop and process events.
  */
+
+bool readDataFromUser(double X[], double Y[])
+{
+	double input;
+	int counter = 0;
+	bool FLAG = true;
+	while(FLAG)
+	{
+		cin >> input;
+		X[counter] = input;
+		counter++;
+	}
+
+	return 0;
+}
+
 int main(int argc, char** argv)
 {
     glutInit(&argc, argv);
