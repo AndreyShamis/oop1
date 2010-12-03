@@ -1,4 +1,4 @@
-// A class that reprisent polynom.
+// A class that reprisent polynom .
 
 //                               Include section
 //=============================================================================
@@ -17,16 +17,16 @@ Poly::Poly()
 	;
 }
 
-
+//=============================================================================
 Poly::Poly(const struct Monom &value)
 {
 	polynom.push_back(value);
 }
 
 
-
-
-// Copy constractor
+// TODO
+//=============================================================================
+// Copy constractor   ////////////// SEE NEXT FUNCTION
 Poly::Poly(double coeffs[], unsigned int arrSize)
 {
 	for(unsigned int i = 0; i < arrSize; i++)
@@ -43,12 +43,14 @@ Poly::Poly(double coeffs[], unsigned int arrSize)
 	}	
 }
 
-// Copy constractor.
-Poly::Poly(Poly *otherPoly)
+//=============================================================================
+// Copy constractor. //////////// TODO SEE PREVIOUS FUNCTION
+Poly::Poly(Poly *otherPoly)			//   <---	POINTER ???
 {
 	polynom = otherPoly->polynom;
 }
 
+//=============================================================================
 // Scalar polynom constractor 
 Poly::Poly(double &scal)
 {
@@ -60,7 +62,7 @@ Poly::Poly(double &scal)
 	polynom.push_back(tempMonom);
 }
 
-
+//=============================================================================
 // Constractor Lagrange
 // Using formula of lagrange:
 // <math> f(x) = \frac{x-x_b}{x_a-x_b} y_a - \frac{x-x_a}{x_a-x_b} y_b </math>
@@ -71,44 +73,57 @@ Poly::Poly(double X[], double Y[], int n)
 	// Create new empty polynom object that summarize sub polynoms.
 	Poly sumPoly = Poly();
 
-
+	//	enter to first cycle of Y
 	for(j = 0; j < n; j++)
 	{
-		double temp_d[2];
+		double temp_d[2];			//	temorary variable used twice in Y cycle
 
-
-		temp_d[0] =0;
+		//	set array to plynom 0*x + Y[j]
+		temp_d[0] =0;				
 		temp_d[1] =Y[j];
-		Poly ya = Poly(temp_d,2);
+		
+		//	create polynom with previous data and size 2
+		Poly multiplyPoly = Poly(temp_d,2);
 
+		//	enter to second cycle of multiply
 		for(k = 0; k < n; k++)
 		{
+			//	do this section where j != k
 			if(j != k)
 			{
+				//	the precudure of multiply parse the sub-function to two parts
 				double x1, x2 ;
+				//	this is first part of sub-function
 				x1 = X[j] - X[k]; 
-				if(x1)
-					x1 = 1 / x1;
+				if(x1)				//	check if can devide 
+					x1 = 1 / x1;	//	deviding
 				
+				//	second part of sub-function
 				x2 = X[j]-X[k]; 
 
-				if(x2)
-					x2 = X[k] / x2;
-
+				if(x2)				//	check if can devide
+					x2 = X[k] / x2;	//	deviding
+				//	the sub-function looks like first part minus second part
+				//	so here we convert the second part to minus
 				x2 = x2 * (-1);
-
-				temp_d[0] = x1;
+				
+				//	create array with data which we geted previsously
+				temp_d[0] = x1;	
 				temp_d[1] = x2;
+				//	create polynom whith array was created
 				Poly temp = Poly(temp_d, 2);
-				ya *= temp;
+				multiplyPoly *= temp;			//	multiply the result to Y[]
 			}
 		}
-		sumPoly += ya;
+		//	sum the results of all multiplys
+		sumPoly += multiplyPoly;
 	
 	}
-	polynom = sumPoly.polynom;
+	polynom = sumPoly.polynom;					//	WHAT A FUCK??? TODO
 }
 
+
+//=============================================================================
 // Relouded of operator "+" for class poly.
 Poly Poly::operator+(Poly &otherPoly)
 {
@@ -159,7 +174,8 @@ Poly Poly::operator+(Poly &otherPoly)
 	return (sumPoly);
 
 }
-//
+
+//=============================================================================
 //// Relouded of operator "+=" for class poly.
 Poly Poly::operator+=(Poly &otherPoly)
 {
@@ -168,6 +184,7 @@ Poly Poly::operator+=(Poly &otherPoly)
 	return (*this);
 }
 
+//=============================================================================
 // Relouded of operator "=" for class poly.
 Poly Poly::operator=(Poly &otherPoly)
 {
@@ -175,7 +192,8 @@ Poly Poly::operator=(Poly &otherPoly)
 
 	return *this;
 }
-//
+
+//=============================================================================
 //// Relouded of operator "*" for class poly.
 Poly Poly::operator*(Poly &otherPoly)
 {
@@ -208,6 +226,7 @@ Poly Poly::operator*(Poly &otherPoly)
 
 }
 
+//=============================================================================
 // Relouded of operator "*=" for class poly.
 Poly Poly::operator*=(Poly &otherPoly)
 {
@@ -218,7 +237,7 @@ Poly Poly::operator*=(Poly &otherPoly)
 ////Poly Poly::operator<<(Poly *otherPoly)				//TODO
 
 
-
+//=============================================================================
 void Poly::print()
 {
 	for(int i=0; i < (int)polynom.size(); i++)
@@ -231,6 +250,7 @@ void Poly::print()
 	cout << endl;
 }
 
+//=============================================================================
 std::ostream& operator<<(std::ostream& pout, Poly &otherPoly)				//TODO const
 {
 	Monom tempMonom;
@@ -260,6 +280,7 @@ std::ostream& operator<<(std::ostream& pout, Poly &otherPoly)				//TODO const
 	return pout;
 }
 
+//=============================================================================
 double Poly::operator()(double x)
 {
 	int polySize = getSize();
@@ -278,6 +299,7 @@ double Poly::operator()(double x)
 	return(fx);
 }
 
+//=============================================================================
 bool Poly::operator==(Poly &otherPoly)
 {
 	if(comperPoly(otherPoly))
@@ -287,6 +309,7 @@ bool Poly::operator==(Poly &otherPoly)
 	return false;
 }
 
+//=============================================================================
 bool Poly::operator!=(Poly &otherPoly)
 {
 	if(!comperPoly(otherPoly))
@@ -296,6 +319,8 @@ bool Poly::operator!=(Poly &otherPoly)
 	return false;
 }
 
+
+//=============================================================================
 bool Poly::comperPoly(Poly &otherPoly)
 {
 	Monom otherMonom;
@@ -320,13 +345,21 @@ bool Poly::comperPoly(Poly &otherPoly)
 
 
 
-
+//=============================================================================
+//	fucntion which return Monom struct from vector by index
+//	which is geyed in parameters to call function
 Monom Poly::getMonom(int index)
 {
 	return(polynom[index]);
 }
+//	END getMonom
 
+//=============================================================================
+//	function which return the size of vector
+//	needed for compare the vector size in for cycles
+//	between integr to value which fuction vector.size() return is unsigned
 int Poly::getSize()
 {
 	return((int)polynom.size());
 }
+//	END getSize
