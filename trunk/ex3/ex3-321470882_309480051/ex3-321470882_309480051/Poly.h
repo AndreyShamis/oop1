@@ -42,10 +42,13 @@ public:
 	Poly operator*(Poly &otherPoly);
 	Poly operator*=(Poly &otherPoly);
 	double operator()(double x);
+	bool operator==(Poly &otherPoly);
+	bool operator!=(Poly &otherPoly);
 
 	void print();
 	Monom getMonom(int index);
 	int Poly::getSize();
+	bool comperPoly(Poly &otherPoly);
 
 
 private:
