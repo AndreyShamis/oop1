@@ -110,15 +110,7 @@ void init (void)
  */
 void updateGlobals(Poly lPoly)
 {
-	int x =0;
-
-}
-
-bool readDataFromUser()
-{
-	double input;
 	int counter = 0;
-	bool FLAG = false;
 
 	maxX = counter;
 	maxY = counter*counter;
@@ -133,6 +125,14 @@ bool readDataFromUser()
 	
 	maxX = counter;
 	maxY = counter*counter;
+}
+
+bool readDataFromUser()
+{
+	double input;
+	int counter = 0;
+	bool FLAG = false;
+
 	
 	while(FLAG)
 	{
