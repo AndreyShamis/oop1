@@ -14,8 +14,8 @@
 // Difine bomb stractur.
 struct Monom
 {
-	double scalar;
-	int	power;
+	double	scalar;
+	int		power;
 
 };
 
