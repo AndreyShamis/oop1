@@ -278,6 +278,44 @@ double Poly::operator()(double x)
 	return(fx);
 }
 
+bool Poly::operator==(Poly &otherPoly)
+{
+	if(comperPoly(otherPoly))
+
+		return true;
+
+	return false;
+}
+
+bool Poly::operator!=(Poly &otherPoly)
+{
+	if(!comperPoly(otherPoly))
+
+		return true;
+
+	return false;
+}
+
+bool Poly::comperPoly(Poly &otherPoly)
+{
+	Monom otherMonom;
+	
+	int polySize = getSize();
+	if(otherPoly.getSize() == polySize)
+	{
+		for(int index = 0; index < polySize; index++)
+		{
+			otherMonom = getMonom(index);
+			if(polynom[index].scalar != otherMonom.scalar ||
+				polynom[index].power  != otherMonom.power)
+			{
+				return false;
+			}	
+		}
+		return true;
+	}
+	return false;
+}
 
 
 

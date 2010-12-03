@@ -118,34 +118,68 @@ int main(int argc, char** argv)
     init ();
 
 	
+	double coeffs[2] = {2,3};
+	Poly obj1= Poly(coeffs,2);
+
+	double coeffs2[2] = {2,3};
+	Poly obj2= Poly(coeffs2,2);
 
 
-	double coeffs[2] = {-2,3};
-	Poly obj= Poly(coeffs,2);
 
-   double coeffs2[2] = {2,3};
-   Poly obj2= Poly(coeffs2,2);
+cout << "______MathResult_______" << endl;
 
-	obj.print();
-	cout << obj << endl;
+cout << "obj1 = "  << obj1 << endl;
+cout << "obj2 = "  << obj2 << endl << endl;
 
-	obj2.print();
-	cout << obj2 << endl;
+cout << "Plus + :risult=obj1+obj2 " << endl;
+	Poly obj3 = obj1 + obj2;
+	cout << "result= " << obj3 << endl << endl;
 
-	Poly obj3 = obj + obj2;
-	//obj += obj2;
-	obj *= obj2;
-cout << "First obj: "  << endl;
+cout << "Plus += :obj1+=obj2" << endl;
+	obj1 += obj2;
+	cout << "obj1= " << obj1 << endl << endl;
 
+
+cout << "obj1 = "  << obj1 << endl;
+cout << "obj2 = "  << obj2 << endl << endl;
+
+cout << "Mul * :risult=obj1*obj2" << endl;
+	obj3 = obj1 * obj2;
+	cout << "result= " << obj3 << endl << endl;
+
+cout << "Mul *= :obj1*=obj2" << endl;
+	obj1 *= obj2;
+	cout << "obj1= " << obj1 << endl << endl;
+
+
+cout << "__________Value Test__________"  << endl;
+cout << "obj1 = "  << obj1 << endl;
+cout << "obj2 = "  << obj2 << endl << endl;
+
+
+cout << "value Test f(x)=obj2" << endl;
+	cout << obj2(-5) << endl << endl;;
+
+cout << "__________Comper Test__________"  << endl;
+cout << "obj1 = "  << obj1 << endl;
+cout << "obj2 = "  << obj2 << endl << endl;
+
+cout << "Comper (obj1==obj2)" << endl;
+	if(obj1 == obj2)
 	
-	obj.print();
-	cout << obj << endl;
+		cout << "true" << endl << endl;
+	else
+		cout << "false" << endl << endl;
 
-
-cout << "Second obj: "  << endl;
+cout << "Comper (obj1!=obj2)" << endl;
+	if(obj1 != obj2)
 	
-	obj3.print();
-	cout << obj3 << endl;
+		cout << "true" << endl << endl;
+	else
+		cout << "false" << endl << endl;
+
+
+
 
 	double X[8] = {2,3,4,5,6,7,8,9};
 	double Y[8] = {3,2.75,5,9.75,17,6,8,3};
@@ -153,15 +187,13 @@ cout << "Second obj: "  << endl;
 	Poly lagrang = Poly(X,Y,5);
 
 
-cout << "Lagrange"  << endl;
-	lagrang.print();
-	cout << lagrang << endl; 
+cout << "__________Lagrange Test__________"  << endl;
+
+cout << "input: " << "[X]={2,3,4,5,6,7,8,9}, [Y]={3,2.75,5,9.75,17,6,8,3}" <<endl << endl;
+	cout << "result= " << lagrang << endl << endl; 
 
 
-	cout << obj3(-5);
 
-
-	//cout << obj << " " << obj3; 
 
 
 
