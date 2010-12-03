@@ -35,25 +35,25 @@ public:
 	Poly(double X[], double Y[], int n);
 	Poly(const struct Monom &value);
 	
-	friend std::ostream& operator<<(std::ostream& pout, Poly &otherPoly);			//TODO const
-	Poly operator+(Poly &otherPoly);
-	Poly operator+=(Poly &otherPoly);
-	Poly operator=(Poly &otherPoly);
-	Poly operator*(Poly &otherPoly);
-	Poly operator*=(Poly &otherPoly);
-	double operator()(double x);
-	bool operator==(Poly &otherPoly);
-	bool operator!=(Poly &otherPoly);
+	friend std::ostream& operator<<(std::ostream& pout,const Poly &otherPoly);			//TODO const
+	Poly operator+(const Poly &otherPoly);
+	Poly operator+=(const Poly &otherPoly);
+	Poly operator=(const Poly &otherPoly);
+	Poly operator*(const Poly &otherPoly);
+	Poly operator*=(const Poly &otherPoly);
+	double operator()(const double &x)const ;
+	bool operator==(const Poly &otherPoly)const;
+	bool operator!=(const Poly &otherPoly)const;
 
 	void print();
-	Monom getMonom(int index);
-	int Poly::getSize();
-	bool comperPoly(Poly &otherPoly);
+
+	
 
 
 private:
-
-
+	bool comperPoly(const Poly &otherPoly)const;
+	int Poly::getSize() const;
+	Monom getMonom(const int &index) const;
 //                              veribel section
 //=============================================================================
 
