@@ -108,37 +108,41 @@ void init (void)
  *  Register callback function to display graphics.
  *  Enter main loop and process events.
  */
-void updateGlobals(Poly lPoly)
+void updateGlobals(const Poly &lPoly)
 {
 	int counter = 0;
-
-	maxX = counter;
-	maxY = counter*counter;
-	
-	for(counter =0;counter<MAX_INPUT;counter++);
+	minX =0;
+	minY =0;
+	maxY=0;
+	minY=0;
+	for(counter =0;counter<GRAPH_LENGTH;counter++);
 	{
 		//X[counter] = counter;
-		graphX[counter] = counter;
-		graphY[counter] = (counter*counter/2);
+		graphX[counter] = X[counter];
+		graphY[counter] = lPoly(X[counter]);
 		//Y[counter] = counter * counter;
+
+		minX = min(minX,graphX[counter]);
+		maxX = max(maxX,graphX[counter]);
+
+		minY = min(minY,graphY[counter]);
+		maxY = max(maxY,graphY[counter]);
+
 	}
 	
-	maxX = counter;
-	maxY = counter*counter;
 }
 
 bool readDataFromUser()
 {
-	double input;
+	//double input;
 	int counter = 0;
 	bool FLAG = false;
 
 	
-	while(FLAG)
-	{
-		cin >> input;
-		X[counter] = input;
-		counter++;
+	for(counter =0;counter<MAX_INPUT;counter++);	{
+		//cin >> input;
+		X[counter] = counter;
+		//counter++;
 	}
 
 	numPoints = counter;
