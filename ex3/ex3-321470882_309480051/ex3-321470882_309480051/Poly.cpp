@@ -125,7 +125,7 @@ Poly::Poly(double X[], double Y[], int n)
 
 //=============================================================================
 // Relouded of operator "+" for class poly.
-Poly Poly::operator+(Poly &otherPoly)
+Poly Poly::operator+(const Poly &otherPoly)
 {
 	Poly sumPoly = Poly();
 
@@ -177,7 +177,7 @@ Poly Poly::operator+(Poly &otherPoly)
 
 //=============================================================================
 //// Relouded of operator "+=" for class poly.
-Poly Poly::operator+=(Poly &otherPoly)
+Poly Poly::operator+=(const Poly &otherPoly)
 {
 	//Poly temp; 
 	*this = *this + otherPoly;
@@ -186,7 +186,7 @@ Poly Poly::operator+=(Poly &otherPoly)
 
 //=============================================================================
 // Relouded of operator "=" for class poly.
-Poly Poly::operator=(Poly &otherPoly)
+Poly Poly::operator=(const Poly &otherPoly)
 {
 	polynom = otherPoly.polynom;
 
@@ -195,7 +195,7 @@ Poly Poly::operator=(Poly &otherPoly)
 
 //=============================================================================
 //// Relouded of operator "*" for class poly.
-Poly Poly::operator*(Poly &otherPoly)
+Poly Poly::operator*(const Poly &otherPoly)
 {
 	Poly sumPoly = Poly();
 	
@@ -228,7 +228,7 @@ Poly Poly::operator*(Poly &otherPoly)
 
 //=============================================================================
 // Relouded of operator "*=" for class poly.
-Poly Poly::operator*=(Poly &otherPoly)
+Poly Poly::operator*=(const Poly &otherPoly)
 {
 	*this = *this * otherPoly;
 	return(*this);
@@ -251,7 +251,7 @@ void Poly::print()
 }
 
 //=============================================================================
-std::ostream& operator<<(std::ostream& pout, Poly &otherPoly)				//TODO const
+std::ostream& operator<<(std::ostream& pout,const Poly &otherPoly)				//TODO const
 {
 	Monom tempMonom;
 	int polySize = otherPoly.getSize();
@@ -281,7 +281,7 @@ std::ostream& operator<<(std::ostream& pout, Poly &otherPoly)				//TODO const
 }
 
 //=============================================================================
-double Poly::operator()(double x)
+double Poly::operator()(const double &x) const
 {
 	int polySize = getSize();
 
@@ -300,7 +300,7 @@ double Poly::operator()(double x)
 }
 
 //=============================================================================
-bool Poly::operator==(Poly &otherPoly)
+bool Poly::operator==(const Poly &otherPoly)const
 {
 	if(comperPoly(otherPoly))
 
@@ -310,7 +310,7 @@ bool Poly::operator==(Poly &otherPoly)
 }
 
 //=============================================================================
-bool Poly::operator!=(Poly &otherPoly)
+bool Poly::operator!=(const Poly &otherPoly)const
 {
 	if(!comperPoly(otherPoly))
 
@@ -321,7 +321,7 @@ bool Poly::operator!=(Poly &otherPoly)
 
 
 //=============================================================================
-bool Poly::comperPoly(Poly &otherPoly)
+bool Poly::comperPoly(const Poly &otherPoly) const
 {
 	Monom otherMonom;
 	
@@ -348,7 +348,7 @@ bool Poly::comperPoly(Poly &otherPoly)
 //=============================================================================
 //	fucntion which return Monom struct from vector by index
 //	which is geyed in parameters to call function
-Monom Poly::getMonom(int index)
+Monom Poly::getMonom(const int &index) const
 {
 	return(polynom[index]);
 }
@@ -358,7 +358,7 @@ Monom Poly::getMonom(int index)
 //	function which return the size of vector
 //	needed for compare the vector size in for cycles
 //	between integr to value which fuction vector.size() return is unsigned
-int Poly::getSize()
+int Poly::getSize() const
 {
 	return((int)polynom.size());
 }
