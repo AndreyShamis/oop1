@@ -108,12 +108,32 @@ void init (void)
  *  Register callback function to display graphics.
  *  Enter main loop and process events.
  */
+void updateGlobals(Poly lPoly)
+{
+	int x =0;
 
-bool readDataFromUser(double X[], double Y[])
+}
+
+bool readDataFromUser()
 {
 	double input;
 	int counter = 0;
-	bool FLAG = true;
+	bool FLAG = false;
+
+	maxX = counter;
+	maxY = counter*counter;
+	
+	for(counter =0;counter<MAX_INPUT;counter++);
+	{
+		//X[counter] = counter;
+		graphX[counter] = counter;
+		graphY[counter] = (counter*counter/2);
+		//Y[counter] = counter * counter;
+	}
+	
+	maxX = counter;
+	maxY = counter*counter;
+	
 	while(FLAG)
 	{
 		cin >> input;
@@ -121,6 +141,7 @@ bool readDataFromUser(double X[], double Y[])
 		counter++;
 	}
 
+	numPoints = counter;
 	return 0;
 }
 
@@ -197,10 +218,10 @@ cout << "Comper (obj1!=obj2)" << endl;
 
 
 
-	double X[8] = {2,3,4,5,6,7,8,9};
-	double Y[8] = {3,2.75,5,9.75,17,6,8,3};
+	double X1[8] = {2,3,4,5,6,7,8,9};
+	double Y1[8] = {3,2.75,5,9.75,17,6,8,3};
 
-	Poly lagrang = Poly(X,Y,5);
+	Poly lagrang = Poly(X1,Y1,5);
 
 
 cout << "__________Lagrange Test__________"  << endl;
@@ -208,9 +229,10 @@ cout << "__________Lagrange Test__________"  << endl;
 cout << "input: " << "[X]={2,3,4,5,6,7,8,9}, [Y]={3,2.75,5,9.75,17,6,8,3}" <<endl << endl;
 	cout << "result= " << lagrang << endl << endl; 
 
-
-
-
+	
+	readDataFromUser();
+	Poly lagrang2 = Poly(X,Y,100);
+	updateGlobals(lagrang2);
 
 
 	/***************************
@@ -226,7 +248,7 @@ cout << "input: " << "[X]={2,3,4,5,6,7,8,9}, [Y]={3,2.75,5,9.75,17,6,8,3}" <<end
 	//Something like: (parameters not included...)
 	//readDataFromUser(); --get the data from the user
 	//Poly lPoly = Poly(); --create the polynom using lagrange ctor
-	//updateGlobals(lPoly); --update glut globals for the graph
+	updateGlobals(lPoly); --update glut globals for the graph
 	*******************************/
 	
 
