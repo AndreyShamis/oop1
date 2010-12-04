@@ -201,7 +201,7 @@ bool readDataFromUser()
  {
   cout << Y[index] << " " ;
  }
-
+ cout << "\n";
 	return 1;
 }
 
@@ -293,6 +293,7 @@ cout << "Comper (obj1!=obj2)" << endl;
 		{
 			Poly lagrang2 = Poly(X,Y,numPoints);
 			updateGlobals(lagrang2);
+			cout << lagrang2;
 		}
 		else
 			cout << "Can not get data\n";
