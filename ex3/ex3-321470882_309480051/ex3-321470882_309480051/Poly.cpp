@@ -7,7 +7,11 @@
 //                               Function section
 //=============================================================================
 
-using namespace std;
+
+Poly::~Poly()
+{
+	polynom.clear();
+}
 
 
 // Poly class constractor
@@ -24,9 +28,8 @@ Poly::Poly(const struct Monom &value)
 }
 
 
-// TODO
 //=============================================================================
-// Copy constractor   ////////////// SEE NEXT FUNCTION
+// constractor   
 Poly::Poly(double coeffs[], unsigned int arrSize)
 {
 	for(unsigned int i = 0; i < arrSize; i++)
@@ -44,10 +47,10 @@ Poly::Poly(double coeffs[], unsigned int arrSize)
 }
 
 //=============================================================================
-// Copy constractor. //////////// TODO SEE PREVIOUS FUNCTION
-Poly::Poly(Poly *otherPoly)			//   <---	POINTER ???
+// Copy constractor.  TODO-- test
+Poly::Poly(Poly &otherPoly)			
 {
-	polynom = otherPoly->polynom;
+	polynom = otherPoly.polynom;
 }
 
 //=============================================================================
@@ -119,7 +122,7 @@ Poly::Poly(double X[], double Y[], int n)
 		sumPoly += multiplyPoly;
 	
 	}
-	polynom = sumPoly.polynom;					//	WHAT A FUCK??? TODO
+	polynom = sumPoly.polynom;
 }
 
 
@@ -198,7 +201,6 @@ Poly Poly::operator=(const Poly &otherPoly)
 Poly Poly::operator*(const Poly &otherPoly)
 {
 	Poly sumPoly = Poly();
-	
 
 	Monom tempMonom;
 
@@ -213,12 +215,7 @@ Poly Poly::operator*(const Poly &otherPoly)
 			tempMonom.scalar = polynom[thisIndex].scalar *
 							   otherPoly.polynom[otherindex].scalar;
 
-			//double *arr = new double[tempMonom.power+1];
-			//memset(arr,0,(tempMonom.power+1) * sizeof(double));
-			//arr[0] = tempMonom.scalar;
-			//Poly mulMonom = Poly(arr,tempMonom.power+1);
 			Poly mulMonom = Poly(tempMonom);
-			//delete arr;
 			sumPoly += mulMonom;
 		}
 	}
@@ -232,22 +229,6 @@ Poly Poly::operator*=(const Poly &otherPoly)
 {
 	*this = *this * otherPoly;
 	return(*this);
-}
-
-////Poly Poly::operator<<(Poly *otherPoly)				//TODO
-
-
-//=============================================================================
-void Poly::print()
-{
-	for(int i=0; i < (int)polynom.size(); i++)
-	{
-		std::cout << polynom[i].scalar<< "^" << polynom[i].power <<" ";
-	}
-
-	if(! (int)polynom.size())
-		cout << "0";
-	cout << endl;
 }
 
 //=============================================================================
@@ -276,7 +257,9 @@ std::ostream& operator<<(std::ostream& pout,const Poly &otherPoly)				//TODO con
 			pout << "*x";
 		}
 	}
-	//pout << endl;
+	
+	pout << endl;
+	
 	return pout;
 }
 
