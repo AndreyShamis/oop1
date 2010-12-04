@@ -159,55 +159,48 @@ void updateGlobals(const Poly &lPoly)
 
 bool readDataFromUser()
 {
-	char chr;
 	int index;
-	double input;
+	char chr;
 
-	cout << "Please inter X for interpulation" << endl  
-		 << "(Each value separated with space)" << endl
-		 << "For example: x1 x2 x3 x4" << endl;
-	
-
+	numPoints = 0;
 	for(index = 0; index < MAX_INPUT; index++)
 	{
 		chr = cin.get();
 
-		if(chr == '\n')
+		if(!isdigit(chr) && chr != '.' && chr != ' ')
 		{
-			break;
+		break;
 		}
 
-		X[index] = atoi(chr);
+		cin.putback(chr);
+		cin >> X[index];
+		numPoints++; 
 	}
 
-	
+	 for(index = 0; index < numPoints; index++)
+	 {
+		chr = cin.get();
 
+		if(!isdigit(chr) && chr != '.' && chr != ' ')
+		{
+		break;
+		}
 
-
-	cout << "Please inter Y for interpulation" << endl  
-		 << "(Each value separated with space)" << endl
-		 << "For example: y1 y2 y3 y4 y5 y6" << endl;
-
-
-	cout << "Please inter Polynom Degree" << endl;
-
-
-
-
-	//
-	int counter = 0;
-	bool FLAG = false;
-
-	
-	for(counter =0;counter<MAX_INPUT;counter++)	
-	{
-		//cin >> input;
-		X[counter] = counter;
-		//counter++;
+		cin.putback(chr);
+		cin >> Y[index];
 	}
 
-	numPoints = counter;
-	return 0;
+ for(index = 0; index < numPoints; index++)
+ {
+  cout << X[index] << " ";
+ }
+ cout << "\n";
+ for(index = 0; index < numPoints; index++)
+ {
+  cout << Y[index] << " " ;
+ }
+
+	return 1;
 }
 
 int main(int argc, char** argv)
@@ -283,21 +276,24 @@ cout << "Comper (obj1!=obj2)" << endl;
 
 
 
-        double X1[11] = {-2,-1,0,1,2,3,4,0,0,0,0};
-        double Y1[11] = {47,22,9,2,-5,-18,-43,0,0,0,0};
+        //double X1[11] = {-2,-1,0,1,2,3,4,0,0,0,0};
+        //double Y1[11] = {47,22,9,2,-5,-18,-43,0,0,0,0};
 
-        Poly lagrang = Poly(X1,Y1,4);
+        //Poly lagrang = Poly(X1,Y1,11);
 
 
-cout << "__________Lagrange Test__________"  << endl;
+		//cout << "__________Lagrange Test__________"  << endl;
+		//cout	<< "input: " << "[X]={2,3,4,5,6,7,8,9}, [Y]={3,2.75,5,9.75,17,6,8,3}" 
+		//		<<endl << endl;
+        //cout << "result= " << lagrang << endl << endl; 
 
-cout << "input: " << "[X]={2,3,4,5,6,7,8,9}, [Y]={3,2.75,5,9.75,17,6,8,3}" <<endl << endl;
-        cout << "result= " << lagrang << endl << endl; 
-
-        
-        readDataFromUser();
-        Poly lagrang2 = Poly(X,Y,100);
-        updateGlobals(lagrang);
+        if(readDataFromUser())
+		{
+			Poly lagrang2 = Poly(X,Y,numPoints);
+			updateGlobals(lagrang2);
+		}
+		else
+			cout << "Can not get data\n";
 
 
         /***************************
