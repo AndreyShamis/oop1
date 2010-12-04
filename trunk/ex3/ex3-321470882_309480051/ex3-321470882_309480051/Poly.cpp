@@ -232,7 +232,7 @@ Poly Poly::operator*=(const Poly &otherPoly)
 }
 
 //=============================================================================
-std::ostream& operator<<(std::ostream& pout,const Poly &otherPoly)				//TODO const
+std::ostream& operator<<(std::ostream& pout,const Poly &otherPoly)				
 {
 	Monom tempMonom;
 	int polySize = otherPoly.getSize();

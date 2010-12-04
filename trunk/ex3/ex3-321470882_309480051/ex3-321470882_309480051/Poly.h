@@ -57,3 +57,44 @@ private:
 
 };
 
+//bool readDataFromUser()
+//{
+//	int index;
+//	char chr;
+//	numPoints = 0;
+//
+//	cout << "Please enter X values for interpulation" << endl  
+//		 << "(Each value separated with space)" << endl << endl
+//		 << "For example: x1 x2 x3 x4 'Enter'" << endl
+//		 << "             y1 y2 y3 y4 'Enter'" << endl 
+//		 << "(REMEBER! Number of Y points must be equal to the number of X points)" << endl << endl;
+//
+//	for(index = 0; index < MAX_INPUT; index++)
+//	{
+//		chr = cin.get();
+//
+//		if(!checkDouble(chr))
+//			break;
+//
+//		cin.putback(chr);
+//		cin >> X[index];
+//		numPoints++; 
+//	}
+//
+//	cout << "Please enter X values for interpulation" << endl  
+//		 << "(Each value separated with space)" << endl << endl
+//		 << "For example: y1 y2 y3 y4 'Enter'" << endl
+//		 << "(REMEBER! Number of Y points must be equal to the number of X points)" << endl << endl;
+//
+//	for(index = 0; index < numPoints; index++)
+//	{
+//		chr = cin.get();
+//
+//		if(!checkDouble(chr))
+//			break;
+//
+//		cin.putback(chr);
+//		cin >> Y[index];
+//	}
+//	return 1;
+//}

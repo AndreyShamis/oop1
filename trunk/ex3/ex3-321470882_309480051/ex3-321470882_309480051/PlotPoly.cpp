@@ -14,7 +14,8 @@
 
 using namespace std;
 
-
+#define eX 20
+#define waY 30
 
 #define GRAPH_LENGTH 500
 #define MAX_INPUT 100
@@ -122,85 +123,105 @@ void updateGlobals(const Poly &lPoly)
 		maxY = max(maxY,graphY[index]);
 
 	}	
+		//minX = -100;
+		//maxX = 100;
+
+		//minY = -100;
+		//maxY = 100;
+		cout << minX <<"minX " << maxX <<"maxX " << minY <<"minY " << maxY << "maxY\n";
+
 }
 
-//bool readDataFromUser()
-//{
-//        double input;
-//        int counter = 0;
-//        bool FLAG = false;
-//
-//        maxX = counter;
-//        maxY = counter*counter;
-//        
-//        for(counter =0;counter<MAX_INPUT;counter++);
-//        {
-//                //X[counter] = counter;
-//                graphX[counter] = counter;
-//                graphY[counter] = (counter*counter/2);
-//                //Y[counter] = counter * counter;
-//        }
-//        
-//        maxX = counter;
-//        maxY = counter*counter;
-//        
-//        while(FLAG)
-//        {
-//                cin >> input;
-//                X[counter] = input;
-//                counter++;
-//        }
-//
-//        numPoints = counter;
-//        return 0;
-//}
 bool checkDouble(const char &chr)
 {
-	if(chr!='-' && !isdigit(chr) && chr!= ' ')
+	if(chr == ' ')
+	{
+		char chr2;
+		bool result;
+		chr2 = cin.get(); 
+		result = checkDouble(chr2);
+		cin.putback(chr2);
+		return result;
+	}
+	else if(chr!='-' && !isdigit(chr))
+
 		return false;
 
 	return true;
 }
-bool readDataFromUser()
-{
-	int index;
-	char chr;
 
-	numPoints = 0;
-	for(index = 0; index < MAX_INPUT; index++)
+int fillArrOfPoints(int maxInput, int pointType)
+{	
+	char chr;
+	int numOfPoints = 0;
+	for(int index = 0; index < maxInput; index++)
 	{
 		chr = cin.get();
 
 		if(!checkDouble(chr))
+		{
 			break;
+		} 
 
 		cin.putback(chr);
-		cin >> X[index];
-		numPoints++; 
+
+		if(pointType == eX)
+		{
+			cin >> X[index];
+		}
+
+		else
+		{
+			cin >> Y[index];
+		}
+
+		numOfPoints++; 
+		
 	}
+	return(numOfPoints);
+}
 
-	 for(index = 0; index < numPoints; index++)
-	 {
-		chr = cin.get();
+void readDataFromUser()
+{
+	numPoints = 0;
 
-		if(!checkDouble(chr))
+	do
+	{
+		cout << "Please enter X values for interpulation" << "\n"  
+			 << "(Each value separated with space)" << "\n\n"
+			 << "For example: x1 x2 x3 x4 'Enter'" << "\n\n";
+
+		numPoints = fillArrOfPoints(MAX_INPUT, eX);
+
+		cout << "Please enter Y values for interpulation" << "\n"  
+			 << "(Each value separated with space)" << "\n\n"
+			 << "For example: y1 y2 y3 y4 'Enter'" << "\n\n"
+			 << "(REMEBER! Number of Y points must be equal to the number of X points)" << "\n\n";
+
+		char chr = cin.get();
+		if(checkDouble(chr))
+		{
+			cin.putback(chr);
+		}
+
+
+		if(numPoints == 0)
+		{	
+			cout << "!!!WRONG ENTER!!!" << "\n" 
+				 << "U did not enter any values!" << "\n\n";
+		}
+		else if(fillArrOfPoints(numPoints, waY) != numPoints)
+		{
+			cout << "!!!WRONG ENTER!!!" << "\n"
+				 << "(Number of Y points did not equal to the number of X points)"
+				 << "\n\n";
+		}
+
+		else
+
 			break;
-
-		cin.putback(chr);
-		cin >> Y[index];
 	}
-
- for(index = 0; index < numPoints; index++)
- {
-  cout << X[index] << " ";
- }
- cout << "\n";
- for(index = 0; index < numPoints; index++)
- {
-  cout << Y[index] << " " ;
- }
- cout << "\n";
-	return 1;
+	while(true);
 }
 
 int main(int argc, char** argv)
@@ -287,14 +308,23 @@ cout << "Comper (obj1!=obj2)" << endl;
 		//		<<endl << endl;
         //cout << "result= " << lagrang << endl << endl; 
 
-        if(readDataFromUser())
-		{
+		
+		readDataFromUser();
+		Poly lagrang2 = Poly(X,Y,numPoints);
+		cout << lagrang2 << "\n";
+		updateGlobals(lagrang2);
+		cout << lagrang2 << "\n";
+
+
+		/*if(readDataFromUser())
+        {
 			Poly lagrang2 = Poly(X,Y,numPoints);
 			updateGlobals(lagrang2);
 			cout << lagrang2;
-		}
-		else
-			cout << "Can not get data\n";
+        }
+        else
+			cout << "Can not get data\n";*/
+
 
 
         /***************************
@@ -315,7 +345,7 @@ cout << "Comper (obj1!=obj2)" << endl;
         
 
         glutDisplayFunc(display); 
-    glutMainLoop();
+		glutMainLoop();
     
         return 0;  
 }
