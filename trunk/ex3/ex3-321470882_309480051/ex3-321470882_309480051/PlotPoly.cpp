@@ -115,8 +115,6 @@ void updateGlobals(const Poly &lPoly)
 		graphX[index] = (index-249);
 		graphY[index] = lPoly(index - 249);
 
-		//cout << graphX[i] << "       "  << graphY[i] << endl; 
-
 		minX = min(minX,graphX[index]);
 		maxX = max(maxX,graphX[index]);
 
