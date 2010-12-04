@@ -156,7 +156,13 @@ void updateGlobals(const Poly &lPoly)
 //        numPoints = counter;
 //        return 0;
 //}
+bool checkDouble(const char &chr)
+{
+	if(chr!='-' && !isdigit(chr) && chr!= ' ')
+		return false;
 
+	return true;
+}
 bool readDataFromUser()
 {
 	int index;
@@ -167,10 +173,8 @@ bool readDataFromUser()
 	{
 		chr = cin.get();
 
-		if(!isdigit(chr) && chr != '.' && chr != ' ')
-		{
-		break;
-		}
+		if(!checkDouble(chr))
+			break;
 
 		cin.putback(chr);
 		cin >> X[index];
@@ -181,10 +185,8 @@ bool readDataFromUser()
 	 {
 		chr = cin.get();
 
-		if(!isdigit(chr) && chr != '.' && chr != ' ')
-		{
-		break;
-		}
+		if(!checkDouble(chr))
+			break;
 
 		cin.putback(chr);
 		cin >> Y[index];
