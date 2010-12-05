@@ -17,7 +17,7 @@ using namespace std;
 #define eX 20
 #define waY 30
 
-#define GRAPH_LENGTH 500
+#define GRAPH_LENGTH 10
 #define MAX_INPUT 100
 
 double graphX[GRAPH_LENGTH],graphY[GRAPH_LENGTH];
@@ -27,7 +27,6 @@ double maxX,maxY,minX,minY;
 
 
 
-//std::ostream& operator<<(std::ostream& pout, const Poly &otherPoly);
 
 void display(void)
 {
@@ -109,12 +108,17 @@ void init (void)
  *  Register callback function to display graphics.
  *  Enter main loop and process events.
  */
+
+// A function that update globals that will bueld the plot.
+//=============================================================================
+// Input: polynom obj.
 void updateGlobals(const Poly &lPoly)
 {
+	// 
 	for(int index = 0 ;index < GRAPH_LENGTH; index++)
 	{
-		graphX[index] = (index-249);
-		graphY[index] = lPoly(index - 249);
+		graphX[index] = (index - (GRAPH_LENGTH/2));
+		graphY[index] = lPoly(index - (GRAPH_LENGTH/2));
 
 		minX = min(minX,graphX[index]);
 		maxX = max(maxX,graphX[index]);
@@ -123,15 +127,11 @@ void updateGlobals(const Poly &lPoly)
 		maxY = max(maxY,graphY[index]);
 
 	}	
-		//minX = -100;
-		//maxX = 100;
 
-		//minY = -100;
-		//maxY = 100;
-		cout << minX <<"minX " << maxX <<"maxX " << minY <<"minY " << maxY << "maxY\n";
+		//cout << minX <<"minX " << maxX <<"maxX " << minY <<"minY " << maxY << "maxY\n";
 
 }
-
+// 
 bool checkDouble(const char &chr)
 {
 	if(chr == ' ')
@@ -313,19 +313,12 @@ cout << "Comper (obj1!=obj2)" << endl;
 		Poly lagrang2 = Poly(X,Y,numPoints);
 		cout << lagrang2 << "\n";
 		updateGlobals(lagrang2);
-		cout << lagrang2 << "\n";
 
-
-		/*if(readDataFromUser())
-        {
-			Poly lagrang2 = Poly(X,Y,numPoints);
-			updateGlobals(lagrang2);
-			cout << lagrang2;
-        }
-        else
-			cout << "Can not get data\n";*/
-
-
+		cout << "for exit click right button on the left top corner of glut"
+			 << "\n" << " window and choose close option" << "\n" 
+			 << "or simply clik on RED X on the rigt corner of glut window" 
+			 << "\n";
+			    
 
         /***************************
         //here comes your code!!!!
@@ -346,6 +339,7 @@ cout << "Comper (obj1!=obj2)" << endl;
 
         glutDisplayFunc(display); 
 		glutMainLoop();
+		//glCloseFunc();
     
         return 0;  
 }
