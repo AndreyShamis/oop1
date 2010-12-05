@@ -1,4 +1,7 @@
-// A class that reprisent polynom .
+// A class that reprisent polynom.
+// This class rialize operators that will be usefull at work with polynoms.
+// Also that class have 6 different constractors wihc allow to creat the
+// polynom in many differente ways.
 
 //                               Include section
 //=============================================================================
@@ -7,13 +10,19 @@
 //                               Function section
 //=============================================================================
 
+//                                 Distractor:
+//#############################################################################
 
+// A function that clear the polynom vector and distract Poly objetc.
+//=============================================================================
 Poly::~Poly()
 {
 	polynom.clear();
 }
 
 
+//                                Constractors:
+//#############################################################################
 // Poly class constractor
 //=============================================================================
 Poly::Poly()
@@ -26,6 +35,7 @@ Poly::Poly(const struct Monom &value)
 {
 	polynom.push_back(value);
 }
+
 
 
 //=============================================================================
@@ -46,11 +56,12 @@ Poly::Poly(double coeffs[], unsigned int arrSize)
 	}	
 }
 
+
 //=============================================================================
-// Copy constractor.  TODO-- test
-Poly::Poly(Poly &otherPoly)			
+// Copy constractor.
+Poly::Poly(Poly &otherPoly)                     
 {
-	polynom = otherPoly.polynom;
+        polynom = otherPoly.polynom;
 }
 
 //=============================================================================
@@ -64,6 +75,7 @@ Poly::Poly(double &scal)
 
 	polynom.push_back(tempMonom);
 }
+
 
 //=============================================================================
 // Constractor Lagrange
@@ -94,7 +106,7 @@ Poly::Poly(double X[], double Y[], int n)
 			//	do this section where j != k
 			if(j != k)
 			{
-				//	the precudure of multiply parse the sub-function to two parts
+				//the precudure of multiply parse the sub-function to two parts
 				double x1, x2 ;
 				//	this is first part of sub-function
 				x1 = X[j] - X[k]; 
@@ -126,6 +138,11 @@ Poly::Poly(double X[], double Y[], int n)
 }
 
 
+
+//                                Constractors:
+//#############################################################################
+
+// A function that
 //=============================================================================
 // Relouded of operator "+" for class poly.
 Poly Poly::operator+(const Poly &otherPoly)
@@ -134,7 +151,8 @@ Poly Poly::operator+(const Poly &otherPoly)
 
 	int thisIndex = 0, otherIndex = 0;
 
-	while(thisIndex < (int)polynom.size() && otherIndex < (int)otherPoly.polynom.size())
+	while(thisIndex < (int)polynom.size() && otherIndex < 
+		 (int)otherPoly.polynom.size())
 	{
 		if(polynom[thisIndex].power > otherPoly.polynom[otherIndex].power)
 		{
@@ -196,6 +214,7 @@ Poly Poly::operator=(const Poly &otherPoly)
 	return *this;
 }
 
+
 //=============================================================================
 //// Relouded of operator "*" for class poly.
 Poly Poly::operator*(const Poly &otherPoly)
@@ -232,7 +251,7 @@ Poly Poly::operator*=(const Poly &otherPoly)
 }
 
 //=============================================================================
-std::ostream& operator<<(std::ostream& pout,const Poly &otherPoly)				
+std::ostream& operator<<(std::ostream& pout,const Poly &otherPoly)
 {
 	Monom tempMonom;
 	int polySize = otherPoly.getSize();
@@ -262,6 +281,7 @@ std::ostream& operator<<(std::ostream& pout,const Poly &otherPoly)
 	
 	return pout;
 }
+
 
 //=============================================================================
 double Poly::operator()(const double &x) const
@@ -303,6 +323,9 @@ bool Poly::operator!=(const Poly &otherPoly)const
 }
 
 
+//                                Privet function:
+//#############################################################################
+
 //=============================================================================
 bool Poly::comperPoly(const Poly &otherPoly) const
 {
@@ -325,9 +348,6 @@ bool Poly::comperPoly(const Poly &otherPoly) const
 	return false;
 }
 
-
-
-
 //=============================================================================
 //	fucntion which return Monom struct from vector by index
 //	which is geyed in parameters to call function
@@ -345,4 +365,4 @@ int Poly::getSize() const
 {
 	return((int)polynom.size());
 }
-//	END getSize
+//	END getSiz

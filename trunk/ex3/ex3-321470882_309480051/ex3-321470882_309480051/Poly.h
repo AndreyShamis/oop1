@@ -1,13 +1,16 @@
-// A class that reprisent Polynom.
+// A class that reprisent polynom .
+// This class rialize operators that will be usefull at work with polynoms.
+// Also that class have 6 different constractors wihc allow to creat the
+// polynom in many differente ways.
 
-#pragma once
+
 
 //                               Include section
 //=============================================================================
-//#include "macros.h"
 #include <vector>
 #include <iostream>
-#include <cmath> //
+#include <cmath> 
+#pragma once
 
 using namespace std;
 //                               Structur section
@@ -26,75 +29,36 @@ class Poly
 //                               Function section
 //=============================================================================
 public:
-	friend std::ostream& operator<<(std::ostream& pout,const Poly &otherPoly);			//TODO const
 
-	Poly(double coeffs[], unsigned int arrSize);
-	Poly(); // Defaul constractor
-	Poly(Poly &otherPoly); // Copy constractor.
-	Poly(double &scal);
-	~Poly();
-	Poly(double X[], double Y[], int n);
-	Poly(const struct Monom &value);
+	Poly(double coeffs[], unsigned int arrSize); // By coeffs constractor 
+	Poly();										// Defaul constractor
+	Poly(Poly &otherPoly);						// Copy constractor.
+	Poly(double &scal);							// Scalar constractor
+	Poly(double X[], double Y[], int n);		// Lagrange Constractor
+	Poly(const struct Monom &value);			// Monom constractor 
+	~Poly();									// Distractor.
 	
-	Poly operator+(const Poly &otherPoly);
-	Poly operator+=(const Poly &otherPoly);
-	Poly operator=(const Poly &otherPoly);
-	Poly operator*(const Poly &otherPoly);
-	Poly operator*=(const Poly &otherPoly);
-	double operator()(const double &x)const ;
-	bool operator==(const Poly &otherPoly)const;
-	bool operator!=(const Poly &otherPoly)const;
+	// Polynoms operator <<
+	friend std::ostream& operator<<(std::ostream& pout,const Poly &otherPoly);
+	Poly operator+(const Poly &otherPoly);		// Polynoms operator +
+	Poly operator+=(const Poly &otherPoly);		// Polynoms operator +=
+	Poly operator=(const Poly &otherPoly);		// Polynoms operator =
+	Poly operator*(const Poly &otherPoly);		// Polynoms operator *
+	Poly operator*=(const Poly &otherPoly);		// Polynoms operator =*
+	double operator()(const double &x)const ;	// Polynoms operator ()
+	bool operator==(const Poly &otherPoly)const;// Polynoms operator ==
+	bool operator!=(const Poly &otherPoly)const;// Polynoms operator !=
 
 private:
-	bool comperPoly(const Poly &otherPoly)const;
-	int Poly::getSize() const;
-	Monom getMonom(const int &index) const;
+
+	bool comperPoly(const Poly &otherPoly)const;	// Comper to polynoms.
+	int Poly::getSize() const;						// Get number of monoms
+	Monom getMonom(const int &index) const;			// Get i monom from Polynom
+
 //                              veribel section
 //=============================================================================
-
+	
+	// Difine Polynom vector. Each "box" contain monom.
 	std::vector <Monom> polynom;	
-
-
 };
 
-//bool readDataFromUser()
-//{
-//	int index;
-//	char chr;
-//	numPoints = 0;
-//
-//	cout << "Please enter X values for interpulation" << endl  
-//		 << "(Each value separated with space)" << endl << endl
-//		 << "For example: x1 x2 x3 x4 'Enter'" << endl
-//		 << "             y1 y2 y3 y4 'Enter'" << endl 
-//		 << "(REMEBER! Number of Y points must be equal to the number of X points)" << endl << endl;
-//
-//	for(index = 0; index < MAX_INPUT; index++)
-//	{
-//		chr = cin.get();
-//
-//		if(!checkDouble(chr))
-//			break;
-//
-//		cin.putback(chr);
-//		cin >> X[index];
-//		numPoints++; 
-//	}
-//
-//	cout << "Please enter X values for interpulation" << endl  
-//		 << "(Each value separated with space)" << endl << endl
-//		 << "For example: y1 y2 y3 y4 'Enter'" << endl
-//		 << "(REMEBER! Number of Y points must be equal to the number of X points)" << endl << endl;
-//
-//	for(index = 0; index < numPoints; index++)
-//	{
-//		chr = cin.get();
-//
-//		if(!checkDouble(chr))
-//			break;
-//
-//		cin.putback(chr);
-//		cin >> Y[index];
-//	}
-//	return 1;
-//}
