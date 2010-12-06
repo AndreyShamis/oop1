@@ -149,11 +149,11 @@ void updateGlobals(const Poly &lPoly)
 
 	start_maxX = findMaxX();
 	start_minX = findMinX();		
-	center	= start_minX + (start_maxX - start_minX)/2;
-	step	= abs(start_maxX - start_minX);
+	center	= start_minX + (start_maxX - start_minX)*1.1/2;
+	step	= abs(start_maxX - start_minX)*1.1;
 	
 	step = step/GRAPH_LENGTH;
-	start = (center - step*((GRAPH_LENGTH)/2)); 
+	start = (center - step*((GRAPH_LENGTH)*1.1/2)); 
 
 
 
