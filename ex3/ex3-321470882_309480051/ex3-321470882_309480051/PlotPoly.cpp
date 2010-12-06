@@ -17,7 +17,7 @@ using namespace std;
 #define eX 20
 #define waY 30
 
-#define GRAPH_LENGTH 10
+#define GRAPH_LENGTH 500
 #define MAX_INPUT 100
 
 double graphX[GRAPH_LENGTH],graphY[GRAPH_LENGTH];
@@ -109,17 +109,65 @@ void init (void)
  *  Enter main loop and process events.
  */
 
+int findMaxX()
+{
+	int max_value;
+	for(int i =0;i<numPoints;i++)
+	{
+		if(i == 0)
+		{
+			max_value = X[i];
+		}
+		max_value = max(max_value,X[i]);
+	}
+	return(max_value);
+}
+
+int findMinX()
+{
+	int min_value;
+	for(int i =0;i<numPoints;i++)
+	{
+		if(i == 0)
+		{
+			min_value = X[i];
+		}
+		min_value = min(min_value,X[i]);
+	}
+	return(min_value);
+}
 // A function that update globals that will bueld the plot.
 //=============================================================================
 // Input: polynom obj.
 void updateGlobals(const Poly &lPoly)
 {
 	// 
-	for(int index = 0 ;index < GRAPH_LENGTH; index++)
-	{
-		graphX[index] = (index - (GRAPH_LENGTH/2));
-		graphY[index] = lPoly(index - (GRAPH_LENGTH/2));
+	double start_maxX,start_minX;
+	double start	= 0;
+	double center	= 0;
+	double step = 0;
 
+	start_maxX = findMaxX();
+	start_minX = findMinX();		
+	center	= start_minX + (start_maxX - start_minX-2)/2;
+	step	= abs(start_maxX - start_minX)+2;
+	
+	step = step/GRAPH_LENGTH;
+	start = (center - step*((GRAPH_LENGTH)/2)); 
+
+
+
+	for(int index =0 ;index <GRAPH_LENGTH; index++)
+	{
+
+		graphX[index] = step*(index)+start;
+		graphY[index] = lPoly(graphX[index]);
+
+		if(index == 0)
+		{
+			minX = maxX = graphX[index];
+			minY = maxY = graphY[index];
+		}
 		minX = min(minX,graphX[index]);
 		maxX = max(maxX,graphX[index]);
 
@@ -127,8 +175,15 @@ void updateGlobals(const Poly &lPoly)
 		maxY = max(maxY,graphY[index]);
 
 	}	
+	
+	double border_x = abs(maxX - minX)*0.02;
+	minX-=border_x;
+	maxX+=3*border_x;
 
-		//cout << minX <<"minX " << maxX <<"maxX " << minY <<"minY " << maxY << "maxY\n";
+	double border_y = abs(maxY - minY)*0.02;
+	minY-=border_y;
+	maxY+=border_y;
+		cout << minX <<"minX " << maxX <<"maxX " << minY <<"minY " << maxY << "maxY\n";
 
 }
 // 
@@ -150,50 +205,45 @@ bool checkDouble(const char &chr)
 	return true;
 }
 
-int fillArrOfPoints(int maxInput, int pointType)
+int fillArrOfPoints(const int &maxInput,const int &pointType)
 {	
-	char chr;
-	int numOfPoints = 0;
+	char	chr;
+	int		numOfPoints		=	0;
+
 	for(int index = 0; index < maxInput; index++)
 	{
 		chr = cin.get();
 
 		if(!checkDouble(chr))
-		{
 			break;
-		} 
 
 		cin.putback(chr);
 
 		if(pointType == eX)
-		{
 			cin >> X[index];
-		}
-
 		else
-		{
 			cin >> Y[index];
-		}
-
-		numOfPoints++; 
 		
+		numOfPoints++; 
+
 	}
-	return(numOfPoints);
+
+	return(numOfPoints);	//	return how many points was geted
 }
 
 void readDataFromUser()
 {
 	numPoints = 0;
 
-	do
+	while(true)
 	{
-		cout << "Please enter X values for interpulation" << "\n"  
+		cout << "\t### Please enter X values for interpulation" << "\n"  
 			 << "(Each value separated with space)" << "\n\n"
 			 << "For example: x1 x2 x3 x4 'Enter'" << "\n\n";
 
 		numPoints = fillArrOfPoints(MAX_INPUT, eX);
 
-		cout << "Please enter Y values for interpulation" << "\n"  
+		cout << "\t### Please enter Y values for interpulation" << "\n"  
 			 << "(Each value separated with space)" << "\n\n"
 			 << "For example: y1 y2 y3 y4 'Enter'" << "\n\n"
 			 << "(REMEBER! Number of Y points must be equal to the number of X points)" << "\n\n";
@@ -204,24 +254,25 @@ void readDataFromUser()
 			cin.putback(chr);
 		}
 
-
 		if(numPoints == 0)
 		{	
 			cout << "!!!WRONG ENTER!!!" << "\n" 
 				 << "U did not enter any values!" << "\n\n";
+			continue;
 		}
-		else if(fillArrOfPoints(numPoints, waY) != numPoints)
+		
+		int numberOfY = fillArrOfPoints(numPoints, waY);
+		if(numberOfY < numPoints)
 		{
 			cout << "!!!WRONG ENTER!!!" << "\n"
 				 << "(Number of Y points did not equal to the number of X points)"
 				 << "\n\n";
 		}
-
 		else
-
 			break;
+
 	}
-	while(true);
+	
 }
 
 int main(int argc, char** argv)
