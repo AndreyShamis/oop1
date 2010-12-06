@@ -260,7 +260,7 @@ std::ostream& operator<<(std::ostream& pout,const Poly &otherPoly)
 	{
 		tempMonom = otherPoly.getMonom(index);
 
-		if((int)tempMonom.scalar > 0 && index != 0)
+		if(tempMonom.scalar > 0 && index != 0)
 		{
 			pout << "+";
 		}
