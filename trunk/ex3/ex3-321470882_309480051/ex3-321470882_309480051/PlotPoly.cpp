@@ -14,18 +14,23 @@
 
 using namespace std;
 
-#define eX 20
-#define waY 30
-
 #define GRAPH_LENGTH 500
 #define MAX_INPUT 100
+
+#define	BORDER_AX 0.02	//	border proportion
+#define GRAPH_EDGE 1.1  //	edge of the graph line
 
 double graphX[GRAPH_LENGTH],graphY[GRAPH_LENGTH];
 double X[MAX_INPUT],Y[MAX_INPUT];
 int numPoints;
 double maxX,maxY,minX,minY;
-
-
+//==============================	functions =================================
+double findMinX();
+double findMaxX();
+void updateGlobals(const Poly &lPoly);
+bool checkDouble(const char &chr);
+int fillArrOfPoints(const int &maxInput,const bool &pointType);
+void readDataFromUser();
 
 
 void display(void)
@@ -109,57 +114,44 @@ void init (void)
  *  Enter main loop and process events.
  */
 
+//=============================================================================
 double findMaxX()
 {
 	double max_value;
 	for(int i =0;i<numPoints;i++)
 	{
 		if(i == 0)
-		{
 			max_value = X[i];
-		}
+
 		max_value = max(max_value,X[i]);
 	}
 	return(max_value);
 }
 
-double findMinX()
-{
-	double min_value;
-	for(int i =0;i<numPoints;i++)
-	{
-		if(i == 0)
-		{
-			min_value = X[i];
-		}
-		min_value = min(min_value,X[i]);
-	}
-	return(min_value);
-}
-// A function that update globals that will bueld the plot.
 //=============================================================================
+// A function that update globals that will bueld the plot.
 // Input: polynom obj.
 void updateGlobals(const Poly &lPoly)
 {
 	// 
-	double start_maxX,start_minX;
-	double start	= 0;
-	double center	= 0;
-	double step = 0;
+	double start_maxX,start_minX;	//	absolute input nim max
+	double start	= 0;			//	start position of graph
+	double center	= 0;			//	center of the graph
+	double step = 0;				//	step proportion
 
-	start_maxX = findMaxX();
-	start_minX = findMinX();		
-	center	= start_minX + (start_maxX - start_minX)*1.1/2;
-	step	= abs(start_maxX - start_minX)*1.1;
-	
+	start_maxX = findMaxX();		//	get max X[]
+	start_minX = findMinX();		//	get min X[]
+									//	math center of the polynom graph
+	center	= start_minX + (start_maxX - start_minX)*GRAPH_EDGE/2;
+									//	math step proportion
+	step	= abs(start_maxX - start_minX)*GRAPH_EDGE;
 	step = step/GRAPH_LENGTH;
-	start = (center - step*((GRAPH_LENGTH)*1.1/2)); 
-
-
+									//	math start position
+	start = (center - step*((GRAPH_LENGTH)*GRAPH_EDGE/2)); 
 
 	for(int index =0 ;index <GRAPH_LENGTH; index++)
 	{
-
+	
 		graphX[index] = step*(index)+start;
 		graphY[index] = lPoly(graphX[index]);
 
@@ -168,6 +160,7 @@ void updateGlobals(const Poly &lPoly)
 			minX = maxX = graphX[index];
 			minY = maxY = graphY[index];
 		}
+
 		minX = min(minX,graphX[index]);
 		maxX = max(maxX,graphX[index]);
 
@@ -176,17 +169,20 @@ void updateGlobals(const Poly &lPoly)
 
 	}	
 	
-	double border_x = abs(maxX - minX)*0.02;
+	// TAK I OSTAVIT // TODO
+	//	set spcae on the graph use border proportion for x
+	double border_x = abs(maxX - minX)*BORDER_AX;
 	minX-=border_x;
-	maxX+=3*border_x;
-
-	double border_y = abs(maxY - minY)*0.02;
+	maxX+=border_x;
+	//	set spcae on the graph use border proportion for y
+	double border_y = abs(maxY - minY)*BORDER_AX;
 	minY-=border_y;
 	maxY+=border_y;
-		cout << minX <<"minX " << maxX <<"maxX " << minY <<"minY " << maxY << "maxY\n";
 
 }
 // 
+
+//=============================================================================
 bool checkDouble(const char &chr)
 {
 	if(chr == ' ')
@@ -205,7 +201,26 @@ bool checkDouble(const char &chr)
 	return true;
 }
 
-int fillArrOfPoints(const int &maxInput,const int &pointType)
+
+
+//=============================================================================
+double findMinX()
+{
+	double min_value;			//	value be returned
+
+	for(int i =0;i<numPoints;i++)
+	{
+		if(i == 0)				//	if min_value empty
+			min_value = X[i];
+								//	set minimal
+		min_value = min(min_value,X[i]);
+	}
+	return(min_value);			//	return
+}
+
+
+//=============================================================================
+int fillArrOfPoints(const int &maxInput,const bool &pointType)
 {	
 	char	chr;
 	int		numOfPoints		=	0;
@@ -219,7 +234,7 @@ int fillArrOfPoints(const int &maxInput,const int &pointType)
 
 		cin.putback(chr);
 
-		if(pointType == eX)
+		if(pointType)
 			cin >> X[index];
 		else
 			cin >> Y[index];
@@ -231,6 +246,7 @@ int fillArrOfPoints(const int &maxInput,const int &pointType)
 	return(numOfPoints);	//	return how many points was geted
 }
 
+//=============================================================================
 void readDataFromUser()
 {
 	numPoints = 0;
@@ -241,12 +257,13 @@ void readDataFromUser()
 			 << "(Each value separated with space)" << "\n\n"
 			 << "For example: x1 x2 x3 x4 'Enter'" << "\n\n";
 
-		numPoints = fillArrOfPoints(MAX_INPUT, eX);
+		numPoints = fillArrOfPoints(MAX_INPUT, true);
 
 		cout << "\t### Please enter Y values for interpulation" << "\n"  
 			 << "(Each value separated with space)" << "\n\n"
 			 << "For example: y1 y2 y3 y4 'Enter'" << "\n\n"
-			 << "(REMEBER! Number of Y points must be equal to the number of X points)" << "\n\n";
+			 << "(REMEBER! Number of Y points must be equal "
+			 << "to the number of X points)" << "\n\n";
 
 		char chr = cin.get();
 		if(checkDouble(chr))
@@ -261,11 +278,11 @@ void readDataFromUser()
 			continue;
 		}
 		
-		int numberOfY = fillArrOfPoints(numPoints, waY);
+		int numberOfY = fillArrOfPoints(numPoints, false);
 		if(numberOfY < numPoints)
 		{
 			cout << "!!!WRONG ENTER!!!" << "\n"
-				 << "(Number of Y points did not equal to the number of X points)"
+				 << "(Number of Y points not equal to the number of X points)"
 				 << "\n\n";
 		}
 		else
