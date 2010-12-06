@@ -109,9 +109,9 @@ void init (void)
  *  Enter main loop and process events.
  */
 
-int findMaxX()
+double findMaxX()
 {
-	int max_value;
+	double max_value;
 	for(int i =0;i<numPoints;i++)
 	{
 		if(i == 0)
@@ -123,9 +123,9 @@ int findMaxX()
 	return(max_value);
 }
 
-int findMinX()
+double findMinX()
 {
-	int min_value;
+	double min_value;
 	for(int i =0;i<numPoints;i++)
 	{
 		if(i == 0)
@@ -149,8 +149,8 @@ void updateGlobals(const Poly &lPoly)
 
 	start_maxX = findMaxX();
 	start_minX = findMinX();		
-	center	= start_minX + (start_maxX - start_minX-2)/2;
-	step	= abs(start_maxX - start_minX)+2;
+	center	= start_minX + (start_maxX - start_minX)/2;
+	step	= abs(start_maxX - start_minX);
 	
 	step = step/GRAPH_LENGTH;
 	start = (center - step*((GRAPH_LENGTH)/2)); 
