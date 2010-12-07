@@ -31,7 +31,7 @@ class Poly
 public:
 
 	Poly(double coeffs[], unsigned int arrSize); // By coeffs constractor 
-	Poly();										// Defaul constractor
+	Poly();										// Defaul constractor/polynom 0
 	Poly(Poly &otherPoly);						// Copy constractor.
 	Poly(double &scal);							// Scalar constractor
 	Poly(double X[], double Y[], int n);		// Lagrange Constractor
@@ -61,4 +61,5 @@ private:
 	// Difine Polynom vector. Each "box" contain monom.
 	std::vector <Monom> polynom;	
 };
+
 
