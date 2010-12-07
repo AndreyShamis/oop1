@@ -114,78 +114,65 @@ void init (void)
  *  Enter main loop and process events.
  */
 
-//=============================================================================
-double findMaxX()
-{
-	double max_value;
-	for(int i =0;i<numPoints;i++)
-	{
-		if(i == 0)
-			max_value = X[i];
-
-		max_value = max(max_value,X[i]);
-	}
-	return(max_value);
-}
-
-//=============================================================================
 // A function that update globals that will bueld the plot.
+//=============================================================================
 // Input: polynom obj.
 void updateGlobals(const Poly &lPoly)
 {
-	// 
-	double start_maxX,start_minX;	//	absolute input nim max
-	double start	= 0;			//	start position of graph
-	double center	= 0;			//	center of the graph
+
+	double start_maxX, start_minX;	//	absolute input nim max
+	double start = 0;			//	start position of graph
+	double center = 0;			//	center of the graph
 	double step = 0;				//	step proportion
 
 	start_maxX = findMaxX();		//	get max X[]
 	start_minX = findMinX();		//	get min X[]
 									//	math center of the polynom graph
-	center	= start_minX + (start_maxX - start_minX)*GRAPH_EDGE/2;
+	center	= start_minX + (start_maxX - start_minX) * GRAPH_EDGE / 2;
 									//	math step proportion
-	step	= abs(start_maxX - start_minX)*GRAPH_EDGE;
-	step = step/GRAPH_LENGTH;
+	step	= abs(start_maxX - start_minX) * GRAPH_EDGE;
+	step = step  / GRAPH_LENGTH;
 									//	math start position
-	start = (center - step*((GRAPH_LENGTH)*GRAPH_EDGE/2)); 
+	start = (center - step * ((GRAPH_LENGTH) * GRAPH_EDGE / 2)); 
 
-	for(int index =0 ;index <GRAPH_LENGTH; index++)
+	for(int index =0; index < GRAPH_LENGTH; index++)	// Loop though x points.
 	{
-	
-		graphX[index] = step*(index)+start;
+		// Difine curent graph point, includ right proportion to 500 points.
+		graphX[index] = step * (index) + start;	
 		graphY[index] = lPoly(graphX[index]);
 
+		// Difine grahp limits.
 		if(index == 0)
 		{
 			minX = maxX = graphX[index];
 			minY = maxY = graphY[index];
 		}
 
-		minX = min(minX,graphX[index]);
-		maxX = max(maxX,graphX[index]);
+		minX = min(minX, graphX[index]);
+		maxX = max(maxX, graphX[index]);
 
-		minY = min(minY,graphY[index]);
-		maxY = max(maxY,graphY[index]);
+		minY = min(minY, graphY[index]);
+		maxY = max(maxY, graphY[index]);
 
 	}	
-	
-	// TAK I OSTAVIT // TODO
 	//	set spcae on the graph use border proportion for x
-	double border_x = abs(maxX - minX)*BORDER_AX;
-	minX-=border_x;
-	maxX+=border_x;
+	double border_x = abs(maxX - minX) * BORDER_AX;
+	minX -= border_x;
+	maxX += border_x;
+
 	//	set spcae on the graph use border proportion for y
-	double border_y = abs(maxY - minY)*BORDER_AX;
-	minY-=border_y;
-	maxY+=border_y;
+	double border_y = abs(maxY - minY) * BORDER_AX;
+	minY -= border_y;
+	maxY += border_y;
 
 }
-// 
 
+// A function that chek char if it cintein number - double type. 
 //=============================================================================
+// Input: char from STDIN.
 bool checkDouble(const char &chr)
 {
-	if(chr == ' ')
+	if(chr == ' ')	// If charecter is spase - chek recursive next charecter.
 	{
 		char chr2;
 		bool result;
@@ -194,15 +181,32 @@ bool checkDouble(const char &chr)
 		cin.putback(chr2);
 		return result;
 	}
+	// If charecter is not riprisent nomber Double type - return false.
 	else if(chr!='-' && !isdigit(chr))
 
 		return false;
 
-	return true;
+	return true;		// Otherwise.
 }
 
+// A function that find max x point that user guive.
+//=============================================================================
+// Return max X point.
+double findMaxX()
+{
+	double max_value;					// Difine max x value..
+	for(int i =0; i < numPoints; i++)	// Loop thrigh all points x of user.
+	{
+		if(i == 0)
+			max_value = X[i];
 
+		// Max value x wqual to maximum of present max value and curent max v.
+		max_value = max(max_value,X[i]);
+	}
+	return(max_value);
+}
 
+// A function that find min x point that user guive.
 //=============================================================================
 double findMinX()
 {
@@ -218,22 +222,24 @@ double findMinX()
 	return(min_value);			//	return
 }
 
-
+// A function that fill arr (global) of points from user. 
 //=============================================================================
 int fillArrOfPoints(const int &maxInput,const bool &pointType)
 {	
-	char	chr;
-	int		numOfPoints		=	0;
+	char	chr;	// Difine charecter.
+	int		numOfPoints		=	0;	// Difine nimber of points.
 
+	// Get input till the max input of points.
 	for(int index = 0; index < maxInput; index++)
 	{
 		chr = cin.get();
 
-		if(!checkDouble(chr))
+		if(!checkDouble(chr)) // If not double number - leav the loop.
 			break;
 
 		cin.putback(chr);
 
+		// Get point : x and y
 		if(pointType)
 			cin >> X[index];
 		else
@@ -242,52 +248,59 @@ int fillArrOfPoints(const int &maxInput,const bool &pointType)
 		numOfPoints++; 
 
 	}
-
 	return(numOfPoints);	//	return how many points was geted
 }
 
+// A function that read data from user.
 //=============================================================================
 void readDataFromUser()
 {
-	numPoints = 0;
+	numPoints = 0; //reset number of points from user.
 
+	// Get input untill the input is corect.
 	while(true)
 	{
-		cout << "\t### Please enter X values for interpulation" << "\n"  
-			 << "(Each value separated with space)" << "\n\n"
-			 << "For example: x1 x2 x3 x4 'Enter'" << "\n\n";
+		cout << "\t### Please enter X values for interpulation\n"  
+			 << "\t### (Each value separated with space)\n\n"
+			 << "\t### For example: x1 x2 x3 x4 'Enter'\n\n";
 
+		// get  x point from user and difine number of points that user set.
 		numPoints = fillArrOfPoints(MAX_INPUT, true);
 
-		cout << "\t### Please enter Y values for interpulation" << "\n"  
-			 << "(Each value separated with space)" << "\n\n"
-			 << "For example: y1 y2 y3 y4 'Enter'" << "\n\n"
-			 << "(REMEBER! Number of Y points must be equal "
-			 << "to the number of X points)" << "\n\n";
+		cout << "\t### Please enter Y values for interpulation\n"  
+			 << "\t### (Each value separated with space)\n\n"
+			 << "\t### For example: y1 y2 y3 y4 'Enter'\n\n"
+			 << "\t### (REMEBER! Number of Y points must be equal\n" 
+			 << "\t### to the number of X points)\n\n";
 
+		// Chek if there back=slash in the STDIN - if there is remove it.
 		char chr = cin.get();
 		if(checkDouble(chr))
 		{
 			cin.putback(chr);
 		}
 
+		// If num of point equal to zero notify the user!
 		if(numPoints == 0)
 		{	
-			cout << "!!!WRONG ENTER!!!" << "\n" 
-				 << "U did not enter any values!" << "\n\n";
+			cout << "\t###	!!!WRONG ENTER!!! ###\n" 
+				 << "\t###  U did not enter any values!\n\n";
 			continue;
 		}
 		
+		// get  y point from user.
 		int numberOfY = fillArrOfPoints(numPoints, false);
-		if(numberOfY < numPoints)
+
+		// Chek if number of points y equal to the number of point x.  
+		if(numberOfY < numPoints) // if not equal notify user and loop again.
 		{
-			cout << "!!!WRONG ENTER!!!" << "\n"
-				 << "(Number of Y points not equal to the number of X points)"
+			cout << "\t###	!!!WRONG ENTER!!! ###\n"
+				 << "\t### (Number of Y points not equal to the number of X "
+				 << "points)"
 				 << "\n\n";
 		}
-		else
+		else		// If equal exit loop.
 			break;
-
 	}
 	
 }
@@ -301,113 +314,32 @@ int main(int argc, char** argv)
     glutCreateWindow ("Graph");
     init ();
 
-        
-        double coeffs[2] = {2,3};
-        Poly obj1= Poly(coeffs,2);
-
-        double coeffs2[2] = {2,3};
-        Poly obj2= Poly(coeffs2,2);
 
 
+//                      Polynom graph activation.				
+//=============================================================================
 
-cout << "______MathResult_______" << endl;
+	// read interpulation points from user.	
+	readDataFromUser();	
 
-cout << "obj1 = "  << obj1 << endl;
-cout << "obj2 = "  << obj2 << endl << endl;
+	// Create Polynom through lagrange constractor.
+	Poly lagrang2 = Poly(X,Y,numPoints);	
+	
+	// Print Polynom.
+	cout << "\n\t### Polynom: " << lagrang2 << "\n";
+	updateGlobals(lagrang2);
 
-cout << "Plus + :risult=obj1+obj2 " << endl;
-        Poly obj3 = obj1 + obj2;
-        cout << "result= " << obj3 << endl << endl;
+	// Print instractions for Exit program.
+	cout << "\t### for exit click right button on the left top corner of "
+		 << "glut\n"
+		 << "\t### window and choose close option\n" 
+		 << "\t### or simply clik on RED X on the rigt corner of glut "
+		 << "window\n";
+	
+//=============================================================================
 
-cout << "Plus += :obj1+=obj2" << endl;
-        obj1 += obj2;
-        cout << "obj1= " << obj1 << endl << endl;
+	glutDisplayFunc(display); 
+	glutMainLoop();
 
-
-cout << "obj1 = "  << obj1 << endl;
-cout << "obj2 = "  << obj2 << endl << endl;
-
-cout << "Mul * :risult=obj1*obj2" << endl;
-        obj3 = obj1 * obj2;
-        cout << "result= " << obj3 << endl << endl;
-
-cout << "Mul *= :obj1*=obj2" << endl;
-        obj1 *= obj2;
-        cout << "obj1= " << obj1 << endl << endl;
-
-
-cout << "__________Value Test__________"  << endl;
-cout << "obj1 = "  << obj1 << endl;
-cout << "obj2 = "  << obj2 << endl << endl;
-
-
-cout << "value Test f(x)=obj2" << endl;
-        cout << obj2(-5) << endl << endl;;
-
-cout << "__________Comper Test__________"  << endl;
-cout << "obj1 = "  << obj1 << endl;
-cout << "obj2 = "  << obj2 << endl << endl;
-
-cout << "Comper (obj1==obj2)" << endl;
-        if(obj1 == obj2)
-        
-                cout << "true" << endl << endl;
-        else
-                cout << "false" << endl << endl;
-
-cout << "Comper (obj1!=obj2)" << endl;
-        if(obj1 != obj2)
-        
-                cout << "true" << endl << endl;
-        else
-                cout << "false" << endl << endl;
-
-
-
-
-        //double X1[11] = {-2,-1,0,1,2,3,4,0,0,0,0};
-        //double Y1[11] = {47,22,9,2,-5,-18,-43,0,0,0,0};
-
-        //Poly lagrang = Poly(X1,Y1,11);
-
-
-		//cout << "__________Lagrange Test__________"  << endl;
-		//cout	<< "input: " << "[X]={2,3,4,5,6,7,8,9}, [Y]={3,2.75,5,9.75,17,6,8,3}" 
-		//		<<endl << endl;
-        //cout << "result= " << lagrang << endl << endl; 
-
-		
-		readDataFromUser();
-		Poly lagrang2 = Poly(X,Y,numPoints);
-		cout << lagrang2 << "\n";
-		updateGlobals(lagrang2);
-
-		cout << "for exit click right button on the left top corner of glut"
-			 << "\n" << " window and choose close option" << "\n" 
-			 << "or simply clik on RED X on the rigt corner of glut window" 
-			 << "\n";
-			    
-
-        /***************************
-        //here comes your code!!!!
-        //you should fill X and Y with the interpolation points(from the user)
-        //and numPoints should be the number of points you got from the user
-        //there will be no more than MAX_INPUT points.
-        //graphX and graphY should be filled with the 
-        //x and y of the exactly GRAPH_LENGTH points you want the 
-        //graph to go through. These points should be ordered according to the 
-        //x coordinate ascending.
-        //
-        //Something like: (parameters not included...)
-        //readDataFromUser(); --get the data from the user
-        //Poly lPoly = Poly(); --create the polynom using lagrange ctor
-        updateGlobals(lPoly); --update glut globals for the graph
-        *******************************/
-        
-
-        glutDisplayFunc(display); 
-		glutMainLoop();
-		//glCloseFunc();
-    
         return 0;  
 }
