@@ -18,8 +18,8 @@ using namespace std;
 // Difine bomb stractur.
 struct Monom
 {
-	double	scalar;
-	int		power;
+	double	_scalar;
+	int		_power;
 
 };
 
