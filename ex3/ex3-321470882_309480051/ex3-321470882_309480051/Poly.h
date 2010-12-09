@@ -15,7 +15,7 @@
 using namespace std;
 //                               Structur section
 //=============================================================================
-// Difine bomb stractur.
+// Difine Monom structure.
 struct Monom
 {
 	double	_scalar;
