@@ -55,8 +55,8 @@ Poly::Poly(double coeffs[], unsigned int arrSize)
 		{
 			
 			Monom tempMonom;					// Difine temp monom.
-			tempMonom.scalar = coeffs[i];		// difine curent scalar.
-			tempMonom.power = arrSize - i - 1;	// difine curent power.
+			tempMonom._scalar = coeffs[i];		// difine curent scalar.
+			tempMonom._power = arrSize - i - 1;	// difine curent power.
 			polynom.push_back (tempMonom);		// push temp monom to his 									
 		}										// corect place at vector.
 	}	
@@ -76,8 +76,8 @@ Poly::Poly(Poly &otherPoly)
 Poly::Poly(double &scal)
 {
 	Monom tempMonom;				// Difine temp monom.
-	tempMonom.scalar = scal;		// put scalar to monom.
-	tempMonom.power = 0;			// put power zero to power monom.
+	tempMonom._scalar = scal;		// put scalar to monom.
+	tempMonom._power = 0;			// put power zero to power monom.
 	polynom.push_back(tempMonom);	// push temp monom to his 									
 									// corect place at vector.	
 }
@@ -136,7 +136,7 @@ Poly::Poly(double X[], double Y[], int n)
 				multiplyPoly *= temp;			//	multiply the result to Y[]
 			}
 		}
-		//	sum the results of all multiplys
+		// sum the results of all multiplys
 		sumPoly += multiplyPoly;
 	
 	} // Update current polynom.
@@ -154,21 +154,24 @@ Poly::Poly(double X[], double Y[], int n)
 // Output: Sum of curent polynom and other polynom.
 Poly Poly::operator+(const Poly &otherPoly)
 {
+	// Difines size of polynoms.
+	int polySize = getSize();
+	int otherPolySize = otherPoly.getSize();
+
 	// Creat polynom obje that will save temp sum of temp calculation.
 	Poly sumPoly = Poly();	
 
 	int thisIndex = 0, otherIndex = 0;	// Difine loops indexs of both polynoms
 	
 	// Loop thruogh both polynoms. And orgonaze monoms by power to sum polynom.
-	while(thisIndex < (int)polynom.size() && otherIndex < 
-		 (int)otherPoly.polynom.size())
+	while(thisIndex < polySize && otherIndex < otherPolySize)
 	{
-		if(polynom[thisIndex].power > otherPoly.polynom[otherIndex].power)
+		if(polynom[thisIndex]._power > otherPoly.polynom[otherIndex]._power)
 		{
 			sumPoly.polynom.push_back(polynom[thisIndex]);
 			thisIndex ++;
 		}
-		else if(polynom[thisIndex].power < otherPoly.polynom[otherIndex].power)
+		else if(polynom[thisIndex]._power < otherPoly.polynom[otherIndex]._power)
 		{
 			sumPoly.polynom.push_back(otherPoly.polynom[otherIndex]);
 			otherIndex ++;
@@ -177,11 +180,11 @@ Poly Poly::operator+(const Poly &otherPoly)
 		else
 		{
 			Monom tempMonom;	// Difine temp monom.
-			tempMonom.scalar = polynom[thisIndex].scalar +		// Sum scalars.
-							   otherPoly.polynom[otherIndex].scalar;
-			tempMonom.power = polynom[thisIndex].power;
+			tempMonom._scalar = polynom[thisIndex]._scalar +		// Sum scalars.
+							   otherPoly.polynom[otherIndex]._scalar;
+			tempMonom._power = polynom[thisIndex]._power;
 
-			if(tempMonom.scalar)	//	if the power not zero
+			if(tempMonom._scalar)	//	if the power not zero
 				sumPoly.polynom.push_back(tempMonom );
 
 			thisIndex ++;
@@ -189,12 +192,12 @@ Poly Poly::operator+(const Poly &otherPoly)
 		}
 	}
 	// When one of the polynom ends (polynom was shortly that ater polynom).
-	while(thisIndex < (int)polynom.size())
+	while(thisIndex < polySize)
 	{	
 		sumPoly.polynom.push_back(polynom[thisIndex]);
 		thisIndex ++;
 	}
-	while(otherIndex < (int)otherPoly.polynom.size())
+	while(otherIndex < otherPolySize)
 	{
 		sumPoly.polynom.push_back(otherPoly.polynom[otherIndex]);
 		otherIndex ++;
@@ -230,6 +233,11 @@ Poly Poly::operator=(const Poly &otherPoly)
 // Output: Multiple of curent polynom and other polynom.
 Poly Poly::operator*(const Poly &otherPoly)
 {
+
+	// Difines size of polynoms.
+	int polySize = getSize();
+	int otherPolySize = otherPoly.getSize();
+
 	// Creat polynom obje that will save temp sum of temp calculation.
 	Poly sumPoly = Poly();
 
@@ -237,19 +245,18 @@ Poly Poly::operator*(const Poly &otherPoly)
 	Monom tempMonom;
 
 	// Loop through curent polynom.
-	for(int thisIndex = 0; thisIndex < (int)polynom.size(); thisIndex++)
+	for(int thisIndex = 0; thisIndex < polySize; thisIndex++)
 	{	
 		// Loop through other polynom.
-		for(int otherindex = 0; otherindex < (int)otherPoly.polynom.size(); 
-			otherindex++)
+		for(int otherindex = 0; otherindex < otherPolySize; otherindex++)
 		{	
 			// Multiple tow monoms from both  polynoms. (multiple scalars and
 			// sum powers.
-			tempMonom.power = polynom[thisIndex].power + 
-							  otherPoly.polynom[otherindex].power;
+			tempMonom._power = polynom[thisIndex]._power + 
+							  otherPoly.polynom[otherindex]._power;
 
-			tempMonom.scalar = polynom[thisIndex].scalar *
-							   otherPoly.polynom[otherindex].scalar;
+			tempMonom._scalar = polynom[thisIndex]._scalar *
+							   otherPoly.polynom[otherindex]._scalar;
 	
 			// Create polynom object that will save multiple calculation.
 			Poly mulMonom = Poly(tempMonom);
@@ -292,18 +299,18 @@ std::ostream& operator<<(std::ostream& pout,const Poly &otherPoly)
 	{
 		tempMonom = otherPoly.getMonom(index);
 
-		if(tempMonom.scalar > 0 && index != 0)
+		if(tempMonom._scalar > 0 && index != 0)
 		{
 			pout << "+";		
 		}
-		pout << tempMonom.scalar;		// Print scalar.
+		pout << tempMonom._scalar;		// Print scalar.
 
-		if(tempMonom.power > 1)
+		if(tempMonom._power > 1)
 		{
-			pout << "*x^" << tempMonom.power; // Print power.
+			pout << "*x^" << tempMonom._power; // Print power.
 		}
 
-		if(tempMonom.power == 1)
+		if(tempMonom._power == 1)
 		{
 			pout << "*x"; 
 		}
@@ -329,7 +336,7 @@ double Poly::operator()(const double &x) const
 	// Otherwise, Loop throug polynom monoms and "put x value instead x"
 	for(int index = 0; index < polySize; index++)
 	{
-		fx += polynom[index].scalar * pow(x ,polynom[index].power);
+		fx += polynom[index]._scalar * pow(x ,polynom[index]._power);
 	}
 	return(fx);		// Return f(x) value.
 }
@@ -378,8 +385,8 @@ bool Poly::comperPoly(const Poly &otherPoly) const
 			otherMonom = getMonom(index); // Get next monom from other polynom.
 
 			// If the sequential monoms not equal - return false. 
-			if(polynom[index].scalar != otherMonom.scalar ||
-				polynom[index].power  != otherMonom.power)
+			if(polynom[index]._scalar != otherMonom._scalar ||
+				polynom[index]._power  != otherMonom._power)
 			
 				return false;
 		}
