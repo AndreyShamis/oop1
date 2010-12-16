@@ -10,8 +10,8 @@ struct User
 {
 	string		_name;
 	string		_pass;
-	short int	_locked;
-	short int	_admin;
+	bool		_locked;
+	bool		_admin;
 	short int	_invalid_login;
 
 };
@@ -21,8 +21,8 @@ class UsersDB
 public:
 	static UsersDB* getInstance();
 	int validateUser(string userName,string password);
-	int isLocked(string userName);
-	int isAdmin(string userName);
+	bool isLocked(string userName);
+	bool isAdmin(string userName);
 	int addUser(string newUserName,string newPassword);
 	int removeUser(string newUserName);
 	int lockUser(string newUserName);
@@ -44,7 +44,7 @@ private:
 	short int getUserTypebyLockedAdmin(const short int locked,
 										const short int admin);
 
-	void dbUsrTypToProg(const int inp,short int &locked,short int &admin);
+	void dbUsrTypToProg(const int inp,bool &locked,bool &admin);
 
 	struct User dbStrToStruct(string db_string);
 
