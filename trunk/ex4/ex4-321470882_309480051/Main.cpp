@@ -1,5 +1,9 @@
 #include "UsersDB.h"
+#include <iostream>
+#include <string>
+
 using namespace std;
+
 
 //Admin menu constants
 #define ADD 1 
@@ -10,6 +14,7 @@ using namespace std;
 #define DISPLAY_ALL 6 
 #define DISPLAY_LOCKED 7 
 #define EXIT 8 
+
 
 string displayLoginMenu();
 void displayAdminMenu();
