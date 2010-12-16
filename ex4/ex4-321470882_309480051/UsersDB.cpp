@@ -50,8 +50,7 @@ struct User UsersDB::Select(string userName)
 	
 	myReadFile.open(DEFAULT_DB_NAME);
 	string line_data;
-	string name_data;
-
+	struct User user;
 
 	if (myReadFile.is_open()) 
 	{
@@ -61,17 +60,18 @@ struct User UsersDB::Select(string userName)
 
 			if(myReadFile.fail())
 				break;
-
-			if(line_data.find(name_data+PAS))
+			size_t found = line_data.find(userName);
+			if(found!=string::npos)
 			{
-				dbStrToStruct(line_data);
+				user = dbStrToStruct(line_data);
+				break;
 			}
 
 		}
 	}
 
 	myReadFile.close();
-	struct User user;
+	
 	return(user);
 }
 
@@ -87,9 +87,6 @@ struct User UsersDB::dbStrToStruct(string db_string)
 		if(db_string[i] == PAS)
 		{
 			data[counter] = db_string.substr(start,i-start);
-			//if(!counter)
-			//	cout << "-----"<<data[counter] << "\n";
-			
 			start=i+1;
 			counter++;
 		}
@@ -118,7 +115,7 @@ int UsersDB::addUser(string newUserName,string newPass)
 	else
 		return(0);
 }
-void dbUsrTypToProg(const int inp,short int &locked,short int &admin)
+void UsersDB::dbUsrTypToProg(const int inp,bool &locked,bool &admin)
 {
 /*
 	locked  admin	result
@@ -130,20 +127,20 @@ void dbUsrTypToProg(const int inp,short int &locked,short int &admin)
 	switch(inp)
 	{
 	case 0:
-		locked	=	0;
-		admin	=	0;
+		locked	=	false;
+		admin	=	false;
 		break;
 	case 1:
-		locked	=	0;
-		admin	=	1;
+		locked	=	false;
+		admin	=	true;
 		break;
 	case 2:
-		locked	=	1;
-		admin	=	0;
+		locked	=	true;
+		admin	=	false;
 		break;
 	case 3:
-		locked	=	1;
-		admin	=	1;
+		locked	=	true;
+		admin	=	true;
 		break;
 	}
 }
@@ -168,18 +165,42 @@ bool UsersDB::Insert(const struct User &user)
 //=============================================================================
 int UsersDB::validateUser(string userName,string password)
 {
-	return(1);
+	struct User user = Select(userName);
+		cout << userName << " --"<<user._name << "\n";
+
+	if(userName == user._name)
+	{
+
+		return(1);
+	}
+	else
+	{
+		cout << "No\n";
+		return(0);
+	}
+		
 }
 //=============================================================================
-int UsersDB::isLocked(string userName)
+bool UsersDB::isLocked(string userName)
 {
-	Select(userName);
-	return(0);
+	struct User user = Select(userName);
+
+	if(user._locked)
+		return(false);
+	else
+		return(true);
+
 }
 //=============================================================================
-int UsersDB::isAdmin(string userName)
+bool UsersDB::isAdmin(string userName)
 {
-	return(1);
+	struct User user = Select(userName);
+
+	if(user._admin)
+		return(true);
+	else
+		return(false);
+
 }
 //=============================================================================
 int UsersDB::removeUser(string newUserName)
