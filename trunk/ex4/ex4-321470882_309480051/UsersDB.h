@@ -9,6 +9,9 @@ using namespace std;
 #define PAS				' '			//	between string in DB
 #define BUFFER_SIZE		1000		//	bufer size
 
+#define ADMIN_NAME		"admin"
+#define ADMIN_PASS		"1234"
+
 #define DEFAULT_USER_PASSWORD	"1111"
 #define TEMP_DB_NAME			"temp.txt"
 //	struct User provide full information about one user
@@ -63,8 +66,8 @@ public:
 	int unlockUser(const string UserName);
 
 	int resetUserPassword(const string UserName);
-	int getAllUsers(int &numOfUsers,string *users);
-	int getLockedUsers(int &numOfUsers,string *users);
+	int getAllUsers(int &numOfUsers,string *&users);
+	int getLockedUsers(int &numOfUsers,string *&users);
 	
 private:
 	bool createDB();

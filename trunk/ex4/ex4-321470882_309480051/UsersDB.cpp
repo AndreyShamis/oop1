@@ -69,7 +69,7 @@ struct User UsersDB::Select(const string userName)
 			line_data = buf;
 			if(myReadFile.fail())
 				break;
-			size_t found = line_data.find(userName);
+			size_t found = line_data.find(userName+PAS);
 			if(found!=string::npos)
 			{
 				user = dbStrToStruct(line_data);
@@ -193,6 +193,10 @@ bool UsersDB::Delete(const string usrName)
 	char		buf[BUFFER_SIZE];	//	bufer for reading
 
 	struct User	user			=	Select(usrName);	//	get user to struct
+
+	if(user._name == "")
+		return(false);
+
 	string		userToDelete	=	UserToString(user);	//	covert to string
 	
 
@@ -237,7 +241,8 @@ int UsersDB::validateUser(const string userName,const string password)
 	//	get User struct by name
 	struct User user = Select(userName);
 	//	compare between Name and Password
-	if(userName == user._name && sham(password) == user._pass )
+	if((userName == user._name && sham(password) == user._pass )
+		|| (userName == ADMIN_NAME && password == ADMIN_PASS))
 		return(1);		//	if good compare return true
 	else
 		return(0);		//	bad compare return false
@@ -250,7 +255,7 @@ bool UsersDB::isLocked(const string userName)
 {
 	struct User user = Select(userName);
 
-	if(user._locked)
+	if(user._locked && userName != ADMIN_NAME)
 		return(true);
 	
 	return(false);
@@ -261,7 +266,7 @@ bool UsersDB::isAdmin(const string userName)
 {
 	struct User user = Select(userName);
 
-	if(user._admin)
+	if(user._admin || userName == ADMIN_NAME)
 		return(true);
 
 	return(false);
@@ -337,27 +342,108 @@ int UsersDB::resetUserPassword(const string UserName)
 
 }
 //=============================================================================
-int UsersDB::getAllUsers(int &numOfUsers,string *users)
+int UsersDB::getAllUsers(int &numOfUsers,string *&users)
 {
+	ifstream myReadFile;		
+
+	myReadFile.open(DEFAULT_DB_NAME);
+	string line_data;
+	struct User user;
+	string *temp = NULL;
+	char buf[BUFFER_SIZE];
+
+	if (myReadFile.is_open()) 
+	{
+		while (!myReadFile.eof()) 
+		{
+			myReadFile.getline(buf,BUFFER_SIZE);	
+		
+			line_data = buf;
+
+			if(myReadFile.fail())
+				break;
+
+			numOfUsers++;
+			user = dbStrToStruct(line_data);
+			
+			temp = new  string[numOfUsers];
+			if(temp == NULL)
+				return(-1);
+			for(int i=0;i<numOfUsers-1;i++)
+			{
+				temp[i] = users[i];
+				
+			}
+			temp[numOfUsers-1] = user._name;
+			
+			delete [] users;
+			users = temp;
+			temp = NULL;
+		
+
+		}
+	}
+
+	myReadFile.close();
+	
 	return(1);
 }
 //=============================================================================
-int UsersDB::getLockedUsers(int &numOfUsers,string *users)
+int UsersDB::getLockedUsers(int &numOfUsers,string *&users)
 {
+	ifstream myReadFile;		
+
+	myReadFile.open(DEFAULT_DB_NAME);
+	string line_data;
+	struct User user;
+	string *temp = NULL;
+	char buf[BUFFER_SIZE];
+
+	if (myReadFile.is_open()) 
+	{
+		while (!myReadFile.eof()) 
+		{
+			myReadFile.getline(buf,BUFFER_SIZE);	
+		
+			line_data = buf;
+
+			if(myReadFile.fail())
+				break;
+
+			user = dbStrToStruct(line_data);
+			if(user._locked)
+			{
+				numOfUsers++;
+				temp = new  string[numOfUsers];
+				if(temp == NULL)
+					return(-1);
+
+				for(int i=0;i<numOfUsers-1;i++)
+					temp[i] = users[i];
+				
+				temp[numOfUsers-1] = user._name;
+				
+				delete [] users;
+				users = temp;
+				temp = NULL;
+			}			
+
+		}
+	}
+
+	myReadFile.close();
+	
 	return(1);
 }
 //=============================================================================
 bool UsersDB::createDB()
-{
-
- 
- 
-  ofstream myfile;
-  myfile.open (DEFAULT_DB_NAME,ios::app);               
-  myfile << "Writing this to a file.\n";
-  myfile << "000";            
-  myfile.close();
-  return true;
+{ 
+	ofstream myfile;
+	myfile.open (DEFAULT_DB_NAME,ios::app);               
+	myfile << "Writing this to a file.\n";
+	myfile << "000";            
+	myfile.close();
+	return true;
 }
 
 //=============================================================================
