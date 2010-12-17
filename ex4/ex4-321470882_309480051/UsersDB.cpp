@@ -164,10 +164,10 @@ void UsersDB::dbUsrTypToProg(const int inp,bool &locked,bool &admin)
 string UsersDB::UserToString(const struct User &user)
 {
 	string					save_str;
-	char invalid_login	=	(char)(user._invalid_login+48);
+	char inLog			=	(char)(user._invalid_login+48);
 	short int accss_t	=	getLokAdm(user._locked,user._admin);
-
-	save_str=user._name+PAS+user._pass+PAS+"0"+PAS+(char)(accss_t+48)+PAS;
+	
+	save_str=user._name+PAS+user._pass+PAS+inLog+PAS+(char)(accss_t+48)+PAS;
 	
 	return(save_str);
 }
@@ -240,12 +240,33 @@ int UsersDB::validateUser(const string userName,const string password)
 {
 	//	get User struct by name
 	struct User user = Select(userName);
+	short int	return_flag = false;
+
 	//	compare between Name and Password
-	if((userName == user._name && sham(password) == user._pass )
-		|| (userName == ADMIN_NAME && password == ADMIN_PASS))
-		return(1);		//	if good compare return true
+	if(userName == ADMIN_NAME && password == ADMIN_PASS)
+		return(1);
+	else if(userName == user._name && userName != ADMIN_NAME)
+	{
+		if(sham(password) == user._pass)
+		{
+			user._invalid_login = 0;
+			return_flag=1;		//	if good compare return true
+		}
+		else
+		{
+			user._invalid_login+=1;
+			if(user._invalid_login>=3)
+				user._locked = true;
+
+			return_flag=0;
+		}
+		Delete(userName); 
+		Insert(user);
+
+		return(return_flag);
+	}
 	else
-		return(0);		//	bad compare return false
+		return(0);
 
 	return(-1);			//	another
 
@@ -383,6 +404,8 @@ int UsersDB::getAllUsers(int &numOfUsers,string *&users)
 
 		}
 	}
+	else
+		return(0);
 
 	myReadFile.close();
 	
