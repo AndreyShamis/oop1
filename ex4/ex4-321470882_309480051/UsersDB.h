@@ -75,16 +75,7 @@ private:
 	static UsersDB* _instance;
 
 	
-	//	function which select user from db by name
-	//	return struct User
-	struct	User Select(string userName);
 
-	bool	Insert(const struct User &user);
-//=============================================================================
-//	Function wich deleteing user from db by user name
-//	get username will be delete
-//	return true if saccess and false if not
-	bool	Delete(const string usrName);
 
 	//	convert locked and admin to one number to save in DB
 	short int getLokAdm(const short int locked,
