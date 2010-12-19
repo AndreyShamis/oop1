@@ -15,23 +15,23 @@ class User
 {
 public:
 	User();
-	User(const string UserName);
-	User(const string UName,const string uPass,const short int invLogins,
-		const bool locked,const bool admin);
+	User(const string &UserName);
+	User(const string &UName,const string &uPass,const short int &invLogins,
+		const bool &locked,const bool &admin);
 	User operator=(const User &otherUser);
-	bool operator==(const User &otherUser);
-	string getName();
-	string getPass();
+	bool operator==(const User &otherUser)const;
+	string getName()const;
+	string getPass()const;
 	void setIncreaseInvalidLogin();
 	void setLocked();
-	void setName(const string newName);
-	void setPass(const string NewPass);
-	bool getLockStatus();
-	bool getAdmin();
+	void setName(const string &newName);
+	void setPass(const string &NewPass);
+	bool getLockStatus()const;
+	bool getAdmin()const;
 	void setUnLocked();
 	void Login();
 
-	unsigned int getNumberInvalidLogin();
+	unsigned int getNumberInvalidLogin()const;
 protected:
 
 	struct UserStruct _user;

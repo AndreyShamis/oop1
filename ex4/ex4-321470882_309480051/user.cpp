@@ -13,15 +13,15 @@ User::User()
 		
 }
 //=============================================================================
-void User::setName(const string newName)
+void User::setName(const string &newName)
 {
 	_user._name = newName;
 }
 
 //=============================================================================
 
-User::User(const string UName,const string uPass,const short int invLogins,
-	const bool locked,const bool admin)
+User::User(const string &UName,const string &uPass,const short int &invLogins,
+	const bool &locked,const bool &admin)
 {
 	_user._name				=	UName;
 	_user._pass				=	uPass;
@@ -31,7 +31,7 @@ User::User(const string UName,const string uPass,const short int invLogins,
 }
 //=============================================================================
 //	constructor by name
-User::User(const string UserName)
+User::User(const string &UserName)
 {
 	
 	_user._name				=	UserName;
@@ -44,21 +44,21 @@ User::User(const string UserName)
 //=============================================================================
 //	function to set password
 //	getinf new password
-void User::setPass(const string NewPass)
+void User::setPass(const string &NewPass)
 {
 	_user._pass = NewPass;
 }
 
 //=============================================================================
 //	return user name
-string User::getName()
+string User::getName()const
 {
 	return(_user._name);
 }
 
 //=============================================================================
 //	return password (in hash form)
-string User::getPass()
+string User::getPass()   const
 {
 	return(_user._pass);
 
@@ -80,7 +80,7 @@ void User::setIncreaseInvalidLogin()
 
 //=============================================================================
 //	return number of invalid logins
-unsigned int User::getNumberInvalidLogin()
+unsigned int User::getNumberInvalidLogin()const
 {
 	return(_user._invalid_login);
 }
@@ -102,14 +102,14 @@ void User::setLocked()
 
 //=============================================================================
 //	return lock status
-bool User::getLockStatus()
+bool User::getLockStatus()const
 {
 	return(_user._locked);
 }
 
 //=============================================================================
 //	return admin status
-bool User::getAdmin()
+bool User::getAdmin()const
 {
 	return(_user._admin);
 }
@@ -124,7 +124,7 @@ void User::setUnLocked()
 
 //=============================================================================
 //	operator == overloading binary comapre
-bool User::operator==(const User &otherUser)
+bool User::operator==(const User &otherUser)const
 {
 	if(_user._name == otherUser._user._name)
 		return(true);
