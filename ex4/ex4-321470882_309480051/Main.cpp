@@ -215,6 +215,7 @@ bool reportSuccess(int success, string badMsg, string goodMsg){
 }
 
 void exitSystem(){
-
+	UsersDB::getInstance()->destroyInsatnce();
+	exit(EXIT_SUCCESS);
 }
 

@@ -26,7 +26,6 @@ bool file::CheckDB()
 	return (false);
 
 }
-}
 
 file::file(void)
 {

@@ -22,9 +22,11 @@ class UsersDB
 {
 public:
 
-
+//=============================================================================
+//	
 	static UsersDB* getInstance();
-
+//=============================================================================
+	void destroyInsatnce();
 //=============================================================================
 //	function to validate user
 //	get username and user Password
@@ -67,9 +69,7 @@ public:
 
 //=============================================================================
 //	function which reset user password to default password
-//	return	1	if saccess
-//			0	not saccess
-//			-1	some error
+//	return	1	if saccess /0	not saccess/	-1	some error
 	int resetUserPassword(const string UserName);
 
 //=============================================================================
@@ -102,7 +102,13 @@ protected:
 	bool	Delete(const string usrName);
 
 	int		getUsersCount();
+//=============================================================================
+//	constructor
 	UsersDB();
+
+//=============================================================================
+//	destructor
+	~UsersDB();
 	//	fill locked and admin from inp which was geted from DB
 	void dbUsrTypToProg(const int inp,bool &locked,bool &admin);
 	
