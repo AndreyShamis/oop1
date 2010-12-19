@@ -14,17 +14,21 @@ bool file::createDB()
 
 }
 
-void file::CloseFile(ifstream &myReadFile)
+bool file::CheckDB()
 {
-	myReadFile.close();
+	ifstream myfile;
+	myfile.open (DEFAULT_DB_NAME);
+	if(myfile.is_open())
+	{
+		myfile.close();
+		return(true);
+	}	
+	return (false);
+
 }
+}
+
 file::file(void)
 {
 	;
 }
-
-file::~file(void)
-{
-	;
-}
-

@@ -21,13 +21,26 @@ using namespace std;
 class UsersDB
 {
 public:
+
+
 	static UsersDB* getInstance();
+
 //=============================================================================
 //	function to validate user
 //	get username and user Password
 //	return	1	if saccess	/0	not saccess	/-1	some error
 	int validateUser(const string userName,const string password);
+
+//=============================================================================
+//	function which check if the user locked
+//	function get user name
+//	return true if locked and return false if not
 	bool isLocked(const string userName);
+
+//=============================================================================
+//	function which check if the user is admin
+//	function get user name
+//	return true if admin and return false if not
 	bool isAdmin(const string userName);
 //=============================================================================
 //	Add user to DB. Geting strings NewUserName And Password
@@ -52,8 +65,19 @@ public:
 //	return	1	if saccess	/0	not saccess	/-1	some error
 	int unlockUser(const string UserName);
 
+//=============================================================================
+//	function which reset user password to default password
+//	return	1	if saccess
+//			0	not saccess
+//			-1	some error
 	int resetUserPassword(const string UserName);
+
+//=============================================================================
+//	function which return in pointer reference all users 
+//	also update the counter
 	int getAllUsers(int &numOfUsers,string *&users);
+
+
 	int getLockedUsers(int &numOfUsers,string *&users);
 
 private:
@@ -62,10 +86,15 @@ private:
 	static UsersDB* _instance;
 
 protected:
-	list <User> _users;
+
+
 	User *Select(const string userName);
+
 	bool	LoadList();
+//=============================================================================
+//	function which know insert new user into database
 	bool	Insert(User user);
+
 //=============================================================================
 //	Function wich deleteing user from db by user name
 //	get username will be delete
@@ -76,13 +105,16 @@ protected:
 	UsersDB();
 	//	fill locked and admin from inp which was geted from DB
 	void dbUsrTypToProg(const int inp,bool &locked,bool &admin);
-	//	function which fill the stuct User from string which was
-	//	returned from db. return struct User
-	struct UserStruct dbStrToStruct(string db_string);
+	
+//	function which fill the stuct User from string which was
+//	returned from db. return struct User
+	User dbStrToStruct(string db_string);
+	
 	//	convert locked and admin to one number to save in DB
 	short int getLokAdm(const short int locked,const short int admin);
 
 	bool SaveDB();
+
 	string UserToString(User &user);
 
 //=============================================================================
@@ -90,5 +122,8 @@ protected:
 //	get username and new value 
 //	return	1	if saccess	/0	not saccess	/-1	some error
 	short int ChangeLockStat(const string uName,const bool &Stat);
+
+
+	list <User> _users;		//	list of users
 
 };
