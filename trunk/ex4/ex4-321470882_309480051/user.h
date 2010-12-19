@@ -16,18 +16,23 @@ class User
 public:
 	User();
 	User(const string UserName);
+	User(const string UName,const string uPass,const short int invLogins,
+		const bool locked,const bool admin);
 	User operator=(const User &otherUser);
 	bool operator==(const User &otherUser);
-	struct UserStruct _user;
 	string getName();
 	string getPass();
 	void setIncreaseInvalidLogin();
 	void setLocked();
+	void setName(const string newName);
 	void setPass(const string NewPass);
 	bool getLockStatus();
 	bool getAdmin();
 	void setUnLocked();
 	void Login();
+
 	unsigned int getNumberInvalidLogin();
 protected:
+
+	struct UserStruct _user;
 };

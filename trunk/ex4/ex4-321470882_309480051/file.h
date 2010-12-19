@@ -11,10 +11,8 @@ using namespace std;
 class file
 {
 public:
-	file(void);
-	~file(void);
-//	ifstream OpenFile();
-	void CloseFile(ifstream &myReadFile);
-protected:
+	file();
+	bool CheckDB();
 	bool createDB();
+protected:
 };
