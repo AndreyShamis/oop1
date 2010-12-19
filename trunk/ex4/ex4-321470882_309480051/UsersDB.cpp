@@ -13,6 +13,27 @@ UsersDB* UsersDB::getInstance()
 	return _instance;
 
 }
+//=============================================================================
+void UsersDB::destroyInsatnce()
+{
+	if(_instance != NULL)
+		delete _instance ;
+
+}
+
+//=============================================================================
+//	Default constractor:	Loading database from txt file
+UsersDB::UsersDB()
+{
+	if(!LoadList())
+		cout << "Can not connect to DB\n";	//	load data from db to main mem
+}
+
+//=============================================================================
+UsersDB::~UsersDB()
+{
+	_users.clear();
+}
 
 //=============================================================================
 //	function to lock
@@ -33,13 +54,6 @@ int UsersDB::unlockUser(const string UserName)
 	//	call to function which know change lock/unlock status
 	return(ChangeLockStat(UserName,false));
 
-}
-
-//=============================================================================
-//	Default constractor:	Loading database from txt file
-UsersDB::UsersDB()
-{
-	LoadList();				//	load data from db to main mem
 }
 
 //=============================================================================
@@ -384,19 +398,18 @@ bool UsersDB::LoadList()
 	file filedb;
 	if(!filedb.CheckDB())
 	{
-		filedb.createDB();
-		if(!filedb.CheckDB())
+		if(filedb.createDB() && !filedb.CheckDB())
 			return(false);
 	}
+
 	ifstream myReadFile;		
 	myReadFile.open(DEFAULT_DB_NAME);
-
 	
-	string line_data;
-	User user;
-	string *temp = NULL;
-	char buf[BUFFER_SIZE];
-	int numOfUsers = 0;
+	string	line_data;
+	User	user;
+	string	*temp		=	NULL;
+	char	buf[BUFFER_SIZE];
+	int		numOfUsers	=	0;
 	
 	if (myReadFile.is_open()) 
 	{
