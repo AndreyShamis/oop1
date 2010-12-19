@@ -39,7 +39,7 @@ UsersDB::~UsersDB()
 //	function to lock
 //	geting username
 //	return	1	if saccess / 0	not saccess /-1	some error
-int UsersDB::lockUser(const string UserName)
+int UsersDB::lockUser(const string &UserName)
 {
 	//	call ti function which know to change lock unlock status
 	return(ChangeLockStat(UserName,true));
@@ -49,7 +49,7 @@ int UsersDB::lockUser(const string UserName)
 //	function to unlock
 //	geting username
 //	return	1	if saccess / 0	not saccess /-1	some error
-int UsersDB::unlockUser(const string UserName)
+int UsersDB::unlockUser(const string &UserName)
 {
 	//	call to function which know change lock/unlock status
 	return(ChangeLockStat(UserName,false));
@@ -61,7 +61,7 @@ int UsersDB::unlockUser(const string UserName)
 //	return	1	if saccess
 //			0	not saccess
 //			-1	some error	
-int UsersDB::addUser(const string newUName,const string newPass)
+int UsersDB::addUser(const string &newUName,const string &newPass)
 {
 
 	User newUser(newUName);			//	create object User
@@ -93,7 +93,7 @@ int UsersDB::addUser(const string newUName,const string newPass)
 //	return	1	if saccess
 //			0	not saccess
 //			-1	some error
-int UsersDB::validateUser(const string userName,const string password)
+int UsersDB::validateUser(const string &userName,const string &password)
 {
 	
 	//	get User struct by name
@@ -137,7 +137,7 @@ int UsersDB::validateUser(const string userName,const string password)
 //	function which check if the user locked
 //	function get user name
 //	return true if locked and return false if not
-bool UsersDB::isLocked(const string userName)
+bool UsersDB::isLocked(const string &userName)
 {
 	//	try find user by name
 	User *user = Select(userName);
@@ -154,7 +154,7 @@ bool UsersDB::isLocked(const string userName)
 //	function which check if the user is admin
 //	function get user name
 //	return true if admin and return false if not
-bool UsersDB::isAdmin(const string userName)
+bool UsersDB::isAdmin(const string &userName)
 {
 	//	try to find user in data base
 	User *user = Select(userName);
@@ -173,7 +173,7 @@ bool UsersDB::isAdmin(const string userName)
 //	return	1	if saccess
 //			0	not saccess
 //			-1	some error
-int UsersDB::removeUser(const string UserName)
+int UsersDB::removeUser(const string &UserName)
 {
 	if(Delete(UserName))
 	{
@@ -193,7 +193,7 @@ int UsersDB::removeUser(const string UserName)
 //	return	1	if saccess
 //			0	not saccess
 //			-1	some error
-short int UsersDB::ChangeLockStat(const string uName,const bool &Stat)
+short int UsersDB::ChangeLockStat(const string &uName,const bool &Stat)
 {
 
 	//	try to find user by name
@@ -222,7 +222,7 @@ short int UsersDB::ChangeLockStat(const string uName,const bool &Stat)
 //	return	1	if saccess
 //			0	not saccess
 //			-1	some error
-int UsersDB::resetUserPassword(const string UserName)
+int UsersDB::resetUserPassword(const string &UserName)
 {	
 	//	try to find user by name
 	User *user = Select(UserName);
@@ -302,14 +302,14 @@ int UsersDB::getLockedUsers(int &numOfUsers,string *&users)
 //=============================================================================
 //	function to crypt passwords	get password
 //	return crypted password
-string UsersDB::sham(string input)
+string UsersDB::sham(const string &input)
 {
 	//	get input string size
 	int input_size = input.length();
-
+	string str = input;
 	for(int i=0;i<input_size;i++)
 	{
-		int val = (int)input[i];	//	convert char to int
+		int val = (int)str[i];	//	convert char to int
 		
 		//	mathematical manipulations whith char
 		val=(val*2)+1;
@@ -317,15 +317,15 @@ string UsersDB::sham(string input)
 		if(val <34)
 			val+=34;
 		//	convert int back to char
-		input[i] = (char)val;
+		str[i] = (char)val;
 	}
 
-	return(input);						//	return value
+	return(str);						//	return value
 }
 
 //=============================================================================
 //	function which know insert new user into database
-bool UsersDB::Insert(User user)
+bool UsersDB::Insert(const User &user)
 {
 	_users.push_back(user);			//	insert into list
 
@@ -333,7 +333,7 @@ bool UsersDB::Insert(User user)
 }
 
 //=============================================================================
-int	UsersDB::getUsersCount()
+int	UsersDB::getUsersCount()const
 {
 	return((int)_users.size());
 }
@@ -341,7 +341,7 @@ int	UsersDB::getUsersCount()
 //	Function wich deleteing user from db by user name
 //	get username will be delete
 //	return true if saccess and false if not
-bool UsersDB::Delete(const string usrName)
+bool UsersDB::Delete(const string &usrName)
 {
 	User *user = Select(usrName);
 	if(user == NULL)
@@ -433,7 +433,7 @@ bool UsersDB::LoadList()
 	return(true);
 
 }
-string UsersDB::UserToString(User &user)
+string UsersDB::UserToString(const User &user)
 {
 	string					save_str;
 	char inlog			=	(char)(user.getNumberInvalidLogin()+48);
@@ -448,8 +448,8 @@ string UsersDB::UserToString(User &user)
 }
 
 //=============================================================================
-short int UsersDB::getLokAdm(const short int locked,
-											const short int admin)
+short int UsersDB::getLokAdm(const short int &locked,
+											const short int &admin)
 {
 /* 
 	locked  admin	result
@@ -471,7 +471,7 @@ short int UsersDB::getLokAdm(const short int locked,
 }
 
 
-User *UsersDB::Select(const string userName)
+User *UsersDB::Select(const string &userName)
 {
 	User *user = NULL;
 	list <User>::iterator it;
@@ -487,7 +487,7 @@ User *UsersDB::Select(const string userName)
 	return(user);
 }
 
-User UsersDB::dbStrToStruct(const string db_string)
+User UsersDB::dbStrToStruct(const string &db_string)
 {
 	int start=0;
 	int counter = 0;
@@ -504,10 +504,6 @@ User UsersDB::dbStrToStruct(const string db_string)
 		}
 	}
 
-
-	//user.setName();
-	//user.setPass(data[1]);
-	//user.set = ;
 	bool LockStat;
 	bool AdminStat;
 	dbUsrTypToProg((int)((char)data[3][0])- 48,LockStat,AdminStat);
@@ -516,7 +512,7 @@ User UsersDB::dbStrToStruct(const string db_string)
 	return(user);
 }
 
-void UsersDB::dbUsrTypToProg(const int inp,bool &locked,bool &admin)
+void UsersDB::dbUsrTypToProg(const int &inp,bool &locked,bool &admin)  const
 {
 /*
 	locked  admin	result
