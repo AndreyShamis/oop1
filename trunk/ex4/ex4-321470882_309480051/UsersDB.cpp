@@ -270,32 +270,36 @@ int UsersDB::getAllUsers(int &numOfUsers,string *&users)
 	return(1);								// returnb if users was found
 
 }
+
 //=============================================================================
-//	 TODO MEMORY
+//	 Function which return all users are locked , by referense
+//	and number of them also by reference
 int UsersDB::getLockedUsers(int &numOfUsers,string *&users)
 {
-	numOfUsers = getUsersCount();
+	numOfUsers = getUsersCount();			//	get number of users
 	
-	if(numOfUsers == 0)
-		return(0);
+	if(numOfUsers == 0)						//	if number of user == 0
+		return(0);							//	do nothing
 
-	users = new(nothrow)string[numOfUsers];
+	users = new(nothrow)string[numOfUsers];	//	allocate memory
 	
-	if(users == NULL)
+	if(users == NULL)						//	check alocating
 		return(-1);
 
-	list <User>::iterator it;
-	int i = 0;
+	list <User>::iterator it;				//	set iterator
+	int i = 0;								//	counter
 	for(it=_users.begin();it!=_users.end();it++)
 	{
-		if((*it).getLockStatus())
-		{
-			users[i] = (*it).getName();
+		if((*it).getLockStatus())			//	get status of lock
+		{									//	if locked
+			users[i] = (*it).getName();		//	put into array of string
 			i++;
 		}
 	}
-	numOfUsers = i;
+	numOfUsers = i;							//	reset counter
+	
 	return(1);
+
 }
 
 
@@ -333,6 +337,7 @@ bool UsersDB::Insert(const User &user)
 }
 
 //=============================================================================
+//	return number of users counted in data base
 int	UsersDB::getUsersCount()const
 {
 	return((int)_users.size());
@@ -343,30 +348,31 @@ int	UsersDB::getUsersCount()const
 //	return true if saccess and false if not
 bool UsersDB::Delete(const string &usrName)
 {
-	User *user = Select(usrName);
-	if(user == NULL)
+	User *user = Select(usrName);				//	find user by name
+	if(user == NULL)							//check if found
 		return(false);
 
-	list <User>::iterator it;
+	list <User>::iterator it;					//	set iterator
 	for(it=_users.begin();it!=_users.end();it++)
-	{
+	{	//	compres and check
 		if((*it) == *user)
-		{
+		{	
+			//	tryng to remove
 			_users.remove((*it));
-			return(true);
+			return(true);		//	if removed return true
 		}
 	}	
 	
-	return(false);
+	return(false);				//	if not removed return false
 	
 }
 
 //=============================================================================
-//	
+//	Save data base from memory to data base text
 bool UsersDB::SaveDB()
 {
 	
-	ofstream	output;				//	output stream
+	ofstream	output;					//	output stream
 	output.open(TEMP_DB_NAME,ios.app);	//	open file for output
 
 	//	check if saccess to open file
@@ -397,61 +403,69 @@ bool UsersDB::SaveDB()
 }
 
 //=============================================================================
-//	
+//	 Load database from text file to main memory
 bool UsersDB::LoadList()
 {
-	file filedb;
+	file filedb;					//	file class
+
+	//	check if db exist
 	if(!filedb.CheckDB())
-	{
+	{	//	if no create and check if exist
 		if(filedb.createDB() && !filedb.CheckDB())
 			return(false);
 	}
 
-	ifstream myReadFile;		
-	myReadFile.open(DEFAULT_DB_NAME);
+	ifstream myReadFile;				//	file variable
+	myReadFile.open(DEFAULT_DB_NAME);	//	open file
 	
-	string	line_data;
-	User	user;
-	string	*temp		=	NULL;
-	char	buf[BUFFER_SIZE];
-	int		numOfUsers	=	0;
+	string	line_data;					//	string variable
+	User	user;						//	user class
+	//string	*temp		=	NULL;		//	
+	char	buf[BUFFER_SIZE];			//	buffer variable
+	int		numOfUsers	=	0;			//	counter
 	
-	if (myReadFile.is_open()) 
+	if (myReadFile.is_open())			//	if file open
 	{
-		while (!myReadFile.eof()) 
+		while (!myReadFile.eof())		//	while not end of line
 		{
+			//	read line
 			myReadFile.getline(buf,BUFFER_SIZE);	
-			line_data = buf;
-			if(myReadFile.fail())
+			if(myReadFile.fail())		//	check if success
 				break;
-			numOfUsers++;
-			user = dbStrToClass(line_data);
-			_users.push_back(user);
+			line_data = buf;			//	covert chars to string
+			numOfUsers++;				//	increase counter
+			user = dbStrToClass(line_data);	//	convert string to class
+			_users.push_back(user);		//	push to list
 		}
 	}
 	else
 		return(false);
 
-	myReadFile.close();
+	myReadFile.close();					//	close opened file
 	
-	return(true);
+	return(true);						//	if success return true
 
 }
 
 //=============================================================================
-//	
+//	 Covert class object to string for saving in data base
 string UsersDB::UserToString(const User &user)
 {
-	string					save_str;
-	char inlog			=	(char)(user.getNumberInvalidLogin()+48);
-	short int accss_t	=	getLokAdm(user.getLockStatus(),user.getAdmin());
+	string					save_str;			// string be returned
+	char inlog			=	' ';
+	short int accss_t	=	0;
 	
+
+	inlog	=(char)(user.getNumberInvalidLogin()+48);	// number of invalid
+														// logins
+	accss_t	= getLokAdm(user.getLockStatus(),user.getAdmin()); //statuses
+	//	do string
 	save_str=user.getName()+PAS+
 		user.getPass()+PAS+
 		inlog+PAS+
 		(char)(accss_t+48)+PAS;
 	
-	return(save_str);
+	return(save_str);			//	return string
 }
 
 //=============================================================================
@@ -479,13 +493,15 @@ short int UsersDB::getLokAdm(const short int &locked,
 }
 
 //=============================================================================
-//	
+//	 Find user by name Return pointer to user
 User *UsersDB::Select(const string &userName)
 {
-	User *user = NULL;
-	list <User>::iterator it;
+	User *user = NULL;			//	return variable
+	list <User>::iterator it;	//	iterator
+	//	strting search by name
 	for(it=_users.begin();it!=_users.end();it++)
 	{
+		//	compare names
 		if((*it).getName() == userName)
 		{
 			user = &(*it);
@@ -493,34 +509,39 @@ User *UsersDB::Select(const string &userName)
 		}
 	}
 	
-	return(user);
+	return(user);				//	return finded
 }
 
 //=============================================================================
-//	
+//	Convert string geted from data base to class
 User UsersDB::dbStrToClass(const string &db_string)
 {
-	int start=0;
-	int counter = 0;
-	string data[4];
+	int start	=	0;	//for variable
+	int counter =	0;	//parameter variable
+	bool LockStat;		//	lock status be returned in class
+	bool AdminStat;		//	admin status be retuned in class
+	string data[4];		//	temp data base
 	
+	//	get size of string
 	unsigned int str_len = db_string.length();
 	for(unsigned int i=0;i<str_len;i++)
-	{
-		if(db_string[i] == PAS)
-		{
+	{	//	for each character
+		if(db_string[i] == PAS)	//	check if the data between 
+		{	
+			//	input substring to array
 			data[counter] = db_string.substr(start,i-start);
-			start=i+1;
-			counter++;
+			start=i+1;			//	set for next for
+			counter++;			//	counter
 		}
 	}
 
-	bool LockStat;
-	bool AdminStat;
+	//	convert one digir to user staus lock and admin
 	dbUsrTypToProg((int)((char)data[3][0])- 48,LockStat,AdminStat);
-
+	//	create object user
 	User user(data[0],data[1],(int)data[2][0]-48,LockStat,AdminStat);
-	return(user);
+	
+	return(user);				//	return object
+
 }
 
 //=============================================================================
