@@ -11,8 +11,12 @@ using namespace std;
 class file
 {
 public:
-	file();
+	// fanction that create data base.
+	// return true if created, othewise retern faqlse.
 	bool CheckDB();
+
+	// fanction wichek if data base exist
+	// if exist - return true, othewise retern faqlse.
 	bool createDB();
 protected:
 };

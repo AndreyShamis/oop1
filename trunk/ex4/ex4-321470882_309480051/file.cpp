@@ -1,6 +1,8 @@
 #include "file.h"
 
 //=============================================================================
+// fanction that create data base.
+// return true if created, othewise retern faqlse.
 bool file::createDB()
 { 
 	ofstream myfile;
@@ -13,7 +15,8 @@ bool file::createDB()
 	return (false);
 
 }
-
+// fanction wichek if data base exist
+// if exist - return true, othewise retern faqlse.
 bool file::CheckDB()
 {
 	ifstream myfile;
@@ -27,7 +30,3 @@ bool file::CheckDB()
 
 }
 
-file::file(void)
-{
-	;
-}
