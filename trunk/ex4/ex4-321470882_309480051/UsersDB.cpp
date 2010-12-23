@@ -425,8 +425,7 @@ bool UsersDB::LoadList()
 			if(myReadFile.fail())
 				break;
 			numOfUsers++;
-			//struct UserStruct user_str = ; 
-			user = dbStrToStruct(line_data);
+			user = dbStrToClass(line_data);
 			_users.push_back(user);
 		}
 	}
@@ -456,7 +455,7 @@ string UsersDB::UserToString(const User &user)
 }
 
 //=============================================================================
-//
+//	convert the lock status and admin status to ONE digit
 short int UsersDB::getLokAdm(const short int &locked,
 											const short int &admin)
 {
@@ -499,7 +498,7 @@ User *UsersDB::Select(const string &userName)
 
 //=============================================================================
 //	
-User UsersDB::dbStrToStruct(const string &db_string)
+User UsersDB::dbStrToClass(const string &db_string)
 {
 	int start=0;
 	int counter = 0;
@@ -525,7 +524,9 @@ User UsersDB::dbStrToStruct(const string &db_string)
 }
 
 //=============================================================================
-//	
+//	Convert the digit geted from DB to lock status and admin status
+//	Get the db value in first parameter and return lock status
+//	and admin status in refrenses
 void UsersDB::dbUsrTypToProg(const int &inp,bool &locked,bool &admin)  const
 {
 /*

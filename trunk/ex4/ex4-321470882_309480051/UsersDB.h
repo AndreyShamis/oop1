@@ -77,10 +77,11 @@ public:
 //	also update the counter
 	int getAllUsers(int &numOfUsers,string *&users);
 
-
+//=============================================================================
+//	Convert the digit geted from DB to lock status and admin status
+//	Get the db value in first parameter and return lock status
+//	and admin status in refrenses
 	int getLockedUsers(int &numOfUsers,string *&users);
-
-private:
 
 	string sham(const string &input);
 	static UsersDB* _instance;
@@ -112,9 +113,9 @@ protected:
 	//	fill locked and admin from inp which was geted from DB
 	void dbUsrTypToProg(const int &inp,bool &locked,bool &admin)const;
 	
-//	function which fill the stuct User from string which was
+//	function which fill the Class User from string which was
 //	returned from db. return struct User
-	User dbStrToStruct(const string &db_string);
+	User dbStrToClass(const string &db_string);
 	
 	//	convert locked and admin to one number to save in DB
 	short int getLokAdm(const short int &locked,const short int &admin);
