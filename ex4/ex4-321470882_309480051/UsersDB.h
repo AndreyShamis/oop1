@@ -76,21 +76,23 @@ public:
 //	function which return in pointer reference all users 
 //	also update the counter
 	int getAllUsers(int &numOfUsers,string *&users);
-
 //=============================================================================
-//	Convert the digit geted from DB to lock status and admin status
-//	Get the db value in first parameter and return lock status
-//	and admin status in refrenses
+//	 Function which return all users are locked , by referense
+//	and number of them also by reference
 	int getLockedUsers(int &numOfUsers,string *&users);
-
+	
+	//	encrupt algorithm
 	string sham(const string &input);
+
 	static UsersDB* _instance;
 
 protected:
 
-
+//=============================================================================
+//	 Find user by name Return pointer to user
 	User *Select(const string &userName);
-
+//=============================================================================
+//	 Load database from text file to main memory
 	bool	LoadList();
 //=============================================================================
 //	function which know insert new user into database
@@ -101,7 +103,8 @@ protected:
 //	get username will be delete
 //	return true if saccess and false if not
 	bool	Delete(const string &usrName);
-
+//=============================================================================
+//	return number of users counted in data base
 	int		getUsersCount()const;
 //=============================================================================
 //	constructor
@@ -110,7 +113,11 @@ protected:
 //=============================================================================
 //	destructor
 	~UsersDB();
-	//	fill locked and admin from inp which was geted from DB
+
+//=============================================================================
+//	Convert the digit geted from DB to lock status and admin status
+//	Get the db value in first parameter and return lock status
+//	and admin status in refrenses
 	void dbUsrTypToProg(const int &inp,bool &locked,bool &admin)const;
 	
 //	function which fill the Class User from string which was
@@ -119,9 +126,12 @@ protected:
 	
 	//	convert locked and admin to one number to save in DB
 	short int getLokAdm(const short int &locked,const short int &admin);
-
+//=============================================================================
+//	Save data base from memory to data base text
 	bool SaveDB();
 
+//=============================================================================
+//	 Covert class object to string for saving in data base
 	string UserToString(const User &user);
 
 //=============================================================================
@@ -130,7 +140,5 @@ protected:
 //	return	1	if saccess	/0	not saccess	/-1	some error
 	short int ChangeLockStat(const string &uName,const bool &Stat);
 
-
 	list <User> _users;		//	list of users
-
 };
