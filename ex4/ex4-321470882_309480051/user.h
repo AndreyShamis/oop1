@@ -14,24 +14,27 @@ struct UserStruct
 class User
 {
 public:
-	User();
-	User(const string &UserName);
+	User();							//	default constructor
+	User(const string &UserName);	//	constructor by name
 	User(const string &UName,const string &uPass,const short int &invLogins,
 		const bool &locked,const bool &admin);
-	User operator=(const User &otherUser);
-	bool operator==(const User &otherUser)const;
-	string getName()const;
-	string getPass()const;
-	void setIncreaseInvalidLogin();
-	void setLocked();
-	void setName(const string &newName);
-	void setPass(const string &NewPass);
-	bool getLockStatus()const;
-	bool getAdmin()const;
-	void setUnLocked();
-	void Login();
+	User operator=(const User &otherUser);	//	operator = overloading
+	bool operator==(const User &otherUser)const;	//	operator == overloading
+													//	binary comapre
+	string getName()const;							//	return user name
+	string getPass()const;			//	function to set password
+	void setIncreaseInvalidLogin();	//	function which increase the invalid 
+									//  login counter by 1
+	void setLocked();				//	lock user
+	void setName(const string &newName);	//	return user name
+	void setPass(const string &NewPass);	//	function to set password
+	bool getLockStatus()const;				//	return lock status
+	bool getAdmin()const;					//	return admin status
+	void setUnLocked();						//	Unlock user
+	void Login();	//	login function. need to update invalid ligin counter
 
-	unsigned int getNumberInvalidLogin()const;
+	unsigned int getNumberInvalidLogin()const;	//	return number of invalid 
+												//  logins
 protected:
 
 	struct UserStruct _user;
