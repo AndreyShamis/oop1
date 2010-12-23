@@ -361,6 +361,8 @@ bool UsersDB::Delete(const string &usrName)
 	
 }
 
+//=============================================================================
+//	
 bool UsersDB::SaveDB()
 {
 	
@@ -393,6 +395,9 @@ bool UsersDB::SaveDB()
 	return(true);
 	
 }
+
+//=============================================================================
+//	
 bool UsersDB::LoadList()
 {
 	file filedb;
@@ -433,6 +438,9 @@ bool UsersDB::LoadList()
 	return(true);
 
 }
+
+//=============================================================================
+//	
 string UsersDB::UserToString(const User &user)
 {
 	string					save_str;
@@ -448,6 +456,7 @@ string UsersDB::UserToString(const User &user)
 }
 
 //=============================================================================
+//
 short int UsersDB::getLokAdm(const short int &locked,
 											const short int &admin)
 {
@@ -470,7 +479,8 @@ short int UsersDB::getLokAdm(const short int &locked,
 	return(0);
 }
 
-
+//=============================================================================
+//	
 User *UsersDB::Select(const string &userName)
 {
 	User *user = NULL;
@@ -487,6 +497,8 @@ User *UsersDB::Select(const string &userName)
 	return(user);
 }
 
+//=============================================================================
+//	
 User UsersDB::dbStrToStruct(const string &db_string)
 {
 	int start=0;
@@ -512,6 +524,8 @@ User UsersDB::dbStrToStruct(const string &db_string)
 	return(user);
 }
 
+//=============================================================================
+//	
 void UsersDB::dbUsrTypToProg(const int &inp,bool &locked,bool &admin)  const
 {
 /*
