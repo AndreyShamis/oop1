@@ -61,15 +61,6 @@ void Player::setUserSymbol(const char new_sym)
 
 }
 
-////======== SET IF COMPUTER PLAYER =============================================
-////	set if the player is computer
-////	Input:  true - computer
-////			false - human
-//void Player::setIfComputer(const bool value)
-//{
-//	_computerPlayer = value;
-//}
-
 // A function that give to user new turn in new cycle.
 //=============================================================================
 void Player::giveNewTurn()
@@ -125,11 +116,12 @@ void Player::turnLogic(const int &turnCode)
 // A function that make player turn.
 //=============================================================================
 // Input: map, pointer to object bomb, pointer to object surprise, exit status.
-void Player::Turn(char map[][MAP_X], Bomb *bombs, Surprise *surp, bool &exit)
+void Player::Turn(Bomb *bombs, Surprise *surp, bool &exit)
 {
+
 	int		turnCode;
 
-	turnCode = getInput(map,bombs);
+	turnCode = getInput(bombs);
 
 	//	set new coordinate be real coordinate
 	_newCoordinate	=	_coordinate;	
@@ -151,10 +143,10 @@ void Player::Turn(char map[][MAP_X], Bomb *bombs, Surprise *surp, bool &exit)
 		exit = true;
 
 	//	check if new coordinates have correct values
-	if(CheckCorrect(map,_newCoordinate) && turnCode < 5)
+	if(CheckCorrect(_newCoordinate) && turnCode < 5)
 	{	
 		//	check if this(next) cell have present
-		if(map[_newCoordinate._y][_newCoordinate._x] == PRESENT)
+		if(map::getInstance()->getCellValue(_newCoordinate._y,_newCoordinate._x) == PRESENT)
 		{
 			//	get type of presnt and delete the present
 			//	from heap
@@ -165,14 +157,14 @@ void Player::Turn(char map[][MAP_X], Bomb *bombs, Surprise *surp, bool &exit)
 			{	//	do this surprise whith bombs
 				//	thats mean to function 
 				//	in bomb class
-				bombs->putSurpriseBomb(surp_type,map);
+				bombs->putSurpriseBomb(surp_type);
 				//	set type to user for show on screen 
 				//	which surprise the player get
 				setPresent(surp_type);
 			}
 		}	
 
-		drowOnMap(map);	//	drow on map new position of player
+		drowOnMap();	//	drow on map new position of player
 	}
 
 	//	check if user in aproximity to a blowup
@@ -202,26 +194,26 @@ short	Player::getPresent() const
 // A function that drow on map the user. 
 //=============================================================================
 // Input: map.
-void Player::drowOnMap(char map[][MAP_X])
+void Player::drowOnMap()
 {
 	//	drow on map empty space in previous cell
-	map[_coordinate._y][_coordinate._x] = LANE;
+	map::getInstance()->setCellValue(_coordinate._y,_coordinate._x,LANE);
 	//	reset coordinates
 	_coordinate		=	_newCoordinate;
 	//	dont have turn in this cicle
 	_haveTurn		=	false;
 	//	drow user on new cell positions
-	map[_coordinate._y][_coordinate._x] = _userSymbol;
+	map::getInstance()->setCellValue(_coordinate._y,_coordinate._x,_userSymbol);
 }
 
 // A function that check if new coordinates is correct 
 //=============================================================================
 // Input: map, new coordinate.
 // Output: if yes return true, otherwise return false.
-bool Player::CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate)
+bool Player::CheckCorrect(const Vertex &newcoordinate)
 {
 	//	char to know what is located on the cell
-	char value = map[newcoordinate._y][newcoordinate._x];
+	char value = map::getInstance()->getCellValue(newcoordinate._y,newcoordinate._x);
 
 	//	check if this empty space
 	//	or present 

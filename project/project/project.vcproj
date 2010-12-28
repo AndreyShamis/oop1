@@ -199,6 +199,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\map.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\player.cpp"
 				>
 			</File>
@@ -242,6 +246,10 @@
 			</File>
 			<File
 				RelativePath=".\load_game.h"
+				>
+			</File>
+			<File
+				RelativePath=".\map.h"
 				>
 			</File>
 			<File

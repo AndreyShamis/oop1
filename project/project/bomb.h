@@ -9,6 +9,7 @@
 //=============================================================================
 #include "config.h"
 #include "surprise.h"
+#include "map.h"
 #include <vector>
 
 
@@ -45,7 +46,7 @@ public:
 	int		bombCount();
 
 	//	A function that draws the bombing.
-	void	DrowBomb(char map[][MAP_X],Surprise *surp);
+	void	DrowBomb(Surprise *surp);
 
 	// A function that clear all boms from game fild and reset bomb counter.
 	void	clearBombsAll();
@@ -55,14 +56,14 @@ public:
 	bool	checkExplodeBomb(const Vertex &user_cord, const int &intime);
 
 	// A fanction that realize the implications of surpris on bombs.
-	void	putSurpriseBomb(const short type,char map[][MAP_X]);
+	void	putSurpriseBomb(const short type);
 
 	bool	checkIfCellHaveBomb(const Vertex &cell);
 	
 private:
 
 	// A function that drow bombs blowup end erease the fire from map
-	void	BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp);
+	void	BlowUp(const Vertex &BlowCoord,Surprise *surp);
 
 	// A function that increase timers of all boms. 
 	void	increaaseTimer();
@@ -71,10 +72,10 @@ private:
 	void	BlowUpAll();
 
 	// A function that rundomly put bomb at map.
-	void	putRandom(char map[][MAP_X]);
+	void	putRandom();
 
 	// A fanction that erase the blowed-up bomb
-	void	EraseBlowUp(char map[][MAP_X],const Vertex &BlowCoord);
+	void	EraseBlowUp(const Vertex &BlowCoord);
 
 //                              veribel section
 //=============================================================================

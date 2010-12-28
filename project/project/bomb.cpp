@@ -26,7 +26,7 @@ void Bomb::clearBombsAll()
 // A fanction that realize the implications of surpris on bombs.
 //=============================================================================
 // Input: type of surprise, map.
-void Bomb::putSurpriseBomb(const short type,char map[][MAP_X])
+void Bomb::putSurpriseBomb(const short type)
 {
 	switch(type)
 	{
@@ -42,7 +42,7 @@ void Bomb::putSurpriseBomb(const short type,char map[][MAP_X])
 
 		// Randomly put bomb at map.
 		case BOMB_RAND:
-			putRandom(map);
+			putRandom();
 			break;
 
 	}	
@@ -127,11 +127,11 @@ int Bomb::bombCount()
 // A function that drow on map the fire and erese him from map
 //=============================================================================
 // Input: map, explosion coordinate, pointer to surprise object surp.
-void Bomb::BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp)
+void Bomb::BlowUp(const Vertex &BlowCoord,Surprise *surp)
 {
 	
-	int x = BlowCoord._x -1; 
-	int y = BlowCoord._y -1;
+	const int x = BlowCoord._x -1; 
+	const int y = BlowCoord._y -1;
 
 	
 	Vertex pres_cord;
@@ -143,20 +143,20 @@ void Bomb::BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp)
 	{
 		if(x1 != BlowCoord._x && y1 != BlowCoord._y)
 		{
-			if(map[BlowCoord._y][x1] == LANE )
-				map[BlowCoord._y][x1] = FIRE;
-			else if(map[BlowCoord._y][x1] == BARREL )
+			if(map::getInstance()->getCellValue(BlowCoord._y,x1) == LANE )
+				map::getInstance()->setCellValue(BlowCoord._y,x1,FIRE);
+			else if(map::getInstance()->getCellValue(BlowCoord._y,x1) == BARREL )
 			{
-				map[BlowCoord._y][x1] = FIRE;
+				map::getInstance()->setCellValue(BlowCoord._y,x1,FIRE);
 				pres_cord._x = x1;
 				pres_cord._y = BlowCoord._y;
 				surp->CreateSurpise(pres_cord);
 			}
-			if(map[y1][BlowCoord._x] == LANE )
-				map[y1][BlowCoord._x] = FIRE;
-			else if(map[y1][BlowCoord._x] == BARREL )
+			if(map::getInstance()->getCellValue(y1,BlowCoord._x) == LANE )
+				map::getInstance()->setCellValue(y1,BlowCoord._x,FIRE);
+			else if(map::getInstance()->getCellValue(y1,BlowCoord._x) == BARREL )
 			{
-				map[y1][BlowCoord._x] = FIRE;
+				map::getInstance()->setCellValue(y1,BlowCoord._x, FIRE);
 				pres_cord._x = BlowCoord._x;
 				pres_cord._y = y1;
 				surp->CreateSurpise(pres_cord);
@@ -166,21 +166,21 @@ void Bomb::BlowUp(char map[][MAP_X],const Vertex &BlowCoord,Surprise *surp)
 		}
 	}
 
-	map[BlowCoord._y][BlowCoord._x] = FIRE;
+	map::getInstance()->setCellValue(BlowCoord._y,BlowCoord._x,FIRE);
 
 }
 
 // A fanction that erase the blowed-up bomb
 //=============================================================================
 // Input: map, explosion coordinate.
-void Bomb::EraseBlowUp(char map[][MAP_X],const Vertex &BlowCoord)
+void Bomb::EraseBlowUp(const Vertex &BlowCoord)
 {
 	// Erase bomb it self.
-	map[BlowCoord._y][BlowCoord._x] = LANE;
+	map::getInstance()->setCellValue(BlowCoord._y,BlowCoord._x,LANE);
 
 	// Difine up-left coordiate of explosion.
-	int x = BlowCoord._x -1; 
-	int y = BlowCoord._y -1; ; 
+	const int x = BlowCoord._x -1; 
+	const int y = BlowCoord._y -1; ; 
 
 	// Loop integers.
 	int x1,y1;
@@ -191,10 +191,10 @@ void Bomb::EraseBlowUp(char map[][MAP_X],const Vertex &BlowCoord)
 		// If there is a fire sign - erase it.
 		if(x1 != BlowCoord._x && y1 != BlowCoord._y)
 		{
-			if(map[BlowCoord._y][x1] == FIRE )
-				map[BlowCoord._y][x1] = LANE;
-			if(map[y1][BlowCoord._x] == FIRE )
-				map[y1][BlowCoord._x] = LANE;
+			if(map::getInstance()->getCellValue(BlowCoord._y,x1) == FIRE )
+				map::getInstance()->setCellValue(BlowCoord._y,x1,LANE);
+			if(map::getInstance()->getCellValue(y1,BlowCoord._x) == FIRE )
+				map::getInstance()->setCellValue(y1,BlowCoord._x,LANE);
 		}
 
 	}
@@ -204,7 +204,7 @@ void Bomb::EraseBlowUp(char map[][MAP_X],const Vertex &BlowCoord)
 // A function that rundomly put bomb at map.
 //=============================================================================
 // Input: map.
-void Bomb::putRandom(char map[][MAP_X])
+void Bomb::putRandom()
 {
 	// Difine temprorary coordinates
 	int x,y;
@@ -216,7 +216,7 @@ void Bomb::putRandom(char map[][MAP_X])
 		y = rand()%(MAP_X-1)+1;
 
 		// If it is free space - put bomb.
-		if(map[y][x] == LANE)
+		if(map::getInstance()->getCellValue(y,x) == LANE)
 		{
 			Vertex coordinate;
 			coordinate._x = x;
@@ -233,20 +233,20 @@ void Bomb::putRandom(char map[][MAP_X])
 //	explosion the next move traces of the explosion is removed.
 //=============================================================================
 // Input: map, pointer to surprise object surp.
-void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)	
+void Bomb::DrowBomb(Surprise *surp)	
 {
 	//	for number bombs
 	for (int i = 0; i < _bombCounter; i++)
 	{	//	check if bomb was puted in this turn cycle
 		if(_bombs[i]._timer == START_TIME && _bombs[i]._alltime == START_TIME)
-			map[_bombs[i]._coordinate._y][_bombs[i]._coordinate._x] = 'B';
+			map::getInstance()->setCellValue(_bombs[i]._coordinate._y,_bombs[i]._coordinate._x,'B');
 		else if(_bombs[i]._timer == 0)
 		{	//	drow fire on map
-			BlowUp(map,_bombs[i]._coordinate,surp);	
+			BlowUp(_bombs[i]._coordinate,surp);	
 		}
 		else if(_bombs[i]._timer < 0)
 		{	//	clear fire from the map
-			EraseBlowUp(map,_bombs[i]._coordinate);	//	erase * from map
+			EraseBlowUp(_bombs[i]._coordinate);	//	erase * from map
 			_bombs.erase(_bombs.begin()+i);		//	delete this bomb
 			_bombCounter--;						//	decrease counter
 		}
@@ -256,7 +256,7 @@ void Bomb::DrowBomb(char map[][MAP_X],Surprise *surp)
 			int x_cord = _bombs[i]._coordinate._x;
 			int y_cord = _bombs[i]._coordinate._y;
 			//	ascii logic
-			map[y_cord][x_cord] =  _bombs[i]._timer + 48;
+			map::getInstance()->setCellValue(y_cord,x_cord,_bombs[i]._timer + 48);
 	
 		}
 	}
