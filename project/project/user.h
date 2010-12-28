@@ -1,9 +1,11 @@
 #pragma once
 #include "player.h"
 
-class user :public Player
+class User :public Player
 {
 public:
-	user(void);
-	virtual ~user(void);
+	User(void);
+
+private:
+	int		getInput(const char map[][MAP_X],Bomb *bombs);
 };

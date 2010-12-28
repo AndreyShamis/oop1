@@ -51,20 +51,20 @@ void GameController::RestartGame()
 //	the game.
 void GameController::NewGame()
 {
-	_user1		=	new Player();
-	_user2		=	new Player();	
+	_user1		=	new User();
+	_user2		=	new Computer();	
 	_bombs		=	new Bomb();
 	_presents	=	new Surprise();
 
 	_exitGame	=	false;
 
 	//	Initialize setings for first player
-	_user1->setIfComputer(false);			//	Not computer
+	//_user1->setIfComputer(false);			//	Not computer
 	_user1->setAlive(true);					//	Have lifes
 	_user1->setUserSymbol('P');				//	show on map LIKE P
 
 	//	Initialize setings for second player
-	_user2->setIfComputer(true);			//	Computer
+	//_user2->setIfComputer(true);			//	Computer
 	_user2->setAlive(true);					//	Alive
 	_user2->setUserSymbol('X');				//	show on map like X
 
