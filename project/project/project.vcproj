@@ -191,10 +191,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\load_game.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -242,10 +238,6 @@
 			</File>
 			<File
 				RelativePath=".\io.h"
-				>
-			</File>
-			<File
-				RelativePath=".\load_game.h"
 				>
 			</File>
 			<File

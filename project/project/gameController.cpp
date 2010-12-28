@@ -16,7 +16,7 @@ void GameController::RestartGame()
 {
 
 	//	second parameter must be smaller then MAP_PATH_LEN
-	if(LoadMap(_map_Game,"map2.txt"))
+	if(map::getInstance()->LoadMap("map2.txt"))
 	{
 		Vertex	user1_start, 
 				user2_start;
@@ -137,7 +137,7 @@ void GameController::Play()
 	_user2->drowOnMap();		//	put on map
 
 	//	print first map
-	PrintMap(_map_Game);
+	//PrintMap(_map_Game); 	TODO
 
 	while(_user1->getAlive() && _user2->getAlive() )
 	{
@@ -168,7 +168,7 @@ void GameController::Play()
 		_turnCounter++;
 		
 		// Print informations to screen
-		PrintMap(_map_Game);	//	Print MAP to screen
+		//PrintMap(_map_Game);	//	Print MAP to screen 	TODO
 		printLifes(_user1->getLife(),_user2->getLife());
 		printTurnCounter(_turnCounter);
 		printSurpriseInfo(_user1->getPresent(),_user2->getPresent());
@@ -195,7 +195,7 @@ void GameController::reloadGameChek(const int &us1_l,const int &us2_l)
 		RestartGame();
 		_user1->drowOnMap();
 		_user2->drowOnMap();
-		PrintMap(_map_Game);	//	Print MAP to screen
+	//	PrintMap(_map_Game);	//	Print MAP to screen	TODO
 		printLifes(_user1->getLife(),_user2->getLife());
 		printTurnCounter(_turnCounter);
 	}

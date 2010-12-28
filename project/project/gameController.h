@@ -35,9 +35,6 @@ private:
 		void	reloadGameChek(const int &us1_l,const int &us2_l);
 		void	Play();					//	play function to start game cycle
 		void	clearMemory();			//	clear used db structure
-
-		char			_map_Game[MAP_Y][MAP_X];	//	map structure
-//		//std::Vector <char> _ma
 		bool			_exitGame;					//	bool if need to exit
 		Bomb			*_bombs;					//	bombs structure
 		Surprise		*_presents;					//	surprise structure
