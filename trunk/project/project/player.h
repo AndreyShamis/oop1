@@ -41,44 +41,30 @@ public :
 	void	giveNewTurn(); //A function that give to user new turn in new cycle
 	bool	getAlive()const;	// GET Alive
 	void	setAlive(bool);		// SET Alive
-	void	setIfComputer(const bool value);	// SET IF COMPUTER PLAYER
 	// A function that return how meny life player have.
 	short	getLife() const;
 	// A function that get which present user get-have.
 	short	getPresent() const;
 	// A function that set enemy coordinate.
-	void setEnemyCord(Vertex cord);
+	void	setEnemyCord(Vertex cord);
 	// A function that drow on map the user. 
 	void	drowOnMap(char map[][MAP_X]);
 	void	setUserSymbol(const char new_sym);		// SET SYMBOL
 	
-private:
+protected:
 	
 	// A function that convert logic code of potential next step of computer 
 	// player.
 	void turnLogic(const int &turnCode);
-
-	// A function that get turn derection from user.
-	int		getInput(const char map[][MAP_X],Bomb *bombs);
-
+	virtual int	getInput(const char map[][MAP_X],Bomb *bombs)=0;
+	
 	// A function that decrease life counter.
 	void	decLife();	
-
 	// A function that set type of present to user.
 	void	setPresent(const short &value);
-
 	// A function that check if new coordinates is correct 
 	bool	CheckCorrect(const char map[][MAP_X],const Vertex &newcoordinate);
 	
-	// A function that try to detect derection to enemy.
-	short getTurnCodeByDetectEnemy();
-	
-	// A function that check if can put bomb and enemy can be blowed.
-	bool checkEnemyinBombRaound();
-
-	// A function that performs computer intellect.
-	short CompIntellect(const char map[][MAP_X],Bomb *bombs);
-
 
 //                              veribel section
 //=============================================================================

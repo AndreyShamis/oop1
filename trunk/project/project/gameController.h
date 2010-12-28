@@ -9,7 +9,9 @@
 #include "config.h"
 #include "io.h"
 #include "drow.h"
-#include "player.h"
+//#include "player.h"
+#include "user.h"
+#include "computer.h"
 #include "bomb.h"
 #include "load_game.h"
 #include "surprise.h"
@@ -22,8 +24,8 @@ public:
 		GameController();				//	constructor
 		void	Menu();					//	menu called from main
 private:
-		Player		*_user1;			//	player structure
-		Player		*_user2;			//	player 2 structure
+		User			*_user1;			//	player structure
+		Computer		*_user2;			//	player 2 structure
 
 		void	RestartGame();			//	rload game
 		void	PrintMenu();			//	print menu
