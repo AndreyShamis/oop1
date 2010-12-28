@@ -7,6 +7,7 @@
 #include <stdlib.h>	// for rand
 #include <time.h>
 #include <vector>
+#include "map.h"
 #include "config.h"
 #pragma once
 
@@ -33,7 +34,7 @@ public:
 	~Surprise();
 
 	// A function that drow surprises at map.
-	void	DrowSurprise(char map[][MAP_X]);
+	void	DrowSurprise();
 
 	// A function that creat surpris.
 	void	CreateSurpise(const Vertex &coordinate);

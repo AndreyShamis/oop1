@@ -9,7 +9,7 @@
 #include "config.h"
 #include "io.h"
 #include "drow.h"
-//#include "player.h"
+#include "map.h"
 #include "user.h"
 #include "computer.h"
 #include "bomb.h"
@@ -37,6 +37,7 @@ private:
 		void	clearMemory();			//	clear used db structure
 
 		char			_map_Game[MAP_Y][MAP_X];	//	map structure
+//		//std::Vector <char> _ma
 		bool			_exitGame;					//	bool if need to exit
 		Bomb			*_bombs;					//	bombs structure
 		Surprise		*_presents;					//	surprise structure

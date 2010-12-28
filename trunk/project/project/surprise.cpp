@@ -56,11 +56,11 @@ int Surprise::RandSurprise()
 
 // A function that drow surprises at map.
 //=============================================================================
-void Surprise::DrowSurprise(char map[][MAP_X])
+void Surprise::DrowSurprise()
 { 
 	for (int i = 0; i < _presentCounter; i++)
 	{
-		map[_PrHeap[i]._coord._y][_PrHeap[i]._coord._x] = PRESENT;
+		map::getInstance()->setCellValue(_PrHeap[i]._coord._y,_PrHeap[i]._coord._x,PRESENT);
 	}	
 }
 

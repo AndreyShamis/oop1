@@ -4,9 +4,9 @@
 class Computer : public Player
 {
 public:
-	Computer(void);
+
 private:
-	int		getInput(const char map[][MAP_X],Bomb *bombs);
+	int		getInput(Bomb *bombs);
 	// A function that try to detect derection to enemy.
 	short getTurnCodeByDetectEnemy();
 	
@@ -14,5 +14,5 @@ private:
 	bool checkEnemyinBombRaound();
 
 	// A function that performs computer intellect.
-	short CompIntellect(const char map[][MAP_X],Bomb *bombs);
+	short CompIntellect(Bomb *bombs);
 };

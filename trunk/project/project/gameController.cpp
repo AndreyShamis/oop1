@@ -59,12 +59,10 @@ void GameController::NewGame()
 	_exitGame	=	false;
 
 	//	Initialize setings for first player
-	//_user1->setIfComputer(false);			//	Not computer
 	_user1->setAlive(true);					//	Have lifes
 	_user1->setUserSymbol('P');				//	show on map LIKE P
 
 	//	Initialize setings for second player
-	//_user2->setIfComputer(true);			//	Computer
 	_user2->setAlive(true);					//	Alive
 	_user2->setUserSymbol('X');				//	show on map like X
 
@@ -135,8 +133,8 @@ void GameController::Play()
 		user2_prev_life		=	0;
 
 	//	show start positions for both users
-	_user1->drowOnMap(_map_Game);		//	put on map
-	_user2->drowOnMap(_map_Game);		//	put on map
+	_user1->drowOnMap();		//	put on map
+	_user2->drowOnMap();		//	put on map
 
 	//	print first map
 	PrintMap(_map_Game);
@@ -144,25 +142,25 @@ void GameController::Play()
 	while(_user1->getAlive() && _user2->getAlive() )
 	{
 		//	drow surprise on map
-		_presents->DrowSurprise(_map_Game);
+		_presents->DrowSurprise();
 
 		user1_prev_life = _user1->getLife();	//	set prev life
 		user2_prev_life = _user2->getLife();	//	set prev life
 
 		//	Get turn from fierst user
-		_user1->Turn(_map_Game,_bombs,_presents,_exitGame);
+		_user1->Turn(_bombs,_presents,_exitGame);
 		if(_exitGame)
 			break;
 
 
-		_bombs->DrowBomb(_map_Game,_presents);
+		_bombs->DrowBomb(_presents);
 		_user2->setEnemyCord(_user1->getCoordinate());
 
 		//	Get turn from secons user
-		_user2->Turn(_map_Game,_bombs,_presents,_exitGame);
+		_user2->Turn(_bombs,_presents,_exitGame);
 		if(_exitGame)
 			break;
-		_bombs->DrowBomb(_map_Game,_presents);
+		_bombs->DrowBomb(_presents);
 		_user1->setEnemyCord(_user2->getCoordinate());
 		
 		_bombs->bombTurn();	//	do bomb work
@@ -195,8 +193,8 @@ void GameController::reloadGameChek(const int &us1_l,const int &us2_l)
 		&& _user1->getLife()> 0 && _user2->getLife() > 0)
 	{
 		RestartGame();
-		_user1->drowOnMap(_map_Game);
-		_user2->drowOnMap(_map_Game);
+		_user1->drowOnMap();
+		_user2->drowOnMap();
 		PrintMap(_map_Game);	//	Print MAP to screen
 		printLifes(_user1->getLife(),_user2->getLife());
 		printTurnCounter(_turnCounter);

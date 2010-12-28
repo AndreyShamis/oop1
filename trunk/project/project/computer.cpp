@@ -1,17 +1,14 @@
 #include "computer.h"
 
-Computer::Computer(void)
-{
-}
 
 // A function that get turn derection from user.
 //=============================================================================
 // Input: map, pointer to object of class bomb.
 // Output: return turn derection.
-int	Computer::getInput(const char map[][MAP_X],Bomb *bombs)
+int	Computer::getInput(Bomb *bombs)
 {
 
-	return(CompIntellect(map,bombs));	
+	return(CompIntellect(bombs));	
 
 }
 
@@ -72,7 +69,7 @@ bool Computer::checkEnemyinBombRaound()
 //=============================================================================
 // Input: map, pointer to object of class bomb.
 // Output: return logic code that difine potential next turn of enemy.
-short Computer::CompIntellect(const char map[][MAP_X],Bomb *bombs)
+short Computer::CompIntellect(Bomb *bombs)
 {
 	int turnCode;					//	variable be return
 
@@ -98,10 +95,10 @@ short Computer::CompIntellect(const char map[][MAP_X],Bomb *bombs)
 			return(KEY_BOMB);
 		//	check if have barrel in arround and don`t have bombs
 		else if(!bombs->checkIfCellHaveBomb(_coordinate) &&
-			(map[_coordinate._y-1][_coordinate._x] == BARREL || 
-			map[_coordinate._y+1][_coordinate._x] == BARREL||
-			map[_coordinate._y][_coordinate._x-1] == BARREL ||
-			map[_coordinate._y][_coordinate._x+1] == BARREL) && 
+			(map::getInstance()->getCellValue(_coordinate._y-1,_coordinate._x) == BARREL || 
+			map::getInstance()->getCellValue(_coordinate._y+1,_coordinate._x) == BARREL||
+			map::getInstance()->getCellValue(_coordinate._y,_coordinate._x-1) == BARREL ||
+			map::getInstance()->getCellValue(_coordinate._y,_coordinate._x+1) == BARREL) && 
 			!bombs->checkExplodeBomb(_coordinate,2) )
 			return(KEY_BOMB);
 		else if(try_detect_enemy && _computerTryDetectEnemy > 4)
@@ -123,7 +120,7 @@ short Computer::CompIntellect(const char map[][MAP_X],Bomb *bombs)
 			//	do logic to new coorinates
 			turnLogic(turnCode);
 			//	check on the map 
-			if(CheckCorrect(map,_newCoordinate))
+			if(CheckCorrect(_newCoordinate))
 			{	
 				//	if correct turn
 				//	check if in next turn no bombs whith timer 1
