@@ -13,7 +13,6 @@
 #include "user.h"
 #include "computer.h"
 #include "bomb.h"
-#include "load_game.h"
 #include "surprise.h"
 
 
