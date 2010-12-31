@@ -1,6 +1,13 @@
 #include "computer.h"
 
 
+Computer::Computer()
+{
+	//	rand for computer player
+	_computerTryDetectEnemy = 0;
+	srand ((int)(time(0)));		// rand for computer turns
+
+}
 // A function that get turn derection from user.
 //=============================================================================
 // Input: map, pointer to object of class bomb.

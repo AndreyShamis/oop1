@@ -16,11 +16,6 @@ Player::Player()
 	_userSymbol		=	'+';	// set unset user symbol
 	_life			=	3;		// give user 3 life
 	setPresent(0);				// set unset presents have
-	
-	//	rand for computer player
-	_computerTryDetectEnemy = 0;
-	srand ((int)(time(0)));		// rand for computer turns
-
 
 }
 //======== SET coordinate =====================================================
