@@ -5,7 +5,6 @@ class User :public Player
 {
 public:
 
-
 private:
 	int		getInput(Bomb *bombs);
 };

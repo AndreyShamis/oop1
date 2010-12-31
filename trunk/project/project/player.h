@@ -75,12 +75,11 @@ protected:
 	Vertex		_enemyCord;		// Difine enemy coordinate.
 	bool		_haveBomb;		// Difine bomb.
 	bool		_haveTurn;		// Difine howes Turn.
-	bool		_computerPlayer; // Difine if the player is computer.
+	//bool		_computerPlayer; // Difine if the player is computer.
 	bool		_alive;			// Difine if the player is alive.
 	char		_userSymbol;	// Difine player Symbol.
 	short int	_life;			// Difine life counter.
 	short int	_presentGeted;	// The type of presnt which was geted.
 								//	in last time.
-	int			_computerTryDetectEnemy; // Difine direction of enemy.
 
 };
