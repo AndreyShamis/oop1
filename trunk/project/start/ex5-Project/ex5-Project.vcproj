@@ -184,7 +184,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Grific.cpp"
+				RelativePath=".\Grafic.cpp"
 				>
 			</File>
 			<File
@@ -238,7 +238,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Grific.h"
+				RelativePath=".\Grafic.h"
 				>
 			</File>
 			<File

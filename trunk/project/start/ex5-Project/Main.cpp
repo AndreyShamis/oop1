@@ -12,7 +12,9 @@ int main(int argc, char** argv)
 	glutInitWindowSize (580,580); 
 	glutInitWindowPosition (0,0);
 	glutCreateWindow (argv[0]);
-
+	
+	//init();
+	
 	gameController Game;
 	
 

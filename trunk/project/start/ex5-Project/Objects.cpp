@@ -4,6 +4,6 @@ Objects::Objects(void)
 {
 }
 
-Objects::~Objects(void)
+void Objects::Draw()
 {
 }
