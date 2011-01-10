@@ -8,6 +8,6 @@ class Grafic
 {
 public:
 	Grafic(void);
-	void Display();
+	static void Display();
 	static std::vector <Objects *> _objects; 
 };

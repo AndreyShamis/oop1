@@ -6,8 +6,8 @@ class Objects
 public:
 	Objects(void);
 	void Draw();
-
-private:
 	Vertex _cord;
+private:
+
 
 };

@@ -212,6 +212,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Sprite.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Wall.cpp"
 				>
 			</File>
@@ -259,6 +263,10 @@
 			</File>
 			<File
 				RelativePath=".\Space.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sprite.h"
 				>
 			</File>
 			<File
