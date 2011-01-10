@@ -4,6 +4,8 @@
 #include <iostream>
 //#include "Config.h"
 #include "Objects.h"
+#include "Grafic.h"
+#include <glut.h>
 
 using namespace std;
 

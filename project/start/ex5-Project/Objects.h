@@ -5,7 +5,7 @@ class Objects
 {
 public:
 	Objects(void);
-	~Objects(void);
+	void Draw();
 
 private:
 	Vertex _cord;
