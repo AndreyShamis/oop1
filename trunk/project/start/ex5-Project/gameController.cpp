@@ -7,7 +7,7 @@ gameController::gameController()
 		// Open file.
 
 	ifstream myReadFile;
-	myReadFile.open("");
+	myReadFile.open("MAPS/map2.txt");
 	
 	int countX=0,
 		countY=0;
@@ -18,10 +18,13 @@ gameController::gameController()
 		while (!myReadFile.eof())
 		{
 			// Load line to array.
-			char ch = getchar();
+			char ch = myReadFile.get();
 			if(ch == FENCE)			//	zabor
 			{
-				
+				Wall *wall = new Wall();
+				wall->_cord._x = countX;
+				wall->_cord._y = countY;
+				_objects.push_back(wall);
 			}
 			else if(ch == LANE)		//	space
 			{

@@ -1,8 +1,7 @@
 #pragma once
-
-class Wall
+#include "Objects.h"
+class Wall:public Objects
 {
 public:
-	Wall(void);
-	~Wall(void);
+	Wall();
 };
