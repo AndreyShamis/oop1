@@ -60,6 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="opengl32.lib glu32.lib glut32.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -171,6 +172,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Bochka.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Bomb.cpp"
 				>
 			</File>
@@ -216,6 +221,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\Bochka.h"
+				>
+			</File>
 			<File
 				RelativePath=".\Bomb.h"
 				>
