@@ -13,7 +13,7 @@ Grafic::Grafic(void)
 void Grafic::Display()
 {
 
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	vector<Objects*>::iterator it;
 
 	for(it=_objects.begin();it<_objects.end();it++)
