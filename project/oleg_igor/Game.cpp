@@ -34,6 +34,7 @@ void Game::play() {
 
 	_vec_objs.push_back( player ) ;
 
+	
 	_window.addObj( player ) ;
 	_keyBoard.addObj( player ) ;
 	
