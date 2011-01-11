@@ -4,6 +4,9 @@
 Player::Player()
 {
 	_sprite.push_back("RGBA/Player.d_rgba.txt");
+	_sprite.push_back("RGBA/Player.l_rgba.txt");
+	_sprite.push_back("RGBA/Player.r_rgba.txt");
+	_sprite.push_back("RGBA/Player.u_rgba.txt");
 	_way = GO_UP;
 }
 //=============================================================================
@@ -12,8 +15,24 @@ void Player::Draw()
 	//glClear (GL_COLOR_BUFFER_BIT);
 
 	vector<Sprite>::iterator it ;
+	switch(_way) 
+	{
+		case GO_UP:
+			it = _sprite.begin()+3; 			
+			break ;
+		case GO_DOWN:
+			it = _sprite.begin() ; 			
+			break ;
+		case GO_LEFT: 
+			it = _sprite.begin() +1; 
+			break ;
+		case GO_RIGHT:			
+			it = _sprite.begin() +2;			
+			break ;
 
-	it = _sprite.begin() ;
+		default:
+			break;
+	}
 	it->Draw(_cord) ;
 }
 
@@ -42,9 +61,7 @@ void Player::Move(std::vector<Objects *> &_objects)
 						}
 					}
 					else
-					{
 						some_step = STEP_SPEED;
-					}
 
 				}
 
@@ -63,9 +80,45 @@ void Player::Move(std::vector<Objects *> &_objects)
 						}
 					}
 					else
-					{
 						some_step = STEP_SPEED;
+
+				}
+
+			}
+
+			else if(_way == GO_RIGHT)
+			{
+				if(((*it)->_cord._y+29 <= _cord._y+29 &&  _cord._y+29 <=(*it)->_cord._y) 
+					|| ((*it)->_cord._y+29 <= _cord._y && _cord._y <= (*it)->_cord._y ) )
+				{
+					if( (*it)->_cord._x>= _cord._x+29 && (*it)->_cord._x <= _cord._x+STEP_SPEED+29)
+					{
+						if( ((*it)->_cord._x) -(_cord._x+29)  >=0  )
+						{
+							some_step = ((*it)->_cord._x) -(_cord._x+29) ;
+							break;
+						}
 					}
+					else
+						some_step = STEP_SPEED;
+
+				}
+
+			}
+			else if(_way == GO_LEFT)
+			{
+				if(((*it)->_cord._y+29 <= _cord._y+29 && (*it)->_cord._y >= _cord._y+29) 
+					|| ((*it)->_cord._y+29 <= _cord._y && (*it)->_cord._y >= _cord._y) )
+				{
+					if((*it)->_cord._x+29 > _cord._x-STEP_SPEED)
+					{
+						if( (_cord._x) - ((*it)->_cord._x+29) >=0 )
+						{
+							some_step = (_cord._x) - ((*it)->_cord._x+29);
+						}
+					}
+					else
+						some_step = STEP_SPEED;
 
 				}
 
