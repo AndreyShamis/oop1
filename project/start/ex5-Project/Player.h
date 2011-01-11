@@ -10,14 +10,18 @@ enum Way
 	GO_LEFT,
 	GO_RIGHT
 };
+
+#define STEP_SPEED 4
+
 class Player:public Objects
 {
 public:
 	Player();
-	void Draw();
-	void Press(unsigned char key, int x, int y);
+	virtual void Draw();
+	virtual void Press(unsigned char key, int x, int y);
+	virtual void SpecPress(int key, int x, int y);
 	Way _way;
 	void changeCord(float x, float y);
-	void Move();
+	virtual void Move();
 
 };

@@ -8,6 +8,6 @@ class Keyboard
 public:
 
 	static void Press(unsigned char key, int x, int y);
-
+	static void SpecPress(int key, int x, int y);
 	static vector<Objects*> _objects ;
 };

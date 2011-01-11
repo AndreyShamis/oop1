@@ -1,10 +1,12 @@
 #include "Player.h"
 
+//=============================================================================
 Player::Player()
 {
 	_sprite.push_back("RGBA/Player.d_rgba.txt");
+	_way = GO_UP;
 }
-
+//=============================================================================
 void Player::Draw()
 {
 	//glClear (GL_COLOR_BUFFER_BIT);
@@ -15,21 +17,23 @@ void Player::Draw()
 	it->Draw(_cord) ;
 }
 
+//=============================================================================
+
 void Player::Move()
 {
 	switch(_way) 
 	{
 		case GO_UP:
-			changeCord(0,-2); 			
+			changeCord(0,STEP_SPEED); 			
 			break ;
 		case GO_DOWN:
-			changeCord(0,2); 			
+			changeCord(0,-1*STEP_SPEED); 			
 			break ;
 		case GO_LEFT: 
-			changeCord(-2,0); 
+			changeCord(-1*STEP_SPEED,0); 
 			break ;
 		case GO_RIGHT:			
-			changeCord(2,0);			
+			changeCord(STEP_SPEED,0);			
 			break ;
 
 		default:
@@ -37,71 +41,59 @@ void Player::Move()
 	}
 }
 
+//=============================================================================
 void Player::changeCord(float x, float y)
 {
 	_cord._x+=x;
 	_cord._y+=y;
 }
+
+//=============================================================================
 void Player::Press(unsigned char key, int x, int y)
 {
-
-	int result = 0;	// Difine result of presed key from keyboord.
-
 	// Get key from keyboord.
 	switch(key)
 	{
-	case 'q':				//	q key
-		result	=	10;
-		break;
-	case 's':				//	S key
-		result	=	20;
-		break;
-	case 'n':				//	N key
-		result	=	30;
-		break;
 
-	case ' ':				//	Space key
-		result	=	5;
-		break;
-	case 'b':				//	b key
-		result	=	5;
-		break;
-
-	case 0x48:				//	Up key
-		result	=	1;
-		_way = GO_UP;
-		break;
 	case '8':					//	Up key
-		result	=	1;
 		_way = GO_UP;
-		break;
-
-	case 0x4d:				//	Right key
-		result	=	4;
-		_way = GO_RIGHT;
 		break;
 	case '6':				//	Right key
-		result	=	4;
 		_way = GO_RIGHT;
 		break;
-
-	case 0x4b:				//	Left key
-		result	=	3;
-		_way = GO_LEFT;
-		break;
 	case '4':				//	Left key
-		result	=	3;
 		_way = GO_LEFT;
-		break;
-
-	case 0x50:				//	Down key
-		result	=	2;
-		_way = GO_DOWN;
 		break;
 	case '2':				//	Down key
-		result	=	2;
 		_way = GO_DOWN;
 		break;
 	}
 
 }
+
+//=============================================================================
+void Player::SpecPress(int key, int x, int y)
+{
+	// Get key from keyboord.
+	switch(key)
+	{
+
+	case GLUT_KEY_UP:					//	Up key
+		_way = GO_UP;
+		break;
+	case GLUT_KEY_RIGHT:				//	Right key
+		_way = GO_RIGHT;
+		break;
+	case GLUT_KEY_LEFT:				//	Left key
+		_way = GO_LEFT;
+		break;
+	case GLUT_KEY_DOWN:				//	Down key
+		_way = GO_DOWN;
+		break;
+	}
+
+}
+
+//=============================================================================
+//=============================================================================
+//=============================================================================
