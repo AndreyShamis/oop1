@@ -16,10 +16,10 @@ using namespace std;
 class gameController
 {
 public:
-	gameController(void);
-	~gameController(void);
-	Grafic _graf;
-	Keyboard _kboard;
+	gameController();
+	Grafic		_graf;
+	static Keyboard	_kboard;
+	static void idle();
 private:
 
 	static std::vector <Objects *> _objects; 

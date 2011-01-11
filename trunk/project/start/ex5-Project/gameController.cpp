@@ -1,7 +1,7 @@
 #include "gameController.h"
 
 vector<Objects*> gameController:: _objects;
-
+Keyboard gameController::_kboard ;
 gameController::gameController()
 {
 		// Open file.
@@ -60,12 +60,24 @@ gameController::gameController()
 	_objects.push_back(user);
 	_graf._objects.push_back(user);
 	_kboard._objects.push_back(user);
-
+	
+	glutIdleFunc(gameController::idle);
 	glutDisplayFunc(Grafic::Display);  
-	glutKeyboardFunc(Keyboard::Press);  
+	glutSpecialFunc(Keyboard::SpecPress);	
+
+	glutKeyboardFunc(Keyboard::Press);
+
 	myReadFile.close();
 }
 
-gameController::~gameController(void)
+void gameController::idle()
 {
+	vector<Objects*>::iterator it ;
+
+	for( it =  _objects.begin() ; it < _objects.end() ; it++ ) {
+		(*it)->Move() ;
+	}
+
+	glutPostRedisplay();	
+
 }
