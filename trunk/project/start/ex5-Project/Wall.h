@@ -11,4 +11,5 @@ class Wall:public Objects
 public:
 	Wall();
 	void Draw();
+
 };

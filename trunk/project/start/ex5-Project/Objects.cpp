@@ -2,5 +2,6 @@
 
 Objects::Objects(void)
 {
+	movable = 1;
 }
 

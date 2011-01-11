@@ -22,6 +22,6 @@ public:
 	virtual void SpecPress(int key, int x, int y);
 	Way _way;
 	void changeCord(float x, float y);
-	virtual void Move();
+	virtual void Move(std::vector<Objects *> &_objects);
 
 };

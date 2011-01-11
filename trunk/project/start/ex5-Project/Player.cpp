@@ -19,21 +19,73 @@ void Player::Draw()
 
 //=============================================================================
 
-void Player::Move()
+void Player::Move(std::vector<Objects *> &_objects)
 {
+	vector<Objects*>::iterator it ;
+
+	int some_step = 0;
+	some_step = STEP_SPEED;
+	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+	{
+		if(!(*it)->movable)
+		{
+			if(_way == GO_UP)
+			{
+				if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+29 >= _cord._x) 
+					|| ((*it)->_cord._x <= _cord._x+29 && (*it)->_cord._x+29 >= _cord._x+29) )
+				{
+					if((*it)->_cord._y+29 > _cord._y-STEP_SPEED)
+					{
+						if( (_cord._y) - ((*it)->_cord._y+29) >=0 )
+						{
+							some_step = (_cord._y) - ((*it)->_cord._y+29);
+						}
+					}
+					else
+					{
+						some_step = STEP_SPEED;
+					}
+
+				}
+
+			}
+			else if(_way == GO_DOWN)
+			{
+				if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+29 >= _cord._x) 
+					|| ((*it)->_cord._x <= _cord._x+29 && (*it)->_cord._x+29 >= _cord._x+29) )
+				{
+					if( (*it)->_cord._y >= _cord._y+29 && (*it)->_cord._y <= _cord._y+STEP_SPEED+29)
+					{
+						if( ((*it)->_cord._y) -(_cord._y+29)  >=0  )
+						{
+							some_step = ((*it)->_cord._y) -(_cord._y+29) ;
+							break;
+						}
+					}
+					else
+					{
+						some_step = STEP_SPEED;
+					}
+
+				}
+
+			}
+		}
+	}
+
 	switch(_way) 
 	{
 		case GO_UP:
-			changeCord(0,STEP_SPEED); 			
+			changeCord(0,-1*some_step); 			
 			break ;
 		case GO_DOWN:
-			changeCord(0,-1*STEP_SPEED); 			
+			changeCord(0,some_step); 			
 			break ;
 		case GO_LEFT: 
-			changeCord(-1*STEP_SPEED,0); 
+			changeCord(-1*some_step,0); 
 			break ;
 		case GO_RIGHT:			
-			changeCord(STEP_SPEED,0);			
+			changeCord(some_step,0);			
 			break ;
 
 		default:
