@@ -88,8 +88,8 @@ void Player::Move(std::vector<Objects *> &_objects)
 
 			else if(_way == GO_RIGHT)
 			{
-				if(((*it)->_cord._y+29 <= _cord._y+29 &&  _cord._y+29 <=(*it)->_cord._y) 
-					|| ((*it)->_cord._y+29 <= _cord._y && _cord._y <= (*it)->_cord._y ) )
+				if(((*it)->_cord._y+29 >= _cord._y+29 && (*it)->_cord._y <= _cord._y+29) 
+					|| ((*it)->_cord._y+29 >= _cord._y && (*it)->_cord._y <= _cord._y) )
 				{
 					if( (*it)->_cord._x>= _cord._x+29 && (*it)->_cord._x <= _cord._x+STEP_SPEED+29)
 					{
@@ -107,8 +107,8 @@ void Player::Move(std::vector<Objects *> &_objects)
 			}
 			else if(_way == GO_LEFT)
 			{
-				if(((*it)->_cord._y+29 <= _cord._y+29 && (*it)->_cord._y >= _cord._y+29) 
-					|| ((*it)->_cord._y+29 <= _cord._y && (*it)->_cord._y >= _cord._y) )
+				if(((*it)->_cord._y+29 >= _cord._y+29 && (*it)->_cord._y <= _cord._y+29) 
+					|| ((*it)->_cord._y+29 >= _cord._y && (*it)->_cord._y <= _cord._y) )
 				{
 					if((*it)->_cord._x+29 > _cord._x-STEP_SPEED)
 					{

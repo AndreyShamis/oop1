@@ -11,7 +11,7 @@ enum Way
 	GO_RIGHT
 };
 
-#define STEP_SPEED 4
+#define STEP_SPEED 1
 
 class Player:public Objects
 {

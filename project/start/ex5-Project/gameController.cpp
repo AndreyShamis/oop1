@@ -54,13 +54,14 @@ gameController::gameController()
 		}
 	}
 	Player *user = new Player();
-	user->_cord._x = 3*29;
+	user->_cord._x = 2*29;
 	user->_cord._y = 5*29;
 
 	_objects.push_back(user);
 	_graf._objects.push_back(user);
 	_kboard._objects.push_back(user);
 	
+
 	glutIdleFunc(gameController::idle);
 	glutDisplayFunc(Grafic::Display);  
 	glutSpecialFunc(Keyboard::SpecPress);	
