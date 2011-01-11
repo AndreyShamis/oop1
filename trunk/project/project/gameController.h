@@ -38,4 +38,7 @@ private:
 		Bomb			*_bombs;					//	bombs structure
 		Surprise		*_presents;					//	surprise structure
 		unsigned int	_turnCounter;				//	turn counter
+
+		static void Idle();
+
 };

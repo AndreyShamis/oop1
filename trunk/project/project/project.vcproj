@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="project"
 	ProjectGUID="{3B54D2F5-6979-4C2E-929E-0AF305A3D363}"
 	RootNamespace="project"
@@ -199,6 +199,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Objects.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\player.cpp"
 				>
 			</File>
@@ -242,6 +246,10 @@
 			</File>
 			<File
 				RelativePath=".\map.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Objects.h"
 				>
 			</File>
 			<File
