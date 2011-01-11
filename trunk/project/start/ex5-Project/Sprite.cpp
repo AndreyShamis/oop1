@@ -20,17 +20,19 @@ Sprite::Sprite(const char* filename) {
 	imageFile.close();
 }
 
-void Sprite::draw(float xPos, float yPos){
+void Sprite::Draw(const Vertex &cord){
 	glBegin(GL_POINTS);	
-	int y=_height-1,x=_width-1;
+	int y=_height,x=_width;
 	for(int i=0; i<_height;i++){
-		x=_width-1;
+		x=_width;
 		for(int j=0; j< _width; j++){
 			glColor4ub(_image[i][j]._r, _image[i][j]._g, _image[i][j]._b, _image[i][j]._a);
-			glVertex2i(x + xPos ,y + yPos);
+			glVertex2i(x + cord._x ,y + cord._y);
 			x++;
 		}
 		y--;
 	}
+
 	glEnd();
+
 }

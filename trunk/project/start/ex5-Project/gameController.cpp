@@ -22,17 +22,26 @@ gameController::gameController()
 			if(ch == FENCE)			//	zabor
 			{
 				Wall *wall = new Wall();
-				wall->_cord._x = countX;
-				wall->_cord._y = countY;
+				wall->_cord._x = countX*29;
+				wall->_cord._y = countY*29;
 				_objects.push_back(wall);
+				_graf._objects.push_back(wall);
 			}
 			else if(ch == LANE)		//	space
 			{
-
+				Space *lane = new Space();
+				lane->_cord._x = countX*29;
+				lane->_cord._y = countY*29;
+				_objects.push_back(lane);
+				_graf._objects.push_back(lane);
 			}
 			else if(ch == BARREL)	// bochka
 			{
-
+				Bochka *bochka = new Bochka();
+				bochka->_cord._x = countX*29;
+				bochka->_cord._y = countY*29;
+				_objects.push_back(bochka);
+				_graf._objects.push_back(bochka);
 			}
 			else if(ch == '\n')
 			{
@@ -44,8 +53,16 @@ gameController::gameController()
 			countX++; // Increase num of line.
 		}
 	}
+	Player *user = new Player();
+	user->_cord._x = 3*29;
+	user->_cord._y = 5*29;
+
+	_objects.push_back(user);
+	_graf._objects.push_back(user);
+	_kboard._objects.push_back(user);
 
 	glutDisplayFunc(Grafic::Display);  
+	glutKeyboardFunc(Keyboard::Press);  
 	myReadFile.close();
 }
 

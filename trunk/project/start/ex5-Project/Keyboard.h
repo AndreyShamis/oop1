@@ -1,8 +1,13 @@
 #pragma once
+#include "Objects.h"
+#include <vector>
+using namespace std ;
 
 class Keyboard
 {
 public:
-	Keyboard(void);
-	~Keyboard(void);
+
+	static void Press(unsigned char key, int x, int y);
+
+	static vector<Objects*> _objects ;
 };
