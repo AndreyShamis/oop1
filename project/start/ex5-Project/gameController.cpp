@@ -74,9 +74,8 @@ void gameController::idle()
 {
 	vector<Objects*>::iterator it ;
 
-	for( it =  _objects.begin() ; it < _objects.end() ; it++ ) {
-		(*it)->Move() ;
-	}
+	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+		(*it)->Move(_objects) ;
 
 	glutPostRedisplay();	
 

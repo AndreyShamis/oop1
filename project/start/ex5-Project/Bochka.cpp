@@ -3,6 +3,7 @@
 Bochka::Bochka()
 {
 	_sprite.push_back("RGBA/surprise_rgba.txt");
+	movable = 0;
 }
 
 void Bochka::Draw()

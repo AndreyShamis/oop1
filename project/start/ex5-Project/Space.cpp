@@ -3,6 +3,7 @@
 Space::Space()
 {
 	_sprite.push_back("RGBA/space_rgba.txt");
+	movable = 1;
 }
 
 void Space ::Draw()
