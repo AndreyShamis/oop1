@@ -1,8 +1,13 @@
 #pragma once
+#include "Objects.h"
+#include "Sprite.h"
+#include <vector>
+using namespace std ;
 
-class Bochka
+
+class Bochka:public Objects
 {
 public:
-	Bochka(void);
-	~Bochka(void);
+	Bochka();
+	void Draw();
 };

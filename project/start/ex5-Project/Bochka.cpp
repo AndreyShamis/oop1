@@ -1,9 +1,15 @@
 #include "Bochka.h"
 
-Bochka::Bochka(void)
+Bochka::Bochka()
 {
+	_sprite.push_back("RGBA/surprise_rgba.txt");
 }
 
-Bochka::~Bochka(void)
+void Bochka::Draw()
 {
+	vector <Sprite>::iterator it;
+	it = _sprite.begin();
+
+	it->Draw(_cord);
 }
+

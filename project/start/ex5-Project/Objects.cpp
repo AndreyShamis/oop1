@@ -4,7 +4,3 @@ Objects::Objects(void)
 {
 }
 
-void Objects::Draw()
-{
-	
-}

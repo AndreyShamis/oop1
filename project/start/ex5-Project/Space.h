@@ -1,8 +1,12 @@
 #pragma once
+#include "Objects.h"
+#include "Sprite.h"
+#include <vector>
+using namespace std ;
 
-class Space
+class Space:public Objects
 {
 public:
-	Space(void);
-	~Space(void);
+	Space();
+	void Draw();
 };

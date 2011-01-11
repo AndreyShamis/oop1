@@ -7,7 +7,7 @@ class Sprite
 {
 public:
 	Sprite(const char* filename);
-	void draw(float xPos, float yPos);
+	void Draw(const Vertex &cord);
 	RGBA **_image;
 	int _height;
 	int _width;

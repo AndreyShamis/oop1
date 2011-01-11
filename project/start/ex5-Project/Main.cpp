@@ -9,11 +9,11 @@ int main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
 
-	glutInitWindowSize (580,580); 
+	glutInitWindowSize (620,620); 
 	glutInitWindowPosition (0,0);
-	glutCreateWindow (argv[0]);
+	glutCreateWindow ("Ko ko Jamba");
 	
-	//init();
+	glClearColor(0.1f, 0.1f, 0.2f, 1.0f);    // Устанавливается синий фон
 	
 	gameController Game;
 	
