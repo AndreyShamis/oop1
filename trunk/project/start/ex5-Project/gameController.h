@@ -12,6 +12,7 @@
 #include "Computer.h"
 #include "Bochka.h"
 #include "Space.h"
+#include <windows.h> // for PlaySound()
 using namespace std;
 
 class gameController
