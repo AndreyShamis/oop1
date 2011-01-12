@@ -1,4 +1,6 @@
+
 #pragma once
+
 #include "Objects.h"
 #include "Sprite.h"
 #include <vector>

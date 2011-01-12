@@ -7,7 +7,7 @@ gameController::gameController()
 		// Open file.
 
 	ifstream myReadFile;
-	myReadFile.open("MAPS/map2.txt");
+	myReadFile.open("MAPS/map3.txt");
 	
 	int countX=0,
 		countY=0;
@@ -54,17 +54,19 @@ gameController::gameController()
 		}
 	}
 	User *user = new User();
-	user->_cord._x = 2*29;
-	user->_cord._y = 5*29;
+	user->_cord._x = 3*29;
+	user->_cord._y = 3*29;
 	Computer *comp = new Computer();
-	comp->_cord._x = 4*29;
-	comp->_cord._y = 4*29;
+	comp->_cord._x = 18*29;
+	comp->_cord._y = 18*29;
 	_objects.push_back(user);
 	_graf._objects.push_back(user);
 	_kboard._objects.push_back(user);
 	_objects.push_back(comp);
 	_graf._objects.push_back(comp);
 	_kboard._objects.push_back(comp);	
+
+PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_FILENAME|SND_ASYNC);
 
 	glutIdleFunc(gameController::idle);
 	glutDisplayFunc(Grafic::Display);  
@@ -73,6 +75,7 @@ gameController::gameController()
 	glutKeyboardFunc(Keyboard::Press);
 
 	myReadFile.close();
+
 }
 
 void gameController::idle()
