@@ -16,10 +16,9 @@ enum Way
 class Player:public Objects
 {
 public:
-	Player();
 	virtual void Draw();
-	virtual void Press(unsigned char key, int x, int y);
-	virtual void SpecPress(int key, int x, int y);
+	virtual void Press(unsigned char key, int x, int y){};
+	virtual void SpecPress(int key, int x, int y){};
 	Way _way;
 	void changeCord(float x, float y);
 	virtual void Move(std::vector<Objects *> &_objects);

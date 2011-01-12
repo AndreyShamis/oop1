@@ -20,6 +20,7 @@ Sprite::Sprite(const char* filename) {
 	imageFile.close();
 }
 
+
 void Sprite::Draw(const Vertex &cord){
 	glBegin(GL_POINTS);	
 	int y=0,x=_width;

@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
 
-	glutInitWindowSize (620,620); 
+	glutInitWindowSize (1020,600); 
 	glutInitWindowPosition (0,0);
 	glutCreateWindow ("Ko ko Jamba");
 	
