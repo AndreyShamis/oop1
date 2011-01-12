@@ -180,6 +180,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Computer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\gameController.cpp"
 				>
 			</File>
@@ -216,6 +220,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\User.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Wall.cpp"
 				>
 			</File>
@@ -231,6 +239,10 @@
 			</File>
 			<File
 				RelativePath=".\Bomb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Computer.h"
 				>
 			</File>
 			<File
@@ -270,6 +282,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\User.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Wall.h"
 				>
 			</File>
@@ -293,6 +309,34 @@
 			</File>
 			<File
 				RelativePath=".\MAPS\map4.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\RGBA\Player.d_rgba.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\RGBA\Player.l_rgba.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\RGBA\Player.r_rgba.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\RGBA\Player.u_rgba.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\RGBA\space_rgba.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\RGBA\surprise_rgba.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\RGBA\wall_rgba.txt"
 				>
 			</File>
 		</Filter>

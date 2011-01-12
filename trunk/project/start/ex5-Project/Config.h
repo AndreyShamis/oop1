@@ -12,5 +12,5 @@ struct Vertex
 };
 
 struct RGBA{
-	float  _r, _g, _b, _a;
+	short int  _r, _g, _b, _a;
 };

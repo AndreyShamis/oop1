@@ -8,7 +8,8 @@
 #include "Keyboard.h"
 #include <glut.h>
 #include "Wall.h"
-#include "Player.h"
+#include "User.h"
+#include "Computer.h"
 #include "Bochka.h"
 #include "Space.h"
 using namespace std;
@@ -21,6 +22,6 @@ public:
 	static Keyboard	_kboard;
 	static void idle();
 private:
-
+	Computer *comp;
 	static std::vector <Objects *> _objects; 
 };

@@ -53,14 +53,18 @@ gameController::gameController()
 			countX++; // Increase num of line.
 		}
 	}
-	Player *user = new Player();
+	User *user = new User();
 	user->_cord._x = 2*29;
 	user->_cord._y = 5*29;
-
+	Computer *comp = new Computer();
+	comp->_cord._x = 4*29;
+	comp->_cord._y = 4*29;
 	_objects.push_back(user);
 	_graf._objects.push_back(user);
 	_kboard._objects.push_back(user);
-	
+	_objects.push_back(comp);
+	_graf._objects.push_back(comp);
+	_kboard._objects.push_back(comp);	
 
 	glutIdleFunc(gameController::idle);
 	glutDisplayFunc(Grafic::Display);  
@@ -76,7 +80,13 @@ void gameController::idle()
 	vector<Objects*>::iterator it ;
 
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+	{
+		if((*it)->intelect)
+			(*it)->VirtualPress();
+
 		(*it)->Move(_objects) ;
+
+	}
 
 	glutPostRedisplay();	
 
