@@ -1,5 +1,7 @@
 #include "gameController.h"
 
+
+
 vector<Objects*> gameController:: _objects;
 Keyboard gameController::_kboard ;
 gameController::gameController()
@@ -66,7 +68,7 @@ gameController::gameController()
 	_graf._objects.push_back(comp);
 	_kboard._objects.push_back(comp);	
 
-PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_FILENAME|SND_ASYNC);
+PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 
 	glutIdleFunc(gameController::idle);
 	glutDisplayFunc(Grafic::Display);  

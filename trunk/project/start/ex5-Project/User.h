@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include <windows.h> // for PlaySound()
 class User:public Player
 {
 public:

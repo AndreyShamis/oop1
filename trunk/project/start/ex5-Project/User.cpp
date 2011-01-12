@@ -47,6 +47,7 @@ void User::SpecPress(int key, int x, int y)
 
 	case GLUT_KEY_UP:					//	Up key
 		_way = GO_UP;
+	//	PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 		break;
 	case GLUT_KEY_RIGHT:				//	Right key
 		_way = GO_RIGHT;
