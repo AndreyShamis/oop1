@@ -1,9 +1,11 @@
 #include "Sprite.h"
+
 using namespace std ;
 Sprite::Sprite(const char* filename) {
 
-	char path[300];
-	memset(path,'\0',300);
+
+	char path[200];
+	memset(path,'\0',200);
 	strcpy_s(path,RGBA_FOLDER);
 	strcat_s(path,"\\");
 	strcat_s(path,RGBA_SIZE);
@@ -11,11 +13,16 @@ Sprite::Sprite(const char* filename) {
 	strcat_s(path,filename);
 	ifstream imageFile(path);		//open a file
 
-
-	//read width and hieght
+	if(!imageFile.is_open())
+	{
+		cout << "Can`t load file " << path << "\n";
+		exit(EXIT_FAILURE);
+	}
+		
+		//get from the file width and hieght og image
 	imageFile >> _width >> _height;
 
-	//creat a matrix and read into it the pixels
+	
 	_image  = new RGBA*[_height];
 	for(int i=0; i<_height; i++){
 		_image[i] = new RGBA[_width];

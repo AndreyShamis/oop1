@@ -51,24 +51,24 @@ gameController::gameController()
 			if(ch == FENCE)			//	zabor
 			{
 				Wall *wall = new Wall();
-				wall->_cord._x = countX*29;
-				wall->_cord._y = countY*29;
+				wall->_cord._x = countX*28;
+				wall->_cord._y = countY*28;
 				_objects.push_back(wall);
 				_graf._objects.push_back(wall);
 			}
 			else if(ch == LANE)		//	space
 			{
 				Space *lane = new Space();
-				lane->_cord._x = countX*29;
-				lane->_cord._y = countY*29;
+				lane->_cord._x = countX*28;
+				lane->_cord._y = countY*28;
 				_objects.push_back(lane);
 				_graf._objects.push_back(lane);
 			}
 			else if(ch == BARREL)	// bochka
 			{
 				Bochka *bochka = new Bochka();
-				bochka->_cord._x = countX*29;
-				bochka->_cord._y = countY*29;
+				bochka->_cord._x = countX*28;
+				bochka->_cord._y = countY*28;
 				_objects.push_back(bochka);
 				_graf._objects.push_back(bochka);
 			}
@@ -83,11 +83,11 @@ gameController::gameController()
 		}
 	}
 	_user = new User();
-	_user->_cord._x = 3*29;
-	_user->_cord._y = 3*29;
+	_user->_cord._x = 3*28;
+	_user->_cord._y = 3*28;
 	_comp = new Computer();
-	_comp->_cord._x = 18*29;
-	_comp->_cord._y = 18*29;
+	_comp->_cord._x = 18*28;
+	_comp->_cord._y = 18*28;
 
 	_objects.push_back(_user);
 	_graf._objects.push_back(_user);
