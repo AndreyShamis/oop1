@@ -5,10 +5,10 @@
 
 Computer::Computer(void)
 {
-	_sprite.push_back("RGBA/enemy.d_rgba.txt");
-	_sprite.push_back("RGBA/enemy.l_rgba.txt");
-	_sprite.push_back("RGBA/enemy.r_rgba.txt");
-	_sprite.push_back("RGBA/enemy.u_rgba.txt");
+	_sprite.push_back(ENEMY_D);
+	_sprite.push_back(ENEMY_L);
+	_sprite.push_back(ENEMY_R);
+	_sprite.push_back(ENEMY_U);
 	_way = GO_UP;
 
 	srand ((int)(time(0)));		// rand for computer turns

@@ -2,10 +2,10 @@
 
 User::User()
 {
-	_sprite.push_back("RGBA/Player.d_rgba.txt");
-	_sprite.push_back("RGBA/Player.l_rgba.txt");
-	_sprite.push_back("RGBA/Player.r_rgba.txt");
-	_sprite.push_back("RGBA/Player.u_rgba.txt");
+	_sprite.push_back(PLAYER_D);
+	_sprite.push_back(PLAYER_L);
+	_sprite.push_back(PLAYER_R);
+	_sprite.push_back(PLAYER_U);
 	_way = GO_UP;
 
 
@@ -19,7 +19,7 @@ void User::Press(unsigned char key, int x, int y)
 	switch(key)
 	{
 
-	case '8':					//	Up key
+	case '8':				//	Up key
 		_way = GO_UP;
 		break;
 	case '6':				//	Right key

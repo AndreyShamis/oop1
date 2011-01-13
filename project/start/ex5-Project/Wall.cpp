@@ -3,7 +3,7 @@
 
 Wall::Wall()
 {
-	_sprite.push_back(FENCE_RGBA);
+	_sprite.push_back(WALL);
 	movable = 0;
 }
 

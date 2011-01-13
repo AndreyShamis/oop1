@@ -1,8 +1,16 @@
 #include "Sprite.h"
 using namespace std ;
 Sprite::Sprite(const char* filename) {
-	//open a file
-	ifstream imageFile(filename);
+
+	char path[300];
+	memset(path,'\0',300);
+	strcpy_s(path,RGBA_FOLDER);
+	strcat_s(path,"\\");
+	strcat_s(path,RGBA_SIZE);
+	strcat_s(path,"\\");
+	strcat_s(path,filename);
+	ifstream imageFile(path);		//open a file
+
 
 	//read width and hieght
 	imageFile >> _width >> _height;
@@ -28,7 +36,7 @@ void Sprite::Draw(const Vertex &cord){
 		x=_width;
 		for(int j=0; j< _width; j++){
 			glColor4ub(_image[i][j]._r, _image[i][j]._g, _image[i][j]._b, _image[i][j]._a);
-			glVertex2i(x + cord._x ,(20*29)-(y + cord._y));
+			glVertex2i(x + cord._x ,(20*28)-(y + cord._y));
 			//cout << x + cord._x << y + cord._y<< endl;
 			x++;
 		}

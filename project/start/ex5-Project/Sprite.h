@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <glut.h>
+#include <string.h>
 class Sprite
 {
 public:
@@ -12,4 +13,5 @@ public:
 	RGBA **_image;
 	int _height;
 	int _width;
+	
 };
