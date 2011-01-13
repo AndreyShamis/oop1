@@ -55,20 +55,22 @@ void Player::Move(std::vector<Objects *> &_objects)
 	
 
 	int some_step = 0;
-	some_step =MathMaxStepSpeed();// STEP_SPEED;
+	some_step = STEP_SPEED;//MathMaxStepSpeed();
 
 
 	vector<Objects*>::iterator it ;
+
+
+
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
 		if(!(*it)->movable)
 		{
-			if(((*it)->_cord._x < _cord._x && (*it)->_cord._x+28 > _cord._x) 
-				|| ((*it)->_cord._x < _cord._x+28 && (*it)->_cord._x+27 > _cord._x+28) 
-				||	( (*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x+27 ) 
-				||	((*it)->_cord._y+27 > _cord._y+28 && (*it)->_cord._y < _cord._y+28) 
+			if(((*it)->_cord._x >= _cord._x && (*it)->_cord._x+28 >= _cord._x) 
+				|| ((*it)->_cord._x <= _cord._x+28 && (*it)->_cord._x+28 >= _cord._x+28) 
+				||	((*it)->_cord._y+28 >= _cord._y+28 && (*it)->_cord._y < _cord._y+28) 
 				|| ((*it)->_cord._y+28 > _cord._y && (*it)->_cord._y < _cord._y) 
-				|| ( (*it)->_cord._y+27 <= _cord._y+28 && (*it)->_cord._y >= _cord._y ))
+				|| ( (*it)->_cord._y+28 <= _cord._y+28 && (*it)->_cord._y >= _cord._y ))
 			{
 				if(_way == GO_UP)
 				{
