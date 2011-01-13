@@ -30,23 +30,23 @@ gameController::gameController()
 	// If the file is opened - load the map.
 	if (myReadFile.is_open()) 
 	{
-		myReadFile >> map_height >> map_width;
-		lines = new bool*[map_height]	  ;
-		for(int i=0;i < map_height;i++)
-		{
-			lines[i] = new bool[map_width];
-		}
-		
+		//myReadFile >> map_height >> map_width;
+		//lines = new bool*[map_height]	  ;
+		//for(int i=0;i < map_height;i++)
+		//{
+		//	lines[i] = new bool[map_width];
+		//}
+		//
 		while (!myReadFile.eof())
 		{
 			// Load line to array.
 			
 			char ch = myReadFile.get();
 
-			if(ch == BARREL || ch == LANE)
-				lines[countY][countX] = true;
-			else
-				lines[countY][countX] = false;
+			//if(ch == BARREL || ch == LANE)
+			//	lines[countY][countX] = true;
+			//else
+			//	lines[countY][countX] = false;
 
 			if(ch == FENCE)			//	zabor
 			{
@@ -100,57 +100,57 @@ gameController::gameController()
 
 PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 
-		struct graf_point *_head = NULL;
-		struct graf_point *temp;
+		//struct graf_point *_head = NULL;
+		//struct graf_point *temp;
 
-		for(int y=0;y < map_height;y++)
-		{
-			for(int x=0;x < map_width;x++)
-			{
-				if(lines[y][x])
-				{
-					temp = new struct graf_point;
-					temp->_next = NULL;
-					temp->_cord._x = x;
-					temp->_cord._y = y;
-					if(_head == NULL)
-						_head = temp;
-					else
-					{
-						temp->_next = _head;
-						_head = temp;
-					}
-				}
-			}
-		}
+		//for(int y=0;y < map_height;y++)
+		//{
+		//	for(int x=0;x < map_width;x++)
+		//	{
+		//		if(lines[y][x])
+		//		{
+		//			temp = new struct graf_point;
+		//			temp->_next = NULL;
+		//			temp->_cord._x = x;
+		//			temp->_cord._y = y;
+		//			if(_head == NULL)
+		//				_head = temp;
+		//			else
+		//			{
+		//				temp->_next = _head;
+		//				_head = temp;
+		//			}
+		//		}
+		//	}
+		//}
 
-		// teper nade probejatsya po vsey resheme i sdelat sosedey
-		temp = _head;
-		struct nightb *_nTemp;
+		//// teper nade probejatsya po vsey resheme i sdelat sosedey
+		//temp = _head;
+		//struct nightb *_nTemp;
 
-		while(temp != NULL && 1==2)
-		{
-			int x = temp->_cord._x;
-			int y = temp->_cord._y;
+		//while(temp != NULL && 1==2)
+		//{
+		//	int x = temp->_cord._x;
+		//	int y = temp->_cord._y;
 
-			if(x > 0)
-			{
-				if(lines[y][x-1])
-				{
-					_nTemp = new struct nightb;
-				
-					if(temp->_nb->_next_nb == NULL)
-					{
-						temp->_nb->_next_nb = _nTemp;
-					}
-					else
-					{
-						_nTemp->_next_nb = temp->_nb->_next_nb	;
-					}
-				}
-			}
+		//	if(x > 0)
+		//	{
+		//		if(lines[y][x-1])
+		//		{
+		//			_nTemp = new struct nightb;
+		//		
+		//			if(temp->_nb->_next_nb == NULL)
+		//			{
+		//				temp->_nb->_next_nb = _nTemp;
+		//			}
+		//			else
+		//			{
+		//				_nTemp->_next_nb = temp->_nb->_next_nb	;
+		//			}
+		//		}
+		//	}
 
-		}
+		//}
 
 	glutIdleFunc(gameController::idle);
 	glutDisplayFunc(Grafic::Display);  
