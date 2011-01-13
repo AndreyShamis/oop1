@@ -9,7 +9,7 @@ gameController::gameController()
 		// Open file.
 
 	ifstream myReadFile;
-	myReadFile.open("MAPS/map3.txt");
+	myReadFile.open("MAPS/map2.txt");
 	
 	int countX=0,
 		countY=0;
@@ -55,18 +55,21 @@ gameController::gameController()
 			countX++; // Increase num of line.
 		}
 	}
-	User *user = new User();
-	user->_cord._x = 3*29;
-	user->_cord._y = 3*29;
-	Computer *comp = new Computer();
-	comp->_cord._x = 18*29;
-	comp->_cord._y = 18*29;
-	_objects.push_back(user);
-	_graf._objects.push_back(user);
-	_kboard._objects.push_back(user);
-	_objects.push_back(comp);
-	_graf._objects.push_back(comp);
-	_kboard._objects.push_back(comp);	
+	_user = new User();
+	_user->_cord._x = 3*29;
+	_user->_cord._y = 3*29;
+	_comp = new Computer();
+	_comp->_cord._x = 18*29;
+	_comp->_cord._y = 18*29;
+
+	_objects.push_back(_user);
+	_graf._objects.push_back(_user);
+	_kboard._objects.push_back(_user);
+
+	_comp->setUserEnemyCord(&_user->_cord);
+	_objects.push_back(_comp);
+	_graf._objects.push_back(_comp);
+	_kboard._objects.push_back(_comp);	
 
 PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 
@@ -87,7 +90,7 @@ void gameController::idle()
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
 		if((*it)->intelect)
-			(*it)->VirtualPress();
+			(*it)->VirtualPress(_objects);
 
 		(*it)->Move(_objects) ;
 
