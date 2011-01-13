@@ -2,7 +2,7 @@
 
 Space::Space()
 {
-	_sprite.push_back("RGBA/space_rgba.txt");
+	_sprite.push_back(SPACE);
 	movable = 1;
 }
 
