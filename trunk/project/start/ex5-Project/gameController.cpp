@@ -18,7 +18,7 @@ Keyboard gameController::_kboard ;
 gameController::gameController()
 {
 		// Open file.
-		bool **lines;
+		bool **lines = NULL;
 	int map_width = -1;
 	int map_height= -1;
 	ifstream myReadFile;
