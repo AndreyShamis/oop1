@@ -32,13 +32,13 @@ void Player::Draw()
 
 void Player::Move(std::vector<Objects *> &_objects)
 {
-	vector<Objects*>::iterator it ;
+	
 
 	int some_step = 0;
 	some_step = STEP_SPEED;
 
 
-
+	vector<Objects*>::iterator it ;
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
 		if(!(*it)->movable)
@@ -60,7 +60,7 @@ void Player::Move(std::vector<Objects *> &_objects)
 				else if(_way == GO_DOWN)
 				{
 						if( (*it)->_cord._y >= _cord._y+27 && (*it)->_cord._y <= _cord._y+STEP_SPEED+27)
-							if( ((*it)->_cord._y) -(_cord._y+28)  >=0  )
+							if( ((*it)->_cord._y) -(_cord._y+27)  >=0  )
 								some_step = ((*it)->_cord._y) -(_cord._y+29) ;
 
 				}
@@ -68,14 +68,14 @@ void Player::Move(std::vector<Objects *> &_objects)
 				else if(_way == GO_RIGHT)
 				{
 						if( (*it)->_cord._x>= _cord._x+27 && (*it)->_cord._x <= _cord._x+STEP_SPEED+27)
-							if( ((*it)->_cord._x) -(_cord._x+28)  >=0  )
+							if( ((*it)->_cord._x) -(_cord._x+27)  >=0  )
 								some_step = ((*it)->_cord._x) -(_cord._x+29) ;
 
 				}
 				else if(_way == GO_LEFT)
 				{
 						if((*it)->_cord._x+27 > _cord._x-STEP_SPEED)
-							if( (_cord._x) - ((*it)->_cord._x+28) >=0 )
+							if( (_cord._x) - ((*it)->_cord._x+27) >=0 )
 								some_step = (_cord._x) - ((*it)->_cord._x+29);
 									
 				}

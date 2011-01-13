@@ -23,6 +23,7 @@ public:
 	static Keyboard	_kboard;
 	static void idle();
 private:
-	Computer *comp;
+	Computer	*_comp;
+	User		*_user;
 	static std::vector <Objects *> _objects; 
 };

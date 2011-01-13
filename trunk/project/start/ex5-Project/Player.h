@@ -10,7 +10,8 @@ enum Way
 	GO_UP,
 	GO_DOWN,
 	GO_LEFT,
-	GO_RIGHT
+	GO_RIGHT,
+	KEY_BOMB,
 };
 
 #define STEP_SPEED 4
