@@ -25,5 +25,5 @@ public:
 	Way _way;
 	void changeCord(float x, float y);
 	virtual void Move(std::vector<Objects *> &_objects);
-
+short int MathMaxStepSpeed();
 };
