@@ -15,6 +15,7 @@ struct nightb
 
 vector<Objects*> gameController:: _objects;
 Keyboard gameController::_kboard ;
+
 gameController::gameController()
 {
 		// Open file.
@@ -151,6 +152,12 @@ PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 		//	}
 
 		//}
+		Bomb *new_bomb = new Bomb();
+		new_bomb->_cord._x = 12*28;
+		new_bomb->_cord._y = 9*28;
+
+		_objects.push_back(new_bomb);
+	_graf._objects.push_back(new_bomb);
 
 	glutIdleFunc(gameController::idle);
 	glutDisplayFunc(Grafic::Display);  

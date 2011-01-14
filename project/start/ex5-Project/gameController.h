@@ -12,6 +12,7 @@
 #include "Computer.h"
 #include "Bochka.h"
 #include "Space.h"
+#include "Bomb.h"
 #include <windows.h> // for PlaySound()
 using namespace std;
 
@@ -22,7 +23,7 @@ public:
 	Grafic		_graf;
 	static Keyboard	_kboard;
 	static void idle();
-private:
+protected:
 	Computer	*_comp;
 	User		*_user;
 	static std::vector <Objects *> _objects; 
