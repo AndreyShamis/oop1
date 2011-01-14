@@ -177,11 +177,11 @@ void gameController::idle()
 	{
 		if((*it)->intelect)
 			(*it)->VirtualPress(_objects);
-		if( typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0)
-		{
-			
-			_objects.erase(it);
-		}
+		//if( typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0)
+		//{
+		//	
+		//	_objects.erase(it);
+		//}
 			
 		(*it)->Move(_objects) ;
 
