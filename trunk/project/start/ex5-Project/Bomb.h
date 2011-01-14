@@ -10,6 +10,7 @@ public:
 	Bomb();
 	virtual void Draw();
 	void decTimer();
+	short int getTimer() ;
 protected:
 	short int _timer;
 };

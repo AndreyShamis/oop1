@@ -55,7 +55,7 @@ void Player::Move(std::vector<Objects *> &_objects)
 	
 	if(_way == KEY_BOMB)
 	{
-		_way =0;//KEY_DOWN ;
+		_way =		_way_prev;//KEY_DOWN ;
 		Bomb *new_bomb = new Bomb();
 		new_bomb->_cord = _cord;
 		_objects.push_back(new_bomb);

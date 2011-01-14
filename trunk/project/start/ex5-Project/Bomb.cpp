@@ -11,6 +11,10 @@ Bomb::Bomb()
 	_timer = 30;
 }
 
+short int Bomb::getTimer() 
+{
+	return(_timer);
+}
 void Bomb::Draw()
 {
 	vector <Sprite>::iterator it;
@@ -19,7 +23,7 @@ void Bomb::Draw()
 		it = _sprite.begin();
 	else if(_timer> 10)
 		it = _sprite.begin()+1;
-	else if(_timer>0)
+	else if(_timer>3)
 		it = _sprite.begin()+2;
 	else
 		it = _sprite.begin()+3;
