@@ -1,23 +1,19 @@
 #pragma once
 #include "Player.h"
 
-#define KEY_UP	1	//up
-#define KEY_DOWN	2	//down
-#define KEY_LEFT	3	//left
-#define KEY_RIGHT 	4	//right
-#define KEY_BOMB	5	//put bomb
+
 
 class Computer:public Player
 {
 public:
 	Computer();
-	void VirtualPress(std::vector <Objects*> &_objects);
+	virtual void VirtualPress(std::vector <Objects*> &_objects);
 	int _computerTryDetectEnemy ;
 	const Vertex *_user_enemy_cord;
 	void setUserEnemyCord(const Vertex *_cord);
 private:
 	Vertex _newCoordinate;
-	void turnLogic(const int &turnCode);
+	void turnLogic(const short int &turnCode);
 	//=============================================================================
 	// Output: if yes return true
 	// else return false.
