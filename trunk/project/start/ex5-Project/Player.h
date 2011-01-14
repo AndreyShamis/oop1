@@ -3,16 +3,18 @@
 
 #include "Objects.h"
 #include "Sprite.h"
+#include "Bomb.h"
 #include <vector>
 using namespace std ;
-enum Way
-{
-	GO_UP,
-	GO_DOWN,
-	GO_LEFT,
-	GO_RIGHT,
-	KEY_BOMB,
-};
+
+#define KEY_UP	1	//up
+#define KEY_DOWN	2	//down
+#define KEY_LEFT	3	//left
+#define KEY_RIGHT 	4	//right
+#define KEY_BOMB	5	//put bomb
+
+
+
 
 #define STEP_SPEED 4
 
@@ -22,7 +24,7 @@ public:
 	virtual void Draw();
 	virtual void Press(unsigned char key, int x, int y){};
 	virtual void SpecPress(int key, int x, int y){};
-	Way _way;
+	short int _way;
 	void changeCord(float x, float y);
 	virtual void Move(std::vector<Objects *> &_objects);
 short int MathMaxStepSpeed();
