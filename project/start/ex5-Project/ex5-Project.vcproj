@@ -311,34 +311,6 @@
 				RelativePath=".\MAPS\map4.txt"
 				>
 			</File>
-			<File
-				RelativePath=".\RGBA\Player.d_rgba.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\RGBA\Player.l_rgba.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\RGBA\Player.r_rgba.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\RGBA\Player.u_rgba.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\RGBA\space_rgba.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\RGBA\surprise_rgba.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\RGBA\wall_rgba.txt"
-				>
-			</File>
 		</Filter>
 	</Files>
 	<Globals>

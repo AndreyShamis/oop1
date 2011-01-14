@@ -19,6 +19,7 @@ void User::Press(unsigned char key, int x, int y)
 	switch(key)
 	{
 	case ' ':				//	Down key
+		_way_prev = _way;
 		_way = KEY_BOMB;
 		break;
 	case '8':				//	Up key
