@@ -22,3 +22,8 @@ void Grafic::Display()
 	glFlush() ;
 	glutSwapBuffers();
 }
+
+void Grafic::addObject(Objects *newObject)
+{
+	_objects.push_back(newObject);
+}

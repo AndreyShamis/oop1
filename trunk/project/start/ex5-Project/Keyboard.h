@@ -9,5 +9,6 @@ public:
 
 	static void Press(unsigned char key, int x, int y);
 	static void SpecPress(int key, int x, int y);
+	void addObject(Objects *newObject);
 	static vector<Objects*> _objects ;
 };

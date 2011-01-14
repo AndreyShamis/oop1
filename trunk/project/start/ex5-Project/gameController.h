@@ -2,8 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
-//#include "Config.h"
-//#include "Objects.h"
+
 #include "Grafic.h"
 #include "Keyboard.h"
 #include <glut.h>
@@ -20,7 +19,8 @@ class gameController
 {
 public:
 	gameController();
-	Grafic		_graf;
+	//static 
+	Grafic	_graf;
 	static Keyboard	_kboard;
 	static void idle();
 protected:

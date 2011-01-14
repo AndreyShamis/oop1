@@ -4,6 +4,7 @@
 #include "Objects.h"
 #include "Sprite.h"
 #include "Bomb.h"
+#include "Grafic.h"
 #include <vector>
 using namespace std ;
 
