@@ -9,7 +9,7 @@ Computer::Computer(void)
 	_sprite.push_back(ENEMY_L);
 	_sprite.push_back(ENEMY_R);
 	_sprite.push_back(ENEMY_U);
-	_way = GO_UP;
+	_way = KEY_UP;
 
 	srand ((int)(time(0)));		// rand for computer turns
 	intelect =1;
@@ -35,22 +35,22 @@ bool Computer::CheckCorrect(const Vertex &_ncord,std::vector <Objects*> &_object
 	{
 		if(!(*it)->movable)
 		{
-				if(_way == GO_UP)
+				if(_way == KEY_UP)
 				{
 					if((*it)->_cord._y >  _ncord._y)
 						continue;
 				}
-				else if(_way == GO_DOWN)
+				else if(_way == KEY_DOWN)
 				{
 					if((*it)->_cord._y <  _ncord._y)
 						continue;
 				}
-				else if(_way == GO_RIGHT)
+				else if(_way == KEY_RIGHT)
 				{
 					if((*it)->_cord._x <  _ncord._x)
 						continue;
 				}
-				else if(_way == GO_LEFT)
+				else if(_way == KEY_LEFT)
 				{
 				if((*it)->_cord._x >  _ncord._x)
 						continue;
@@ -124,7 +124,7 @@ bool Computer::checkEnemyinBombRaound()
 
 }
 
-void Computer::turnLogic(const int &turnCode)
+void Computer::turnLogic(const short int &turnCode)
 {
 	
 	//	turn logic
@@ -140,7 +140,7 @@ void Computer::turnLogic(const int &turnCode)
 
 void Computer::VirtualPress(std::vector <Objects*> &_objects)
 {
-	int turnCode;					//	variable be return
+	short int turnCode;					//	variable be return
 	turnCode	=	(rand()% 4) + 1	;
 	static int _next_turn_code;
 
@@ -167,9 +167,9 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 		//	get random code
 		turnCode	=	(rand()% 4) + 1	;
 
-		if(checkEnemyinBombRaound() )
+		//if(checkEnemyinBombRaound() )
 			////&& !bombs->checkIfCellHaveBomb(_coordinate))//	check if player in araound
-			turnCode= KEY_BOMB;
+			//turnCode= KEY_BOMB;
 		//	check if have barrel in arround and don`t have bombs
 		////else if(!bombs->checkIfCellHaveBomb(_coordinate) &&
 		////	(map::getInstance()->getCellValue(_coordinate._y-1,_coordinate._x) == BARREL || 
@@ -178,7 +178,8 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 		////	map::getInstance()->getCellValue(_coordinate._y,_coordinate._x+1) == BARREL) && 
 		////	!bombs->checkExplodeBomb(_coordinate,2) )
 		////	return(KEY_BOMB);
-		else if(try_detect_enemy && _computerTryDetectEnemy > 10)
+		//else 
+			if(try_detect_enemy && _computerTryDetectEnemy > 10)
 		{
 			//	
 			if(_computerTryDetectEnemy > 24)
@@ -225,16 +226,16 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 		switch(turnCode)
 		{
 		case 1:
-			_way = GO_UP;
+			_way = KEY_UP;
 			break;
 		case 2:
-			_way = GO_DOWN;
+			_way = KEY_DOWN;
 			break;
 		case 3:
-			_way = GO_LEFT;
+			_way = KEY_LEFT;
 			break;
 		case 4:
-			_way = GO_RIGHT;
+			_way = KEY_RIGHT;
 			break;
 		}
 

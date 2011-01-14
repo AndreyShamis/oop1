@@ -9,7 +9,7 @@
 
 #define BOMB_BEFOR		"bomb.one.step.befor.explogen_rgba.txt"
 #define BOMB_STEP_ONE	"bomb_step_one_rgba.txt"
-#define BOMB_STEP_TOW	"bomb_step_tow_rgba.txt"
+#define BOMB_STEP_TWO	"bomb_step_two_rgba.txt"
 #define BOMB_SURPRISE	"bomb_surprise_rgba.txt"
 #define WALL			"brich_wall_rgba.txt"
 #define ENEMY_D			"enemy.down_rgba.txt"
