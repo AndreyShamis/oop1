@@ -10,4 +10,5 @@ public:
 	Grafic(void);
 	static void Display();
 	static std::vector <Objects *> _objects; 
+	static void addObject(Objects *newObject);
 };

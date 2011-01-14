@@ -59,6 +59,7 @@ void Player::Move(std::vector<Objects *> &_objects)
 		Bomb *new_bomb = new Bomb();
 		new_bomb->_cord = _cord;
 		_objects.push_back(new_bomb);
+		Grafic::addObject(new_bomb);
 		return ;
 	}
 

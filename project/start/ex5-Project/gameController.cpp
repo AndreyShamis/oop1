@@ -15,7 +15,7 @@ struct nightb
 
 vector<Objects*> gameController:: _objects;
 Keyboard gameController::_kboard ;
-
+//Grafic gameController::_graf;
 gameController::gameController()
 {
 		// Open file.
@@ -55,7 +55,7 @@ gameController::gameController()
 				wall->_cord._x = countX*28;
 				wall->_cord._y = countY*28;
 				_objects.push_back(wall);
-				_graf._objects.push_back(wall);
+				_graf.addObject(wall);
 			}
 			else if(ch == LANE)		//	space
 			{
@@ -63,7 +63,7 @@ gameController::gameController()
 				lane->_cord._x = countX*28;
 				lane->_cord._y = countY*28;
 				_objects.push_back(lane);
-				_graf._objects.push_back(lane);
+				_graf.addObject(lane);
 			}
 			else if(ch == BARREL)	// bochka
 			{
@@ -71,7 +71,7 @@ gameController::gameController()
 				bochka->_cord._x = countX*28;
 				bochka->_cord._y = countY*28;
 				_objects.push_back(bochka);
-				_graf._objects.push_back(bochka);
+				_graf.addObject(bochka);
 			}
 			else if(ch == '\n')
 			{
@@ -91,13 +91,13 @@ gameController::gameController()
 	_comp->_cord._y = 18*28;
 
 	_objects.push_back(_user);
-	_graf._objects.push_back(_user);
-	_kboard._objects.push_back(_user);
+	_graf.addObject(_user);
+	_kboard.addObject(_user);
 
 	_comp->setUserEnemyCord(&_user->_cord);
 	_objects.push_back(_comp);
-	_graf._objects.push_back(_comp);
-	_kboard._objects.push_back(_comp);	
+	_graf.addObject(_comp);
+	_kboard.addObject(_comp);	
 
 PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 
