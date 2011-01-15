@@ -15,7 +15,8 @@ public:
 	std::vector <Sprite> _sprite;
 	int movable;
 	int intelect;
-
+	bool _enabled;
+	virtual short int getTimer() {return 0;};
 protected:
 	int _timer;
 

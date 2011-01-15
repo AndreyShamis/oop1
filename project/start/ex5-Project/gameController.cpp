@@ -98,7 +98,7 @@ gameController::gameController()
 	_objects.push_back(_comp);
 	_graf.addObject(_comp);
 	_kboard.addObject(_comp);	
-
+	
 PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 
 		//struct graf_point *_head = NULL;
@@ -156,9 +156,9 @@ PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 		//new_bomb->_cord._x = 12*PIC_WIDTH;
 		//new_bomb->_cord._y = 9*PIC_WIDTH;
 
-		_objects.push_back(new_bomb);
-	_graf._objects.push_back(new_bomb);
-
+	//	_objects.push_back(new_bomb);
+	//_graf._objects.push_back(new_bomb);
+	
 	glutIdleFunc(gameController::idle);
 	glutDisplayFunc(Grafic::Display);  
 	glutSpecialFunc(Keyboard::SpecPress);	
@@ -177,13 +177,21 @@ void gameController::idle()
 	{
 		if((*it)->intelect)
 			(*it)->VirtualPress(_objects);
-		//if( typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0)
-		//{
-		//	
+		if( typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0)
+		{
+		//	delete *it;
+		//	_graf(**it);
 		//	_objects.erase(it);
-		//}
+		//	break;
+			(*it)->_enabled = false;
+			continue;
+		}
+		else
+		{
+			(*it)->Move(_objects) ;
+		}
 			
-		(*it)->Move(_objects) ;
+		
 
 	}
 

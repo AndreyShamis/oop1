@@ -17,7 +17,12 @@ void Grafic::Display()
 	vector<Objects*>::iterator it;
 
 	for(it=_objects.begin();it<_objects.end();it++)
-		(*it)->Draw();
+	{
+		if((*it)->_enabled)
+			(*it)->Draw();
+
+	}
+		
 
 	glFlush() ;
 	glutSwapBuffers();
@@ -26,4 +31,20 @@ void Grafic::Display()
 void Grafic::addObject(Objects *newObject)
 {
 	_objects.push_back(newObject);
+}
+
+void Grafic::removeObject(Objects &object)
+{
+	vector<Objects*>::iterator it ;
+
+	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+	{
+		if((*it)->intelect)
+			(*it)->VirtualPress(_objects);
+		if( typeid(**it) == typeid(Bomb) )
+		{
+			delete *it;
+			_objects.erase(it);
+		}
+	}
 }
