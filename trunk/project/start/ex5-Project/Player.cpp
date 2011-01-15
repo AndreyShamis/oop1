@@ -74,7 +74,7 @@ void Player::Move(std::vector<Objects *> &_objects)
 
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
-		if(!(*it)->movable)
+		if(!(*it)->movable && (*it)->_enabled)
 		{
 			if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
 				|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 

@@ -197,4 +197,23 @@ void gameController::idle()
 
 	glutPostRedisplay();	
 
+	//clearDisabled();
+
+}
+
+ void gameController::clearDisabled()
+{
+	vector<Objects*>::iterator it ;
+
+	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+	{
+		if((*it)->_enabled == false)
+		{
+			//;_objects.erase(it);
+			//_graf.removeObject(**it);
+		}
+
+		
+
+	}
 }
