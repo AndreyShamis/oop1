@@ -190,7 +190,8 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 	Vertex _newCoordinate;
 	_computerTryDetectEnemy++;		//	add to global try intellect
 
-	while(!give && computer_trys >0)
+	turnCode = _way;
+	while(!give && computer_trys >0 && (int)_cord._x%PIC_WIDTH == 0 && (int)_cord._y%PIC_WIDTH == 0)
 	{
 		if(_next_turn_code > 0)
 		{
@@ -206,8 +207,8 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 		//	get random code
 		turnCode	=	(rand()% 4) + 1	;
 
-		if(checkEnemyinBombRaound() && !checkIfCellHaveBomb(_objects,_cord))//	check if player in araound
-			turnCode= KEY_BOMB;
+		//if(checkEnemyinBombRaound() && !checkIfCellHaveBomb(_objects,_cord))//	check if player in araound
+		//	turnCode= KEY_BOMB;
 		//	check if have barrel in arround and don`t have bombs
 		//else if(!bombs->checkIfCellHaveBomb(_coordinate) &&
 		////	(map::getInstance()->getCellValue(_coordinate._y-1,_coordinate._x) == BARREL || 
@@ -217,10 +218,10 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 		////	!bombs->checkExplodeBomb(_coordinate,2) )
 		////	return(KEY_BOMB);
 		//else 
-			if(try_detect_enemy && _computerTryDetectEnemy > 10)
+			if(try_detect_enemy && _computerTryDetectEnemy > 7)
 		{
 			//	
-			if(_computerTryDetectEnemy > 24)
+			if(_computerTryDetectEnemy > 15)
 				_computerTryDetectEnemy = 0;
 			//	get derection to enemy
 			int try_detect_code = getTurnCodeByDetectEnemy();

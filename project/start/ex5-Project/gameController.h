@@ -27,10 +27,13 @@ public:
 	static void idle();
 	static void clearAll();
 	static void  explodeBomb(const Vertex &_cord);
+	static void reshape(int w, int h);
 	void LoadGame();
+	static Computer	_comp;
+	static User		_user;
 protected:
-	Computer	*_comp;
-	User		*_user;
-	short int _level;
+
+	static short int _level;
 	static std::vector <Objects *> _objects; 
+	static void Reload_Game_Stat();
 };
