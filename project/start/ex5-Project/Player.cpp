@@ -82,14 +82,15 @@ void Player::Move(std::vector<Objects *> &_objects)
 				|| ((*it)->_cord._y <= _cord._y+27) && (*it)->_cord._y+27 >= _cord._y+27)
 				 
 			{
-
-				if((((*it)->_cord._y+28 == _cord._y)		&&	(_way == KEY_UP))	||									//KEY_UP
+				// ili eta:	
+				if((((*it)->_cord._y+28 == _cord._y)		&&	(_way == KEY_UP))	||					
 					(((*it)->_cord._y == _cord._y+28)	&&	(_way == KEY_DOWN))		||
 					(((*it)->_cord._x == _cord._x+28)	&&	(_way == KEY_RIGHT))	||
 					(((*it)->_cord._x+28 == _cord._x)	&&	(_way == KEY_LEFT)))
 					some_step = 0;
 
-
+				
+				// ili eta:
 				/*if(_way == KEY_UP)
 				{
 					if(((*it)->_cord._y+28 >= _cord._y-some_step) && ((*it)->_cord._y+27 < _cord._y))  
