@@ -84,7 +84,7 @@ void Player::Move(std::vector<Objects *> &_objects)
 			{
 
 				//if((((*it)->_cord._y+28 == _cord._y)		&&	(_way == KEY_UP))	||									//KEY_UP
-				//	(((*it)->_cord._y == _cord._y+28)	&&	(_way == KEY_DOWN))	||
+				//	(((*it)->_cord._y == _cord._y+28)	&&	(_way == KEY_DOWN))		||
 				//	(((*it)->_cord._x == _cord._x+28)	&&	(_way == KEY_RIGHT))	||
 				//	(((*it)->_cord._x+28 == _cord._x)	&&	(_way == KEY_LEFT)))
 				//	some_step = 0;
@@ -92,32 +92,25 @@ void Player::Move(std::vector<Objects *> &_objects)
 
 				if(_way == KEY_UP)
 				{
-					if(((*it)->_cord._y+28 >= _cord._y-some_step) && ((*it)->_cord._y+27 < _cord._y))  //<
+					if(((*it)->_cord._y+28 >= _cord._y-some_step) && ((*it)->_cord._y+27 < _cord._y))  
 						some_step = (_cord._y) - ((*it)->_cord._y+28);
-
-
 				}
 				else if(_way == KEY_DOWN)
 				{
-					if(((*it)->_cord._y <= _cord._y+28+some_step) && ((*it)->_cord._y > _cord._y+27))		//>
+					if(((*it)->_cord._y <= _cord._y+28+some_step) && ((*it)->_cord._y > _cord._y+27))	
 					{
 						some_step = ((*it)->_cord._y) -(_cord._y+28) ;
 						cout << some_step << "\n"; 
 					}
-		
-
 				}
-
 				else if(_way == KEY_RIGHT)
 				{
-					if(((*it)->_cord._x <= _cord._x+28+some_step) && ((*it)->_cord._x > _cord._x+27))	//>	
+					if(((*it)->_cord._x <= _cord._x+28+some_step) && ((*it)->_cord._x > _cord._x+27))	
 						some_step = ((*it)->_cord._x) -(_cord._x+28) ;
-
-
 				}
 				else if(_way == KEY_LEFT)
 				{
-					if(((*it)->_cord._x+28 >= _cord._x-some_step) && ((*it)->_cord._x+27 < _cord._x))//<
+					if(((*it)->_cord._x+28 >= _cord._x-some_step) && ((*it)->_cord._x+27 < _cord._x))
 						some_step = (_cord._x) - ((*it)->_cord._x+28);
 
 									

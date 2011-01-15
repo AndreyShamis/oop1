@@ -23,7 +23,7 @@ gameController::gameController()
 	int map_width = -1;
 	int map_height= -1;
 	ifstream myReadFile;
-	myReadFile.open("MAPS/map2.txt");
+	myReadFile.open("MAPS/map7.txt");
 	
 	int countX=0,
 		countY=0;
@@ -84,8 +84,8 @@ gameController::gameController()
 		}
 	}
 	_user = new User();
-	_user->_cord._x = 3*28;
-	_user->_cord._y = 3*28;
+	_user->_cord._x = 1*28;
+	_user->_cord._y = 1*28;
 	_comp = new Computer();
 	_comp->_cord._x = 18*28;
 	_comp->_cord._y = 18*28;
