@@ -23,6 +23,7 @@ public:
 	Grafic	_graf;
 	static Keyboard	_kboard;
 	static void idle();
+	static void clearDisabled();
 protected:
 	Computer	*_comp;
 	User		*_user;

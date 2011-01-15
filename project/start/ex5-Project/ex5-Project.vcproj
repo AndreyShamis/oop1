@@ -184,6 +184,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Fire.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\gameController.cpp"
 				>
 			</File>
@@ -247,6 +251,10 @@
 			</File>
 			<File
 				RelativePath=".\Config.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Fire.h"
 				>
 			</File>
 			<File
