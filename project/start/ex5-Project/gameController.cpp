@@ -18,12 +18,29 @@ Keyboard gameController::_kboard ;
 //Grafic gameController::_graf;
 gameController::gameController()
 {
+	_level = 1;
+	LoadGame();
+}
+
+void gameController::LoadGame()
+{
 		// Open file.
 		bool **lines = NULL;
 	int map_width = -1;
 	int map_height= -1;
 	ifstream myReadFile;
-	myReadFile.open("MAPS/map2.txt");
+	char path[200];
+	memset(path,'\0',200);
+	strcpy_s(path,MAPS_FOLDER);
+	if(_level == 1)
+		strcat_s(path,"/map1.txt");
+	else if(_level == 1)
+		strcat_s(path,"/map2.txt");
+	else if(_level == 1)
+		strcat_s(path,"/map3.txt");
+
+
+	myReadFile.open(path);
 	
 	int countX=0,
 		countY=0;
@@ -72,6 +89,8 @@ gameController::gameController()
 			countX++; // Increase num of line.
 		}
 	}
+	myReadFile.close();
+
 	_user = new User();
 	_user->_cord._x = 1*PIC_WIDTH;
 	_user->_cord._y = 1*PIC_WIDTH;
@@ -88,19 +107,16 @@ gameController::gameController()
 	_graf.addObject(_comp);
 	_kboard.addObject(_comp);	
 	
-PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 
-	
-	glutIdleFunc(gameController::idle);
+	glutIdleFunc(idle);
 	glutDisplayFunc(Grafic::Display);  
 	glutSpecialFunc(Keyboard::SpecPress);	
-
 	glutKeyboardFunc(Keyboard::Press);
 
-	myReadFile.close();
 
+
+	PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 }
-
 void gameController::idle()
 {
 
@@ -108,77 +124,87 @@ void gameController::idle()
 	int i=0;
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
-		i++;
+		
 		if((*it)->intelect)
 			(*it)->VirtualPress(_objects);
-		if( typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0 && (*it)->_enabled)
+		if(typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0 && (*it)->_enabled)
 		{
-			putBomb((*it)->getCord());
+			explodeBomb((*it)->getCord());
 			(*it)->_enabled = false;	
-			_objects.erase(_objects.begin()+i);
+			//_objects.erase(_objects.begin()+i);
 
+		}
+		else if(typeid(**it) == typeid(Fire) && (*it)->getTimer() <0 )
+		{
+			(*it)->_enabled = false;	
+			//_objects.erase(_objects.begin()+i);
 		}
 		else if((*it)->_enabled)
 		{
 			(*it)->Move(_objects) ;
 		}
 			
-		
+		i++;
 
 	}
 
-	glutPostRedisplay();	
+	glutPostRedisplay();
+	//if(!comp->_alive || !user->_alive )
+	//{
+
+	//}
 	//Grafic::removeObjects();
 	//clearDisabled();
 
 }
 
-void  gameController::putBomb(const Vertex &_cord)
-{
+void  gameController::explodeBomb(const Vertex &_cord)
+{ 
+	Present *new_present;
+	new_present = new Present();
+	new_present->_cord = _cord;
+	Grafic::_objects.push_back(new_present);
+	_objects.push_back(new_present);
+
 	Fire *new_fire=NULL;
-	new_fire = new Fire(EXP_START_USR,20);
+
+	new_fire = new Fire(EXP_START_USR,13);
 	new_fire->_cord = _cord;
 	Grafic::_objects.push_back(new_fire);
 	_objects.push_back(new_fire);
 
-	new_fire = new Fire(EXP_RIGHT_USR,10);
+	new_fire = new Fire(EXP_RIGHT_USR,15);
 	new_fire->_cord = _cord;
 	new_fire->_cord._x+=PIC_WIDTH;
 	Grafic::_objects.push_back(new_fire);
 	_objects.push_back(new_fire);
 
-	new_fire = new Fire(EXP_LEFT_USR,10);
+	new_fire = new Fire(EXP_LEFT_USR,15);
 	new_fire->_cord = _cord;
 	new_fire->_cord._x-=PIC_WIDTH;
 	Grafic::_objects.push_back(new_fire);
 	_objects.push_back(new_fire);
 
 
-	new_fire = new Fire(EXP_DOWN_USR,10);
+	new_fire = new Fire(EXP_DOWN_USR,15);
 	new_fire->_cord = _cord;
 	new_fire->_cord._y+=PIC_WIDTH;
 	Grafic::_objects.push_back(new_fire);
 	_objects.push_back(new_fire);
 
-	new_fire = new Fire(EXP_UP_USR,10);
+	new_fire = new Fire(EXP_UP_USR,15);
 	new_fire->_cord = _cord;
 	new_fire->_cord._y-=PIC_WIDTH;
 	Grafic::_objects.push_back(new_fire);
 	_objects.push_back(new_fire);
 }
- void gameController::clearDisabled()
+ void gameController::clearAll()
 {
 	vector<Objects*>::iterator it ;
 
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
-		if((*it)->_enabled == false)
-		{
-			//;_objects.erase(it);
-			//_graf.removeObject(**it);
-		}
-
-		
-
+		delete *it;
 	}
+	_objects.clear();
 }

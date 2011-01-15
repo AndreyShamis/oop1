@@ -6,7 +6,6 @@ Bomb::Bomb()
 	_sprite.push_back(BOMB_STEP_ONE);
 	_sprite.push_back(BOMB_STEP_TWO);
 	_sprite.push_back(BOMB_BEFOR);
-	_sprite.push_back(BOMB_SURPRISE);
 	movable = 0;
 	_timer = 30;
 }
@@ -23,10 +22,8 @@ void Bomb::Draw()
 		it = _sprite.begin();
 	else if(_timer> 10)
 		it = _sprite.begin()+1;
-	else if(_timer>3)
+	else if(_timer>=0)
 		it = _sprite.begin()+2;
-	else
-		it = _sprite.begin()+3;
 
 	it->Draw(_cord);
 	decTimer();

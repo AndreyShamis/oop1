@@ -2,7 +2,7 @@
 #define FENCE	'#'
 #define LANE	' '
 #define BARREL	'O'
-
+#define MAPS_FOLDER			"MAPS"
 #define RGBA_SIZE			"28x28"
 #define RGBA_FOLDER			"RGBA"
 

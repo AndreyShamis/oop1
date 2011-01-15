@@ -1,9 +1,14 @@
 #include "Present.h"
 
-Present::Present(void)
+Present::Present()
 {
+	_sprite.push_back(BOMB_SURPRISE);
+	movable = 1;
 }
 
-Present::~Present(void)
+void Present::Draw()
 {
+	vector <Sprite>::iterator it;
+	it = _sprite.begin();
+	it->Draw(_cord);
 }
