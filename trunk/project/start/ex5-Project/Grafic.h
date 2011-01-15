@@ -2,6 +2,7 @@
 
 #include "Objects.h"
 #include "Bomb.h"
+#include "Fire.h"
 #include <vector>
 #include <glut.h>
 #include <typeinfo>

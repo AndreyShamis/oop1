@@ -25,6 +25,7 @@ public:
 	static Keyboard	_kboard;
 	static void idle();
 	static void clearDisabled();
+	static void  putBomb(const Vertex &_cord);
 protected:
 	Computer	*_comp;
 	User		*_user;

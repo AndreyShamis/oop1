@@ -12,10 +12,10 @@ Grafic::Grafic(void)
 
 void Grafic::Display()
 {
-
+	removeObjects();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	vector<Objects*>::iterator it;
-
+	
 	for(it=_objects.begin();it<_objects.end();it++)
 	{
 		//if((*it)->_enabled)
@@ -36,13 +36,16 @@ void Grafic::addObject(Objects *newObject)
 void Grafic::removeObjects()
 {
 	vector<Objects*>::iterator it ;
+
 	int i=0;
-	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+
+	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 	{
 		i++;
-		if((*it)->_enabled == false)
+		if((typeid(**it) == typeid(Bomb)||typeid(**it) == typeid(Fire)) && (*it)->getTimer() <0 && !(*it)->_enabled)
 		{
 			_objects.erase(_objects.begin()+i);
+			
 		}
 	}
 }

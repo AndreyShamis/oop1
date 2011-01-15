@@ -17,6 +17,9 @@ public:
 	int intelect;
 	bool _enabled;
 	virtual short int getTimer() {return 0;};
+
+	Vertex getCord();
+
 protected:
 	int _timer;
 

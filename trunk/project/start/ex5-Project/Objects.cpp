@@ -8,3 +8,8 @@ Objects::Objects(void)
 }
 
 
+Vertex Objects::getCord()
+{
+	return(_cord);
+}
+

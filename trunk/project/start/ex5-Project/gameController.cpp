@@ -103,6 +103,7 @@ PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 
 void gameController::idle()
 {
+
 	vector<Objects*>::iterator it ;
 	int i=0;
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
@@ -110,52 +111,14 @@ void gameController::idle()
 		i++;
 		if((*it)->intelect)
 			(*it)->VirtualPress(_objects);
-		if( typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0)
+		if( typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0 && (*it)->_enabled)
 		{
-		//	delete *it;
-		//	_graf(**it);
-		//	_objects.erase(it);
-		//	break;
-			Fire *new_fire;
-			new_fire = new Fire(EXP_START_USR);
-			new_fire->_cord = (*it)->_cord;
-			Grafic::_objects.push_back(new_fire);
-			_objects.push_back(new_fire);
-
-			new_fire = new Fire(EXP_RIGHT_USR);
-			new_fire->_cord = (*it)->_cord;
-			new_fire->_cord._x+=PIC_WIDTH;
-			Grafic::_objects.push_back(new_fire);
-			_objects.push_back(new_fire);
-
-			new_fire = new Fire(EXP_LEFT_USR);
-			new_fire->_cord = (*it)->_cord;
-			new_fire->_cord._x-=PIC_WIDTH;
-			Grafic::_objects.push_back(new_fire);
-			_objects.push_back(new_fire);
-
-
-			new_fire = new Fire(EXP_DOWN_USR);
-			new_fire->_cord = (*it)->_cord;
-			new_fire->_cord._y+=PIC_WIDTH;
-			Grafic::_objects.push_back(new_fire);
-			_objects.push_back(new_fire);
-
-			new_fire = new Fire(EXP_UP_USR);
-			new_fire->_cord = (*it)->_cord;
-			new_fire->_cord._y-=PIC_WIDTH;
-			Grafic::_objects.push_back(new_fire);
-			_objects.push_back(new_fire);
-
-			(*it)->_enabled = false;
-			Grafic::removeObjects();
+			putBomb((*it)->getCord());
+			(*it)->_enabled = false;	
 			_objects.erase(_objects.begin()+i);
-			
-		//	break;
 
-			continue;
 		}
-		else
+		else if((*it)->_enabled)
 		{
 			(*it)->Move(_objects) ;
 		}
@@ -165,11 +128,44 @@ void gameController::idle()
 	}
 
 	glutPostRedisplay();	
-
+	//Grafic::removeObjects();
 	//clearDisabled();
 
 }
 
+void  gameController::putBomb(const Vertex &_cord)
+{
+	Fire *new_fire=NULL;
+	new_fire = new Fire(EXP_START_USR,20);
+	new_fire->_cord = _cord;
+	Grafic::_objects.push_back(new_fire);
+	_objects.push_back(new_fire);
+
+	new_fire = new Fire(EXP_RIGHT_USR,10);
+	new_fire->_cord = _cord;
+	new_fire->_cord._x+=PIC_WIDTH;
+	Grafic::_objects.push_back(new_fire);
+	_objects.push_back(new_fire);
+
+	new_fire = new Fire(EXP_LEFT_USR,10);
+	new_fire->_cord = _cord;
+	new_fire->_cord._x-=PIC_WIDTH;
+	Grafic::_objects.push_back(new_fire);
+	_objects.push_back(new_fire);
+
+
+	new_fire = new Fire(EXP_DOWN_USR,10);
+	new_fire->_cord = _cord;
+	new_fire->_cord._y+=PIC_WIDTH;
+	Grafic::_objects.push_back(new_fire);
+	_objects.push_back(new_fire);
+
+	new_fire = new Fire(EXP_UP_USR,10);
+	new_fire->_cord = _cord;
+	new_fire->_cord._y-=PIC_WIDTH;
+	Grafic::_objects.push_back(new_fire);
+	_objects.push_back(new_fire);
+}
  void gameController::clearDisabled()
 {
 	vector<Objects*>::iterator it ;
