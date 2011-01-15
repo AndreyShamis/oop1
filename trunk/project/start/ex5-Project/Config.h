@@ -39,7 +39,7 @@
 #define BOMB_STEP_ONE_USR	"bomb_step_one_user_rgba.txt"
 #define BOMB_BEFOR_USR		"bomb.one.step.befor.explosion.user_rgba.txt"
 
-
+#define PIC_WIDTH 28
 struct Vertex
 {
 	float _x;

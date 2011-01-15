@@ -1,5 +1,5 @@
 #include "Computer.h"
-#include <time.h>
+
 
 
 
@@ -56,15 +56,23 @@ bool Computer::CheckCorrect(const Vertex &_ncord,std::vector <Objects*> &_object
 						continue;
 									
 				}
-			if(((*it)->_cord._x < _ncord._x && (*it)->_cord._x+29 > _ncord._x) 
-				|| ((*it)->_cord._x < _ncord._x+29 && (*it)->_cord._x+29 > _ncord._x+29) 
-				||	( (*it)->_cord._x <= _ncord._x && (*it)->_cord._x+29 >= _ncord._x+29 ) 
-				||	((*it)->_cord._y+29 > _ncord._y+29 && (*it)->_cord._y < _ncord._y+29) 
-				|| ((*it)->_cord._y+29 > _ncord._y && (*it)->_cord._y < _ncord._y) 
-				|| ( (*it)->_cord._y+29 <= _ncord._y+29 && (*it)->_cord._y >= _ncord._y ))
+			if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
+				|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
+				|| ((*it)->_cord._y <= _cord._y && (*it)->_cord._y+27 >= _cord._y)
+				|| ((*it)->_cord._y <= _cord._y+27) && (*it)->_cord._y+27 >= _cord._y+27)
+				 
 			{
+				// ili eta:	
+				if((((*it)->_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
+					(((*it)->_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
+					(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
+					(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
 
-				return false;
+
+					{
+
+						return false;
+					}
 			}
 		}
 	}
@@ -108,8 +116,6 @@ short Computer::getTurnCodeByDetectEnemy()
 //=============================================================================
 // Output: if yes return true
 // else return false.
-// ****  the parameter can be changed.
-// #### By chenging this parameter, we candifine the game Difficulty.
 bool Computer::checkEnemyinBombRaound()
 {
 	//	get the len between two players
@@ -117,7 +123,7 @@ bool Computer::checkEnemyinBombRaound()
 	float derection_y = (*_user_enemy_cord)._y - _cord._y;
 	
 	//	if the len smaller then 2 return true
-	if(abs(derection_x) < 2*29 &&  abs(derection_y) < 2*29)
+	if(abs(derection_x) < 2*PIC_WIDTH &&  abs(derection_y) < 2*PIC_WIDTH)
 		return (true);
 
 	return (false);
@@ -136,6 +142,38 @@ void Computer::turnLogic(const short int &turnCode)
 		_newCoordinate._x-=STEP_SPEED;
 	else if(turnCode == KEY_RIGHT)
 		_newCoordinate._x+=STEP_SPEED;
+}
+
+bool Computer::checkIfCellHaveBomb(std::vector <Objects*> &_objects,const Vertex &_coordinate)
+{
+	vector<Objects*>::iterator it ;
+	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+	{
+		if(!(*it)->movable && typeid(**it) == typeid(Bomb))
+		{
+			if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
+				|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
+				|| ((*it)->_cord._y <= _cord._y && (*it)->_cord._y+27 >= _cord._y)
+				|| ((*it)->_cord._y <= _cord._y+27) && (*it)->_cord._y+27 >= _cord._y+27)
+				 
+			{
+				// ili eta:	
+				if((((*it)->_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
+					(((*it)->_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
+					(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
+					(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
+
+
+				{
+
+					cout << "Have bomb\n";
+					return(true);
+				}
+			}
+		}
+	}
+
+		return(false);
 }
 
 void Computer::VirtualPress(std::vector <Objects*> &_objects)
@@ -167,11 +205,10 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 		//	get random code
 		turnCode	=	(rand()% 4) + 1	;
 
-		//if(checkEnemyinBombRaound() )
-			////&& !bombs->checkIfCellHaveBomb(_coordinate))//	check if player in araound
-			//turnCode= KEY_BOMB;
+		if(checkEnemyinBombRaound() && !checkIfCellHaveBomb(_objects,_cord))//	check if player in araound
+			turnCode= KEY_BOMB;
 		//	check if have barrel in arround and don`t have bombs
-		////else if(!bombs->checkIfCellHaveBomb(_coordinate) &&
+		//else if(!bombs->checkIfCellHaveBomb(_coordinate) &&
 		////	(map::getInstance()->getCellValue(_coordinate._y-1,_coordinate._x) == BARREL || 
 		////	map::getInstance()->getCellValue(_coordinate._y+1,_coordinate._x) == BARREL||
 		////	map::getInstance()->getCellValue(_coordinate._y,_coordinate._x-1) == BARREL ||

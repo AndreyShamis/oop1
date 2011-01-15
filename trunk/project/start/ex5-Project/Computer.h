@@ -1,8 +1,8 @@
 #pragma once
 #include "Player.h"
 
-
-
+#include <typeinfo>
+using namespace std;
 class Computer:public Player
 {
 public:
@@ -13,6 +13,7 @@ public:
 	void setUserEnemyCord(const Vertex *_cord);
 private:
 	Vertex _newCoordinate;
+	bool checkIfCellHaveBomb(std::vector <Objects*> &_objects,const Vertex &_coordinate);
 	void turnLogic(const short int &turnCode);
 	//=============================================================================
 	// Output: if yes return true

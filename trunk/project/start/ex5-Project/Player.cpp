@@ -35,14 +35,14 @@ short int Player::MathMaxStepSpeed()
 
 	if(_way == KEY_UP || _way == KEY_DOWN)
 	{
-		if((int)_cord._y%29 < STEP_SPEED && (int)_cord._y%29 > 0)
+		if((int)_cord._y%PIC_WIDTH < STEP_SPEED && (int)_cord._y%PIC_WIDTH > 0)
 			return((int)_cord._y%29 );
 
 	}
 	else if(_way == KEY_RIGHT || _way == KEY_LEFT)
 	{
-		if((int)_cord._x%29 < STEP_SPEED && (int)_cord._x%29 > 0)
-			return((int)_cord._x%29 );
+		if((int)_cord._x%PIC_WIDTH < STEP_SPEED && (int)_cord._x%PIC_WIDTH > 0)
+			return((int)_cord._x%PIC_WIDTH );
 
 	}
 
@@ -83,30 +83,30 @@ void Player::Move(std::vector<Objects *> &_objects)
 				 
 			{
 				// ili eta:	
-				if((((*it)->_cord._y+28 == _cord._y)		&&	(_way == KEY_UP))	||					
-					(((*it)->_cord._y == _cord._y+28)	&&	(_way == KEY_DOWN))		||
-					(((*it)->_cord._x == _cord._x+28)	&&	(_way == KEY_RIGHT))	||
-					(((*it)->_cord._x+28 == _cord._x)	&&	(_way == KEY_LEFT)))
+				if((((*it)->_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
+					(((*it)->_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
+					(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
+					(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
 					some_step = 0;
 
 				
 				// ili eta:
 				/*if(_way == KEY_UP)
 				{
-					if(((*it)->_cord._y+28 >= _cord._y-some_step) && ((*it)->_cord._y+27 < _cord._y))  
+					if(((*it)->_cord._y+PIC_WIDTH >= _cord._y-some_step) && ((*it)->_cord._y+27 < _cord._y))  
 						some_step = (_cord._y) - ((*it)->_cord._y+28);
 				}
 				else if(_way == KEY_DOWN)
 				{
-					if(((*it)->_cord._y <= _cord._y+28+some_step) && ((*it)->_cord._y > _cord._y+27))	
+					if(((*it)->_cord._y <= _cord._y+PIC_WIDTH+some_step) && ((*it)->_cord._y > _cord._y+27))	
 					{
-						some_step = ((*it)->_cord._y) -(_cord._y+28) ;
+						some_step = ((*it)->_cord._y) -(_cord._y+PIC_WIDTH) ;
 						cout << some_step << "\n"; 
 					}
 				}
 				else if(_way == KEY_RIGHT)
 				{
-					if(((*it)->_cord._x <= _cord._x+28+some_step) && ((*it)->_cord._x > _cord._x+27))	
+					if(((*it)->_cord._x <= _cord._x+PIC_WIDTH+some_step) && ((*it)->_cord._x > _cord._x+27))	
 						some_step = ((*it)->_cord._x) -(_cord._x+28) ;
 				}
 				else if(_way == KEY_LEFT)
