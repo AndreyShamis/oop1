@@ -1,5 +1,6 @@
 #include "Fire.h"
 
+//=============================================================================
 Fire::Fire(const char *filename,const short int &time)
 {
 	_sprite.push_back(filename);
@@ -8,6 +9,7 @@ Fire::Fire(const char *filename,const short int &time)
 	_timer = time;
 }
 
+//=============================================================================
 void Fire::Draw()
 {
 	vector <Sprite>::iterator it;
@@ -21,11 +23,15 @@ void Fire::Draw()
 	}
 
 }
+
+//=============================================================================
 void Fire::setTimer(const short int &newVal)
 {
 	_timer = newVal;
 
 }
+
+//=============================================================================
 short int Fire::getTimer() 
 {
 	return(_timer);

@@ -131,6 +131,7 @@ bool Computer::checkEnemyinBombRaound()
 
 }
 
+//=============================================================================
 void Computer::turnLogic(const short int &turnCode)
 {
 	
@@ -145,6 +146,7 @@ void Computer::turnLogic(const short int &turnCode)
 		_newCoordinate._x+=STEP_SPEED;
 }
 
+//=============================================================================
 bool Computer::checkIfCellHaveBomb(std::vector <Objects*> &_objects,const Vertex &_coordinate)
 {
 	vector<Objects*>::iterator it ;
@@ -177,6 +179,7 @@ bool Computer::checkIfCellHaveBomb(std::vector <Objects*> &_objects,const Vertex
 		return(false);
 }
 
+//=============================================================================
 void Computer::VirtualPress(std::vector <Objects*> &_objects)
 {
 	short int turnCode;					//	variable be return

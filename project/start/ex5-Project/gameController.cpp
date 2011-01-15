@@ -19,12 +19,16 @@ Computer gameController::_comp;
 User gameController::_user;
 //Grafic gameController::_graf;
 short int gameController::_level;
+
+//=============================================================================
+//=============================================================================
 gameController::gameController()
 {
 	_level = 1;
 	LoadGame();
 }
 
+//=============================================================================
 void gameController::reshape(int w, int h)
 {
 glViewport(0,0,(GLsizei) w, (GLsizei) h);
@@ -35,6 +39,7 @@ glMatrixMode(GL_MODELVIEW);
 glLoadIdentity();
 }
 
+//=============================================================================
 void gameController::LoadGame()
 {
 		// Open file.
@@ -130,6 +135,8 @@ void gameController::LoadGame()
 
 	sndPlaySound(L"SOUND/BackGround_Sound.wav", SND_LOOP | SND_ASYNC );
 }
+
+//=============================================================================
 void gameController::idle()
 {
 
@@ -180,6 +187,7 @@ void gameController::idle()
 
 }
 
+//=============================================================================
 void  gameController::explodeBomb(const Vertex &_cord)
 { 
 	Present *new_present;
@@ -220,6 +228,8 @@ void  gameController::explodeBomb(const Vertex &_cord)
 	Grafic::_objects.push_back(new_fire);
 	_objects.push_back(new_fire);
 }
+
+//=============================================================================
  void gameController::clearAll()
 {
 	vector<Objects*>::iterator it ;
@@ -231,6 +241,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 	_objects.clear();
 }
 
+ //=============================================================================
  void gameController::Reload_Game_Stat()
  {
 	int map_width = -1;
