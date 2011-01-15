@@ -13,6 +13,7 @@ struct nightb
 	struct nightb *_next_nb;
 };
 
+gameController* gameController::_inst = NULL;
 vector<Objects*> gameController:: _objects;
 Keyboard gameController::_kboard ;
 Computer gameController::_comp;
@@ -20,7 +21,19 @@ User gameController::_user;
 //Grafic gameController::_graf;
 short int gameController::_level;
 
+
 //=============================================================================
+//	singleton :: getInsatnce of sigleton
+//	if object not created create him
+gameController* gameController::getInstance()
+{
+	if(_inst == NULL)
+		_inst = new gameController;
+
+	return _inst;
+
+}
+
 //=============================================================================
 gameController::gameController()
 {
@@ -126,7 +139,7 @@ void gameController::LoadGame()
 	_kboard.addObject(&_comp);	
 	
 	//glutReshapeFunc(gameController::reshape);
-	glutIdleFunc(gameController::idle);
+	glutIdleFunc(gameController::getInstance()->idle);
 	glutDisplayFunc(Grafic::Display);  
 	glutSpecialFunc(Keyboard::SpecPress);	
 	glutKeyboardFunc(Keyboard::Press);
@@ -173,14 +186,23 @@ void gameController::idle()
 	glutPostRedisplay();
 	if(!_comp._alive || !_user._alive )
 	{
+		for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+		{
+			if(typeid(**it) != typeid(User)  && typeid(**it) != typeid(Computer))
+				delete *it;
+		}
+		gameController::getInstance()->_objects.clear();
+		gameController::getInstance()->_graf._objects.clear();
+		gameController::getInstance()->_kboard._objects.clear();
+
 		if(_user.getLife() > 0 && _comp.getLife() == 0)
 		{
-			for( it =  _objects.begin() ; it < _objects.end() ; it++ )
-			{
-				delete *it;
-			}
-			//Reload_Game_Stat();
+			_level++;
+			
 		}
+	
+		Reload_Game_Stat();	
+
 	}
 	//Grafic::removeObjects();
 	//clearDisabled();
@@ -273,35 +295,35 @@ void  gameController::explodeBomb(const Vertex &_cord)
 			
 			char ch = myReadFile.get();
 
-			//if(ch == FENCE)			//	zabor
-			//{
-			//	Wall *wall = new Wall();
-			//	wall->_cord._x = countX*PIC_WIDTH;
-			//	wall->_cord._y = countY*PIC_WIDTH;
-			//	_objects.push_back(wall);
-			//	_graf.addObject(wall);
-			//}
-			//else if(ch == LANE)		//	space
-			//{
-			//	Space *lane = new Space();
-			//	lane->_cord._x = countX*PIC_WIDTH;
-			//	lane->_cord._y = countY*PIC_WIDTH;
-			//	_objects.push_back(lane);
-			//	_graf.addObject(lane);
-			//}
-			//else if(ch == BARREL)	// bochka
-			//{
-			//	Bochka *bochka = new Bochka();
-			//	bochka->_cord._x = countX*PIC_WIDTH;
-			//	bochka->_cord._y = countY*PIC_WIDTH;
-			//	_objects.push_back(bochka);
-			//	_graf.addObject(bochka);
-			//}
-			//else if(ch == '\n')
-			//{
-			//	countY+=1;
-			//	countX=-1;
-			//}
+			if(ch == FENCE)			//	zabor
+			{
+				Wall *wall = new Wall();
+				wall->_cord._x = countX*PIC_WIDTH;
+				wall->_cord._y = countY*PIC_WIDTH;
+				gameController::getInstance()->_objects.push_back(wall);
+				gameController::getInstance()->_graf.addObject(wall);
+			}
+			else if(ch == LANE)		//	space
+			{
+				Space *lane = new Space();
+				lane->_cord._x = countX*PIC_WIDTH;
+				lane->_cord._y = countY*PIC_WIDTH;
+				gameController::getInstance()->_objects.push_back(lane);
+				gameController::getInstance()->_graf.addObject(lane);
+			}
+			else if(ch == BARREL)	// bochka
+			{
+				Bochka *bochka = new Bochka();
+				bochka->_cord._x = countX*PIC_WIDTH;
+				bochka->_cord._y = countY*PIC_WIDTH;
+				gameController::getInstance()->_objects.push_back(bochka);
+				gameController::getInstance()->_graf.addObject(bochka);
+			}
+			else if(ch == '\n')
+			{
+				countY+=1;
+				countX=-1;
+			}
 
 			
 			countX++; // Increase num of line.
@@ -309,19 +331,19 @@ void  gameController::explodeBomb(const Vertex &_cord)
 	}
 	myReadFile.close();
 
-	////_user = new User();
-	//_user._cord._x = 1*PIC_WIDTH;
-	//_user._cord._y = 1*PIC_WIDTH;
-	////_comp = new Computer();
-	//_comp._cord._x = 18*PIC_WIDTH;
-	//_comp._cord._y = 18*PIC_WIDTH;
+	//_user = new User();
+	gameController::getInstance()->_user._cord._x = 1*PIC_WIDTH;
+	gameController::getInstance()->_user._cord._y = 1*PIC_WIDTH;
+	//_comp = new Computer();
+	gameController::getInstance()->_comp._cord._x = 18*PIC_WIDTH;
+	gameController::getInstance()->_comp._cord._y = 18*PIC_WIDTH;
 
-	//_objects.push_back(&_user);
-	//_graf.addObject(&_user);
-	//_kboard.addObject(&_user);
+	_objects.push_back(&gameController::getInstance()->_user);
+	gameController::getInstance()->_graf.addObject(&gameController::getInstance()->_user);
+	_kboard.addObject(&gameController::getInstance()->_user);
 
-	//_comp.setUserEnemyCord(&_user.getCord());
-	//_objects.push_back(&_comp);
-	//_graf.addObject(&_comp);
-	//_kboard.addObject(&_comp);	
+	gameController::getInstance()->_comp.setUserEnemyCord(&gameController::getInstance()->_user.getCord());
+	_objects.push_back(&gameController::getInstance()->_comp);
+	gameController::getInstance()->_graf.addObject(&gameController::getInstance()->_comp);
+	_kboard.addObject(&gameController::getInstance()->_comp);	
  }

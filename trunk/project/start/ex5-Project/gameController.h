@@ -21,6 +21,7 @@ class gameController
 {
 public:
 	gameController();
+	static gameController* getInstance();
 	//static 
 	Grafic	_graf;
 	static Keyboard	_kboard;
@@ -32,7 +33,7 @@ public:
 	static Computer	_comp;
 	static User		_user;
 protected:
-
+	static gameController *_inst;
 	static short int _level;
 	static std::vector <Objects *> _objects; 
 	static void Reload_Game_Stat();
