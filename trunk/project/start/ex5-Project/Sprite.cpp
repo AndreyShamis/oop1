@@ -1,6 +1,9 @@
 #include "Sprite.h"
 
 using namespace std ;
+
+//=============================================================================
+
 Sprite::Sprite(const char* filename) {
 
 
@@ -35,6 +38,8 @@ Sprite::Sprite(const char* filename) {
 	imageFile.close();
 }
 
+
+//=============================================================================
 
 void Sprite::Draw(const Vertex &cord){
 	glBegin(GL_POINTS);	

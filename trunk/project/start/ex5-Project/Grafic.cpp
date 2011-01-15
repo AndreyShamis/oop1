@@ -1,6 +1,7 @@
 #include "Grafic.h"
 vector<Objects*> Grafic:: _objects;
 
+//=============================================================================
 Grafic::Grafic(void)
 {
 	//glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -10,6 +11,7 @@ Grafic::Grafic(void)
     gluOrtho2D(0, 1020, 0, 600);
 }
 
+//=============================================================================
 void Grafic::Display()
 {
 	
@@ -29,11 +31,13 @@ void Grafic::Display()
 	removeObjects();
 }
 
+//=============================================================================
 void Grafic::addObject(Objects *newObject)
 {
 	_objects.push_back(newObject);
 }
 
+//=============================================================================
 void Grafic::removeObjects()
 {
 	vector<Objects*>::iterator it ;

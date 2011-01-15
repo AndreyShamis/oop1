@@ -1,5 +1,6 @@
 #include "User.h"
 
+//=============================================================================
 User::User()
 {
 	_sprite.push_back(PLAYER_D);
@@ -14,6 +15,7 @@ User::User()
 	PlayerStart();
 }
 
+//=============================================================================
 void User::Press(unsigned char key, int x, int y)
 {
 	// Get key from keyboord.
@@ -39,9 +41,6 @@ void User::Press(unsigned char key, int x, int y)
 	}
 
 }
-
-//=============================================================================
-
 
 //=============================================================================
 void User::SpecPress(int key, int x, int y)
