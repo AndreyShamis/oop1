@@ -12,6 +12,7 @@
 #include "Bochka.h"
 #include "Space.h"
 #include "Bomb.h"
+#include "Present.h"
 #include "Fire.h"
 #include <windows.h> // for PlaySound()
 using namespace std;
@@ -24,10 +25,12 @@ public:
 	Grafic	_graf;
 	static Keyboard	_kboard;
 	static void idle();
-	static void clearDisabled();
-	static void  putBomb(const Vertex &_cord);
+	static void clearAll();
+	static void  explodeBomb(const Vertex &_cord);
+	void LoadGame();
 protected:
 	Computer	*_comp;
 	User		*_user;
+	short int _level;
 	static std::vector <Objects *> _objects; 
 };

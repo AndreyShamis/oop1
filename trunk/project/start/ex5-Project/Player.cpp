@@ -1,6 +1,11 @@
 #include "Player.h"
 
-
+//=============================================================================
+void Player::PlayerStart()
+{
+	setLife(3);
+	_alive = true;
+}
 //=============================================================================
 void Player::Draw()
 {
@@ -49,6 +54,21 @@ short int Player::MathMaxStepSpeed()
 	
 	return(STEP_SPEED);
 }
+short int Player::getLife()const 
+{
+	return(_life);
+}
+
+void Player::setLife(const short int &new_Val)
+{
+	_life = new_Val;
+}
+
+void Player::decLife()
+{
+	_life--;
+
+}
 
 void Player::Move(std::vector<Objects *> &_objects)
 {
@@ -74,7 +94,7 @@ void Player::Move(std::vector<Objects *> &_objects)
 
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
-		if(!(*it)->movable && (*it)->_enabled)
+		if(!(*it)->movable && (*it)->_enabled )
 		{
 			if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
 				|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
@@ -87,8 +107,17 @@ void Player::Move(std::vector<Objects *> &_objects)
 					(((*it)->_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
 					(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
 					(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
-					some_step = 0;
-
+				{
+					if(typeid(**it) == typeid(Fire))
+					{
+						_alive = false;
+						decLife();
+						std::cout << "Your life is " << getLife() << "\n";
+					}
+					else
+						some_step = 0;
+					
+				}
 				
 				// ili eta:
 				/*if(_way == KEY_UP)

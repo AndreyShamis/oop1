@@ -1,6 +1,6 @@
 #pragma once
 #include "Player.h"
-
+#include <time.h>
 #include <typeinfo>
 using namespace std;
 class Computer:public Player

@@ -11,6 +11,7 @@ User::User()
 
 
 	movable = 1;
+	PlayerStart();
 }
 
 void User::Press(unsigned char key, int x, int y)

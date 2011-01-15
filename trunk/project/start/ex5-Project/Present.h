@@ -1,8 +1,12 @@
 #pragma once
+#include "Objects.h"
+#include "Sprite.h"
+#include <vector>
 
-class Present
+using namespace std ;
+class Present:public Objects
 {
 public:
-	Present(void);
-	~Present(void);
+	Present();
+	virtual void Draw();
 };
