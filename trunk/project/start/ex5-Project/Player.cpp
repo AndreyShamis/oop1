@@ -83,14 +83,14 @@ void Player::Move(std::vector<Objects *> &_objects)
 				 
 			{
 
-				//if((((*it)->_cord._y+28 == _cord._y)		&&	(_way == KEY_UP))	||									//KEY_UP
-				//	(((*it)->_cord._y == _cord._y+28)	&&	(_way == KEY_DOWN))		||
-				//	(((*it)->_cord._x == _cord._x+28)	&&	(_way == KEY_RIGHT))	||
-				//	(((*it)->_cord._x+28 == _cord._x)	&&	(_way == KEY_LEFT)))
-				//	some_step = 0;
+				if((((*it)->_cord._y+28 == _cord._y)		&&	(_way == KEY_UP))	||									//KEY_UP
+					(((*it)->_cord._y == _cord._y+28)	&&	(_way == KEY_DOWN))		||
+					(((*it)->_cord._x == _cord._x+28)	&&	(_way == KEY_RIGHT))	||
+					(((*it)->_cord._x+28 == _cord._x)	&&	(_way == KEY_LEFT)))
+					some_step = 0;
 
 
-				if(_way == KEY_UP)
+				/*if(_way == KEY_UP)
 				{
 					if(((*it)->_cord._y+28 >= _cord._y-some_step) && ((*it)->_cord._y+27 < _cord._y))  
 						some_step = (_cord._y) - ((*it)->_cord._y+28);
@@ -114,7 +114,7 @@ void Player::Move(std::vector<Objects *> &_objects)
 						some_step = (_cord._x) - ((*it)->_cord._x+28);
 
 									
-				}
+				}*/
 			}
 		}
 	}
