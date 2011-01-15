@@ -43,7 +43,7 @@ void Sprite::Draw(const Vertex &cord){
 		x=_width;
 		for(int j=0; j< _width; j++){
 			glColor4ub(_image[i][j]._r, _image[i][j]._g, _image[i][j]._b, _image[i][j]._a);
-			glVertex2i(x + cord._x ,(20*28)-(y + cord._y));
+			glVertex2i(x + cord._x ,(20*PIC_WIDTH)-(y + cord._y));
 			//cout << x + cord._x << y + cord._y<< endl;
 			x++;
 		}

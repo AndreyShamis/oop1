@@ -23,7 +23,7 @@ gameController::gameController()
 	int map_width = -1;
 	int map_height= -1;
 	ifstream myReadFile;
-	myReadFile.open("MAPS/map7.txt");
+	myReadFile.open("MAPS/map2.txt");
 	
 	int countX=0,
 		countY=0;
@@ -52,24 +52,24 @@ gameController::gameController()
 			if(ch == FENCE)			//	zabor
 			{
 				Wall *wall = new Wall();
-				wall->_cord._x = countX*28;
-				wall->_cord._y = countY*28;
+				wall->_cord._x = countX*PIC_WIDTH;
+				wall->_cord._y = countY*PIC_WIDTH;
 				_objects.push_back(wall);
 				_graf.addObject(wall);
 			}
 			else if(ch == LANE)		//	space
 			{
 				Space *lane = new Space();
-				lane->_cord._x = countX*28;
-				lane->_cord._y = countY*28;
+				lane->_cord._x = countX*PIC_WIDTH;
+				lane->_cord._y = countY*PIC_WIDTH;
 				_objects.push_back(lane);
 				_graf.addObject(lane);
 			}
 			else if(ch == BARREL)	// bochka
 			{
 				Bochka *bochka = new Bochka();
-				bochka->_cord._x = countX*28;
-				bochka->_cord._y = countY*28;
+				bochka->_cord._x = countX*PIC_WIDTH;
+				bochka->_cord._y = countY*PIC_WIDTH;
 				_objects.push_back(bochka);
 				_graf.addObject(bochka);
 			}
@@ -84,11 +84,11 @@ gameController::gameController()
 		}
 	}
 	_user = new User();
-	_user->_cord._x = 1*28;
-	_user->_cord._y = 1*28;
+	_user->_cord._x = 1*PIC_WIDTH;
+	_user->_cord._y = 1*PIC_WIDTH;
 	_comp = new Computer();
-	_comp->_cord._x = 18*28;
-	_comp->_cord._y = 18*28;
+	_comp->_cord._x = 18*PIC_WIDTH;
+	_comp->_cord._y = 18*PIC_WIDTH;
 
 	_objects.push_back(_user);
 	_graf.addObject(_user);
@@ -152,9 +152,9 @@ PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 		//	}
 
 		//}
-		Bomb *new_bomb = new Bomb();
-		new_bomb->_cord._x = 12*28;
-		new_bomb->_cord._y = 9*28;
+		//Bomb *new_bomb = new Bomb();
+		//new_bomb->_cord._x = 12*PIC_WIDTH;
+		//new_bomb->_cord._y = 9*PIC_WIDTH;
 
 		_objects.push_back(new_bomb);
 	_graf._objects.push_back(new_bomb);
