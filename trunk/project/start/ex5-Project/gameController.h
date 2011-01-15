@@ -12,6 +12,7 @@
 #include "Bochka.h"
 #include "Space.h"
 #include "Bomb.h"
+#include "Fire.h"
 #include <windows.h> // for PlaySound()
 using namespace std;
 

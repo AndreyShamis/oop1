@@ -25,7 +25,7 @@
 #define EXP_HOR				"explosion_horizontal_rgba.txt"
 #define EXP_DOWN			"explosion_down_rgba.txt"
 #define EXP_VER_USR			"explosion_vertical_user_rgba.txt"
-#define EXP_UP_USE			"explosion_up_user_rgba.txt"
+#define EXP_UP_USR			"explosion_up_user_rgba.txt"
 #define EXP_START_USR		"explosion_start_user_rgba.txt"
 #define EXP_DOWN_USR		"explosion_down_user_rgba.txt"
 #define EXP_RIGHT_USR		"explosion_right_user_rgba.txt"

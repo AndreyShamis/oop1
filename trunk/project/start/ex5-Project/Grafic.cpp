@@ -18,7 +18,7 @@ void Grafic::Display()
 
 	for(it=_objects.begin();it<_objects.end();it++)
 	{
-		if((*it)->_enabled)
+		//if((*it)->_enabled)
 			(*it)->Draw();
 
 	}
@@ -33,18 +33,16 @@ void Grafic::addObject(Objects *newObject)
 	_objects.push_back(newObject);
 }
 
-void Grafic::removeObject(Objects &object)
+void Grafic::removeObjects()
 {
 	vector<Objects*>::iterator it ;
-
+	int i=0;
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
-		if((*it)->intelect)
-			(*it)->VirtualPress(_objects);
-		if( typeid(**it) == typeid(Bomb) )
+		i++;
+		if((*it)->_enabled == false)
 		{
-			delete *it;
-			_objects.erase(it);
+			_objects.erase(_objects.begin()+i);
 		}
 	}
 }
