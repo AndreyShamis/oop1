@@ -38,7 +38,8 @@ public:
 	short int getLife()const ;
 	void setLife(const short int &new_Val);
 	void decLife();
+	bool _alive;
 protected:
 	short int _life;
-	bool _alive;
+	
 };
