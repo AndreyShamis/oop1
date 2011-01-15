@@ -31,23 +31,12 @@ gameController::gameController()
 	// If the file is opened - load the map.
 	if (myReadFile.is_open()) 
 	{
-		//myReadFile >> map_height >> map_width;
-		//lines = new bool*[map_height]	  ;
-		//for(int i=0;i < map_height;i++)
-		//{
-		//	lines[i] = new bool[map_width];
-		//}
 		//
 		while (!myReadFile.eof())
 		{
 			// Load line to array.
 			
 			char ch = myReadFile.get();
-
-			//if(ch == BARREL || ch == LANE)
-			//	lines[countY][countX] = true;
-			//else
-			//	lines[countY][countX] = false;
 
 			if(ch == FENCE)			//	zabor
 			{
@@ -101,63 +90,6 @@ gameController::gameController()
 	
 PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 
-		//struct graf_point *_head = NULL;
-		//struct graf_point *temp;
-
-		//for(int y=0;y < map_height;y++)
-		//{
-		//	for(int x=0;x < map_width;x++)
-		//	{
-		//		if(lines[y][x])
-		//		{
-		//			temp = new struct graf_point;
-		//			temp->_next = NULL;
-		//			temp->_cord._x = x;
-		//			temp->_cord._y = y;
-		//			if(_head == NULL)
-		//				_head = temp;
-		//			else
-		//			{
-		//				temp->_next = _head;
-		//				_head = temp;
-		//			}
-		//		}
-		//	}
-		//}
-
-		//// teper nade probejatsya po vsey resheme i sdelat sosedey
-		//temp = _head;
-		//struct nightb *_nTemp;
-
-		//while(temp != NULL && 1==2)
-		//{
-		//	int x = temp->_cord._x;
-		//	int y = temp->_cord._y;
-
-		//	if(x > 0)
-		//	{
-		//		if(lines[y][x-1])
-		//		{
-		//			_nTemp = new struct nightb;
-		//		
-		//			if(temp->_nb->_next_nb == NULL)
-		//			{
-		//				temp->_nb->_next_nb = _nTemp;
-		//			}
-		//			else
-		//			{
-		//				_nTemp->_next_nb = temp->_nb->_next_nb	;
-		//			}
-		//		}
-		//	}
-
-		//}
-		//Bomb *new_bomb = new Bomb();
-		//new_bomb->_cord._x = 12*PIC_WIDTH;
-		//new_bomb->_cord._y = 9*PIC_WIDTH;
-
-	//	_objects.push_back(new_bomb);
-	//_graf._objects.push_back(new_bomb);
 	
 	glutIdleFunc(gameController::idle);
 	glutDisplayFunc(Grafic::Display);  
@@ -172,9 +104,10 @@ PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 void gameController::idle()
 {
 	vector<Objects*>::iterator it ;
-
+	int i=0;
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
+		i++;
 		if((*it)->intelect)
 			(*it)->VirtualPress(_objects);
 		if( typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0)
@@ -183,7 +116,43 @@ void gameController::idle()
 		//	_graf(**it);
 		//	_objects.erase(it);
 		//	break;
+			Fire *new_fire;
+			new_fire = new Fire(EXP_START_USR);
+			new_fire->_cord = (*it)->_cord;
+			Grafic::_objects.push_back(new_fire);
+			_objects.push_back(new_fire);
+
+			new_fire = new Fire(EXP_RIGHT_USR);
+			new_fire->_cord = (*it)->_cord;
+			new_fire->_cord._x+=PIC_WIDTH;
+			Grafic::_objects.push_back(new_fire);
+			_objects.push_back(new_fire);
+
+			new_fire = new Fire(EXP_LEFT_USR);
+			new_fire->_cord = (*it)->_cord;
+			new_fire->_cord._x-=PIC_WIDTH;
+			Grafic::_objects.push_back(new_fire);
+			_objects.push_back(new_fire);
+
+
+			new_fire = new Fire(EXP_DOWN_USR);
+			new_fire->_cord = (*it)->_cord;
+			new_fire->_cord._y+=PIC_WIDTH;
+			Grafic::_objects.push_back(new_fire);
+			_objects.push_back(new_fire);
+
+			new_fire = new Fire(EXP_UP_USR);
+			new_fire->_cord = (*it)->_cord;
+			new_fire->_cord._y-=PIC_WIDTH;
+			Grafic::_objects.push_back(new_fire);
+			_objects.push_back(new_fire);
+
 			(*it)->_enabled = false;
+			Grafic::removeObjects();
+			_objects.erase(_objects.begin()+i);
+			
+		//	break;
+
 			continue;
 		}
 		else
