@@ -10,7 +10,7 @@ User::User()
 
 
 
-	movable = 0;
+	movable = 1;
 }
 
 void User::Press(unsigned char key, int x, int y)
