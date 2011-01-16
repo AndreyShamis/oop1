@@ -164,8 +164,7 @@ void gameController::LoadGame()
 //=============================================================================
 void gameController::idle()
 {
-	glutKeyboardFunc(NULL);
-	glutSpecialFunc(NULL);	
+
 	vector<Objects*>::iterator it ;
 
 	
@@ -193,7 +192,7 @@ void gameController::idle()
 			(*it)->_enabled = false;	
 		}
 		 
-		if((*it)->_enabled && !(*it)->intelect)
+		if((*it)->_enabled)
 		{
 			(*it)->Move(_objects) ;
 		}
@@ -238,8 +237,7 @@ void gameController::idle()
 	}
 	//Grafic::removeObjects();
 	//clearDisabled();
-	glutKeyboardFunc(Keyboard::Press);
-	glutSpecialFunc(Keyboard::SpecPress);	
+
 }
 
 
@@ -291,7 +289,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 				strcpy_s(pic_fire,EXP_UP_USR);
 				break;
 		}
-		//strcat_s(pic_fire,'\0');
+	
 		bool have_col = false;
 		vector<Objects*>::iterator it ;
 		for( it =  _objects.begin() ; it != _objects.end() ; it++ )
