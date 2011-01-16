@@ -158,17 +158,21 @@ void gameController::LoadGame()
 
 
 
-	sndPlaySound(L"SOUND/BackGround_Sound.wav", SND_LOOP | SND_ASYNC );
+	//sndPlaySound(L"SOUND/BackGround_Sound.wav", SND_LOOP | SND_ASYNC );
 }
 
 //=============================================================================
 void gameController::idle()
 {
-
+	glutKeyboardFunc(NULL);
+	glutSpecialFunc(NULL);	
 	vector<Objects*>::iterator it ;
 
-	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+	
+	int _it_size = (int)_objects.size(); 
+	for( int i = 0 ; i < _it_size;i++ )
 	{
+		it =  _objects.begin() +i;
 			if((*it) == NULL)
 			{
 				std::cout << "Some error in IDLE 22222\n";
@@ -179,21 +183,25 @@ void gameController::idle()
 			(*it)->VirtualPress(_objects);
 		if(typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0 && (*it)->_enabled)
 		{
-			sndPlaySound(L"SOUND/Boom.wav",SND_ASYNC | SND_NOSTOP);
+			//sndPlaySound(L"SOUND/Boom.wav",SND_ASYNC | SND_NOSTOP);
 			explodeBomb((*it)->getCord());
 			(*it)->_enabled = false;	
 		}
-		else if(typeid(**it) == typeid(Fire) && (*it)->getTimer() <0 )
+		else
+			if(typeid(**it) == typeid(Fire) && (*it)->getTimer() <0 )
 		{
 			(*it)->_enabled = false;	
 		}
-		else if((*it)->_enabled)
+		 
+		if((*it)->_enabled && !(*it)->intelect)
 		{
 			(*it)->Move(_objects) ;
 		}
 			
 	
 	}
+	
+
 
 	glutPostRedisplay();
 	if(!_comp._alive || !_user._alive )
@@ -230,7 +238,8 @@ void gameController::idle()
 	}
 	//Grafic::removeObjects();
 	//clearDisabled();
-
+	glutKeyboardFunc(Keyboard::Press);
+	glutSpecialFunc(Keyboard::SpecPress);	
 }
 
 
@@ -251,7 +260,7 @@ void gameController::idle()
 void  gameController::explodeBomb(const Vertex &_cord)
 { 
 
-
+	
 	Fire *new_fire=NULL;
 
 	new_fire = new Fire(EXP_START_USR,13);

@@ -80,88 +80,89 @@ void Player::Move(std::vector<Objects *> &_objects)
 		new_bomb->_cord = _cord;
 		_objects.push_back(new_bomb);
 		Grafic::addObject(new_bomb);
-		return ;
 	}
-
-	int some_step = 0;
-	some_step = STEP_SPEED;//MathMaxStepSpeed();
-	vector<Objects*>::iterator it ;
-
-	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+	else
 	{
-		if(!(*it)->movable && (*it)->_enabled )
-		{
-			if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
-				|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
-				|| ((*it)->_cord._y <= _cord._y && (*it)->_cord._y+27 >= _cord._y)
-				|| ((*it)->_cord._y <= _cord._y+27) && (*it)->_cord._y+27 >= _cord._y+27)
-				 
-			{
-				// ili eta:	
-				if((((*it)->_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
-					(((*it)->_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
-					(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
-					(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
-				{
-					if(typeid(**it) == typeid(Fire))
-					{
-						_alive = false;
-						decLife();
-						std::cout << "Your life is " << getLife() << "\n";
-					}
-					else
-						some_step = 0;
-					
-				}
-				
-				// ili eta:
-				/*if(_way == KEY_UP)
-				{
-					if(((*it)->_cord._y+PIC_WIDTH >= _cord._y-some_step) && ((*it)->_cord._y+27 < _cord._y))  
-						some_step = (_cord._y) - ((*it)->_cord._y+28);
-				}
-				else if(_way == KEY_DOWN)
-				{
-					if(((*it)->_cord._y <= _cord._y+PIC_WIDTH+some_step) && ((*it)->_cord._y > _cord._y+27))	
-					{
-						some_step = ((*it)->_cord._y) -(_cord._y+PIC_WIDTH) ;
-						cout << some_step << "\n"; 
-					}
-				}
-				else if(_way == KEY_RIGHT)
-				{
-					if(((*it)->_cord._x <= _cord._x+PIC_WIDTH+some_step) && ((*it)->_cord._x > _cord._x+27))	
-						some_step = ((*it)->_cord._x) -(_cord._x+28) ;
-				}
-				else if(_way == KEY_LEFT)
-				{
-					if(((*it)->_cord._x+28 >= _cord._x-some_step) && ((*it)->_cord._x+27 < _cord._x))
-						some_step = (_cord._x) - ((*it)->_cord._x+28);
 
-									
-				}*/
+		int some_step = 0;
+		some_step = STEP_SPEED;//MathMaxStepSpeed();
+		vector<Objects*>::iterator it ;
+
+		for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+		{
+			if(!(*it)->movable && (*it)->_enabled )
+			{
+				if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
+					|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
+					|| ((*it)->_cord._y <= _cord._y && (*it)->_cord._y+27 >= _cord._y)
+					|| ((*it)->_cord._y <= _cord._y+27) && (*it)->_cord._y+27 >= _cord._y+27)
+					 
+				{
+					// ili eta:	
+					if((((*it)->_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
+						(((*it)->_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
+						(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
+						(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
+					{
+						if(typeid(**it) == typeid(Fire))
+						{
+							_alive = false;
+							decLife();
+							std::cout << "Your life is " << getLife() << "\n";
+						}
+						else
+							some_step = 0;
+						
+					}
+					
+					// ili eta:
+					/*if(_way == KEY_UP)
+					{
+						if(((*it)->_cord._y+PIC_WIDTH >= _cord._y-some_step) && ((*it)->_cord._y+27 < _cord._y))  
+							some_step = (_cord._y) - ((*it)->_cord._y+28);
+					}
+					else if(_way == KEY_DOWN)
+					{
+						if(((*it)->_cord._y <= _cord._y+PIC_WIDTH+some_step) && ((*it)->_cord._y > _cord._y+27))	
+						{
+							some_step = ((*it)->_cord._y) -(_cord._y+PIC_WIDTH) ;
+							cout << some_step << "\n"; 
+						}
+					}
+					else if(_way == KEY_RIGHT)
+					{
+						if(((*it)->_cord._x <= _cord._x+PIC_WIDTH+some_step) && ((*it)->_cord._x > _cord._x+27))	
+							some_step = ((*it)->_cord._x) -(_cord._x+28) ;
+					}
+					else if(_way == KEY_LEFT)
+					{
+						if(((*it)->_cord._x+28 >= _cord._x-some_step) && ((*it)->_cord._x+27 < _cord._x))
+							some_step = (_cord._x) - ((*it)->_cord._x+28);
+
+										
+					}*/
+				}
 			}
 		}
+
+		switch(_way) 
+		{
+			case KEY_UP:
+				changeCord(0,-1*some_step); 	
+				break ;
+			case KEY_DOWN:
+				changeCord(0,some_step); 			
+				break ;
+			case KEY_LEFT: 
+				changeCord(-1*some_step,0); 
+				break ;
+			case KEY_RIGHT:			
+				changeCord(some_step,0);			
+				break ;
+
+		}
+
 	}
-
-	switch(_way) 
-	{
-		case KEY_UP:
-			changeCord(0,-1*some_step); 	
-			break ;
-		case KEY_DOWN:
-			changeCord(0,some_step); 			
-			break ;
-		case KEY_LEFT: 
-			changeCord(-1*some_step,0); 
-			break ;
-		case KEY_RIGHT:			
-			changeCord(some_step,0);			
-			break ;
-
-	}
-
-
 }
 
 //=============================================================================

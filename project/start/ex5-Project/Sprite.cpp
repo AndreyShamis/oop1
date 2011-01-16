@@ -28,11 +28,9 @@ Sprite::Sprite(const char* filename) {
 		cout << "Can`t load file " << path << "\n";
 		exit(EXIT_FAILURE);
 	}
-		
 		//get from the file width and hieght og image
 	imageFile >> _width >> _height;
 
-	
 	_image  = new RGBA*[_height];
 	for(int i=0; i<_height; i++){
 		_image[i] = new RGBA[_width];
@@ -41,8 +39,8 @@ Sprite::Sprite(const char* filename) {
 		}
 	}
 
-	//close the file
-	imageFile.close();
+	
+	imageFile.close();		//close the file
 }
 
 
@@ -56,7 +54,6 @@ void Sprite::Draw(const Vertex &cord){
 		for(int j=0; j< _width; j++){
 			glColor4ub(_image[i][j]._r, _image[i][j]._g, _image[i][j]._b, _image[i][j]._a);
 			glVertex2i(x + cord._x ,(20*PIC_WIDTH)-(y + cord._y));
-			//cout << x + cord._x << y + cord._y<< endl;
 			x++;
 		}
 		y++;

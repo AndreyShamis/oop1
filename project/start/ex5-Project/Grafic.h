@@ -10,9 +10,8 @@ using namespace std ;
 class Grafic
 {
 public:
-	Grafic(void);
+	Grafic();
 	static void Display();
 	static std::vector <Objects *> _objects; 
-	static void removeObjects();
 	static void addObject(Objects *newObject);
 };
