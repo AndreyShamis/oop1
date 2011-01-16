@@ -309,7 +309,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 
 					if((*it)->checkCollision(_fire_cord,PIC_WIDTH,PIC_WIDTH))
 					{
-						have_col= false;
+						//have_col= false;
 						(*it)->_enabled = false;
 						Present *new_present;
 						new_present = new Present();
