@@ -155,8 +155,8 @@ void gameController::idle()
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
 		
-		if((*it)->intelect)
-			(*it)->VirtualPress(_objects);
+		//if((*it)->intelect)
+		//	(*it)->VirtualPress(_objects);
 		if(typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0 && (*it)->_enabled)
 		{
 			sndPlaySound(L"SOUND/Boom.wav",SND_ASYNC | SND_NOSTOP);
@@ -167,7 +167,7 @@ void gameController::idle()
 		{
 			(*it)->_enabled = false;	
 		}
-		else if((*it)->_enabled)
+		else if((*it)->_enabled && !(*it)->intelect)
 		{
 			(*it)->Move(_objects) ;
 		}
@@ -238,7 +238,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 	Grafic::_objects.push_back(new_fire);
 	_objects.push_back(new_fire);
 
-	vector<Objects*>::iterator it ;
+	
 
 	for(int i=0;i<4;i++)
 	{
@@ -263,10 +263,12 @@ void  gameController::explodeBomb(const Vertex &_cord)
 				strcpy_s(pic_fire,EXP_UP_USR);
 				break;
 		}
+		//strcat_s(pic_fire,'\0');
 		bool have_col = false;
+		vector<Objects*>::iterator it ;
 		for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 		{
-			if(typeid(**it) == typeid(Wall))
+			if((*it)->_enabled && typeid(**it) == typeid(Wall))
 			{
 
 				if((*it)->checkCollision(_fire_cord,PIC_WIDTH,PIC_WIDTH))
@@ -278,7 +280,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 		}
 		if(!have_col)
 		{
-			new_fire = new Fire(EXP_RIGHT_USR,55);
+			new_fire = new Fire(pic_fire,55);
 			new_fire->_cord = _fire_cord;
 			Grafic::_objects.push_back(new_fire);
 			_objects.push_back(new_fire);
