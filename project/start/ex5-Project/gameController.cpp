@@ -17,7 +17,8 @@ vector<Objects*> gameController:: _objects;
 Keyboard gameController::_kboard ;
 Computer gameController::_comp;
 User gameController::_user;
-//Grafic gameController::_graf;
+Menu gameController::_user_menu(false);
+Menu gameController::_comp_menu(true);
 short int gameController::_level;
 
 
@@ -133,7 +134,22 @@ void gameController::LoadGame()
 	_objects.push_back(&_comp);
 	_graf.addObject(&_comp);
 	_kboard.addObject(&_comp);	
+
+	Vertex _menu_cord;
+	_menu_cord._x = 580;
+	_menu_cord._y = 50;
+
+	_user_menu._cord = _menu_cord;
+	_objects.push_back(&_user_menu);
+	_graf.addObject(&_user_menu);
 	
+	_menu_cord._y = 120;
+	_comp_menu._cord = _menu_cord;
+	_objects.push_back(&_comp_menu);
+	_graf.addObject(&_comp_menu);
+	
+	_user_menu.setLife(_user.getLife());
+	_comp_menu.setLife(_comp.getLife());
 	//glutReshapeFunc(gameController::reshape);
 	glutIdleFunc(gameController::getInstance()->idle);
 	glutDisplayFunc(Grafic::Display);  
@@ -192,7 +208,7 @@ void gameController::idle()
 				std::cout << "Some error in IDLE 22222\n";
 				exit(EXIT_FAILURE);
 			}
-				if(typeid(**it) != typeid(User)  && typeid(**it) != typeid(Computer))
+				if(typeid(**it) != typeid(User)  && typeid(**it) != typeid(Computer) &&  typeid(**it) != typeid(Menu)  )
 				delete *it;
 		}
 		//clearAll();
@@ -402,6 +418,8 @@ void  gameController::explodeBomb(const Vertex &_cord)
 	gameController::getInstance()->_comp._cord._x = 18*PIC_WIDTH;
 	gameController::getInstance()->_comp._cord._y = 18*PIC_WIDTH;
 
+
+
 	_objects.push_back(&gameController::getInstance()->_user);
 	gameController::getInstance()->_graf.addObject(&gameController::getInstance()->_user);
 	_kboard.addObject(&gameController::getInstance()->_user);
@@ -410,5 +428,22 @@ void  gameController::explodeBomb(const Vertex &_cord)
 	_objects.push_back(&gameController::getInstance()->_comp);
 	gameController::getInstance()->_graf.addObject(&gameController::getInstance()->_comp);
 	_kboard.addObject(&gameController::getInstance()->_comp);
+
+
+	Vertex _menu_cord;
+	_menu_cord._x = 580;
+	_menu_cord._y = 50;
+
+	_user_menu._cord = _menu_cord;
+	_objects.push_back(&gameController::getInstance()->_user_menu);
+	gameController::getInstance()->_graf.addObject(&gameController::getInstance()->_user_menu);
+	
+	_menu_cord._y = 120;
+	_comp_menu._cord = _menu_cord;
+	_objects.push_back(&gameController::getInstance()->_comp_menu);
+	gameController::getInstance()->_graf.addObject(&gameController::getInstance()->_comp_menu);
+	
+	_user_menu.setLife(gameController::getInstance()->_user.getLife());
+	_comp_menu.setLife(gameController::getInstance()->_comp.getLife());
 	std::cout << "Game is loaded\n";
  }

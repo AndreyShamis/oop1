@@ -14,6 +14,7 @@
 #include "Bomb.h"
 #include "Present.h"
 #include "Fire.h"
+#include "Menu.h"
 #include <windows.h> // for PlaySound()
 using namespace std;
 
@@ -34,6 +35,8 @@ protected:
 	void LoadGame();
 	static Computer	_comp;
 	static User		_user;
+	static Menu		_comp_menu;
+	static Menu		_user_menu;
 	gameController();
 	static gameController *_inst;
 	static short int _level;
