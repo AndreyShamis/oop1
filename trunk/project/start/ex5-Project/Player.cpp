@@ -83,14 +83,9 @@ void Player::Move(std::vector<Objects *> &_objects)
 		return ;
 	}
 
-	
 	int some_step = 0;
 	some_step = STEP_SPEED;//MathMaxStepSpeed();
-
-
 	vector<Objects*>::iterator it ;
-
-	
 
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{

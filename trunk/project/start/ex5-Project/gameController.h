@@ -20,8 +20,10 @@ using namespace std;
 class gameController
 {
 public:
-	gameController();
+	
 	static gameController* getInstance();
+
+protected:
 	//static 
 	Grafic	_graf;
 	static Keyboard	_kboard;
@@ -32,7 +34,7 @@ public:
 	void LoadGame();
 	static Computer	_comp;
 	static User		_user;
-protected:
+	gameController();
 	static gameController *_inst;
 	static short int _level;
 	static std::vector <Objects *> _objects; 
