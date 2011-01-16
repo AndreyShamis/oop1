@@ -2,6 +2,7 @@
 //#include "Config.h"
 #include <vector>
 #include "Sprite.h"
+
 class Objects
 {
 public:
@@ -19,7 +20,7 @@ public:
 	virtual short int getTimer() {return 0;};
 
 	Vertex getCord();
-
+	bool checkCollision(const Vertex &topLeft,const float &_Objwidth,const float &_Objheight);
 protected:
 	int _timer;
 

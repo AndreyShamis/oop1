@@ -55,10 +55,7 @@ glLoadIdentity();
 //=============================================================================
 void gameController::LoadGame()
 {
-		// Open file.
-		bool **lines = NULL;
-	int map_width = -1;
-	int map_height= -1;
+
 	ifstream myReadFile;
 	char path[200];
 	memset(path,'\0',200);
@@ -94,14 +91,14 @@ void gameController::LoadGame()
 				_objects.push_back(wall);
 				_graf.addObject(wall);
 			}
-			else if(ch == LANE)		//	space
-			{
-				Space *lane = new Space();
-				lane->_cord._x = countX*PIC_WIDTH;
-				lane->_cord._y = countY*PIC_WIDTH;
-				_objects.push_back(lane);
-				_graf.addObject(lane);
-			}
+			//else if(ch == LANE)		//	space
+			//{
+			//	Space *lane = new Space();
+			//	lane->_cord._x = countX*PIC_WIDTH;
+			//	lane->_cord._y = countY*PIC_WIDTH;
+			//	_objects.push_back(lane);
+			//	_graf.addObject(lane);
+			//}
 			else if(ch == BARREL)	// bochka
 			{
 				Bochka *bochka = new Bochka();
@@ -154,7 +151,7 @@ void gameController::idle()
 {
 
 	vector<Objects*>::iterator it ;
-	int i=0;
+
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
 		
@@ -164,43 +161,45 @@ void gameController::idle()
 		{
 			sndPlaySound(L"SOUND/Boom.wav",SND_ASYNC | SND_NOSTOP);
 			explodeBomb((*it)->getCord());
-			
 			(*it)->_enabled = false;	
-			//_objects.erase(_objects.begin()+i);
-
 		}
 		else if(typeid(**it) == typeid(Fire) && (*it)->getTimer() <0 )
 		{
 			(*it)->_enabled = false;	
-			//_objects.erase(_objects.begin()+i);
 		}
 		else if((*it)->_enabled)
 		{
 			(*it)->Move(_objects) ;
 		}
 			
-		i++;
-
+	
 	}
 
 	glutPostRedisplay();
 	if(!_comp._alive || !_user._alive )
 	{
-		for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+		gameController::getInstance()->_graf._objects.clear();
+		gameController::getInstance()->_kboard._objects.clear();
+
+		for( it =  _objects.begin() ; it !=_objects.end() ; it++ )
 		{
 			if(typeid(**it) != typeid(User)  && typeid(**it) != typeid(Computer))
 				delete *it;
 		}
+		//clearAll();
 		gameController::getInstance()->_objects.clear();
-		gameController::getInstance()->_graf._objects.clear();
-		gameController::getInstance()->_kboard._objects.clear();
 
-		if(_user.getLife() > 0 && _comp.getLife() == 0)
+
+		if(_user.getLife() >0 && _comp.getLife() == 0)
 		{
 			_level++;
+			_user.setLife(3);
+			_comp.setLife(3);
 			
 		}
-	
+		
+		_comp._alive = true;
+		_user._alive = true;
 		Reload_Game_Stat();	
 
 	}
@@ -208,6 +207,20 @@ void gameController::idle()
 	//clearDisabled();
 
 }
+
+
+//=============================================================================
+ void gameController::clearAll()
+{
+	vector<Objects*>::iterator it ;
+
+	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
+	{
+		delete &(*it);
+	}
+	//_objects.clear();
+}
+
 
 //=============================================================================
 void  gameController::explodeBomb(const Vertex &_cord)
@@ -251,44 +264,33 @@ void  gameController::explodeBomb(const Vertex &_cord)
 	_objects.push_back(new_fire);
 }
 
-//=============================================================================
- void gameController::clearAll()
-{
-	vector<Objects*>::iterator it ;
-
-	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
-	{
-		delete *it;
-	}
-	_objects.clear();
-}
-
  //=============================================================================
  void gameController::Reload_Game_Stat()
  {
-	int map_width = -1;
-	int map_height= -1;
+	int countX=0,
+		countY=0;
+
 	ifstream myReadFile;
 	char path[200];
 	memset(path,'\0',200);
 	strcpy_s(path,MAPS_FOLDER);
+
 	if(_level == 1)
 		strcat_s(path,"/map1.txt");
-	else if(_level == 1)
+	else if(_level == 2)
 		strcat_s(path,"/map2.txt");
-	else if(_level == 1)
+	else if(_level == 3)
 		strcat_s(path,"/map3.txt");
 
 
 	myReadFile.open(path);
 	
-	int countX=0,
-		countY=0;
 
 	// If the file is opened - load the map.
 	if (myReadFile.is_open()) 
 	{
 		//
+		std::cout << "Start loading textures\n";
 		while (!myReadFile.eof())
 		{
 			// Load line to array.
@@ -303,14 +305,14 @@ void  gameController::explodeBomb(const Vertex &_cord)
 				gameController::getInstance()->_objects.push_back(wall);
 				gameController::getInstance()->_graf.addObject(wall);
 			}
-			else if(ch == LANE)		//	space
-			{
-				Space *lane = new Space();
-				lane->_cord._x = countX*PIC_WIDTH;
-				lane->_cord._y = countY*PIC_WIDTH;
-				gameController::getInstance()->_objects.push_back(lane);
-				gameController::getInstance()->_graf.addObject(lane);
-			}
+			//else if(ch == LANE)		//	space
+			//{
+			//	Space *lane = new Space();
+			//	lane->_cord._x = countX*PIC_WIDTH;
+			//	lane->_cord._y = countY*PIC_WIDTH;
+			//	gameController::getInstance()->_objects.push_back(lane);
+			//	gameController::getInstance()->_graf.addObject(lane);
+			//}
 			else if(ch == BARREL)	// bochka
 			{
 				Bochka *bochka = new Bochka();
@@ -328,13 +330,16 @@ void  gameController::explodeBomb(const Vertex &_cord)
 			
 			countX++; // Increase num of line.
 		}
+		std::cout << "Textures loaded\n";
 	}
 	myReadFile.close();
 
 	//_user = new User();
+	std::cout << "Creating User\n";
 	gameController::getInstance()->_user._cord._x = 1*PIC_WIDTH;
 	gameController::getInstance()->_user._cord._y = 1*PIC_WIDTH;
 	//_comp = new Computer();
+	std::cout << "Creating Computer Enemy\n";
 	gameController::getInstance()->_comp._cord._x = 18*PIC_WIDTH;
 	gameController::getInstance()->_comp._cord._y = 18*PIC_WIDTH;
 
@@ -345,5 +350,6 @@ void  gameController::explodeBomb(const Vertex &_cord)
 	gameController::getInstance()->_comp.setUserEnemyCord(&gameController::getInstance()->_user.getCord());
 	_objects.push_back(&gameController::getInstance()->_comp);
 	gameController::getInstance()->_graf.addObject(&gameController::getInstance()->_comp);
-	_kboard.addObject(&gameController::getInstance()->_comp);	
+	_kboard.addObject(&gameController::getInstance()->_comp);
+	std::cout << "Game is loaded\n";
  }

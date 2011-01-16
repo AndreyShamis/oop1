@@ -5,8 +5,8 @@ vector<Objects*> Grafic:: _objects;
 Grafic::Grafic(void)
 {
 	//glClearColor(1.0, 1.0, 1.0, 1.0);
-
-	glMatrixMode(GL_PROJECTION);
+	//glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_PROJECTION);  
     glLoadIdentity();
     gluOrtho2D(0, 1020, 0, 600);
 }
@@ -15,10 +15,10 @@ Grafic::Grafic(void)
 void Grafic::Display()
 {
 	
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glClear(GL_COLOR_BUFFER_BIT ); 
 	vector<Objects*>::iterator it;
 	
-	for(it=_objects.begin();it<_objects.end();it++)
+	for(it=_objects.begin();it!=_objects.end();it++)
 	{
 		if((*it)->_enabled)
 			(*it)->Draw();
@@ -26,9 +26,9 @@ void Grafic::Display()
 	}
 		
 
-	glFlush() ;
+	glFlush() ; 
 	glutSwapBuffers();
-	removeObjects();
+	//removeObjects();
 }
 
 //=============================================================================
