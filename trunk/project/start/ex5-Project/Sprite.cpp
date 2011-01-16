@@ -3,7 +3,14 @@
 using namespace std ;
 
 //=============================================================================
-
+Sprite::~Sprite()
+{
+	//for(int i=0;i<_height;i++)
+	//{
+	//	delete	  _image[i];
+	//}
+	//delete [] _image;
+}
 Sprite::Sprite(const char* filename) {
 
 

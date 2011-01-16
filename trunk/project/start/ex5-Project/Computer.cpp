@@ -57,11 +57,11 @@ bool Computer::CheckCorrect(const Vertex &_ncord,std::vector <Objects*> &_object
 						continue;
 									
 				}
-			if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
+			if( ( (*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
 				|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
 				|| ((*it)->_cord._y <= _cord._y && (*it)->_cord._y+27 >= _cord._y)
-				|| ((*it)->_cord._y <= _cord._y+27) && (*it)->_cord._y+27 >= _cord._y+27)
-				 
+				|| ( (*it)->_cord._y <= _cord._y+27 && (*it)->_cord._y+27 >= _cord._y+27)
+				)
 			{
 				// ili eta:	
 				if((((*it)->_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
@@ -244,25 +244,21 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 			break;
 		}
 			
-			//	decrease trys
-		computer_trys--;
-		//	reset new coordinates
-		_newCoordinate = _cord;
-		//	get random code
-		turnCode	=	(rand()% 4) + 1	;
+		computer_trys--;					//	decrease trys
+		_newCoordinate = _cord;				//	reset new coordinates
+		turnCode	=	(rand()% 4) + 1	;	//	get random code
 
 		if(checkEnemyinBombRaound() && !checkIfCellHaveBomb(_objects,_cord))//	check if player in araound
 		{	
 			turnCode= KEY_BOMB;
 		}
 		//	check if have barrel in arround and don`t have bombs
-		else if(!checkIfCellHaveBomb(_objects,_cord))
-			if(checkForBarrel(_objects))
+		else if(!checkIfCellHaveBomb(_objects,_cord) && checkForBarrel(_objects))
 				turnCode = KEY_BOMB;
-		else if(try_detect_enemy && _computerTryDetectEnemy > 7)
+		else if(try_detect_enemy && _computerTryDetectEnemy > 6)
 		{
 			//	
-			if(_computerTryDetectEnemy > 15)
+			if(_computerTryDetectEnemy > 11)
 				_computerTryDetectEnemy = 0;
 			//	get derection to enemy
 			int try_detect_code = getTurnCodeByDetectEnemy();
@@ -287,10 +283,11 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 				}
 				//	if correct turn
 				//	check if in next turn no bombs whith timer 1
-				if(checkExplodeBomb(_objects,_newCoordinate)	 )
+				if(checkExplodeBomb(_objects,_newCoordinate))
 					continue;
 				else
 					give = true;//	do new turn
+
 			}
 			else	//	incorrect param
 				continue;

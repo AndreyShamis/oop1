@@ -155,8 +155,8 @@ void gameController::idle()
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
 		
-		//if((*it)->intelect)
-		//	(*it)->VirtualPress(_objects);
+		if((*it)->intelect)
+			(*it)->VirtualPress(_objects);
 		if(typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0 && (*it)->_enabled)
 		{
 			sndPlaySound(L"SOUND/Boom.wav",SND_ASYNC | SND_NOSTOP);
@@ -167,7 +167,7 @@ void gameController::idle()
 		{
 			(*it)->_enabled = false;	
 		}
-		else if((*it)->_enabled && !(*it)->intelect)
+		else if((*it)->_enabled)
 		{
 			(*it)->Move(_objects) ;
 		}
@@ -225,20 +225,14 @@ void gameController::idle()
 //=============================================================================
 void  gameController::explodeBomb(const Vertex &_cord)
 { 
-	Present *new_present;
-	new_present = new Present();
-	new_present->_cord = _cord;
-	Grafic::_objects.push_back(new_present);
-	_objects.push_back(new_present);
+
 
 	Fire *new_fire=NULL;
 
-	new_fire = new Fire(EXP_START_USR,53);
+	new_fire = new Fire(EXP_START_USR,13);
 	new_fire->_cord = _cord;
 	Grafic::_objects.push_back(new_fire);
 	_objects.push_back(new_fire);
-
-	
 
 	for(int i=0;i<4;i++)
 	{
@@ -248,18 +242,18 @@ void  gameController::explodeBomb(const Vertex &_cord)
 		{
 		case 0:
 				strcpy_s(pic_fire,EXP_RIGHT_USR);
-				_fire_cord._x+=PIC_WIDTH;
+				_fire_cord._x+=PIC_WIDTH+1;
 				break;
 		case 1:
-				_fire_cord._x-=PIC_WIDTH;
+				_fire_cord._x-=PIC_WIDTH-1;
 				strcpy_s(pic_fire,EXP_LEFT_USR);
 				break;
 		case 2:
-				_fire_cord._y+=PIC_WIDTH;
+				_fire_cord._y+=PIC_WIDTH+1;
 				strcpy_s(pic_fire,EXP_DOWN_USR);
 				break;
 		case 3:
-				_fire_cord._y-=PIC_WIDTH;
+				_fire_cord._y-=PIC_WIDTH-1;
 				strcpy_s(pic_fire,EXP_UP_USR);
 				break;
 		}
@@ -277,10 +271,25 @@ void  gameController::explodeBomb(const Vertex &_cord)
 					break;
 				}
 			}
+			if((*it)->_enabled && typeid(**it) == typeid(Bochka))
+			{
+
+				if((*it)->checkCollision(_fire_cord,PIC_WIDTH,PIC_WIDTH))
+				{
+					have_col= false;
+					(*it)->_enabled = false;
+					Present *new_present;
+					new_present = new Present();
+					new_present->_cord = (*it)->getCord();
+					Grafic::_objects.push_back(new_present);
+					_objects.push_back(new_present);
+					break;
+				}
+			}
 		}
 		if(!have_col)
 		{
-			new_fire = new Fire(pic_fire,55);
+			new_fire = new Fire(pic_fire,15);
 			new_fire->_cord = _fire_cord;
 			Grafic::_objects.push_back(new_fire);
 			_objects.push_back(new_fire);

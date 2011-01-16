@@ -6,7 +6,8 @@
 class Objects
 {
 public:
-	Objects(void);
+	Objects();
+	~Objects();
 	virtual void Draw() = 0;
 	virtual void Move(std::vector<Objects *> &_objects) {};
 	virtual void Press(unsigned char key, int x, int y) {};
