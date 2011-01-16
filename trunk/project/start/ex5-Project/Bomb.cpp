@@ -26,8 +26,9 @@ void Bomb::Draw()
 		it = _sprite.begin();
 	else if(_timer> 10)
 		it = _sprite.begin()+1;
-	else if(_timer>=0)
+	else
 		it = _sprite.begin()+2;
+
 
 	it->Draw(_cord);
 	decTimer();
@@ -36,5 +37,8 @@ void Bomb::Draw()
 //=============================================================================
 void Bomb::decTimer()
 {
-	_timer--;
+	
+
+	if(_timer >=0)
+		_timer--;
 }
