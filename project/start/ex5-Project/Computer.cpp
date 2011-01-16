@@ -34,7 +34,12 @@ bool Computer::CheckCorrect(const Vertex &_ncord,std::vector <Objects*> &_object
 	vector<Objects*>::iterator it ;
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
-		if(!(*it)->movable)
+		if((*it) == NULL)
+		{
+			std::cout << "Error::Computer::CheckCorrect\n";
+			exit(EXIT_FAILURE);
+		}
+		else if(!(*it)->movable && (*it)->_enabled)
 		{
 				if(_way == KEY_UP)
 				{
@@ -152,12 +157,18 @@ bool Computer::checkIfCellHaveBomb(std::vector <Objects*> &_objects,const Vertex
 	vector<Objects*>::iterator it ;
 	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 	{
-		if(typeid(**it) == typeid(Bomb)  && (*it)->_enabled)
+		if((*it) == NULL)
 		{
-			if(((*it)->_cord._x <= _coordinate._x && (*it)->_cord._x+PIC_WIDTH>= _coordinate._x) 
-				|| ((*it)->_cord._x <= _coordinate._x+PIC_WIDTH && (*it)->_cord._x+PIC_WIDTH>= _coordinate._x+27) 
-				|| ((*it)->_cord._y <= _coordinate._y && (*it)->_cord._y+PIC_WIDTH>= _coordinate._y)
-				|| ((*it)->_cord._y <= _coordinate._y+PIC_WIDTH) && (*it)->_cord._y+PIC_WIDTH >= _coordinate._y+PIC_WIDTH)
+			std::cout << "Error::Computer::checkIfCellHaveBomb\n";
+			exit(EXIT_FAILURE);
+		}
+		else if(typeid(**it) == typeid(Bomb)  && (*it)->_enabled)
+		{
+			if((*it)->checkCollision(_coordinate,PIC_WIDTH,PIC_WIDTH))
+			//if(((*it)->_cord._x <= _coordinate._x && (*it)->_cord._x+PIC_WIDTH>= _coordinate._x) 
+			//	|| ((*it)->_cord._x <= _coordinate._x+PIC_WIDTH && (*it)->_cord._x+PIC_WIDTH>= _coordinate._x+27) 
+			//	|| ((*it)->_cord._y <= _coordinate._y && (*it)->_cord._y+PIC_WIDTH>= _coordinate._y)
+			//	|| ((*it)->_cord._y <= _coordinate._y+PIC_WIDTH) && (*it)->_cord._y+PIC_WIDTH >= _coordinate._y+PIC_WIDTH)
 				 
 			{
 					cout << "Have bomb\n";
@@ -180,8 +191,12 @@ bool Computer::checkExplodeBomb(std::vector <Objects*> &_objects,const Vertex &n
 	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 	{
 
-
-		if(typeid(**it) == typeid(Fire) && (*it)->_enabled)
+		if((*it) == NULL)
+		{
+			std::cout << "Error::Computer::checkExplodeBomb\n";
+			exit(EXIT_FAILURE);
+		}
+		else if(typeid(**it) == typeid(Fire) && (*it)->_enabled)
 		{
 			if((*it)->checkCollision(newCord,PIC_WIDTH,PIC_WIDTH))
 				return true;
