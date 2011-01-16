@@ -233,35 +233,58 @@ void  gameController::explodeBomb(const Vertex &_cord)
 
 	Fire *new_fire=NULL;
 
-	new_fire = new Fire(EXP_START_USR,13);
+	new_fire = new Fire(EXP_START_USR,53);
 	new_fire->_cord = _cord;
 	Grafic::_objects.push_back(new_fire);
 	_objects.push_back(new_fire);
 
-	new_fire = new Fire(EXP_RIGHT_USR,15);
-	new_fire->_cord = _cord;
-	new_fire->_cord._x+=PIC_WIDTH;
-	Grafic::_objects.push_back(new_fire);
-	_objects.push_back(new_fire);
+	vector<Objects*>::iterator it ;
 
-	new_fire = new Fire(EXP_LEFT_USR,15);
-	new_fire->_cord = _cord;
-	new_fire->_cord._x-=PIC_WIDTH;
-	Grafic::_objects.push_back(new_fire);
-	_objects.push_back(new_fire);
+	for(int i=0;i<4;i++)
+	{
+		Vertex _fire_cord = _cord;
+		char pic_fire[100];
+		switch(i)
+		{
+		case 0:
+				strcpy_s(pic_fire,EXP_RIGHT_USR);
+				_fire_cord._x+=PIC_WIDTH;
+				break;
+		case 1:
+				_fire_cord._x-=PIC_WIDTH;
+				strcpy_s(pic_fire,EXP_LEFT_USR);
+				break;
+		case 2:
+				_fire_cord._y+=PIC_WIDTH;
+				strcpy_s(pic_fire,EXP_DOWN_USR);
+				break;
+		case 3:
+				_fire_cord._y-=PIC_WIDTH;
+				strcpy_s(pic_fire,EXP_UP_USR);
+				break;
+		}
+		bool have_col = false;
+		for( it =  _objects.begin() ; it != _objects.end() ; it++ )
+		{
+			if(typeid(**it) == typeid(Wall))
+			{
 
+				if((*it)->checkCollision(_fire_cord,PIC_WIDTH,PIC_WIDTH))
+				{
+					have_col= true;
+					break;
+				}
+			}
+		}
+		if(!have_col)
+		{
+			new_fire = new Fire(EXP_RIGHT_USR,55);
+			new_fire->_cord = _fire_cord;
+			Grafic::_objects.push_back(new_fire);
+			_objects.push_back(new_fire);
+		}
+	}
 
-	new_fire = new Fire(EXP_DOWN_USR,15);
-	new_fire->_cord = _cord;
-	new_fire->_cord._y+=PIC_WIDTH;
-	Grafic::_objects.push_back(new_fire);
-	_objects.push_back(new_fire);
-
-	new_fire = new Fire(EXP_UP_USR,15);
-	new_fire->_cord = _cord;
-	new_fire->_cord._y-=PIC_WIDTH;
-	Grafic::_objects.push_back(new_fire);
-	_objects.push_back(new_fire);
 }
 
  //=============================================================================

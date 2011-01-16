@@ -3,8 +3,14 @@
 #define LANE	' '
 #define BARREL	'O'
 #define MAPS_FOLDER			"MAPS"
-#define RGBA_SIZE			"28x28"
+#define RGBA_SIZE			"28x28_alfa"
 #define RGBA_FOLDER			"RGBA"
+
+//surprises
+#define SURPRISE_BOMB		"bomb_surprise_rgba.txt"
+#define SURPRISE_TIME		"clock_rgba.txt"
+#define SURPRISE_LIHT		"light_rgba.txt"
+
 
 #define SPACE				"space_rgba.txt"
 #define SURPRISE			"surprise_rgba.txt"
@@ -34,7 +40,7 @@
 #define BOMB_BEFOR			"bomb.one.step.befor.explogen_rgba.txt"
 #define BOMB_STEP_ONE		"bomb_step_one_rgba.txt"
 #define BOMB_STEP_TWO		"bomb_step_two_rgba.txt"
-#define BOMB_SURPRISE		"bomb_surprise_rgba.txt"
+
 #define BOMB_STEP_TWO_USR	"bomb_step_two_user_rgba.txt"
 #define BOMB_STEP_ONE_USR	"bomb_step_one_user_rgba.txt"
 #define BOMB_BEFOR_USR		"bomb.one.step.befor.explosion.user_rgba.txt"
