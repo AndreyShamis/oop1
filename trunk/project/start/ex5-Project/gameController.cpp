@@ -386,6 +386,11 @@ void  gameController::explodeBomb(const Vertex &_cord)
 		}
 		std::cout << "Textures loaded\n";
 	}
+	else
+	{
+		std::cout << "Can not open file " << path << "\n";
+	}
+
 	myReadFile.close();
 
 	//_user = new User();
