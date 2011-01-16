@@ -1,5 +1,7 @@
 #pragma once
 #include "Player.h"
+#include "Bochka.h"
+#include "Fire.h"
 #include <time.h>
 #include <typeinfo>
 using namespace std;
@@ -15,6 +17,9 @@ private:
 	Vertex _newCoordinate;
 	bool checkIfCellHaveBomb(std::vector <Objects*> &_objects,const Vertex &_coordinate);
 	void turnLogic(const short int &turnCode);
+	bool checkForBarrel(std::vector <Objects*> &_objects);
+	bool checkExplodeBomb(std::vector <Objects*> &_objects,const Vertex &newCord);
+
 	//=============================================================================
 	// Output: if yes return true
 	// else return false.
