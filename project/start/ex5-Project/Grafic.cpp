@@ -20,8 +20,15 @@ void Grafic::Display()
 	
 	for(it=_objects.begin();it!=_objects.end();it++)
 	{
-		if((*it)->_enabled)
-			(*it)->Draw();
+		if(*it == NULL)
+		{
+			std::cout << "Have null object in memory\n";
+		}
+		else
+		{
+			if((*it)->_enabled)
+				(*it)->Draw();
+		}
 
 	}
 		
