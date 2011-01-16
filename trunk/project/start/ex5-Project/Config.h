@@ -11,6 +11,17 @@
 #define SURPRISE_TIME		"clock_rgba.txt"
 #define SURPRISE_LIHT		"light_rgba.txt"
 
+//menu
+#define MENU_LOSE			"loser_score_rgba.txt"
+
+#define MENU_USR_L_1		"player_score_1_rgba.txt"
+#define MENU_USR_L_2		"player_score_2_rgba.txt"
+#define MENU_USR_L_3		"player_score_3_rgba.txt"
+
+#define MENU_ENM_L_1		"enemy_score_1_rgba.txt"
+#define MENU_ENM_L_2		"enemy_score_2_rgba.txt"
+#define MENU_ENM_L_3		"enemy_score_3_rgba.txt"
+
 
 #define SPACE				"space_rgba.txt"
 #define SURPRISE			"surprise_rgba.txt"
