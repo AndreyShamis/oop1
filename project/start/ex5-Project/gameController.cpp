@@ -1,6 +1,5 @@
 #include "gameController.h"
-#include <typeinfo>
-#include "mmsystem.h"
+
 struct graf_point
 {
 	struct nightb *_nb;
@@ -154,7 +153,12 @@ void gameController::idle()
 
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 	{
-		
+			if((*it) == NULL)
+			{
+				std::cout << "Some error in IDLE 22222\n";
+				exit(EXIT_FAILURE);
+			}
+
 		if((*it)->intelect)
 			(*it)->VirtualPress(_objects);
 		if(typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0 && (*it)->_enabled)
@@ -183,7 +187,12 @@ void gameController::idle()
 
 		for( it =  _objects.begin() ; it !=_objects.end() ; it++ )
 		{
-			if(typeid(**it) != typeid(User)  && typeid(**it) != typeid(Computer))
+			if((*it) == NULL)
+			{
+				std::cout << "Some error in IDLE 22222\n";
+				exit(EXIT_FAILURE);
+			}
+				if(typeid(**it) != typeid(User)  && typeid(**it) != typeid(Computer))
 				delete *it;
 		}
 		//clearAll();
@@ -242,18 +251,18 @@ void  gameController::explodeBomb(const Vertex &_cord)
 		{
 		case 0:
 				strcpy_s(pic_fire,EXP_RIGHT_USR);
-				_fire_cord._x+=PIC_WIDTH+1;
+				_fire_cord._x+=PIC_WIDTH;
 				break;
 		case 1:
-				_fire_cord._x-=PIC_WIDTH-1;
+				_fire_cord._x-=PIC_WIDTH;
 				strcpy_s(pic_fire,EXP_LEFT_USR);
 				break;
 		case 2:
-				_fire_cord._y+=PIC_WIDTH+1;
+				_fire_cord._y+=PIC_WIDTH;
 				strcpy_s(pic_fire,EXP_DOWN_USR);
 				break;
 		case 3:
-				_fire_cord._y-=PIC_WIDTH-1;
+				_fire_cord._y-=PIC_WIDTH;
 				strcpy_s(pic_fire,EXP_UP_USR);
 				break;
 		}
@@ -262,30 +271,41 @@ void  gameController::explodeBomb(const Vertex &_cord)
 		vector<Objects*>::iterator it ;
 		for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 		{
-			if((*it)->_enabled && typeid(**it) == typeid(Wall))
+			if((*it) == NULL)
+			{
+				std::cout << "Error in Explode Bomb\n";
+				exit(EXIT_FAILURE);
+			}
+			else
 			{
 
-				if((*it)->checkCollision(_fire_cord,PIC_WIDTH,PIC_WIDTH))
+				if((*it)->_enabled && typeid(**it) == typeid(Wall))
 				{
-					have_col= true;
-					break;
-				}
-			}
-			if((*it)->_enabled && typeid(**it) == typeid(Bochka))
-			{
 
-				if((*it)->checkCollision(_fire_cord,PIC_WIDTH,PIC_WIDTH))
-				{
-					have_col= false;
-					(*it)->_enabled = false;
-					Present *new_present;
-					new_present = new Present();
-					new_present->_cord = (*it)->getCord();
-					Grafic::_objects.push_back(new_present);
-					_objects.push_back(new_present);
-					break;
+					if((*it)->checkCollision(_fire_cord,PIC_WIDTH,PIC_WIDTH))
+					{
+						have_col= true;
+						break;
+					}
 				}
+				if((*it)->_enabled && typeid(**it) == typeid(Bochka))
+				{
+
+					if((*it)->checkCollision(_fire_cord,PIC_WIDTH,PIC_WIDTH))
+					{
+						have_col= false;
+						(*it)->_enabled = false;
+						Present *new_present;
+						new_present = new Present();
+						new_present->_cord = (*it)->getCord();
+						Grafic::_objects.push_back(new_present);
+						_objects.push_back(new_present);
+						
+					}
+				}
+
 			}
+
 		}
 		if(!have_col)
 		{

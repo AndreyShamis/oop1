@@ -2,7 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
-
+#include <typeinfo>
 #include "Grafic.h"
 #include "Keyboard.h"
 #include <glut.h>
