@@ -7,17 +7,18 @@ Present::Present()
 	_present_type =	(rand()% 3) + 1	;
 	switch(_present_type)
 	{
-	case 0:
+	case 1:
 		_sprite.push_back(SURPRISE_BOMB);
 		break;
-	case 1:
+	case 2:
 		_sprite.push_back(SURPRISE_TIME);
 		break;
-	case 2:
+	case 3:
 		_sprite.push_back(SURPRISE_LIHT);
 		break;
 	default:
 		std::cout << "Error create surprise\n";
+		exit(EXIT_FAILURE);
 		break;
 	}
 	
