@@ -28,7 +28,7 @@ public:
 	virtual void SpecPress(int key, int x, int y){};
 	short int _way;
 
-	virtual void Move(std::vector<Objects *> &_objects,bool &have_p);
+	virtual void Move(std::vector<Objects *> &_objects);
 	//short int MathMaxStepSpeed();
 	short int getLife()const ;
 	void setLife(const short int &new_Val);

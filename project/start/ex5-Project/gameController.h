@@ -44,4 +44,7 @@ protected:
 	static void Reload_Game_Stat();
 	static void decreaseTimer();
 	static void removeDisabledObjects();
+	static void applyPresents();
+	static void IncreaseAllBombsTimers();
+	static void ExplodeAllBombsTimers();
 };

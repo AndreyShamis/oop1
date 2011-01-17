@@ -21,7 +21,10 @@ short int Bomb::getTimer()
 {
 	return(_timer);
 }
-
+void Bomb::IncereaseTimer()
+{
+	_timer+=BOMB_TIMER_INCREASER;
+}
 //=============================================================================
 void Bomb::Draw()
 {

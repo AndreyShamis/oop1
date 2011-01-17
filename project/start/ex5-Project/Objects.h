@@ -9,13 +9,14 @@ public:
 	Objects();
 	virtual ~Objects();
 	virtual void Draw() {};
-	virtual void Move(std::vector<Objects *> &_objects,bool &have_p) {};
+	virtual void Move(std::vector<Objects *> &_objects) {};
 	virtual void Press(unsigned char key, int x, int y) {};
 	virtual void SpecPress(int key, int x, int y) {};
 	virtual void VirtualPress(std::vector <Objects*> &_objects) {};
 	virtual void decTimer() {};
 	virtual short int getTimer() {return 0;};
-
+	virtual void IncereaseTimer(){};
+	virtual short int getPresentType(){return 0;};
 
 	void setCord(const Vertex &newCoordinate);
 	void setCordByFloat(const float &x,const float &y);
@@ -28,13 +29,17 @@ public:
 	int movable;
 	int intelect;
 
-
+	bool isTakeable();
+	bool isTaked();
+	void setTaked();
 
 protected:
 	std::vector <Sprite> _sprite;
 	bool _enabled;
 	Vertex _cord;
 	int _timer;
+	bool _taked;
+	bool _takable;
 
 
 };

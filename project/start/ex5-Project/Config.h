@@ -11,6 +11,15 @@
 #define SURPRISE_TIME		"clock_rgba.txt"
 #define SURPRISE_LIHT		"light_rgba.txt"
 
+//	bomb add time
+#define BOMB_TIMER_INCREASER 30
+
+//present tipes
+#define PRESENT_BOMB		1
+#define PRESENT_TIME		2
+#define PRESENT_LIGHT		3
+
+
 //menu
 #define MENU_LOSE			"loser_score_rgba.txt"
 

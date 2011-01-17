@@ -6,11 +6,29 @@ Objects::Objects(void)
 	movable = 1;
 	intelect = 0;
 	_enabled = true;
+	_takable = false;
+	_taked = false;
 }
 
 Objects::~Objects()
 {
 	_sprite.clear();
+}
+
+
+bool Objects::isTakeable()
+{	
+	return(_takable);
+}
+
+
+bool Objects::isTaked()
+{
+	return(_taked);
+}
+void Objects::setTaked()
+{
+	_taked = true;
 }
 //=============================================================================
 

@@ -9,7 +9,7 @@ class Present:public Objects
 public:
 	Present();
 	virtual void Draw();
-
+	short int getPresentType();
 private:
 	short int _present_type;
 };

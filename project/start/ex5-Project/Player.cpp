@@ -75,7 +75,7 @@ void Player::decLife()
 
 }
 //=============================================================================
-void Player::Move(std::vector<Objects *> &_objects,bool &have_p)
+void Player::Move(std::vector<Objects *> &_objects)
 {
 //if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
 //	|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
@@ -91,7 +91,7 @@ void Player::Move(std::vector<Objects *> &_objects,bool &have_p)
 //	(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
 //{	
 	vector<Objects*>::const_iterator it ;
-	have_p = false;
+
 	if(_way == KEY_BOMB  )
 	{
 		bool can_put_B = true;
@@ -105,11 +105,11 @@ void Player::Move(std::vector<Objects *> &_objects,bool &have_p)
 		}
 		if(can_put_B)
 		{
-			have_p = true;
-			//Bomb *new_bomb = new Bomb();
-			//new_bomb->setCord(_cord);
-			//_objects.push_back(new_bomb);
-			//Grafic::addObject(new_bomb);
+
+			Bomb *new_bomb = new Bomb();
+			new_bomb->setCord(_cord);
+			_objects.push_back(new_bomb);
+			Grafic::addObject(new_bomb);
 		}
 	
 			
@@ -146,6 +146,11 @@ void Player::Move(std::vector<Objects *> &_objects,bool &have_p)
 				}
 			}
 		}
+		if(_have_move)
+			for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+				if((*it) != this && (*it)->isTakeable() && (*it)->isEnabled() )
+					if((*it)->checkCollision(_new_cord,PIC_WIDTH,PIC_WIDTH))
+						(*it)->setTaked();
 
 		if(_have_move)
 			_cord = _new_cord;
