@@ -9,12 +9,9 @@ void Player::PlayerStart()
 	
 }
 
-
 //=============================================================================
 void Player::Draw()
 {
-	//glClear (GL_COLOR_BUFFER_BIT);
-
 	vector<Sprite>::iterator it ;
 	switch(_way) 
 	{
@@ -37,27 +34,6 @@ void Player::Draw()
 	it->Draw(_cord) ;
 }
 
-////=============================================================================
-//
-//short int Player::MathMaxStepSpeed()
-//{
-//
-//	if(_way == KEY_UP || _way == KEY_DOWN)
-//	{
-//		if((int)_cord._y%PIC_WIDTH < STEP_SPEED && (int)_cord._y%PIC_WIDTH > 0)
-//			return((int)_cord._y%29 );
-//
-//	}
-//	else if(_way == KEY_RIGHT || _way == KEY_LEFT)
-//	{
-//		if((int)_cord._x%PIC_WIDTH < STEP_SPEED && (int)_cord._x%PIC_WIDTH > 0)
-//			return((int)_cord._x%PIC_WIDTH );
-//
-//	}
-//
-//	
-//	return(STEP_SPEED);
-//}
 //=============================================================================
 short int Player::getLife()const 
 {
@@ -77,19 +53,6 @@ void Player::decLife()
 //=============================================================================
 void Player::Move(std::vector<Objects *> &_objects)
 {
-//if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
-//	|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
-//	|| ((*it)->_cord._y <= _cord._y && (*it)->_cord._y+27 >= _cord._y)
-//	|| ((*it)->_cord._y <= _cord._y+27) && (*it)->_cord._y+27 >= _cord._y+27)
-//	 
-//{
-
-// ili eta:	
-//if((((*it)->_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
-//	(((*it)->_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
-//	(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
-//	(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
-//{	
 	vector<Objects*>::const_iterator it ;
 
 	if(_way == KEY_BOMB  )
@@ -111,11 +74,7 @@ void Player::Move(std::vector<Objects *> &_objects)
 			_objects.push_back(new_bomb);
 			Grafic::addObject(new_bomb);
 		}
-	
-			
-
-		_way =		_way_prev;//KEY_DOWN ;
-
+		_way =		_way_prev;
 	}
 	else 
 	{
@@ -133,8 +92,8 @@ void Player::Move(std::vector<Objects *> &_objects)
 					if(typeid(**it) == typeid(Fire))
 					{
 						_alive = false;
-						decLife();
-						std::cout << "Your life is " << getLife() << "\n";
+						//decLife();
+						//std::cout << "Your life is " << getLife() << "\n";
 					}
 					else
 					{
