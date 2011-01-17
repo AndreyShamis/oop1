@@ -20,6 +20,12 @@
 #define PRESENT_LIGHT		3
 
 
+#define LEVEL_1_PIC			""
+#define LEVEL_2_PIC			""
+#define LEVEL_3_PIC			""
+#define LEVEL_4_PIC			""
+#define LEVEL_5_PIC			""
+
 //menu
 #define MENU_LOSE			"loser_score_rgba.txt"
 

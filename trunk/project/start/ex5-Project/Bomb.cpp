@@ -9,6 +9,7 @@ Bomb::Bomb()
 	_sprite.push_back(BOMB_BEFOR);
 	movable = 0;
 	_timer = 25;
+	setSize();
 }
 
 //=============================================================================

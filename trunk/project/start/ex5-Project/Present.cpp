@@ -23,6 +23,7 @@ Present::Present()
 	}
 	_takable = true;
 	movable = 1;
+	setSize();
 
 }
 

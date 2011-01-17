@@ -7,7 +7,9 @@ Computer gameController::_comp;
 User gameController::_user;
 Menu gameController::_user_menu(false);
 Menu gameController::_comp_menu(true);
-
+Level gameController::_level_menu;
+float gameController::_WORLD_height;
+float gameController::_WORLD_width;
 short int gameController::_level;
 
 
@@ -27,6 +29,7 @@ gameController* gameController::getInstance()
 gameController::gameController()
 {
 	_level = 1;
+
 	LoadGame();
 }
 
@@ -44,7 +47,7 @@ glLoadIdentity();
 //=============================================================================
 void gameController::LoadGame()
 {
-
+	
 	ifstream myReadFile;
 	char path[200];
 	memset(path,'\0',200);
@@ -56,7 +59,7 @@ void gameController::LoadGame()
 	else if(_level == 1)
 		strcat_s(path,"/map3.txt");
 
-
+	gameController::getInstance()->_level_menu.setLevel(_level);
 	myReadFile.open(path);
 	
 	int countX=0,
@@ -71,6 +74,8 @@ void gameController::LoadGame()
 			// Load line to array.
 			
 			char ch = myReadFile.get();
+			_WORLD_width	= max(_WORLD_width,countX*PIC_WIDTH);
+			_WORLD_height	= max(_WORLD_height,countY*PIC_WIDTH);
 
 			if(ch == FENCE)			//	zabor
 			{
@@ -123,7 +128,7 @@ void gameController::LoadGame()
 	Vertex _menu_cord;
 	_menu_cord._x = 580;
 	_menu_cord._y = 50;
-
+	
 	_user_menu.setCord(_menu_cord);
 	_objects.push_back(&_user_menu);
 	_graf.addObject(&_user_menu);
@@ -154,7 +159,11 @@ void gameController::applyPresents()
 		if((*it)->isTaked())
 		{
 			if((*it)->getPresentType() == PRESENT_BOMB)
-				;
+			{
+				Vertex _dneedit = (*it)->getCord();
+
+				PutRandomBomb((int)(_dneedit._x*_dneedit._y));
+			}
 			else if((*it)->getPresentType() == PRESENT_TIME)
 				IncreaseAllBombsTimers();
 			else if((*it)->getPresentType() == PRESENT_LIGHT)
@@ -182,18 +191,64 @@ void gameController::IncreaseAllBombsTimers()
 	}
 }
 
-void gameController::PutRandomBomb()
+Vertex gameController::GetEmptyCellCord(const int &i)
 {
-
-	vector<Objects*>::iterator it ;
-	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
+	srand ( time(NULL) );
+	static Vertex _new_cord;
+		_new_cord._x = 0;
+		_new_cord._y = 0;
+	int trys = 100;
+	int x=i;
+	int y=1;
+	while(true)
 	{
-		if(typeid(**it) == typeid(Bomb) && (*it)->isEnabled())
-		{
-			
-			(*it)->IncereaseTimer();
+		x =	rand()%(int)(_WORLD_width-i%PIC_WIDTH)+1;
+		y =	rand()%(int)(_WORLD_height-(i*x)%PIC_WIDTH)+1;
 
+		for(int i =0;i <PIC_WIDTH && (int)x%PIC_WIDTH ==0;i++)
+		{	
+			x+=1;
 		}
+		for(int i =0;i<PIC_WIDTH && (int)y%PIC_WIDTH ==0;i++)
+		{	
+			y+=1;
+		}
+		_new_cord._x = x;
+		_new_cord._y = y;
+		vector<Objects*>::iterator it ;
+		bool copm = false;
+		for( it =  _objects.begin() ; it != _objects.end() ; it++ )
+		{
+			Vertex it_cord = (*it)->getCord();
+			if((*it)->isEnabled() && it_cord._x == _new_cord._x && it_cord._y == _new_cord._y)
+			{
+				copm = false;
+				break;
+				
+			}
+			if(copm)
+				return(_new_cord);
+		}
+		trys--;
+		if(trys < 0)
+			return(_new_cord);
+		
+	}
+
+
+	return(_new_cord);
+}
+
+
+void gameController::PutRandomBomb(const int &i)
+{
+	Vertex _new_cord = GetEmptyCellCord(i);
+	if(_new_cord._x != 0 && _new_cord._y !=0)
+	{
+		Bomb *new_bomb = new Bomb();
+		new_bomb->setCord(_new_cord);
+		gameController::getInstance()->_objects.push_back(new_bomb);
+		gameController::getInstance()->_graf.addObject(new_bomb);
 	}
 }
 void gameController::ExplodeAllBombsTimers()
@@ -526,5 +581,7 @@ void gameController::idle()
 	
 	_user_menu.setLife(gameController::getInstance()->_user.getLife());
 	_comp_menu.setLife(gameController::getInstance()->_comp.getLife());
+
+	gameController::getInstance()->_level_menu.setLevel(_level);
 	std::cout << "Game is loaded\n";
  }

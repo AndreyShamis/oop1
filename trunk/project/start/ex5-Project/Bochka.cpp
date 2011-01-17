@@ -5,6 +5,7 @@ Bochka::Bochka()
 {
 	_sprite.push_back(SURPRISE);
 	movable = 0;
+	setSize();
 }
 
 //=============================================================================

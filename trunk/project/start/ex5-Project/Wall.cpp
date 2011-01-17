@@ -5,6 +5,7 @@ Wall::Wall()
 {
 	_sprite.push_back(WALL);
 	movable = 0;
+	setSize();
 }
 //=============================================================================
 void Wall::Draw()
