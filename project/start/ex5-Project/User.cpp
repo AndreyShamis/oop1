@@ -13,6 +13,7 @@ User::User()
 
 	movable = 1;
 	PlayerStart();
+	setSize();
 }
 
 

@@ -32,7 +32,7 @@ public:
 	bool isTakeable();
 	bool isTaked();
 	void setTaked();
-
+	void setSize();
 protected:
 	std::vector <Sprite> _sprite;
 	bool _enabled;
@@ -40,6 +40,8 @@ protected:
 	int _timer;
 	bool _taked;
 	bool _takable;
+	float _height;
+	float _width;
 
 
 };

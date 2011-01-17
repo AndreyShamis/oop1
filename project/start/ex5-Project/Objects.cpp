@@ -3,11 +3,12 @@
 //=============================================================================
 Objects::Objects(void)
 {
-	movable = 1;
-	intelect = 0;
-	_enabled = true;
-	_takable = false;
-	_taked = false;
+	movable		=	1;
+	intelect	=	0;
+	_enabled	=	true;
+	_takable	=	false;
+	_taked		=	false;
+
 }
 
 Objects::~Objects()
@@ -15,6 +16,11 @@ Objects::~Objects()
 	_sprite.clear();
 }
 
+void Objects::setSize()
+{
+	_width		=	_sprite[0]._width;
+	_height		=	_sprite[0]._height;
+}
 
 bool Objects::isTakeable()
 {	

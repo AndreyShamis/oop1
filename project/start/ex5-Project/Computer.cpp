@@ -16,6 +16,7 @@ Computer::Computer(void)
 	movable = 0;
 	_computerTryDetectEnemy = 0;
 	PlayerStart();
+	setSize();
 }
 
 void Computer::setUserEnemyCord(const Vertex *_cord)

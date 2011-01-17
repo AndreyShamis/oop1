@@ -7,6 +7,7 @@ Fire::Fire(const char *filename,const short int &time)
 
 	movable = 0;
 	_timer = time;
+	setSize();
 }
 
 

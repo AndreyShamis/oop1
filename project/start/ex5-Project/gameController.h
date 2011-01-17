@@ -15,6 +15,7 @@
 #include "Present.h"
 #include "Fire.h"
 #include "Menu.h"
+#include "Level.h"
 #include <windows.h> // for PlaySound()
 using namespace std;
 
@@ -37,6 +38,7 @@ protected:
 	static User		_user;
 	static Menu		_comp_menu;
 	static Menu		_user_menu;
+	static Level		_level_menu;
 	gameController();
 	static gameController *_inst;
 	static short int _level;
@@ -47,4 +49,9 @@ protected:
 	static void applyPresents();
 	static void IncreaseAllBombsTimers();
 	static void ExplodeAllBombsTimers();
+	static float _WORLD_height;
+	static float _WORLD_width;
+	static Vertex GetEmptyCellCord(const int &i);
+	static void PutRandomBomb(const int &i);
+
 };

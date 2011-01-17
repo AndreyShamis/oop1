@@ -200,6 +200,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Level.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Main.cpp"
 				>
 			</File>
@@ -271,6 +275,10 @@
 			</File>
 			<File
 				RelativePath=".\Keyboard.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Level.h"
 				>
 			</File>
 			<File
