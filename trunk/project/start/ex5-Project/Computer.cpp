@@ -260,15 +260,14 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 		_newCoordinate = _cord;				//	reset new coordinates
 		turnCode	=	(rand()% 4) + 1	;	//	get random code
 		bool cell_have_B = checkIfCellHaveBomb(_objects,_cord);
-		//if(checkEnemyinBombRaound() && !cell_have_B)//	check if player in araound
-		//{	
-		//	//turnCode= KEY_BOMB;
-		//}
-		////	check if have barrel in arround and don`t have bombs
-		//else if(!cell_have_B && checkForBarrel(_objects))
-		//		turnCode = KEY_BOMB;
-		//else 
-			if(try_detect_enemy && _computerTryDetectEnemy > 6)
+		if(checkEnemyinBombRaound() && !cell_have_B)//	check if player in araound
+		{	
+			//turnCode= KEY_BOMB;
+		}
+		//	check if have barrel in arround and don`t have bombs
+		else if(!cell_have_B && checkForBarrel(_objects))
+				turnCode = KEY_BOMB;
+		else if(try_detect_enemy && _computerTryDetectEnemy > 6)
 		{
 			//	
 			if(_computerTryDetectEnemy > 11)
