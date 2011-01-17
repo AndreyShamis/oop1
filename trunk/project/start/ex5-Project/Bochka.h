@@ -1,3 +1,11 @@
+/*
+
+	This class provide Object for which can be exloaded
+
+
+	
+*/
+
 #pragma once
 #include "Objects.h"
 #include "Sprite.h"

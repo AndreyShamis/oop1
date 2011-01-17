@@ -1,3 +1,11 @@
+/*
+
+	This class provide config and define variables
+
+
+	
+*/
+
 
 #define FENCE	'#'
 #define LANE	' '
@@ -7,7 +15,7 @@
 #define RGBA_FOLDER			"RGBA"
 
 
-
+#define CHAR_MAX_STR_LEN    200
 //surprises
 #define SURPRISE_BOMB		"bomb_surprise_rgba.txt"
 #define SURPRISE_TIME		"clock_rgba.txt"

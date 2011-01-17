@@ -1,3 +1,9 @@
+/*
+
+	This class provide  empty space cell
+
+*/
+
 #pragma once
 #include "Objects.h"
 #include "Sprite.h"

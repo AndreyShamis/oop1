@@ -1,3 +1,12 @@
+/*
+
+	This class provide a class for all drowable object which
+	be drawed
+
+
+	
+*/
+
 #pragma once
 
 #include "Objects.h"

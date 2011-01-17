@@ -1,5 +1,13 @@
+/*
+
+	This class provide 
+
+
+	
+*/
+
 #pragma once
-//#include "Config.h"
+
 #include <vector>
 #include "Sprite.h"
 using namespace std ;

@@ -1,3 +1,12 @@
+/*
+
+	This class provide Fire from Bombs
+
+
+	
+*/
+
+
 #pragma once
 #include <vector>
 #include "Objects.h"

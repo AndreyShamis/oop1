@@ -18,8 +18,8 @@ Objects::~Objects()
 //=============================================================================
 void Objects::setSize()
 {
-	_width		=	_sprite[0]._width;
-	_height		=	_sprite[0]._height;
+	_width		=	_sprite[0].getWidth();
+	_height		=	_sprite[0].getHeight();
 }
 //=============================================================================
 bool Objects::isTakeable()
