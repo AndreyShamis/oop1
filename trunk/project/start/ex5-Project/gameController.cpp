@@ -103,8 +103,8 @@ Vertex gameController::GetEmptyCellCord(const int &i)
 	int y=1;
 	while(true)
 	{
-		x =	rand()%(int)(_WORLD_width)+1;
-		y =	rand()%(int)(_WORLD_height)+1;
+		x =	rand()%(int)(_WORLD_width-2*PIC_WIDTH)+1;
+		y =	rand()%(int)(_WORLD_height-2*PIC_WIDTH)+1;
 
 		for(int i =0;i <PIC_WIDTH && (int)x%PIC_WIDTH !=0;i++)
 		{	

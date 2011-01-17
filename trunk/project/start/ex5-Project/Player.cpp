@@ -1,6 +1,7 @@
 #include "Player.h"
 
 //=============================================================================
+//	Set some setings
 void Player::PlayerStart()
 {
 	setLife(3);
@@ -10,6 +11,7 @@ void Player::PlayerStart()
 }
 
 //=============================================================================
+//	Function to drow the player
 void Player::Draw()
 {
 	vector<Sprite>::iterator it ;
@@ -35,16 +37,21 @@ void Player::Draw()
 }
 
 //=============================================================================
+//	Return life
 short int Player::getLife()const 
 {
 	return(_life);
 }
+
 //=============================================================================
+//	Set life
 void Player::setLife(const short int &new_Val)
 {
 	_life = new_Val;
 }
+
 //=============================================================================
+//	Decrease life
 void Player::decLife()
 {
 	_life--;
@@ -83,12 +90,10 @@ void Player::Move(std::vector<Objects *> &_objects)
 		_new_cord = _cord;
 		mathNewCord();
 		for( it =  _objects.begin() ; it < _objects.end() ; it++ )
-		{
 			if((*it) != this && !(*it)->movable && (*it)->isEnabled() )
-			{
-				//	dvoyanaya proverka nujna chtobi vyti s bombi kogfda ee postavil
-				if((*it)->checkCollision(_new_cord,PIC_WIDTH,PIC_WIDTH) && !(*it)->checkCollision(_cord,PIC_WIDTH,PIC_WIDTH))
-				{
+				//	check if have collision in new and old coordinate need for get out from bomb
+				if((*it)->checkCollision(_new_cord,PIC_WIDTH,PIC_WIDTH) 
+					&& !(*it)->checkCollision(_cord,PIC_WIDTH,PIC_WIDTH))
 					if(typeid(**it) == typeid(Fire))
 					{
 						_alive = false;
@@ -101,10 +106,7 @@ void Player::Move(std::vector<Objects *> &_objects)
 						break;
 
 					}
-					
-				}
-			}
-		}
+
 		if(_have_move)
 			for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 				if((*it) != this && (*it)->isTakeable() && (*it)->isEnabled() )

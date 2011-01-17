@@ -1,7 +1,6 @@
 /*
 
-	This class provide 
-
+	This class provide present-surprise class
 
 	
 */
@@ -17,8 +16,8 @@ class Present:public Objects
 public:
 	Present();
 	virtual void Draw();
+	//	This function return the present type
 	short int getPresentType();
 private:
-	//	This function return the present type
-	short int _present_type;
+	short int _present_type;		//	indication to know what is the type of present
 };
