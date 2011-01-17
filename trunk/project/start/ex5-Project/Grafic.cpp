@@ -38,7 +38,6 @@ void Grafic::addObject(Objects *newObject)
 
 void Grafic::clearObject(Objects *obj)
 {
-	std::cout << "############################\n############################\n\n##################################\nClearing ong\n" ;
 
 	const int _vec_size = (int)_objectsDrow.size();
 	for(int i=0;i<_vec_size;i++)

@@ -7,7 +7,7 @@ Level::Level()
 	_sprite.push_back(LEVEL_3_PIC);
 	_sprite.push_back(LEVEL_4_PIC);
 	_sprite.push_back(LEVEL_5_PIC);
-	_level = 0;
+	_level = 1;
 }
 
 

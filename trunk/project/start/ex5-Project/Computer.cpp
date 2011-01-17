@@ -263,11 +263,15 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 		bool cell_have_B = checkIfCellHaveBomb(_objects,_cord);
 		if(checkEnemyinBombRaound() && !cell_have_B)//	check if player in araound
 		{	
-			//turnCode= KEY_BOMB;
+			turnCode= KEY_BOMB;
 		}
 		//	check if have barrel in arround and don`t have bombs
 		else if(!cell_have_B && checkForBarrel(_objects))
-				turnCode = KEY_BOMB;
+		{
+				int put_bomb =	(rand()% MAX_BOMB_COMP) + 1	;	//	get random code
+				if(put_bomb<LIMIT_BOMB_COMP)
+					turnCode = KEY_BOMB;
+		}
 		else if(try_detect_enemy && _computerTryDetectEnemy > 6)
 		{
 			//	

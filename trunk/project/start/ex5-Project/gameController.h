@@ -38,7 +38,7 @@ protected:
 	static User		_user;
 	static Menu		_comp_menu;
 	static Menu		_user_menu;
-	static Level		_level_menu;
+	static Level	_level_menu;
 	gameController();
 	static gameController *_inst;
 	static short int _level;
@@ -53,5 +53,7 @@ protected:
 	static float _WORLD_width;
 	static Vertex GetEmptyCellCord(const int &i);
 	static void PutRandomBomb(const int &i);
+
+	static bool _GameStared;
 
 };

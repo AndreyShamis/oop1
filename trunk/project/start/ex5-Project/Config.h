@@ -6,6 +6,8 @@
 #define RGBA_SIZE			"28x28_alfa"
 #define RGBA_FOLDER			"RGBA"
 
+
+
 //surprises
 #define SURPRISE_BOMB		"bomb_surprise_rgba.txt"
 #define SURPRISE_TIME		"clock_rgba.txt"
@@ -19,13 +21,13 @@
 #define PRESENT_TIME		2
 #define PRESENT_LIGHT		3
 
-
-#define LEVEL_1_PIC			""
-#define LEVEL_2_PIC			""
-#define LEVEL_3_PIC			""
-#define LEVEL_4_PIC			""
-#define LEVEL_5_PIC			""
-
+//levels
+#define LEVEL_1_PIC			"level1_rgba.txt"
+#define LEVEL_2_PIC			"level2_rgba.txt"
+#define LEVEL_3_PIC			"level3_rgba.txt"
+#define LEVEL_4_PIC			"level4_rgba.txt"
+#define LEVEL_5_PIC			"level5_rgba.txt"
+#define MAX_LEVEL			5
 //menu
 #define MENU_LOSE			"loser_score_rgba.txt"
 
@@ -72,6 +74,8 @@
 #define BOMB_BEFOR_USR		"bomb.one.step.befor.explosion.user_rgba.txt"
 
 
+#define MAX_BOMB_COMP		100			
+#define LIMIT_BOMB_COMP		20	
 #define STEP_SPEED 7
 
 #define PIC_WIDTH 28
