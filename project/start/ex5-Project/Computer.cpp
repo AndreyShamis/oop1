@@ -41,38 +41,40 @@ bool Computer::CheckCorrect(const Vertex &_ncord,std::vector <Objects*> &_object
 		}
 		else if(!(*it)->movable && (*it)->_enabled)
 		{
+				Vertex it_cord;
+				it_cord = (*it)->getCord();
 				if(_way == KEY_UP)
 				{
-					if((*it)->_cord._y >  _ncord._y)
+					if(it_cord._y >  _ncord._y)
 						continue;
 				}
 				else if(_way == KEY_DOWN)
 				{
-					if((*it)->_cord._y <  _ncord._y)
+					if(it_cord._y <  _ncord._y)
 						continue;
 				}
 				else if(_way == KEY_RIGHT)
 				{
-					if((*it)->_cord._x <  _ncord._x)
+					if(it_cord._x <  _ncord._x)
 						continue;
 				}
 				else if(_way == KEY_LEFT)
 				{
-				if((*it)->_cord._x >  _ncord._x)
+				if(it_cord._x >  _ncord._x)
 						continue;
 									
 				}
-			if( ( (*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
-				|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
-				|| ((*it)->_cord._y <= _cord._y && (*it)->_cord._y+27 >= _cord._y)
-				|| ( (*it)->_cord._y <= _cord._y+27 && (*it)->_cord._y+27 >= _cord._y+27)
+			if( ( it_cord._x <= _cord._x && it_cord._x+27 >= _cord._x) 
+				|| (it_cord._x <= _cord._x+27 && it_cord._x+27 >= _cord._x+27) 
+				|| (it_cord._y <= _cord._y && it_cord._y+27 >= _cord._y)
+				|| ( it_cord._y <= _cord._y+27 && it_cord._y+27 >= _cord._y+27)
 				)
 			{
 				// ili eta:	
-				if((((*it)->_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
-					(((*it)->_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
-					(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
-					(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
+				if(((it_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
+					((it_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
+					((it_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
+					((it_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
 
 
 					{
@@ -317,7 +319,7 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 	{
 		_way =		_way_prev;//KEY_DOWN ;
 		Bomb *new_bomb = new Bomb();
-		new_bomb->_cord = _cord;
+		new_bomb->setCord(_cord);
 		_objects.push_back(new_bomb);
 		Grafic::addObject(new_bomb);
 	}
