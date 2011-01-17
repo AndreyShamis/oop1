@@ -33,43 +33,44 @@ void Player::Draw()
 	it->Draw(_cord) ;
 }
 
+////=============================================================================
+//
+//short int Player::MathMaxStepSpeed()
+//{
+//
+//	if(_way == KEY_UP || _way == KEY_DOWN)
+//	{
+//		if((int)_cord._y%PIC_WIDTH < STEP_SPEED && (int)_cord._y%PIC_WIDTH > 0)
+//			return((int)_cord._y%29 );
+//
+//	}
+//	else if(_way == KEY_RIGHT || _way == KEY_LEFT)
+//	{
+//		if((int)_cord._x%PIC_WIDTH < STEP_SPEED && (int)_cord._x%PIC_WIDTH > 0)
+//			return((int)_cord._x%PIC_WIDTH );
+//
+//	}
+//
+//	
+//	return(STEP_SPEED);
+//}
 //=============================================================================
-
-short int Player::MathMaxStepSpeed()
-{
-
-	if(_way == KEY_UP || _way == KEY_DOWN)
-	{
-		if((int)_cord._y%PIC_WIDTH < STEP_SPEED && (int)_cord._y%PIC_WIDTH > 0)
-			return((int)_cord._y%29 );
-
-	}
-	else if(_way == KEY_RIGHT || _way == KEY_LEFT)
-	{
-		if((int)_cord._x%PIC_WIDTH < STEP_SPEED && (int)_cord._x%PIC_WIDTH > 0)
-			return((int)_cord._x%PIC_WIDTH );
-
-	}
-
-	
-	return(STEP_SPEED);
-}
 short int Player::getLife()const 
 {
 	return(_life);
 }
-
+//=============================================================================
 void Player::setLife(const short int &new_Val)
 {
 	_life = new_Val;
 }
-
+//=============================================================================
 void Player::decLife()
 {
 	_life--;
 
 }
-
+//=============================================================================
 void Player::Move(std::vector<Objects *> &_objects)
 {
 	
@@ -81,92 +82,83 @@ void Player::Move(std::vector<Objects *> &_objects)
 		_objects.push_back(new_bomb);
 		Grafic::addObject(new_bomb);
 	}
-	else
+	else 
 	{
-
-		int some_step = 0;
-		some_step = STEP_SPEED;//MathMaxStepSpeed();
+		bool _have_move = true;
 		vector<Objects*>::iterator it ;
-
+		mathNewCord();
 		for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 		{
 			if(!(*it)->movable && (*it)->_enabled )
 			{
-				if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
-					|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
-					|| ((*it)->_cord._y <= _cord._y && (*it)->_cord._y+27 >= _cord._y)
-					|| ((*it)->_cord._y <= _cord._y+27) && (*it)->_cord._y+27 >= _cord._y+27)
-					 
+				//if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
+				//	|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
+				//	|| ((*it)->_cord._y <= _cord._y && (*it)->_cord._y+27 >= _cord._y)
+				//	|| ((*it)->_cord._y <= _cord._y+27) && (*it)->_cord._y+27 >= _cord._y+27)
+				//	 
+				//{
+				if((*it)->checkCollision(_new_cord,PIC_WIDTH,PIC_WIDTH))
 				{
 					// ili eta:	
-					if((((*it)->_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
-						(((*it)->_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
-						(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
-						(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
+					//if((((*it)->_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
+					//	(((*it)->_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
+					//	(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
+					//	(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
+					//{
+					if(typeid(**it) == typeid(Fire))
 					{
-						if(typeid(**it) == typeid(Fire))
-						{
-							_alive = false;
-							decLife();
-							std::cout << "Your life is " << getLife() << "\n";
-						}
-						else
-							some_step = 0;
-						
+						_alive = false;
+						decLife();
+						std::cout << "Your life is " << getLife() << "\n";
+					}
+					else
+					{
+						_have_move = false;
+						break;
+
 					}
 					
-					// ili eta:
-					/*if(_way == KEY_UP)
-					{
-						if(((*it)->_cord._y+PIC_WIDTH >= _cord._y-some_step) && ((*it)->_cord._y+27 < _cord._y))  
-							some_step = (_cord._y) - ((*it)->_cord._y+28);
-					}
-					else if(_way == KEY_DOWN)
-					{
-						if(((*it)->_cord._y <= _cord._y+PIC_WIDTH+some_step) && ((*it)->_cord._y > _cord._y+27))	
-						{
-							some_step = ((*it)->_cord._y) -(_cord._y+PIC_WIDTH) ;
-							cout << some_step << "\n"; 
-						}
-					}
-					else if(_way == KEY_RIGHT)
-					{
-						if(((*it)->_cord._x <= _cord._x+PIC_WIDTH+some_step) && ((*it)->_cord._x > _cord._x+27))	
-							some_step = ((*it)->_cord._x) -(_cord._x+28) ;
-					}
-					else if(_way == KEY_LEFT)
-					{
-						if(((*it)->_cord._x+28 >= _cord._x-some_step) && ((*it)->_cord._x+27 < _cord._x))
-							some_step = (_cord._x) - ((*it)->_cord._x+28);
-
-										
-					}*/
 				}
-			}
+				{
 		}
 
-		switch(_way) 
+		if(_have_move)
 		{
-			case KEY_UP:
-				changeCord(0,-1*some_step); 	
-				break ;
-			case KEY_DOWN:
-				changeCord(0,some_step); 			
-				break ;
-			case KEY_LEFT: 
-				changeCord(-1*some_step,0); 
-				break ;
-			case KEY_RIGHT:			
-				changeCord(some_step,0);			
-				break ;
-
+			_cord = _new_cord;
 		}
 
 	}
 }
 
 //=============================================================================
-void Player::changeCord(float x, float y)
+void Player::mathNewCord()
+{
+	switch(_way) 
+	{
+		case KEY_UP:
+			changeNewCord(0,-1*STEP_SPEED); 	
+			break ;
+		case KEY_DOWN:
+			changeNewCord(0,STEP_SPEED); 			
+			break ;
+		case KEY_LEFT: 
+			changeNewCord(-1*STEP_SPEED,0); 
+			break ;
+		case KEY_RIGHT:			
+			changeNewCord(STEP_SPEED,0);			
+			break ;
+
+	}
+}
+//=============================================================================
+void Player::changeNewCord(const float &x,const float &y)
+{
+	_new_cord._x+=x;
+	_new_cord._y+=y;
+}
+
+//=============================================================================
+void Player::changeCord(const float &x,const float &y)
 {
 	_cord._x+=x;
 	_cord._y+=y;

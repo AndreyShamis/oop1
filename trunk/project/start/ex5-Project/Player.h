@@ -16,10 +16,8 @@ using namespace std ;
 #define KEY_RIGHT 	4	//right
 #define KEY_BOMB	5	//put bomb
 
+#define STEP_SPEED 7
 
-
-
-#define STEP_SPEED 4
 
 class Player:public Objects
 {
@@ -29,17 +27,20 @@ public:
 	virtual void Press(unsigned char key, int x, int y){};
 	virtual void SpecPress(int key, int x, int y){};
 	short int _way;
-	short int _way_prev;
-	
 
-	void changeCord(float x, float y);
+	
 	virtual void Move(std::vector<Objects *> &_objects);
-	short int MathMaxStepSpeed();
+	//short int MathMaxStepSpeed();
 	short int getLife()const ;
 	void setLife(const short int &new_Val);
 	void decLife();
 	bool _alive;
 protected:
 	short int _life;
+	void mathNewCord();
+	void changeCord(const float &x,const float &y);
+	void changeNewCord(const float &x,const float &y);
+	Vertex _new_cord;
+	short int _way_prev;
 	
 };
