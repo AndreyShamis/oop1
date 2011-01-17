@@ -1,17 +1,5 @@
 #include "gameController.h"
 
-struct graf_point
-{
-	struct nightb *_nb;
-	Vertex _cord;
-	struct graf_point *_next;
-};
-
-struct nightb
-{
-	struct nightb *_next_nb;
-};
-
 gameController* gameController::_inst = NULL;
 vector<Objects*> gameController:: _objects;
 Keyboard gameController::_kboard ;
@@ -19,6 +7,7 @@ Computer gameController::_comp;
 User gameController::_user;
 Menu gameController::_user_menu(false);
 Menu gameController::_comp_menu(true);
+
 short int gameController::_level;
 
 
@@ -146,7 +135,7 @@ void gameController::LoadGame()
 	
 	_user_menu.setLife(_user.getLife());
 	_comp_menu.setLife(_comp.getLife());
-	//glutReshapeFunc(gameController::reshape);
+
 	glutIdleFunc(gameController::getInstance()->idle);
 	glutDisplayFunc(Grafic::Display);  
 	glutSpecialFunc(Keyboard::SpecPress);	
@@ -165,13 +154,13 @@ void  gameController::explodeBomb(const Vertex &_cord)
 
 	new_fire = new Fire(EXP_START_USR,13);
 	new_fire->setCord(_cord);
-	Grafic::_objects.push_back(new_fire);
+	Grafic::_objectsDrow.push_back(new_fire);
 	_objects.push_back(new_fire);
 
 	for(int i=0;i<4;i++)
 	{
 		Vertex _fire_cord = _cord;
-		char pic_fire[100];
+		char pic_fire[200];
 		switch(i)
 		{
 		case 0:
@@ -193,7 +182,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 		}
 	
 		bool have_col = false;
-		vector<Objects*>::iterator it ;
+		vector<Objects*>::const_iterator it ;
 		for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 		{
 			if((*it) == NULL)
@@ -218,14 +207,14 @@ void  gameController::explodeBomb(const Vertex &_cord)
 
 					if((*it)->checkCollision(_fire_cord,PIC_WIDTH,PIC_WIDTH))
 					{
-						;
-						//have_col= false;
-						//(*it)->Disable();
-						//Present *new_present;
-						//new_present = new Present();
-						//new_present->setCord((*it)->getCord());
-						//Grafic::_objects.push_back(new_present);
-						//_objects.push_back(new_present);
+						
+						have_col= false;
+						(*it)->Disable();
+						Present *new_present;
+						new_present = new Present();
+						new_present->setCord((*it)->getCord());
+						Grafic::_objectsDrow.push_back(new_present);
+						_objects.push_back(new_present);
 						
 					}
 				}
@@ -237,7 +226,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 		{
 			new_fire = new Fire(pic_fire,15);
 			new_fire->setCord(_fire_cord);
-			Grafic::_objects.push_back(new_fire);
+			Grafic::_objectsDrow.push_back(new_fire);
 			_objects.push_back(new_fire);
 		}
 	}
@@ -247,17 +236,17 @@ void  gameController::explodeBomb(const Vertex &_cord)
 
 void gameController::removeDisabledObjects()
 {
-	vector<Objects*>::iterator it ;
-
-	for( it =  _objects.begin() ; it <_objects.end() ; it++ )
+	//vector<Objects*>::iterator it ;
+	int _vec_size = (int)_objects.size();
+	for(int i=0;i<_vec_size;i++)
 	{
-		if(!(*it)->isEnabled())
+		if(!_objects[i]->isEnabled())
 		{
-
-			_objects.erase(it);
-			gameController::getInstance()->_graf.clearObject(*it);
-			delete *it;
-
+			Objects *temp = _objects[i];
+			gameController::getInstance()->_graf.clearObject(_objects[i]);
+			_objects.erase(_objects.begin()+i);
+			delete temp;
+			break;
 		}
 	}
 
@@ -279,12 +268,14 @@ void gameController::decreaseTimer()
 //=============================================================================
 void gameController::idle()
 {
-	//removeDisabledObjects();
+	removeDisabledObjects();
 	decreaseTimer();
 	
 	vector<Objects*>::iterator it ;
+	std::cout << "idle_\n";
 
-	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+
+	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 	{
 			if((*it) == NULL)
 			{
@@ -310,33 +301,43 @@ void gameController::idle()
 		 
 		else if((*it)->isEnabled())
 		{
-			if(typeid(**it) != typeid(Wall))
-				cout << "Start " << typeid(**it).name() << "\n";
-			(*it)->Move(_objects) ;
+			//if(typeid(**it) != typeid(Wall))
+			//	cout << "Start " << typeid(**it).name() << "\n";
+			//std::cout << "Move_\n";
+			bool hb = false;
+			(*it)->Move(_objects,hb) ;
+			if(hb)
+			{
+				Bomb *new_bomb = new Bomb();
+				new_bomb->setCord((*it)->getCord());
+				_objects.push_back(new_bomb);
+				Grafic::addObject(new_bomb);
+			}
 			//std::cout << "Stop\n";
+			//std::cout << "move+\n";
 		}
 			
 	
 	}
 	
 	
+	std::cout << "idle+\n";
 
-
-
+	vector<Objects*>::iterator iter ;
 	if(!_comp._alive || !_user._alive )
 	{
-		gameController::getInstance()->_graf._objects.clear();
+		gameController::getInstance()->_graf._objectsDrow.clear();
 		gameController::getInstance()->_kboard._objects.clear();
 
-		for( it =  _objects.begin() ; it !=_objects.end() ; it++ )
+		for( iter =  _objects.begin() ; iter !=_objects.end() ; iter++ )
 		{
-			if((*it) == NULL)
+			if((*iter) == NULL)
 			{
 				std::cout << "Some error in IDLE 22222\n";
 				exit(EXIT_FAILURE);
 			}
-				if(typeid(**it) != typeid(User)  && typeid(**it) != typeid(Computer) &&  typeid(**it) != typeid(Menu)  )
-				delete *it;
+				if(typeid(**iter) != typeid(User)  && typeid(**iter) != typeid(Computer) &&  typeid(**iter) != typeid(Menu)  )
+				delete *iter;
 		}
 		//clearAll();
 		gameController::getInstance()->_objects.clear();
@@ -355,6 +356,7 @@ void gameController::idle()
 		Reload_Game_Stat();	
 
 	}
+
 	//Grafic::removeObjects();
 	//clearDisabled();
 	glutPostRedisplay();

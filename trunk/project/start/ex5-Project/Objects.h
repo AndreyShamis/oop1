@@ -7,9 +7,9 @@ class Objects
 {
 public:
 	Objects();
-	~Objects();
+	virtual ~Objects();
 	virtual void Draw() {};
-	virtual void Move(std::vector<Objects *> &_objects) {};
+	virtual void Move(std::vector<Objects *> &_objects,bool &have_p) {};
 	virtual void Press(unsigned char key, int x, int y) {};
 	virtual void SpecPress(int key, int x, int y) {};
 	virtual void VirtualPress(std::vector <Objects*> &_objects) {};

@@ -8,7 +8,7 @@ class Sprite
 {
 public:
 	Sprite(const char* filename);
-	~Sprite();
+	//~Sprite();
 	void Draw(const Vertex &cord);
 	RGBA **_image;
 	int _height;

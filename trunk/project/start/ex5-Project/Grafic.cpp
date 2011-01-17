@@ -1,5 +1,5 @@
 #include "Grafic.h"
-vector<Objects*> Grafic:: _objects;
+vector<Objects*> Grafic:: _objectsDrow;
 
 //=============================================================================
 Grafic::Grafic()
@@ -14,9 +14,9 @@ void Grafic::Display()
 {
 	
 	glClear(GL_COLOR_BUFFER_BIT ); 
-	vector<Objects*>::iterator it;
+	vector<Objects*>::const_iterator it;
 	
-	for(it=_objects.begin();it <_objects.end();it++)
+	for(it=_objectsDrow.begin();it <_objectsDrow.end();it++)
 	{
 		if((*it)->isEnabled())
 			(*it)->Draw();
@@ -32,20 +32,22 @@ void Grafic::Display()
 //=============================================================================
 void Grafic::addObject(Objects *newObject)
 {
-	_objects.push_back(newObject);
+	_objectsDrow.push_back(newObject);
 }
 
 
 void Grafic::clearObject(Objects *obj)
 {
-	vector<Objects*>::iterator it ;
+	std::cout << "############################\n############################\n\n##################################\nClearing ong\n" ;
 
-	for( it =  _objects.begin() ; it < _objects.end() ; it++) 
+	const int _vec_size = (int)_objectsDrow.size();
+	for(int i=0;i<_vec_size;i++)
 	{
-		if( (*it) == obj )
+		if(_objectsDrow[i] == obj )
 		{
-			it = _objects.erase( it ) ;
-			break ;
+			_objectsDrow.erase(_objectsDrow.begin()+i);
+			break;
+
 		}
 	}
 

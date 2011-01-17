@@ -10,6 +10,7 @@ class Fire:public Objects
 {
 public:
 	Fire(const char *filename,const short int &time);
+	~Fire();
 	virtual void Draw();
 	void setTimer(const short int &newVal);
 	short int getTimer(); 

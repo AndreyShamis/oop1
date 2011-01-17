@@ -9,15 +9,22 @@ Fire::Fire(const char *filename,const short int &time)
 	_timer = time;
 }
 
+
+Fire::~Fire()
+{
+	_sprite.clear();
+}
 //=============================================================================
 void Fire::Draw()
 {
-	vector <Sprite>::iterator it;
-	it = _sprite.begin();
-	if(_timer >= 0)
+	if(_sprite.size() > 0)
 	{
-		it->Draw(_cord);
+		vector <Sprite>::iterator it;
+		it = _sprite.begin();
+		if(_timer >= 0)
+			it->Draw(_cord);
 	}
+
 
 }
 
