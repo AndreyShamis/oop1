@@ -90,23 +90,40 @@ void Player::Move(std::vector<Objects *> &_objects)
 //	(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
 //	(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
 //{	
-	if(_way == KEY_BOMB)
+	vector<Objects*>::iterator it ;
+
+	if(_way == KEY_BOMB  )
 	{
+		bool can_put_B = true;
+		for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+		{
+			if((*it) != this && (*it)->isEnabled() && (*it)->checkCollision(_cord,PIC_WIDTH,PIC_WIDTH))
+			{
+				can_put_B = false;
+				break;
+			}
+		}
+		if(can_put_B)
+		{
+
+			Bomb *new_bomb = new Bomb();
+			new_bomb->setCord(_cord);
+			_objects.push_back(new_bomb);
+			Grafic::addObject(new_bomb);
+		}
+
 		_way =		_way_prev;//KEY_DOWN ;
-		Bomb *new_bomb = new Bomb();
-		new_bomb->setCord(_cord);
-		_objects.push_back(new_bomb);
-		Grafic::addObject(new_bomb);
+
 	}
 	else 
 	{
 		bool _have_move = true;
-		vector<Objects*>::iterator it ;
+
 		_new_cord = _cord;
 		mathNewCord();
 		for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 		{
-			if((*it) != this && !(*it)->movable && (*it)->_enabled )
+			if((*it) != this && !(*it)->movable && (*it)->isEnabled() )
 			{
 				//	dvoyanaya proverka nujna chtobi vyti s bombi kogfda ee postavil
 				if((*it)->checkCollision(_new_cord,PIC_WIDTH,PIC_WIDTH) && !(*it)->checkCollision(_cord,PIC_WIDTH,PIC_WIDTH))

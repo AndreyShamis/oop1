@@ -8,7 +8,7 @@ Bomb::Bomb()
 	_sprite.push_back(BOMB_STEP_TWO);
 	_sprite.push_back(BOMB_BEFOR);
 	movable = 0;
-	_timer = 30;
+	_timer = 25;
 }
 
 //=============================================================================
@@ -29,16 +29,14 @@ void Bomb::Draw()
 	else
 		it = _sprite.begin()+2;
 
-
-	it->Draw(_cord);
-	decTimer();
+	if(_timer >=0)
+	{
+		it->Draw(_cord);
+	}
 }
 
 //=============================================================================
 void Bomb::decTimer()
 {
-	
-
-	if(_timer >=0)
-		_timer--;
+	_timer--;
 }

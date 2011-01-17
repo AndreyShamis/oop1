@@ -31,6 +31,10 @@ void User::Press(unsigned char key, int x, int y)
 		_way_prev = _way;
 		_way = KEY_BOMB;
 		break;
+	case 'b':				//	Down key
+		_way_prev = _way;
+		_way = KEY_BOMB;
+		break;
 	case '8':				//	Up key
 		_way = KEY_UP;
 		break;

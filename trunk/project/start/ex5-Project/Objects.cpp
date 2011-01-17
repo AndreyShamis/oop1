@@ -51,3 +51,14 @@ void Objects::setCordByFloat(const float &x,const float &y)
 	_cord._x = x;
 	_cord._y = y;
 }
+
+
+void Objects::Disable()
+{
+	_enabled = false;
+}
+
+bool Objects::isEnabled() const
+{
+	return (_enabled);
+}
