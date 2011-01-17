@@ -174,8 +174,8 @@ void gameController::idle()
 				exit(EXIT_FAILURE);
 			}
 
-		if((*it)->intelect)
-			(*it)->VirtualPress(_objects);
+		//if((*it)->intelect)
+		//	(*it)->VirtualPress(_objects);
 		if(typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0 && (*it)->_enabled)
 		{
 			//sndPlaySound(L"SOUND/Boom.wav",SND_ASYNC | SND_NOSTOP);

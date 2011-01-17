@@ -7,7 +7,7 @@ User::User()
 	_sprite.push_back(PLAYER_L);
 	_sprite.push_back(PLAYER_R);
 	_sprite.push_back(PLAYER_U);
-	_way = KEY_UP;
+	_way = KEY_RIGHT;
 
 
 
