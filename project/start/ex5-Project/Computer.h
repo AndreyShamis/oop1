@@ -9,16 +9,16 @@ class Computer:public Player
 {
 public:
 	Computer();
-	virtual void VirtualPress(std::vector <Objects*> &_objects);
+	virtual void VirtualPress(vector <Objects*> &_objects);
 	int _computerTryDetectEnemy ;
 	const Vertex *_user_enemy_cord;
 	void setUserEnemyCord(const Vertex *_cord);
 private:
 	Vertex _newCoordinate;
-	bool checkIfCellHaveBomb(std::vector <Objects*> &_objects,const Vertex &_coordinate);
+	bool checkIfCellHaveBomb(vector <Objects*> &_objects,const Vertex &_coordinate);
 	void turnLogic(const short int &turnCode);
-	bool checkForBarrel(std::vector <Objects*> &_objects);
-	bool checkExplodeBomb(std::vector <Objects*> &_objects,const Vertex &newCord);
+	bool checkForBarrel(vector <Objects*> &_objects);
+	bool checkExplodeBomb(vector <Objects*> &_objects,const Vertex &newCord);
 
 	//=============================================================================
 	// Output: if yes return true

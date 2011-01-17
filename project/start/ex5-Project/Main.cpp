@@ -10,9 +10,9 @@ int main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
 
-	glutInitWindowSize (1020,600); 
+	glutInitWindowSize (850,600); 
 	glutInitWindowPosition (0,0);
-	glutCreateWindow ("Ko ko Jamba");
+	glutCreateWindow ("Bomer Man- Andrey Shamis AND Ilia Gaysinsky");
 	
 	glClearColor(0.0, 0.0, 0.0, 0.0);    // Устанавливается синий фон
 	

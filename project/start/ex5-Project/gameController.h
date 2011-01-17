@@ -53,7 +53,10 @@ protected:
 	static float _WORLD_width;
 	static Vertex GetEmptyCellCord(const int &i);
 	static void PutRandomBomb(const int &i);
-
+	static void prepareGame();
 	static bool _GameStared;
+	static bool _exitGame;
+	static bool _reloadGame;
+	static void RestartAllGame();
 
 };

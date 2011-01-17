@@ -11,8 +11,9 @@ Level		gameController::_level_menu;
 float		gameController::_WORLD_height;
 float		gameController::_WORLD_width;
 short int	gameController::_level;
-bool		gameController::_GameStared=false;
-
+bool		gameController::_GameStared		=	false;
+bool		gameController::_exitGame		=	false;
+bool		gameController::_reloadGame		=	false;
 //=============================================================================
 //	singleton :: getInsatnce of sigleton
 //	if object not created create him
@@ -65,7 +66,7 @@ void gameController::applyPresents()
 			{
 				Vertex _dneedit = (*it)->getCord();
 
-				PutRandomBomb((int)(_dneedit._x*_dneedit._y));
+				PutRandomBomb((int)_dneedit._x);
 			}
 			else if((*it)->getPresentType() == PRESENT_TIME)
 				IncreaseAllBombsTimers();
@@ -93,7 +94,7 @@ void gameController::IncreaseAllBombsTimers()
 //=============================================================================
 Vertex gameController::GetEmptyCellCord(const int &i)
 {
-	srand ( time(NULL) );
+	srand ( i );
 	static Vertex _new_cord;
 		_new_cord._x = 0;
 		_new_cord._y = 0;
@@ -102,14 +103,14 @@ Vertex gameController::GetEmptyCellCord(const int &i)
 	int y=1;
 	while(true)
 	{
-		x =	rand()%(int)(_WORLD_width-i%PIC_WIDTH)+1;
-		y =	rand()%(int)(_WORLD_height-(i*x)%PIC_WIDTH)+1;
+		x =	rand()%(int)(_WORLD_width)+1;
+		y =	rand()%(int)(_WORLD_height)+1;
 
-		for(int i =0;i <PIC_WIDTH && (int)x%PIC_WIDTH ==0;i++)
+		for(int i =0;i <PIC_WIDTH && (int)x%PIC_WIDTH !=0;i++)
 		{	
 			x+=1;
 		}
-		for(int i =0;i<PIC_WIDTH && (int)y%PIC_WIDTH ==0;i++)
+		for(int i =0;i<PIC_WIDTH && (int)y%PIC_WIDTH !=0;i++)
 		{	
 			y+=1;
 		}
@@ -120,7 +121,7 @@ Vertex gameController::GetEmptyCellCord(const int &i)
 		for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 		{
 			Vertex it_cord = (*it)->getCord();
-			if((*it)->isEnabled() && it_cord._x == _new_cord._x && it_cord._y == _new_cord._y)
+			if((*it)->isEnabled() && (*it)->checkCollision(_new_cord,PIC_WIDTH,PIC_WIDTH))
 			{
 				copm = false;
 				break;
@@ -246,11 +247,17 @@ void  gameController::explodeBomb(const Vertex &_cord)
 					{	
 						have_col= false;
 						(*it)->Disable();
-						Present *new_present;
-						new_present = new Present();
-						new_present->setCord((*it)->getCord());
-						Grafic::_objectsDrow.push_back(new_present);
-						_objects.push_back(new_present);
+
+						int chanse_put_suprise = (int)(rand()%MAX_PRESNT_CHANSE) +1;
+						
+						if(chanse_put_suprise < LIMIT_PRESENT_CHASE)
+						{
+							Present *new_present;
+							new_present = new Present();
+							new_present->setCord((*it)->getCord());
+							Grafic::_objectsDrow.push_back(new_present);
+							_objects.push_back(new_present);
+						}
 						
 					}
 				}
@@ -260,7 +267,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 		}
 		if(!have_col)
 		{
-			new_fire = new Fire(pic_fire,15);
+			new_fire = new Fire(pic_fire,13);
 			new_fire->setCord(_fire_cord);
 			Grafic::_objectsDrow.push_back(new_fire);
 			_objects.push_back(new_fire);
@@ -297,6 +304,29 @@ void gameController::decreaseTimer()
 	
 }
 
+
+void gameController::prepareGame()
+{
+	gameController::getInstance()->_graf._objectsDrow.clear();
+	gameController::getInstance()->_kboard._objects.clear();
+	vector<Objects*>::iterator iter ;
+	for( iter =  _objects.begin() ; iter !=_objects.end() ; iter++ )
+	{
+		if(typeid(**iter) != typeid(User)  && typeid(**iter) != typeid(Computer) 
+			&&  typeid(**iter) != typeid(Menu)  &&  typeid(**iter) != typeid(Level))
+			delete *iter;
+	}
+
+	gameController::getInstance()->_objects.clear();
+}
+
+void gameController::RestartAllGame()
+{
+	prepareGame();
+	_level = 1;
+	_GameStared = false;
+}
+
 //=============================================================================
 void gameController::idle()
 {
@@ -305,8 +335,20 @@ void gameController::idle()
 		Reload_Game_Stat();	
 		_GameStared = true;
 	}
+	if(_exitGame)
+	{
+		prepareGame();
+		exit(EXIT_SUCCESS);
+	}
+	if(_reloadGame)
+	{
+		RestartAllGame();
+		_reloadGame = false;
+		_user.setLife(3);
+		_comp.setLife(3);
+	}
 
-	vector<Objects*>::iterator iter ;
+	
 
 	if(!_comp._alive || !_user._alive )
 	{
@@ -314,18 +356,7 @@ void gameController::idle()
 			_comp.decLife();
 		if(!_user._alive)
 			_user.decLife();
-
-		gameController::getInstance()->_graf._objectsDrow.clear();
-		gameController::getInstance()->_kboard._objects.clear();
-
-		for( iter =  _objects.begin() ; iter !=_objects.end() ; iter++ )
-		{
-			if(typeid(**iter) != typeid(User)  && typeid(**iter) != typeid(Computer) 
-				&&  typeid(**iter) != typeid(Menu)  &&  typeid(**iter) != typeid(Level))
-				delete *iter;
-		}
-
-		gameController::getInstance()->_objects.clear();
+		prepareGame();
 
 		if(_user.getLife() >0 && _comp.getLife() == 0)
 		{
@@ -396,7 +427,10 @@ void gameController::idle()
 		strcat_s(path,"/map2.txt");
 	else if(_level == 3)
 		strcat_s(path,"/map3.txt");
-
+	else if(_level == 4)
+		strcat_s(path,"/map4.txt");
+	else if(_level == 5)
+		strcat_s(path,"/map5.txt");
 
 	myReadFile.open(path);
 	
@@ -411,7 +445,8 @@ void gameController::idle()
 			// Load line to array.
 			
 			char ch = myReadFile.get();
-
+			_WORLD_width	= max(_WORLD_width,countX*PIC_WIDTH);
+			_WORLD_height	= max(_WORLD_height,countY*PIC_WIDTH);
 			if(ch == FENCE)			//	zabor
 			{
 				Wall *wall = new Wall();
@@ -455,6 +490,8 @@ void gameController::idle()
 	//_user = new User();
 	std::cout << "Creating User\n";
 	gameController::getInstance()->_user.setCordByFloat(1*PIC_WIDTH, 1*PIC_WIDTH);
+	_user.setPointerExitGame(&gameController::getInstance()->_exitGame);
+	_user.setPointerReloadGame(&gameController::getInstance()->_reloadGame);
 	//_comp = new Computer();
 	std::cout << "Creating Computer Enemy\n";
 	gameController::getInstance()->_comp.setCordByFloat(18*PIC_WIDTH, 18*PIC_WIDTH);

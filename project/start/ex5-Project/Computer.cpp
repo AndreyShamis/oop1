@@ -29,62 +29,15 @@ void Computer::setUserEnemyCord(const Vertex *_cord)
 //=============================================================================
 // Input: map, new coordinate.
 // Output: if yes return true, otherwise return false.
-bool Computer::CheckCorrect(const Vertex &_ncord,std::vector <Objects*> &_objects)
+bool Computer::CheckCorrect(const Vertex &_ncord,vector <Objects*> &_objects)
 {
 
 	vector<Objects*>::iterator it ;
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
-	{
-		if((*it) == NULL)
-		{
-			std::cout << "Error::Computer::CheckCorrect\n";
-			exit(EXIT_FAILURE);
-		}
-		else if(!(*it)->movable && (*it)->isEnabled())
-		{
-				Vertex it_cord;
-				it_cord = (*it)->getCord();
-				if(_way == KEY_UP)
-				{
-					if(it_cord._y >  _ncord._y)
-						continue;
-				}
-				else if(_way == KEY_DOWN)
-				{
-					if(it_cord._y <  _ncord._y)
-						continue;
-				}
-				else if(_way == KEY_RIGHT)
-				{
-					if(it_cord._x <  _ncord._x)
-						continue;
-				}
-				else if(_way == KEY_LEFT)
-				{
-				if(it_cord._x >  _ncord._x)
-						continue;
-									
-				}
-			if( ( it_cord._x <= _cord._x && it_cord._x+27 >= _cord._x) 
-				|| (it_cord._x <= _cord._x+27 && it_cord._x+27 >= _cord._x+27) 
-				|| (it_cord._y <= _cord._y && it_cord._y+27 >= _cord._y)
-				|| ( it_cord._y <= _cord._y+27 && it_cord._y+27 >= _cord._y+27)
-				)
-			{
-				// ili eta:	
-				if(((it_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
-					((it_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
-					((it_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
-					((it_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
+		if(!(*it)->movable && (*it)->isEnabled())
+			if((*it)->checkCollision(_ncord,PIC_WIDTH,PIC_WIDTH))
+				return false;
 
-
-					{
-
-						return false;
-					}
-			}
-		}
-	}
 	return true;
 
 }
@@ -155,51 +108,29 @@ void Computer::turnLogic(const short int &turnCode)
 }
 
 //=============================================================================
-bool Computer::checkIfCellHaveBomb(std::vector <Objects*> &_objects,const Vertex &_coordinate)
+bool Computer::checkIfCellHaveBomb(std::vector <Objects*> &_objects,
+								   const Vertex &_coordinate)
 {
 	vector<Objects*>::iterator it ;
 	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
-	{
-		if((*it) == NULL)
-		{
-			std::cout << "Error::Computer::checkIfCellHaveBomb\n";
-			exit(EXIT_FAILURE);
-		}
-		else if(typeid(**it) == typeid(Bomb)  && (*it)->isEnabled() )
-		{
-			if((*it)->checkCollision(_coordinate,PIC_WIDTH,PIC_WIDTH))		 
-			{
-					//cout << "Have bomb\n";
+		if(typeid(**it) == typeid(Bomb)  && (*it)->isEnabled() )
+			if((*it)->checkCollision(_coordinate,PIC_WIDTH*2,PIC_WIDTH*2))		 
 					return(true);
-			}
-		}
-	}
 
-		return(false);
+	return(false);
 }
 
-
-
-
-
-bool Computer::checkExplodeBomb(std::vector <Objects*> &_objects,const Vertex &newCord)
+//=============================================================================
+bool Computer::checkExplodeBomb(std::vector <Objects*> &_objects,
+								const Vertex &newCord)
 {
 
 	vector<Objects*>::iterator it ;
 	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
-	{
-
-		if((*it) == NULL)
-		{
-			std::cout << "Error::Computer::checkExplodeBomb\n";
-			exit(EXIT_FAILURE);
-		}
-		else if(typeid(**it) == typeid(Fire) && (*it)->isEnabled())
-		{
-			if((*it)->checkCollision(newCord,PIC_WIDTH,PIC_WIDTH))
+		if(typeid(**it) == typeid(Fire) && (*it)->isEnabled())
+			if((*it)->checkCollision(newCord,PIC_WIDTH*2,PIC_WIDTH*2))
 				return true;
-		}
-	}
+
 
 	return false;
 }
@@ -220,8 +151,7 @@ bool Computer::checkForBarrel(std::vector <Objects*> &_objects)
 	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 	{
 
-
-		if(typeid(**it) == typeid(Bochka) && (*it)->isEnabled())
+		if((*it)->isEnabled() && typeid(**it) == typeid(Bochka) )
 		{
 			if((*it)->checkCollision(_ucord,PIC_WIDTH,PIC_WIDTH) 
 			|| (*it)->checkCollision(_dcord,PIC_WIDTH,PIC_WIDTH)
@@ -242,13 +172,14 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 
 	bool give = false;				//	to exit from while
 	bool try_detect_enemy = true;	//	try in cycle get intellect code
-	short int computer_trys = 15;	//	emergency exit
+	short int computer_trys = 25;	//	emergency exit
 
 	Vertex _newCoordinate;
 	_computerTryDetectEnemy++;		//	add to global try intellect
 
 	turnCode = _way;
-	while(!give && computer_trys >0 && (int)_cord._x%PIC_WIDTH == 0 && (int)_cord._y%PIC_WIDTH == 0)
+	while(!give && computer_trys >0 && (int)_cord._x%PIC_WIDTH == 0 
+		&& (int)_cord._y%PIC_WIDTH == 0)
 	{
 		if(_next_turn_code > 0)
 		{
@@ -261,6 +192,7 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 		_newCoordinate = _cord;				//	reset new coordinates
 		turnCode	=	(rand()% 4) + 1	;	//	get random code
 		bool cell_have_B = checkIfCellHaveBomb(_objects,_cord);
+
 		if(checkEnemyinBombRaound() && !cell_have_B)//	check if player in araound
 		{	
 			turnCode= KEY_BOMB;
@@ -269,6 +201,7 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 		else if(!cell_have_B && checkForBarrel(_objects))
 		{
 				int put_bomb =	(rand()% MAX_BOMB_COMP) + 1	;	//	get random code
+
 				if(put_bomb<LIMIT_BOMB_COMP)
 					turnCode = KEY_BOMB;
 		}
@@ -292,7 +225,7 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 			//	do logic to new coorinates
 			turnLogic(turnCode);
 			//	check on the map 
-			if(CheckCorrect(_newCoordinate,_objects))
+			if(CheckCorrect(_newCoordinate,_objects) )
 			{	
 				if(!try_detect_enemy)
 				{
@@ -300,7 +233,7 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 				}
 				//	if correct turn
 				//	check if in next turn no bombs whith timer 1
-				if(checkExplodeBomb(_objects,_newCoordinate))
+				if(checkExplodeBomb(_objects,_newCoordinate) || checkIfCellHaveBomb(_objects,_newCoordinate))
 					continue;
 				else
 					give = true;//	do new turn
@@ -316,34 +249,6 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 	}
 
 	_way = turnCode;
-	//if(turnCode == KEY_BOMB)
-	//{
-	//	_way =		_way_prev;//KEY_DOWN ;
-	//	Bomb *new_bomb = new Bomb();
-	//	new_bomb->setCord(_cord);
-	//	_objects.push_back(new_bomb);
-	//	Grafic::addObject(new_bomb);
-	//}
-	//if(turnCode != KEY_BOMB)
-	//{
-	//	_way_prev = _way;
-	//	switch(turnCode)
-	//	{
-	//	case 1:
-	//		_way = KEY_UP;
-	//		break;
-	//	case 2:
-	//		_way = KEY_DOWN;
-	//		break;
-	//	case 3:
-	//		_way = KEY_LEFT;
-	//		break;
-	//	case 4:
-	//		_way = KEY_RIGHT;
-	//		break;
-	//	}
-	//}
-	
 
 
 }
