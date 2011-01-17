@@ -75,10 +75,24 @@
 
 
 #define MAX_BOMB_COMP		100			
-#define LIMIT_BOMB_COMP		20	
+#define LIMIT_BOMB_COMP		10	
 #define STEP_SPEED 7
 
 #define PIC_WIDTH 28
+
+#define LEFT_KEY			'4'
+#define RIGHT_KEY			'6'
+#define TOP_KEY				'8'
+#define DOWN_KEY			'2'
+#define BOMB_KEY_B			'b'
+#define BOMP_KEY_S			' '
+
+#define EXIT_KEY			'q'
+#define RELOAD_GAME			'n'
+
+
+#define MAX_PRESNT_CHANSE		100			
+#define LIMIT_PRESENT_CHASE		75	
 struct Vertex
 {
 	float _x;

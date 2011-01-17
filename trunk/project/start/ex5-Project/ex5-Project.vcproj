@@ -335,6 +335,10 @@
 				RelativePath=".\MAPS\map4.txt"
 				>
 			</File>
+			<File
+				RelativePath=".\MAPS\map5.txt"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

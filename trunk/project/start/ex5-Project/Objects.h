@@ -2,6 +2,7 @@
 //#include "Config.h"
 #include <vector>
 #include "Sprite.h"
+using namespace std ;
 
 class Objects
 {
@@ -9,10 +10,10 @@ public:
 	Objects();
 	virtual ~Objects();
 	virtual void Draw() {};
-	virtual void Move(std::vector<Objects *> &_objects) {};
+	virtual void Move(vector<Objects *> &_objects) {};
 	virtual void Press(unsigned char key, int x, int y) {};
 	virtual void SpecPress(int key, int x, int y) {};
-	virtual void VirtualPress(std::vector <Objects*> &_objects) {};
+	virtual void VirtualPress(vector <Objects*> &_objects) {};
 	virtual void decTimer() {};
 	virtual short int getTimer() {return 0;};
 	virtual void IncereaseTimer(){};
@@ -20,7 +21,8 @@ public:
 
 	void setCord(const Vertex &newCoordinate);
 	void setCordByFloat(const float &x,const float &y);
-	bool checkCollision(const Vertex &topLeft,const float &_Objwidth,const float &_Objheight);
+	bool checkCollision(const Vertex &topLeft
+		,const float &_Objwidth,const float &_Objheight);
 	Vertex getCord()const;
 
 	virtual void Disable();

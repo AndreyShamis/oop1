@@ -6,7 +6,7 @@ Grafic::Grafic()
 {
 	glMatrixMode(GL_PROJECTION);  
     glLoadIdentity();
-    gluOrtho2D(0, 1020, 0, 600);
+    gluOrtho2D(0, 850, 0, 600);
 }
 
 //=============================================================================
