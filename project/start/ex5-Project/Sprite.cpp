@@ -2,25 +2,32 @@
 
 using namespace std ;
 
-////=============================================================================
-//Sprite::~Sprite()
-//{
-//	//for(int i=0;i<_height;i++)
-//	//{
-//	//	delete	  _image[i];
-//	//}
-//	//delete [] _image;
-//}
+//=============================================================================
+//	return height
+int Sprite::getHeight()
+{
+	return(_height);
+}
+//=============================================================================
+//	return width
+int Sprite::getWidth()
+{
+	return(_width);
+}
+//=============================================================================
+// Constructor
 Sprite::Sprite(const char* filename) {
 
 
-	char path[200];
-	memset(path,'\0',200);
+	char path[CHAR_MAX_STR_LEN];		//	variable for get riht path
+	//	manipulation whith char
+	memset(path,'\0',CHAR_MAX_STR_LEN);
 	strcpy_s(path,RGBA_FOLDER);
 	strcat_s(path,"\\");
 	strcat_s(path,RGBA_SIZE);
 	strcat_s(path,"\\");
 	strcat_s(path,filename);
+	// and manipulation and open file
 	ifstream imageFile(path);		//open a file
 
 	if(!imageFile.is_open())
@@ -28,7 +35,7 @@ Sprite::Sprite(const char* filename) {
 		cout << "Can`t load file " << path << "\n";
 		exit(EXIT_FAILURE);
 	}
-		//get from the file width and hieght og image
+		//get from the file width and hieght of image
 	imageFile >> _width >> _height;
 
 	_image  = new RGBA*[_height];
@@ -43,9 +50,8 @@ Sprite::Sprite(const char* filename) {
 	imageFile.close();		//close the file
 }
 
-
 //=============================================================================
-
+//	Draw function
 void Sprite::Draw(const Vertex &cord){
 	glBegin(GL_POINTS);	
 	int y=0,x=_width;

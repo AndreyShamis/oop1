@@ -1,3 +1,11 @@
+/*
+
+	This class provide main controller for game
+	It is Singleton class
+	For ran game just need Create Object
+	
+*/
+
 #pragma once
 #include <vector>
 #include <fstream>

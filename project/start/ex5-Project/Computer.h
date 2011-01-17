@@ -1,3 +1,11 @@
+/*
+
+	This class provide ti computer intelect
+
+
+	
+*/
+
 #pragma once
 #include "Player.h"
 #include "Bochka.h"

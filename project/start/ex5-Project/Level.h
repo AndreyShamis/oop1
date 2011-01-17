@@ -1,3 +1,11 @@
+/*
+
+	This class provide 
+
+
+	
+*/
+
 #pragma once
 #include "Objects.h"
 #include "Sprite.h"

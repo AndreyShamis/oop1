@@ -1,40 +1,46 @@
 #include "User.h"
 
 //=============================================================================
+//	Constructor of User
 User::User()
 {
+	//	put the grafic into vector of spritess
 	_sprite.push_back(PLAYER_D);
 	_sprite.push_back(PLAYER_L);
 	_sprite.push_back(PLAYER_R);
 	_sprite.push_back(PLAYER_U);
 	_way = KEY_RIGHT;
 
-
-
-	movable = 0;
-	PlayerStart();
-	setSize();
+	movable = 0;			//	set not movable
+	PlayerStart();			//	set some settings
+	setSize();				//	set size
 }
 
 
 //=============================================================================
+//	Return pointer to coordinate used in Computer Intelegence
 Vertex *User::getPointerCoordinate()
 {
-	return(&_cord);
-}
-void User::setPointerExitGame(bool *ex_game)
-{
-	_exit_game = ex_game;
+	return(&_cord);			//	return the value
 }
 
+//=============================================================================
+//	Set pointer to exit Game variable in game Controller
+void User::setPointerExitGame(bool *ex_game)
+{
+	_exit_game = ex_game;	//	set pointer
+}
+
+//=============================================================================
+//	Set pointer to reload Game variable in game Controller
 void User::setPointerReloadGame(bool *re_game)
 {
-	_reload_game = re_game;
+	_reload_game = re_game;	//	set pointer
 }
 //=============================================================================
 void User::Press(unsigned char key, int x, int y)
 {
-	// Get key from keyboord.
+	// Get the key from keyboord.
 	switch(key)
 	{
 	case BOMP_KEY_S:				//	Down key
@@ -70,15 +76,14 @@ void User::Press(unsigned char key, int x, int y)
 //=============================================================================
 void User::SpecPress(int key, int x, int y)
 {
-	// Get key from keyboord.
+	// Get the key from keyboord.
 	switch(key)
 	{
 
-	case GLUT_KEY_UP:					//	Up key
+	case GLUT_KEY_UP:				//	Up key
 		_way = KEY_UP;
-	//	PlaySound(L"SOUND/Windows_Notify.wav",NULL,SND_ALIAS | SND_APPLICATION);
 		break;
-	case GLUT_KEY_RIGHT:				//	Right key
+	case GLUT_KEY_RIGHT:			//	Right key
 		_way = KEY_RIGHT;
 		break;
 	case GLUT_KEY_LEFT:				//	Left key

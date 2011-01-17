@@ -1,3 +1,9 @@
+/*
+
+	This class provide for Bombs
+	
+*/
+
 #pragma once
 #include "Objects.h"
 #include "Sprite.h"

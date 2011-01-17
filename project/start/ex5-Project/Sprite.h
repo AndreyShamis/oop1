@@ -1,3 +1,7 @@
+/*
+	Sprite class
+*/
+
 #pragma once
 #include "Config.h"
 #include <fstream>
@@ -7,11 +11,21 @@
 class Sprite
 {
 public:
+	//=============================================================================
+	// Constructor
 	Sprite(const char* filename);
-	//~Sprite();
+	//=============================================================================
+	//	Draw function
 	void Draw(const Vertex &cord);
+	//=============================================================================
+	//	return height
+	int getHeight();
+	//=============================================================================
+	//	return width
+	int getWidth();
+private:
 	RGBA **_image;
-	int _height;
-	int _width;
+	int _height;		//	height of image
+	int _width;			//	width of image
 	
 };
