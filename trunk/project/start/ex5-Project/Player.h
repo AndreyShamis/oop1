@@ -16,7 +16,7 @@ using namespace std ;
 #define KEY_RIGHT 	4	//right
 #define KEY_BOMB	5	//put bomb
 
-#define STEP_SPEED 7
+
 
 
 class Player:public Objects

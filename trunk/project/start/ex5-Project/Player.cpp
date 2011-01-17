@@ -108,7 +108,8 @@ void Player::Move(std::vector<Objects *> &_objects)
 		{
 			if((*it) != this && !(*it)->movable && (*it)->_enabled )
 			{
-				if((*it)->checkCollision(_new_cord,PIC_WIDTH,PIC_WIDTH))
+				//	dvoyanaya proverka nujna chtobi vyti s bombi kogfda ee postavil
+				if((*it)->checkCollision(_new_cord,PIC_WIDTH,PIC_WIDTH) && !(*it)->checkCollision(_cord,PIC_WIDTH,PIC_WIDTH))
 				{
 					if(typeid(**it) == typeid(Fire))
 					{
@@ -127,10 +128,10 @@ void Player::Move(std::vector<Objects *> &_objects)
 			}
 		}
 
-		//if(_have_move)
-		//{
-		//	_cord = _new_cord;
-		//}
+		if(_have_move)
+		{
+			_cord = _new_cord;
+		}
 		//else
 		//{
 		//	_new_cord = _cord;
