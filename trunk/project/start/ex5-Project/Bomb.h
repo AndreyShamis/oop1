@@ -12,5 +12,6 @@ public:
 	virtual void Draw();
 	virtual void decTimer();
 	virtual short int getTimer();
+	virtual void IncereaseTimer();
 protected:
 };

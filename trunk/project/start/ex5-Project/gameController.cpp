@@ -145,6 +145,74 @@ void gameController::LoadGame()
 
 	//sndPlaySound(L"SOUND/BackGround_Sound.wav", SND_LOOP | SND_ASYNC );
 }
+
+void gameController::applyPresents()
+{
+	vector<Objects*>::iterator it ;
+	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
+	{
+		if((*it)->isTaked())
+		{
+			if((*it)->getPresentType() == PRESENT_BOMB)
+				;
+			else if((*it)->getPresentType() == PRESENT_TIME)
+				IncreaseAllBombsTimers();
+			else if((*it)->getPresentType() == PRESENT_LIGHT)
+			{
+				ExplodeAllBombsTimers();
+			}
+			(*it)->Disable();
+
+		}
+	}
+}
+
+void gameController::IncreaseAllBombsTimers()
+{
+
+	vector<Objects*>::iterator it ;
+	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
+	{
+		if(typeid(**it) == typeid(Bomb) && (*it)->isEnabled())
+		{
+			
+			(*it)->IncereaseTimer();
+
+		}
+	}
+}
+
+void gameController::PutRandomBomb()
+{
+
+	vector<Objects*>::iterator it ;
+	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
+	{
+		if(typeid(**it) == typeid(Bomb) && (*it)->isEnabled())
+		{
+			
+			(*it)->IncereaseTimer();
+
+		}
+	}
+}
+void gameController::ExplodeAllBombsTimers()
+{
+
+	vector<Objects*>::iterator it ;
+	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
+	{
+		if(typeid(**it) == typeid(Bomb) && (*it)->isEnabled())
+		{
+			
+			(*it)->Disable();
+			explodeBomb((*it)->getCord());
+
+
+		}
+	}
+	
+}
 //=============================================================================
 void  gameController::explodeBomb(const Vertex &_cord)
 { 
@@ -269,19 +337,15 @@ void gameController::decreaseTimer()
 void gameController::idle()
 {
 	removeDisabledObjects();
+
 	decreaseTimer();
 	
 	vector<Objects*>::iterator it ;
-	std::cout << "idle_\n";
+
 
 
 	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 	{
-			if((*it) == NULL)
-			{
-				std::cout << "Some error in IDLE 22222\n";
-				exit(EXIT_FAILURE);
-			}
 
 		if((*it)->intelect)
 			(*it)->VirtualPress(_objects);
@@ -299,20 +363,14 @@ void gameController::idle()
 			(*it)->Disable();	
 		}
 		 
-		else if((*it)->isEnabled())
+		else if((*it)->isEnabled() && !(*it)->intelect)
 		{
 			//if(typeid(**it) != typeid(Wall))
 			//	cout << "Start " << typeid(**it).name() << "\n";
 			//std::cout << "Move_\n";
-			bool hb = false;
-			(*it)->Move(_objects,hb) ;
-			if(hb)
-			{
-				Bomb *new_bomb = new Bomb();
-				new_bomb->setCord((*it)->getCord());
-				_objects.push_back(new_bomb);
-				Grafic::addObject(new_bomb);
-			}
+
+			(*it)->Move(_objects) ;
+
 			//std::cout << "Stop\n";
 			//std::cout << "move+\n";
 		}
@@ -321,7 +379,7 @@ void gameController::idle()
 	}
 	
 	
-	std::cout << "idle+\n";
+	applyPresents();
 
 	vector<Objects*>::iterator iter ;
 	if(!_comp._alive || !_user._alive )
@@ -331,13 +389,8 @@ void gameController::idle()
 
 		for( iter =  _objects.begin() ; iter !=_objects.end() ; iter++ )
 		{
-			if((*iter) == NULL)
-			{
-				std::cout << "Some error in IDLE 22222\n";
-				exit(EXIT_FAILURE);
-			}
-				if(typeid(**iter) != typeid(User)  && typeid(**iter) != typeid(Computer) &&  typeid(**iter) != typeid(Menu)  )
-				delete *iter;
+			if(typeid(**iter) != typeid(User)  && typeid(**iter) != typeid(Computer) &&  typeid(**iter) != typeid(Menu)  )
+			delete *iter;
 		}
 		//clearAll();
 		gameController::getInstance()->_objects.clear();

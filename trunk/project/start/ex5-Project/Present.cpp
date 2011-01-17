@@ -7,13 +7,13 @@ Present::Present()
 	_present_type =	(rand()% 3) + 1	;
 	switch(_present_type)
 	{
-	case 1:
+	case PRESENT_BOMB:
 		_sprite.push_back(SURPRISE_BOMB);
 		break;
-	case 2:
+	case PRESENT_TIME:
 		_sprite.push_back(SURPRISE_TIME);
 		break;
-	case 3:
+	case PRESENT_LIGHT:
 		_sprite.push_back(SURPRISE_LIHT);
 		break;
 	default:
@@ -21,7 +21,7 @@ Present::Present()
 		exit(EXIT_FAILURE);
 		break;
 	}
-	
+	_takable = true;
 	movable = 1;
 
 }
@@ -32,4 +32,10 @@ void Present::Draw()
 	vector <Sprite>::iterator it;
 	it = _sprite.begin();
 	it->Draw(_cord);
+}
+
+
+short int Present::getPresentType()
+{
+	return (_present_type);
 }
