@@ -8,6 +8,7 @@ class Bomb:public Objects
 {
 public:
 	Bomb();
+	~Bomb();
 	virtual void Draw();
 	virtual void decTimer();
 	virtual short int getTimer();

@@ -75,7 +75,7 @@ void Player::decLife()
 
 }
 //=============================================================================
-void Player::Move(std::vector<Objects *> &_objects)
+void Player::Move(std::vector<Objects *> &_objects,bool &have_p)
 {
 //if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
 //	|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
@@ -90,8 +90,8 @@ void Player::Move(std::vector<Objects *> &_objects)
 //	(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
 //	(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
 //{	
-	vector<Objects*>::iterator it ;
-
+	vector<Objects*>::const_iterator it ;
+	have_p = false;
 	if(_way == KEY_BOMB  )
 	{
 		bool can_put_B = true;
@@ -105,12 +105,14 @@ void Player::Move(std::vector<Objects *> &_objects)
 		}
 		if(can_put_B)
 		{
-
-			Bomb *new_bomb = new Bomb();
-			new_bomb->setCord(_cord);
-			_objects.push_back(new_bomb);
-			Grafic::addObject(new_bomb);
+			have_p = true;
+			//Bomb *new_bomb = new Bomb();
+			//new_bomb->setCord(_cord);
+			//_objects.push_back(new_bomb);
+			//Grafic::addObject(new_bomb);
 		}
+	
+			
 
 		_way =		_way_prev;//KEY_DOWN ;
 
@@ -146,13 +148,7 @@ void Player::Move(std::vector<Objects *> &_objects)
 		}
 
 		if(_have_move)
-		{
 			_cord = _new_cord;
-		}
-		//else
-		//{
-		//	_new_cord = _cord;
-		//}
 
 	}
 }

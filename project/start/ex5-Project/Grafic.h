@@ -13,7 +13,7 @@ class Grafic
 public:
 	Grafic();
 	static void Display();
-	static std::vector <Objects *> _objects; 
+	static std::vector <Objects *> _objectsDrow; 
 	static void addObject(Objects *newObject);
 	static void clearObject(Objects *obj);
 };

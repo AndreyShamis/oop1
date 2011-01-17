@@ -12,6 +12,11 @@ Bomb::Bomb()
 }
 
 //=============================================================================
+
+Bomb::~Bomb()
+{
+	_sprite.clear();
+}
 short int Bomb::getTimer() 
 {
 	return(_timer);
@@ -20,19 +25,22 @@ short int Bomb::getTimer()
 //=============================================================================
 void Bomb::Draw()
 {
-	vector <Sprite>::iterator it;
-
-	if(_timer > 20)
-		it = _sprite.begin();
-	else if(_timer> 10)
-		it = _sprite.begin()+1;
-	else
-		it = _sprite.begin()+2;
-
-	if(_timer >=0)
+	if(_sprite.size() > 0)
 	{
-		it->Draw(_cord);
-	}
+		vector <Sprite>::iterator it;
+
+		if(_timer > 20)
+			it = _sprite.begin();
+		else if(_timer> 10)
+			it = _sprite.begin()+1;
+		else
+			it = _sprite.begin()+2;
+
+		if(_timer >=0)
+		{
+			it->Draw(_cord);
+		}
+}
 }
 
 //=============================================================================
