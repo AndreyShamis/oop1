@@ -4,8 +4,12 @@
 void Player::PlayerStart()
 {
 	setLife(3);
+	_new_cord = _cord;
 	_alive = true;
+	
 }
+
+
 //=============================================================================
 void Player::Draw()
 {
@@ -73,12 +77,24 @@ void Player::decLife()
 //=============================================================================
 void Player::Move(std::vector<Objects *> &_objects)
 {
-	
+//if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
+//	|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
+//	|| ((*it)->_cord._y <= _cord._y && (*it)->_cord._y+27 >= _cord._y)
+//	|| ((*it)->_cord._y <= _cord._y+27) && (*it)->_cord._y+27 >= _cord._y+27)
+//	 
+//{
+
+// ili eta:	
+//if((((*it)->_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
+//	(((*it)->_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
+//	(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
+//	(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
+//{	
 	if(_way == KEY_BOMB)
 	{
 		_way =		_way_prev;//KEY_DOWN ;
 		Bomb *new_bomb = new Bomb();
-		new_bomb->_cord = _cord;
+		new_bomb->setCord(_cord);
 		_objects.push_back(new_bomb);
 		Grafic::addObject(new_bomb);
 	}
@@ -86,25 +102,14 @@ void Player::Move(std::vector<Objects *> &_objects)
 	{
 		bool _have_move = true;
 		vector<Objects*>::iterator it ;
+		_new_cord = _cord;
 		mathNewCord();
 		for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 		{
-			if(!(*it)->movable && (*it)->_enabled )
+			if((*it) != this && !(*it)->movable && (*it)->_enabled )
 			{
-				//if(((*it)->_cord._x <= _cord._x && (*it)->_cord._x+27 >= _cord._x) 
-				//	|| ((*it)->_cord._x <= _cord._x+27 && (*it)->_cord._x+27 >= _cord._x+27) 
-				//	|| ((*it)->_cord._y <= _cord._y && (*it)->_cord._y+27 >= _cord._y)
-				//	|| ((*it)->_cord._y <= _cord._y+27) && (*it)->_cord._y+27 >= _cord._y+27)
-				//	 
-				//{
 				if((*it)->checkCollision(_new_cord,PIC_WIDTH,PIC_WIDTH))
 				{
-					// ili eta:	
-					//if((((*it)->_cord._y+PIC_WIDTH == _cord._y)		&&	(_way == KEY_UP))	||					
-					//	(((*it)->_cord._y == _cord._y+PIC_WIDTH)	&&	(_way == KEY_DOWN))		||
-					//	(((*it)->_cord._x == _cord._x+PIC_WIDTH)	&&	(_way == KEY_RIGHT))	||
-					//	(((*it)->_cord._x+PIC_WIDTH == _cord._x)	&&	(_way == KEY_LEFT)))
-					//{
 					if(typeid(**it) == typeid(Fire))
 					{
 						_alive = false;
@@ -119,13 +124,17 @@ void Player::Move(std::vector<Objects *> &_objects)
 					}
 					
 				}
-				{
+			}
 		}
 
-		if(_have_move)
-		{
-			_cord = _new_cord;
-		}
+		//if(_have_move)
+		//{
+		//	_cord = _new_cord;
+		//}
+		//else
+		//{
+		//	_new_cord = _cord;
+		//}
 
 	}
 }

@@ -13,21 +13,35 @@ Objects::~Objects()
 	_sprite.clear();
 }
 //=============================================================================
-Vertex Objects::getCord()
-{
-	return(_cord);
-}
 
 
 bool Objects::checkCollision(const Vertex &topLeft,const float &_Objwidth,const float &_Objheight)
 {
 	if(
-		((_cord._x <= topLeft._x && _cord._x+_Objwidth >= topLeft._x)
-		||	(_cord._x <= topLeft._x+_Objwidth && _cord._x+_Objwidth >= topLeft._x+_Objwidth))
-		&& ((_cord._y <= topLeft._y && _cord._y+PIC_WIDTH>= topLeft._y)
-		|| (_cord._y <= topLeft._y+_Objheight && _cord._y+PIC_WIDTH>= topLeft._y+_Objheight))
+		(
+		(_cord._x <= topLeft._x && _cord._x+_Objwidth >= topLeft._x) ||	(_cord._x <= topLeft._x+_Objwidth && _cord._x+PIC_WIDTH >= topLeft._x+PIC_WIDTH)
 		)
+		&& 
+		(
+		(_cord._y <= topLeft._y && _cord._y+PIC_WIDTH>= topLeft._y)  || (_cord._y <= topLeft._y+_Objheight && _cord._y+PIC_WIDTH>= topLeft._y+PIC_WIDTH)
+		)
+	)
 		return true;
 
 	return false;
+}
+
+Vertex Objects::getCord() const
+{
+	return(_cord);
+}
+void Objects::setCord(const Vertex &newCoordinate)
+{
+	_cord = newCoordinate;
+}
+
+void Objects::setCordByFloat(const float &x,const float &y)
+{
+	_cord._x = x;
+	_cord._y = y;
 }

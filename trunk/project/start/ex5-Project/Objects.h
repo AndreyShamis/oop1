@@ -13,16 +13,19 @@ public:
 	virtual void Press(unsigned char key, int x, int y) {};
 	virtual void SpecPress(int key, int x, int y) {};
 	virtual void VirtualPress(std::vector <Objects*> &_objects) {};
-	Vertex _cord;
+	
 	std::vector <Sprite> _sprite;
 	int movable;
 	int intelect;
 	bool _enabled;
 	virtual short int getTimer() {return 0;};
 
-	Vertex getCord();
+	Vertex getCord()const;
+	void setCord(const Vertex &newCoordinate);
+	void setCordByFloat(const float &x,const float &y);
 	bool checkCollision(const Vertex &topLeft,const float &_Objwidth,const float &_Objheight);
 protected:
+	Vertex _cord;
 	int _timer;
 
 

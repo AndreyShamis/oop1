@@ -86,8 +86,7 @@ void gameController::LoadGame()
 			if(ch == FENCE)			//	zabor
 			{
 				Wall *wall = new Wall();
-				wall->_cord._x = countX*PIC_WIDTH;
-				wall->_cord._y = countY*PIC_WIDTH;
+				wall->setCordByFloat(countX*PIC_WIDTH,countY*PIC_WIDTH);
 				_objects.push_back(wall);
 				_graf.addObject(wall);
 			}
@@ -102,8 +101,7 @@ void gameController::LoadGame()
 			else if(ch == BARREL)	// bochka
 			{
 				Bochka *bochka = new Bochka();
-				bochka->_cord._x = countX*PIC_WIDTH;
-				bochka->_cord._y = countY*PIC_WIDTH;
+				bochka->setCordByFloat(countX*PIC_WIDTH,countY*PIC_WIDTH);
 				_objects.push_back(bochka);
 				_graf.addObject(bochka);
 			}
@@ -120,17 +118,15 @@ void gameController::LoadGame()
 	myReadFile.close();
 
 	//_user = new User();
-	_user._cord._x = 1*PIC_WIDTH;
-	_user._cord._y = 1*PIC_WIDTH;
+	_user.setCordByFloat(1*PIC_WIDTH,1*PIC_WIDTH);
 	//_comp = new Computer();
-	_comp._cord._x = 18*PIC_WIDTH;
-	_comp._cord._y = 18*PIC_WIDTH;
+	_comp.setCordByFloat(18*PIC_WIDTH,18*PIC_WIDTH);
 
 	_objects.push_back(&_user);
 	_graf.addObject(&_user);
 	_kboard.addObject(&_user);
 
-	_comp.setUserEnemyCord(&_user._cord);
+	_comp.setUserEnemyCord(_user.getPointerCoordinate());
 	_objects.push_back(&_comp);
 	_graf.addObject(&_comp);
 	_kboard.addObject(&_comp);	
@@ -139,12 +135,12 @@ void gameController::LoadGame()
 	_menu_cord._x = 580;
 	_menu_cord._y = 50;
 
-	_user_menu._cord = _menu_cord;
+	_user_menu.setCord(_menu_cord);
 	_objects.push_back(&_user_menu);
 	_graf.addObject(&_user_menu);
 	
 	_menu_cord._y = 120;
-	_comp_menu._cord = _menu_cord;
+	_comp_menu.setCord(_menu_cord);
 	_objects.push_back(&_comp_menu);
 	_graf.addObject(&_comp_menu);
 	
@@ -262,7 +258,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 	Fire *new_fire=NULL;
 
 	new_fire = new Fire(EXP_START_USR,13);
-	new_fire->_cord = _cord;
+	new_fire->setCord(_cord);
 	Grafic::_objects.push_back(new_fire);
 	_objects.push_back(new_fire);
 
@@ -320,7 +316,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 						(*it)->_enabled = false;
 						Present *new_present;
 						new_present = new Present();
-						new_present->_cord = (*it)->getCord();
+						new_present->setCord((*it)->getCord());
 						Grafic::_objects.push_back(new_present);
 						_objects.push_back(new_present);
 						
@@ -333,7 +329,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 		if(!have_col)
 		{
 			new_fire = new Fire(pic_fire,15);
-			new_fire->_cord = _fire_cord;
+			new_fire->setCord(_fire_cord);
 			Grafic::_objects.push_back(new_fire);
 			_objects.push_back(new_fire);
 		}
@@ -377,8 +373,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 			if(ch == FENCE)			//	zabor
 			{
 				Wall *wall = new Wall();
-				wall->_cord._x = countX*PIC_WIDTH;
-				wall->_cord._y = countY*PIC_WIDTH;
+				wall->setCordByFloat(countX*PIC_WIDTH,countY*PIC_WIDTH);
 				gameController::getInstance()->_objects.push_back(wall);
 				gameController::getInstance()->_graf.addObject(wall);
 			}
@@ -393,8 +388,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 			else if(ch == BARREL)	// bochka
 			{
 				Bochka *bochka = new Bochka();
-				bochka->_cord._x = countX*PIC_WIDTH;
-				bochka->_cord._y = countY*PIC_WIDTH;
+				bochka->setCordByFloat(countX*PIC_WIDTH,countY*PIC_WIDTH);
 				gameController::getInstance()->_objects.push_back(bochka);
 				gameController::getInstance()->_graf.addObject(bochka);
 			}
@@ -418,12 +412,10 @@ void  gameController::explodeBomb(const Vertex &_cord)
 
 	//_user = new User();
 	std::cout << "Creating User\n";
-	gameController::getInstance()->_user._cord._x = 1*PIC_WIDTH;
-	gameController::getInstance()->_user._cord._y = 1*PIC_WIDTH;
+	gameController::getInstance()->_user.setCordByFloat(1*PIC_WIDTH, 1*PIC_WIDTH);
 	//_comp = new Computer();
 	std::cout << "Creating Computer Enemy\n";
-	gameController::getInstance()->_comp._cord._x = 18*PIC_WIDTH;
-	gameController::getInstance()->_comp._cord._y = 18*PIC_WIDTH;
+	gameController::getInstance()->_comp.setCordByFloat(18*PIC_WIDTH, 18*PIC_WIDTH);
 
 
 
@@ -431,7 +423,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 	gameController::getInstance()->_graf.addObject(&gameController::getInstance()->_user);
 	_kboard.addObject(&gameController::getInstance()->_user);
 
-	gameController::getInstance()->_comp.setUserEnemyCord(&gameController::getInstance()->_user.getCord());
+	gameController::getInstance()->_comp.setUserEnemyCord(gameController::getInstance()->_user.getPointerCoordinate());
 	_objects.push_back(&gameController::getInstance()->_comp);
 	gameController::getInstance()->_graf.addObject(&gameController::getInstance()->_comp);
 	_kboard.addObject(&gameController::getInstance()->_comp);
@@ -441,12 +433,12 @@ void  gameController::explodeBomb(const Vertex &_cord)
 	_menu_cord._x = 580;
 	_menu_cord._y = 50;
 
-	_user_menu._cord = _menu_cord;
+	_user_menu.setCord(_menu_cord);
 	_objects.push_back(&gameController::getInstance()->_user_menu);
 	gameController::getInstance()->_graf.addObject(&gameController::getInstance()->_user_menu);
 	
 	_menu_cord._y = 120;
-	_comp_menu._cord = _menu_cord;
+	_comp_menu.setCord(_menu_cord);
 	_objects.push_back(&gameController::getInstance()->_comp_menu);
 	gameController::getInstance()->_graf.addObject(&gameController::getInstance()->_comp_menu);
 	

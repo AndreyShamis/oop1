@@ -12,9 +12,15 @@ User::User()
 
 
 	movable = 1;
-	//PlayerStart();
+	PlayerStart();
 }
 
+
+//=============================================================================
+Vertex *User::getPointerCoordinate()
+{
+	return(&_cord);
+}
 //=============================================================================
 void User::Press(unsigned char key, int x, int y)
 {
