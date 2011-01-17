@@ -13,4 +13,5 @@ public:
 	virtual void Draw();
 	void setTimer(const short int &newVal);
 	short int getTimer(); 
+	virtual void decTimer();
 };

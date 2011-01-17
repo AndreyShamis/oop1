@@ -14,12 +14,9 @@ void Fire::Draw()
 {
 	vector <Sprite>::iterator it;
 	it = _sprite.begin();
-	it->Draw(_cord);
-	_timer--;
-
-	if(_timer < 0)
+	if(_timer >= 0)
 	{
-		_enabled= false;
+		it->Draw(_cord);
 	}
 
 }
@@ -35,4 +32,9 @@ void Fire::setTimer(const short int &newVal)
 short int Fire::getTimer() 
 {
 	return(_timer);
+}
+
+void Fire::decTimer()
+{
+	_timer--;
 }

@@ -2,6 +2,7 @@
 
 #include "Objects.h"
 #include "Bomb.h"
+#include "Bochka.h"
 #include "Fire.h"
 #include <vector>
 #include <glut.h>
@@ -14,4 +15,5 @@ public:
 	static void Display();
 	static std::vector <Objects *> _objects; 
 	static void addObject(Objects *newObject);
+	static void clearObject(Objects *obj);
 };

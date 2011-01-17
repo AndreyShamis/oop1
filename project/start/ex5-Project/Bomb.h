@@ -9,8 +9,7 @@ class Bomb:public Objects
 public:
 	Bomb();
 	virtual void Draw();
-	void decTimer();
-	short int getTimer() ;
+	virtual void decTimer();
+	virtual short int getTimer();
 protected:
-	short int _timer;
 };

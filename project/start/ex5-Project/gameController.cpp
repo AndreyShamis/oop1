@@ -156,100 +156,6 @@ void gameController::LoadGame()
 
 	//sndPlaySound(L"SOUND/BackGround_Sound.wav", SND_LOOP | SND_ASYNC );
 }
-
-//=============================================================================
-void gameController::idle()
-{
-
-	vector<Objects*>::iterator it ;
-
-	
-	int _it_size = (int)_objects.size(); 
-	for( int i = 0 ; i < _it_size;i++ )
-	{
-		it =  _objects.begin() +i;
-			if((*it) == NULL)
-			{
-				std::cout << "Some error in IDLE 22222\n";
-				exit(EXIT_FAILURE);
-			}
-
-		//if((*it)->intelect)
-		//	(*it)->VirtualPress(_objects);
-		if(typeid(**it) == typeid(Bomb) && (*it)->getTimer() <0 && (*it)->_enabled)
-		{
-			//sndPlaySound(L"SOUND/Boom.wav",SND_ASYNC | SND_NOSTOP);
-			explodeBomb((*it)->getCord());
-			(*it)->_enabled = false;	
-		}
-		else
-			if(typeid(**it) == typeid(Fire) && (*it)->getTimer() <0 )
-		{
-			(*it)->_enabled = false;	
-		}
-		 
-			if((*it)->_enabled )
-		{
-			(*it)->Move(_objects) ;
-		}
-			
-	
-	}
-	
-
-
-	glutPostRedisplay();
-	if(!_comp._alive || !_user._alive )
-	{
-		gameController::getInstance()->_graf._objects.clear();
-		gameController::getInstance()->_kboard._objects.clear();
-
-		for( it =  _objects.begin() ; it !=_objects.end() ; it++ )
-		{
-			if((*it) == NULL)
-			{
-				std::cout << "Some error in IDLE 22222\n";
-				exit(EXIT_FAILURE);
-			}
-				if(typeid(**it) != typeid(User)  && typeid(**it) != typeid(Computer) &&  typeid(**it) != typeid(Menu)  )
-				delete *it;
-		}
-		//clearAll();
-		gameController::getInstance()->_objects.clear();
-
-
-		if(_user.getLife() >0 && _comp.getLife() == 0)
-		{
-			_level++;
-			_user.setLife(3);
-			_comp.setLife(3);
-			
-		}
-		
-		_comp._alive = true;
-		_user._alive = true;
-		Reload_Game_Stat();	
-
-	}
-	//Grafic::removeObjects();
-	//clearDisabled();
-
-}
-
-
-//=============================================================================
- void gameController::clearAll()
-{
-	vector<Objects*>::iterator it ;
-
-	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
-	{
-		delete &(*it);
-	}
-	//_objects.clear();
-}
-
-
 //=============================================================================
 void  gameController::explodeBomb(const Vertex &_cord)
 { 
@@ -298,7 +204,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 			else
 			{
 
-				if((*it)->_enabled && typeid(**it) == typeid(Wall))
+				if((*it)->isEnabled() && typeid(**it) == typeid(Wall))
 				{
 
 					if((*it)->checkCollision(_fire_cord,PIC_WIDTH,PIC_WIDTH))
@@ -307,18 +213,19 @@ void  gameController::explodeBomb(const Vertex &_cord)
 						break;
 					}
 				}
-				if((*it)->_enabled && typeid(**it) == typeid(Bochka))
+				if((*it)->isEnabled() && typeid(**it) == typeid(Bochka))
 				{
 
 					if((*it)->checkCollision(_fire_cord,PIC_WIDTH,PIC_WIDTH))
 					{
+						;
 						//have_col= false;
-						(*it)->_enabled = false;
-						Present *new_present;
-						new_present = new Present();
-						new_present->setCord((*it)->getCord());
-						Grafic::_objects.push_back(new_present);
-						_objects.push_back(new_present);
+						//(*it)->Disable();
+						//Present *new_present;
+						//new_present = new Present();
+						//new_present->setCord((*it)->getCord());
+						//Grafic::_objects.push_back(new_present);
+						//_objects.push_back(new_present);
 						
 					}
 				}
@@ -336,6 +243,126 @@ void  gameController::explodeBomb(const Vertex &_cord)
 	}
 
 }
+
+
+void gameController::removeDisabledObjects()
+{
+	vector<Objects*>::iterator it ;
+
+	for( it =  _objects.begin() ; it <_objects.end() ; it++ )
+	{
+		if(!(*it)->isEnabled())
+		{
+
+			_objects.erase(it);
+			gameController::getInstance()->_graf.clearObject(*it);
+			delete *it;
+
+		}
+	}
+
+
+}
+
+void gameController::decreaseTimer()
+{
+
+	vector<Objects*>::iterator it ;
+
+	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+	{
+		(*it)->decTimer();
+	
+	}
+}
+
+//=============================================================================
+void gameController::idle()
+{
+	//removeDisabledObjects();
+	decreaseTimer();
+	
+	vector<Objects*>::iterator it ;
+
+	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
+	{
+			if((*it) == NULL)
+			{
+				std::cout << "Some error in IDLE 22222\n";
+				exit(EXIT_FAILURE);
+			}
+
+		if((*it)->intelect)
+			(*it)->VirtualPress(_objects);
+		if(typeid(**it) == typeid(Bomb) && (*it)->isEnabled() && (*it)->getTimer() <=0 )
+		{
+
+			//sndPlaySound(L"SOUND/Boom.wav",SND_ASYNC | SND_NOSTOP);
+			(*it)->Disable();
+			explodeBomb((*it)->getCord());
+			
+			
+		}
+		else if(typeid(**it) == typeid(Fire) && (*it)->getTimer() <0 )
+		{
+			(*it)->Disable();	
+		}
+		 
+		else if((*it)->isEnabled())
+		{
+			if(typeid(**it) != typeid(Wall))
+				cout << "Start " << typeid(**it).name() << "\n";
+			(*it)->Move(_objects) ;
+			//std::cout << "Stop\n";
+		}
+			
+	
+	}
+	
+	
+
+
+
+	if(!_comp._alive || !_user._alive )
+	{
+		gameController::getInstance()->_graf._objects.clear();
+		gameController::getInstance()->_kboard._objects.clear();
+
+		for( it =  _objects.begin() ; it !=_objects.end() ; it++ )
+		{
+			if((*it) == NULL)
+			{
+				std::cout << "Some error in IDLE 22222\n";
+				exit(EXIT_FAILURE);
+			}
+				if(typeid(**it) != typeid(User)  && typeid(**it) != typeid(Computer) &&  typeid(**it) != typeid(Menu)  )
+				delete *it;
+		}
+		//clearAll();
+		gameController::getInstance()->_objects.clear();
+
+
+		if(_user.getLife() >0 && _comp.getLife() == 0)
+		{
+			_level++;
+			_user.setLife(3);
+			_comp.setLife(3);
+			
+		}
+		
+		_comp._alive = true;
+		_user._alive = true;
+		Reload_Game_Stat();	
+
+	}
+	//Grafic::removeObjects();
+	//clearDisabled();
+	glutPostRedisplay();
+	//removeDisabledObjects();
+}
+
+
+
 
  //=============================================================================
  void gameController::Reload_Game_Stat()

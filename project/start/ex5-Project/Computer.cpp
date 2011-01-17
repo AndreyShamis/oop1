@@ -39,7 +39,7 @@ bool Computer::CheckCorrect(const Vertex &_ncord,std::vector <Objects*> &_object
 			std::cout << "Error::Computer::CheckCorrect\n";
 			exit(EXIT_FAILURE);
 		}
-		else if(!(*it)->movable && (*it)->_enabled)
+		else if(!(*it)->movable && (*it)->isEnabled())
 		{
 				Vertex it_cord;
 				it_cord = (*it)->getCord();
@@ -164,16 +164,11 @@ bool Computer::checkIfCellHaveBomb(std::vector <Objects*> &_objects,const Vertex
 			std::cout << "Error::Computer::checkIfCellHaveBomb\n";
 			exit(EXIT_FAILURE);
 		}
-		else if(typeid(**it) == typeid(Bomb)  && (*it)->_enabled)
+		else if(typeid(**it) == typeid(Bomb)  && (*it)->isEnabled() )
 		{
-			if((*it)->checkCollision(_coordinate,PIC_WIDTH,PIC_WIDTH))
-			//if(((*it)->_cord._x <= _coordinate._x && (*it)->_cord._x+PIC_WIDTH>= _coordinate._x) 
-			//	|| ((*it)->_cord._x <= _coordinate._x+PIC_WIDTH && (*it)->_cord._x+PIC_WIDTH>= _coordinate._x+27) 
-			//	|| ((*it)->_cord._y <= _coordinate._y && (*it)->_cord._y+PIC_WIDTH>= _coordinate._y)
-			//	|| ((*it)->_cord._y <= _coordinate._y+PIC_WIDTH) && (*it)->_cord._y+PIC_WIDTH >= _coordinate._y+PIC_WIDTH)
-				 
+			if((*it)->checkCollision(_coordinate,PIC_WIDTH,PIC_WIDTH))		 
 			{
-					cout << "Have bomb\n";
+					//cout << "Have bomb\n";
 					return(true);
 			}
 		}
@@ -198,7 +193,7 @@ bool Computer::checkExplodeBomb(std::vector <Objects*> &_objects,const Vertex &n
 			std::cout << "Error::Computer::checkExplodeBomb\n";
 			exit(EXIT_FAILURE);
 		}
-		else if(typeid(**it) == typeid(Fire) && (*it)->_enabled)
+		else if(typeid(**it) == typeid(Fire) && (*it)->isEnabled())
 		{
 			if((*it)->checkCollision(newCord,PIC_WIDTH,PIC_WIDTH))
 				return true;
@@ -225,7 +220,7 @@ bool Computer::checkForBarrel(std::vector <Objects*> &_objects)
 	{
 
 
-		if(typeid(**it) == typeid(Bochka) && (*it)->_enabled)
+		if(typeid(**it) == typeid(Bochka) && (*it)->isEnabled())
 		{
 			if((*it)->checkCollision(_ucord,PIC_WIDTH,PIC_WIDTH) 
 			|| (*it)->checkCollision(_dcord,PIC_WIDTH,PIC_WIDTH)
@@ -264,15 +259,16 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 		computer_trys--;					//	decrease trys
 		_newCoordinate = _cord;				//	reset new coordinates
 		turnCode	=	(rand()% 4) + 1	;	//	get random code
-
-		if(checkEnemyinBombRaound() && !checkIfCellHaveBomb(_objects,_cord))//	check if player in araound
-		{	
-			turnCode= KEY_BOMB;
-		}
-		//	check if have barrel in arround and don`t have bombs
-		else if(!checkIfCellHaveBomb(_objects,_cord) && checkForBarrel(_objects))
-				turnCode = KEY_BOMB;
-		else if(try_detect_enemy && _computerTryDetectEnemy > 6)
+		bool cell_have_B = checkIfCellHaveBomb(_objects,_cord);
+		//if(checkEnemyinBombRaound() && !cell_have_B)//	check if player in araound
+		//{	
+		//	//turnCode= KEY_BOMB;
+		//}
+		////	check if have barrel in arround and don`t have bombs
+		//else if(!cell_have_B && checkForBarrel(_objects))
+		//		turnCode = KEY_BOMB;
+		//else 
+			if(try_detect_enemy && _computerTryDetectEnemy > 6)
 		{
 			//	
 			if(_computerTryDetectEnemy > 11)
@@ -315,33 +311,34 @@ void Computer::VirtualPress(std::vector <Objects*> &_objects)
 		
 	}
 
-	if(turnCode == KEY_BOMB)
-	{
-		_way =		_way_prev;//KEY_DOWN ;
-		Bomb *new_bomb = new Bomb();
-		new_bomb->setCord(_cord);
-		_objects.push_back(new_bomb);
-		Grafic::addObject(new_bomb);
-	}
-	else
-	{
-		_way_prev = _way;
-		switch(turnCode)
-		{
-		case 1:
-			_way = KEY_UP;
-			break;
-		case 2:
-			_way = KEY_DOWN;
-			break;
-		case 3:
-			_way = KEY_LEFT;
-			break;
-		case 4:
-			_way = KEY_RIGHT;
-			break;
-		}
-	}
+	_way = turnCode;
+	//if(turnCode == KEY_BOMB)
+	//{
+	//	_way =		_way_prev;//KEY_DOWN ;
+	//	Bomb *new_bomb = new Bomb();
+	//	new_bomb->setCord(_cord);
+	//	_objects.push_back(new_bomb);
+	//	Grafic::addObject(new_bomb);
+	//}
+	//if(turnCode != KEY_BOMB)
+	//{
+	//	_way_prev = _way;
+	//	switch(turnCode)
+	//	{
+	//	case 1:
+	//		_way = KEY_UP;
+	//		break;
+	//	case 2:
+	//		_way = KEY_DOWN;
+	//		break;
+	//	case 3:
+	//		_way = KEY_LEFT;
+	//		break;
+	//	case 4:
+	//		_way = KEY_RIGHT;
+	//		break;
+	//	}
+	//}
 	
 
 

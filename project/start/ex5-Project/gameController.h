@@ -42,4 +42,6 @@ protected:
 	static short int _level;
 	static std::vector <Objects *> _objects; 
 	static void Reload_Game_Stat();
+	static void decreaseTimer();
+	static void removeDisabledObjects();
 };
