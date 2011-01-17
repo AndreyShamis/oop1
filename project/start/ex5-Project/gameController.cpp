@@ -192,7 +192,7 @@ void gameController::idle()
 			(*it)->_enabled = false;	
 		}
 		 
-		if((*it)->_enabled)
+			if((*it)->_enabled )
 		{
 			(*it)->Move(_objects) ;
 		}
