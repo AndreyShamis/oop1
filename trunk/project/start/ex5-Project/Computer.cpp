@@ -12,11 +12,16 @@ Computer::Computer(void)
 	_way = KEY_UP;
 
 	srand ((int)(time(0)));		// rand for computer turns
-	intelect =1;
+	_intelect =1;
 	movable = 0;
 	_computerTryDetectEnemy = 0;
 	PlayerStart();
 	setSize();
+}
+
+bool Computer::isIntilect()
+{
+	return(_intelect);
 }
 
 void Computer::setUserEnemyCord(const Vertex *_cord)

@@ -34,7 +34,10 @@ public:
 	short int	getLife()const ;
 	void		setLife(const short int &new_Val);
 	void		decLife();
-	bool		_alive;
+	
+	void		setDead();
+	void		setAlive();
+	bool		getAlive()const;
 protected:
 	short int	_life;
 	void		mathNewCord();
@@ -43,5 +46,6 @@ protected:
 	Vertex		_new_cord;
 	short int	_way_prev;
 	short int	_way;
+	bool		_alive;
 	
 };
