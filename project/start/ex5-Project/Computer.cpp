@@ -1,8 +1,6 @@
 #include "Computer.h"
 
-
-
-
+//=============================================================================
 Computer::Computer(void)
 {
 	_sprite.push_back(ENEMY_D);
@@ -12,18 +10,20 @@ Computer::Computer(void)
 	_way = KEY_UP;
 
 	srand ((int)(time(0)));		// rand for computer turns
-	_intelect =1;
-	movable = 0;
+	_intelect	=	true;
+	_movable		=	false;
 	_computerTryDetectEnemy = 0;
 	PlayerStart();
 	setSize();
 }
 
+//=============================================================================
 bool Computer::isIntilect()
 {
 	return(_intelect);
 }
 
+//=============================================================================
 void Computer::setUserEnemyCord(const Vertex *_cord)
 {
 	_user_enemy_cord = _cord;
@@ -39,7 +39,7 @@ bool Computer::CheckCorrect(const Vertex &_ncord,vector <Objects*> &_objects)
 
 	vector<Objects*>::iterator it ;
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
-		if(!(*it)->movable && (*it)->isEnabled())
+		if(!(*it)->getMovable() && (*it)->isEnabled())
 			if((*it)->checkCollision(_ncord,PIC_WIDTH,PIC_WIDTH))
 				return false;
 

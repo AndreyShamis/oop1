@@ -5,7 +5,7 @@
 Wall::Wall()
 {
 	_sprite.push_back(WALL);		//	put the image to the cector of sprites
-	movable = 0;					//	set not movable
+	_movable = false;					//	set not movable
 	setSize();						//	set size of image
 }
 //=============================================================================

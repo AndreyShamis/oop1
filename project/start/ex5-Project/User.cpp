@@ -11,7 +11,7 @@ User::User()
 	_sprite.push_back(PLAYER_U);
 	_way = KEY_RIGHT;
 
-	movable = 0;			//	set not movable
+	_movable = false;			//	set not movable
 	PlayerStart();			//	set some settings
 	setSize();				//	set size
 }

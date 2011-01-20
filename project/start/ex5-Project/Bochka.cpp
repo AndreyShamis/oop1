@@ -4,11 +4,12 @@
 Bochka::Bochka()
 {
 	_sprite.push_back(SURPRISE);
-	movable = 0;
+	_movable = false;
 	setSize();
 }
 
 //=============================================================================
+//	Draw function
 void Bochka::Draw()
 {
 	vector <Sprite>::iterator it;

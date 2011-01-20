@@ -3,8 +3,8 @@
 //=============================================================================
 Objects::Objects(void)
 {
-	movable		=	1;
-	_intelect	=	0;
+	_movable	=	true;
+	_intelect	=	false;
 	_enabled	=	true;
 	_takable	=	false;
 	_taked		=	false;
@@ -14,6 +14,11 @@ Objects::Objects(void)
 Objects::~Objects()
 {
 	_sprite.clear();
+}
+//=============================================================================
+bool Objects::getMovable()
+{
+	return(_movable);
 }
 //=============================================================================
 void Objects::setSize()

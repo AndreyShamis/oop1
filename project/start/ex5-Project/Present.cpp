@@ -19,7 +19,7 @@ Present::Present()
 		break;
 	}
 	_takable = true;							//	indication if the present is takable
-	movable = 1;								//	if movable
+	_movable = true;								//	if movable
 	setSize();									//	set size
 
 }

@@ -35,8 +35,8 @@ public:
 
 	virtual void Disable();
 	bool isEnabled() const;
+	bool getMovable();
 	
-	int movable;
 	
 
 	bool isTakeable();
@@ -54,6 +54,7 @@ protected:
 	float _height;
 	float _width;
 	bool _intelect;
+	bool _movable;
 
 
 };
