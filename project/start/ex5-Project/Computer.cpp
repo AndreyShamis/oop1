@@ -125,7 +125,7 @@ bool Computer::checkIfCellHaveBomb(std::vector <Objects*> &_objects,
 	vector<Objects*>::iterator it ;
 	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 		if(typeid(**it) == typeid(Bomb)  && (*it)->isEnabled() )
-			if((*it)->checkCollision(_coordinate,PIC_WIDTH*2,PIC_WIDTH*2))		 
+			if((*it)->checkCollision(_coordinate,PIC_WIDTH,PIC_WIDTH))		 
 					return(true);
 
 	return(false);
@@ -141,7 +141,7 @@ bool Computer::checkExplodeBomb(std::vector <Objects*> &_objects,
 	vector<Objects*>::iterator it ;
 	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 		if(typeid(**it) == typeid(Fire) && (*it)->isEnabled())
-			if((*it)->checkCollision(newCord,PIC_WIDTH*2,PIC_WIDTH*2))
+			if((*it)->checkCollision(newCord,PIC_WIDTH,PIC_WIDTH))
 				return true;
 
 
