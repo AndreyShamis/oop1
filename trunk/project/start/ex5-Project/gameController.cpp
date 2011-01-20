@@ -132,7 +132,7 @@ Vertex gameController::GetEmptyCellCord(const int &i)
 
 		_new_cord._x = x;		//	seting the coordinates
 		_new_cord._y = y;		//	seting the coordinates
-		
+		copm = true;
 		for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 		{
 			//	Cheking collisions	
