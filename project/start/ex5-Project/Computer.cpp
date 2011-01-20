@@ -19,12 +19,14 @@ Computer::Computer()
 }
 
 //=============================================================================
+//	return thats the computer and he is intelect
 bool Computer::isIntilect()
 {
 	return(_intelect);
 }
 
 //=============================================================================
+//	set enemy coordinates
 void Computer::setUserEnemyCord(const Vertex *_cord)
 {
 	_user_enemy_cord = _cord;
@@ -38,7 +40,8 @@ void Computer::setUserEnemyCord(const Vertex *_cord)
 bool Computer::CheckCorrect(const Vertex &_ncord,vector <Objects*> &_objects)
 {
 
-	vector<Objects*>::iterator it ;
+	vector<Objects*>::iterator it ;		//	vector iterator
+
 	for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 		if(!(*it)->getMovable() && (*it)->isEnabled())
 			if((*it)->checkCollision(_ncord,PIC_WIDTH,PIC_WIDTH))
@@ -114,6 +117,8 @@ void Computer::turnLogic(const short int &turnCode)
 }
 
 //=============================================================================
+//	cheking for bomb around computer
+//	if found return true
 bool Computer::checkIfCellHaveBomb(std::vector <Objects*> &_objects,
 								   const Vertex &_coordinate)
 {
@@ -127,6 +132,8 @@ bool Computer::checkIfCellHaveBomb(std::vector <Objects*> &_objects,
 }
 
 //=============================================================================
+//	looking for fire thats mean for bombs fire
+//	if found return true
 bool Computer::checkExplodeBomb(std::vector <Objects*> &_objects,
 								const Vertex &newCord)
 {
@@ -140,23 +147,30 @@ bool Computer::checkExplodeBomb(std::vector <Objects*> &_objects,
 
 	return false;
 }
+
+//=============================================================================
+//	Check if we have boxes whick can be exploded by bomb
+//	return true if no colisions
+//	false if have colision
 bool Computer::checkForBarrel(std::vector <Objects*> &_objects)
 {
 
-	Vertex	_lcord = _cord,
-			_rcord = _cord,
+	Vertex	_lcord = _cord,	//	left rigth 
+			_rcord = _cord,	//	and up and down coordiants
 			_ucord = _cord,
 			_dcord = _cord;
 
+	//	coordinate manipulations
 	_lcord._x -= PIC_WIDTH;
 	_rcord._x += PIC_WIDTH;
 	_ucord._y -= PIC_WIDTH;
 	_dcord._y += PIC_WIDTH;
 
-	vector<Objects*>::iterator it ;
+	vector<Objects*>::iterator it ;		//	vector iterator
+
 	for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 	{
-
+		//	try to find if have colisions
 		if((*it)->isEnabled() && typeid(**it) == typeid(Bochka) )
 		{
 			if((*it)->checkCollision(_ucord,PIC_WIDTH,PIC_WIDTH) 
