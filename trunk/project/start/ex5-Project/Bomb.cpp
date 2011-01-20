@@ -7,25 +7,29 @@ Bomb::Bomb()
 	_sprite.push_back(BOMB_STEP_ONE);
 	_sprite.push_back(BOMB_STEP_TWO);
 	_sprite.push_back(BOMB_BEFOR);
-	movable = 0;
+	_movable = false;
 	_timer = 25;
 	setSize();
 }
 
 //=============================================================================
-
 Bomb::~Bomb()
 {
 	_sprite.clear();
 }
+
+//=============================================================================
 short int Bomb::getTimer() 
 {
 	return(_timer);
 }
+
+//=============================================================================
 void Bomb::IncereaseTimer()
 {
 	_timer+=BOMB_TIMER_INCREASER;
 }
+
 //=============================================================================
 void Bomb::Draw()
 {
@@ -44,7 +48,7 @@ void Bomb::Draw()
 		{
 			it->Draw(_cord);
 		}
-}
+	}
 }
 
 //=============================================================================

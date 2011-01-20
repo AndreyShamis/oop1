@@ -4,7 +4,7 @@
 Space::Space()
 {
 	_sprite.push_back(SPACE);
-	movable = 1;
+	_movable = true;
 	setSize();
 }
 

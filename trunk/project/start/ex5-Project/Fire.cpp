@@ -5,7 +5,7 @@ Fire::Fire(const char *filename,const short int &time)
 {
 	_sprite.push_back(filename);
 
-	movable = 0;
+	_movable = false;
 	_timer = time;
 	setSize();
 }

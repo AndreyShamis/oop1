@@ -109,7 +109,7 @@ void Player::Move(std::vector<Objects *> &_objects)
 		_new_cord = _cord;
 		mathNewCord();
 		for( it =  _objects.begin() ; it < _objects.end() ; it++ )
-			if((*it) != this && !(*it)->movable && (*it)->isEnabled() )
+			if((*it) != this && !(*it)->getMovable() && (*it)->isEnabled() )
 				//	check if have collision in new and old coordinate need for get out from bomb
 				if((*it)->checkCollision(_new_cord,PIC_WIDTH,PIC_WIDTH) 
 					&& !(*it)->checkCollision(_cord,PIC_WIDTH,PIC_WIDTH))
