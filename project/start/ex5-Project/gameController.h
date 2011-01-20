@@ -66,5 +66,7 @@ protected:
 	static bool _exitGame;
 	static bool _reloadGame;
 	static void RestartAllGame();
+	static void GameLogic();
+	static void PreGameOPtionsLogic();
 
 };

@@ -11,6 +11,25 @@ void Player::PlayerStart()
 }
 
 //=============================================================================
+//	Function to set if player is dead
+void Player::setDead()
+{
+	_alive = false;
+}
+
+//=============================================================================
+//	Function to set if player is alive
+void Player::setAlive()
+{
+	_alive = true;
+}
+//=============================================================================
+//	Function to get if player is dead
+bool Player::getAlive()const
+{
+	return(_alive);
+}
+//=============================================================================
 //	Function to drow the player
 void Player::Draw()
 {

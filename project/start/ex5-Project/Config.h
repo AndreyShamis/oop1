@@ -98,6 +98,7 @@
 #define EXIT_KEY			'q'
 #define RELOAD_GAME			'n'
 
+#define FIRE_SIZE			4
 
 #define MAX_PRESNT_CHANSE		100			
 #define LIMIT_PRESENT_CHASE		75	

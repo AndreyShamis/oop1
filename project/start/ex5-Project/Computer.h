@@ -21,6 +21,7 @@ public:
 	int _computerTryDetectEnemy ;
 	const Vertex *_user_enemy_cord;
 	void setUserEnemyCord(const Vertex *_cord);
+	bool isIntilect();
 private:
 	Vertex _newCoordinate;
 	bool checkIfCellHaveBomb(vector <Objects*> &_objects,const Vertex &_coordinate);

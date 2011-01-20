@@ -37,12 +37,13 @@ public:
 	bool isEnabled() const;
 	
 	int movable;
-	int intelect;
+	
 
 	bool isTakeable();
 	bool isTaked();
 	void setTaked();
 	void setSize();
+	virtual bool isIntilect(){return 0;};
 protected:
 	std::vector <Sprite> _sprite;
 	bool _enabled;
@@ -52,6 +53,7 @@ protected:
 	bool _takable;
 	float _height;
 	float _width;
+	bool _intelect;
 
 
 };
