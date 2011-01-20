@@ -60,7 +60,7 @@ void gameController::LoadGame()
 	glutSpecialFunc(Keyboard::SpecPress);	//	set Keyboard function
 	glutKeyboardFunc(Keyboard::Press);		//	set Keyboard function
 	//	Sound Play
-	//sndPlaySound(L"SOUND/BackGround_Sound.wav", SND_LOOP | SND_ASYNC );
+	sndPlaySound(L"SOUND/BackGround_Sound.wav", SND_LOOP | SND_ASYNC );
 }
 
 //=============================================================================

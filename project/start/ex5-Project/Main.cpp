@@ -1,5 +1,3 @@
-
-
 #include "gameController.h"
 #include <glut.h>
 
@@ -12,7 +10,7 @@ int main(int argc, char** argv)
 
 	glutInitWindowSize (850,600); 
 	glutInitWindowPosition (0,0);
-	glutCreateWindow ("Bomer Man- Andrey Shamis AND Ilia Gaysinsky");
+	glutCreateWindow ("Bomber Man- Andrey Shamis AND Ilia Gaysinsky");
 	
 	glClearColor(0.0, 0.0, 0.0, 0.0);    // Устанавливается синий фон
 	
