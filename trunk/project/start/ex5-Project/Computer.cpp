@@ -1,7 +1,8 @@
 #include "Computer.h"
 
 //=============================================================================
-Computer::Computer(void)
+//	Class constructor
+Computer::Computer()
 {
 	_sprite.push_back(ENEMY_D);
 	_sprite.push_back(ENEMY_L);

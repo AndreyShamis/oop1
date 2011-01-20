@@ -1,7 +1,7 @@
 /*
 
 	This class provide for Bombs
-	
+	for more inforamtion about all function look to cpp file	
 */
 
 #pragma once

@@ -1,7 +1,7 @@
 /*
 
 	This class provide present-surprise class
-
+	for more inforamtion about all function look to cpp file
 	
 */
 

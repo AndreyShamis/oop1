@@ -1,7 +1,7 @@
 /*
 
 	This class provide Object for which can be exloaded
-
+	for more inforamtion about all function look to cpp file
 
 	
 */

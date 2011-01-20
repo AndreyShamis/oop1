@@ -1,7 +1,7 @@
 /*
 
 	This class provide  a well wich can not be exploded
-	
+	for more inforamtion about all function look to cpp file	
 */
 
 #pragma once

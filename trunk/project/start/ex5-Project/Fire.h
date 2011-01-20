@@ -1,9 +1,7 @@
 /*
 
 	This class provide Fire from Bombs
-
-
-	
+	for more inforamtion about all function look to cpp file
 */
 
 

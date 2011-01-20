@@ -1,9 +1,7 @@
 /*
 
-	This class provide 
-
-
-	
+	This class provide Keyboard functions
+	for more inforamtion about all function look to cpp file	
 */
 
 #pragma once
@@ -18,5 +16,7 @@ public:
 	static void Press(unsigned char key, int x, int y);
 	static void SpecPress(int key, int x, int y);
 	void addObject(Objects *newObject);
+	static void Keyboard::ClearObjects();
+private:
 	static vector<Objects*> _objects ;
 };

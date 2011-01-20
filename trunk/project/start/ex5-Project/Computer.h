@@ -1,7 +1,7 @@
 /*
 
 	This class provide ti computer intelect
-
+	for more inforamtion about all function look to cpp file
 
 	
 */

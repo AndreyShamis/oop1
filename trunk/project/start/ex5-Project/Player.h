@@ -2,7 +2,7 @@
 
 	This class provide  Player class
 	This is main class for User class and Computer class
-	
+	for more inforamtion about all function look to cpp file
 */
 
 #pragma once
@@ -41,7 +41,6 @@ public:
 protected:
 	short int	_life;
 	void		mathNewCord();
-	void		changeCord(const float &x,const float &y);
 	void		changeNewCord(const float &x,const float &y);
 	Vertex		_new_cord;
 	short int	_way_prev;

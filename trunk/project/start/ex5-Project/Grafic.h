@@ -2,7 +2,7 @@
 
 	This class provide a class for all drowable object which
 	be drawed
-
+	for more inforamtion about all function look to cpp file
 
 	
 */
@@ -22,7 +22,9 @@ class Grafic
 public:
 	Grafic();
 	static void Display();
-	static std::vector <Objects *> _objectsDrow; 
 	static void addObject(Objects *newObject);
 	static void clearObject(Objects *obj);
+	static void ClearVector();
+private:
+	static std::vector <Objects *> _objectsDrow; 
 };

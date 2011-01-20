@@ -12,8 +12,7 @@ Wall::Wall()
 //	Draw function
 void Wall::Draw()
 {
-	vector <Sprite>::iterator it;
-	it = _sprite.begin();
-
-	it->Draw(_cord);
+	vector <Sprite>::iterator it;		//	vector iterator
+	it = _sprite.begin();				//	get the sprite 
+	it->Draw(_cord);					//	draw
 }

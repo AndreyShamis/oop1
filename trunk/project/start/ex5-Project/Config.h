@@ -1,9 +1,6 @@
 /*
 
-	This class provide config and define variables
-
-
-	
+	This class provide config and define variables	
 */
 
 

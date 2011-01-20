@@ -1,6 +1,7 @@
 #include "Bochka.h"
 
 //=============================================================================
+//	Class constructor
 Bochka::Bochka()
 {
 	_sprite.push_back(SURPRISE);
@@ -12,9 +13,9 @@ Bochka::Bochka()
 //	Draw function
 void Bochka::Draw()
 {
-	vector <Sprite>::iterator it;
-	it = _sprite.begin();
+	vector <Sprite>::iterator it;		//	vector iterator
+	it = _sprite.begin();				//	get the sprite 
+	it->Draw(_cord);					//	draw
 
-	it->Draw(_cord);
 }
 

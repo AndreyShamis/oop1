@@ -33,7 +33,7 @@ bool Player::getAlive()const
 //	Function to drow the player
 void Player::Draw()
 {
-	vector<Sprite>::iterator it ;
+	vector<Sprite>::iterator it ;			//	vector iteartor
 	switch(_way) 
 	{
 		case KEY_UP:
@@ -52,7 +52,7 @@ void Player::Draw()
 			it = _sprite.begin() ; 			
 			break ;
 	}
-	it->Draw(_cord) ;
+	it->Draw(_cord) ;						//	draw
 }
 
 //=============================================================================
@@ -77,61 +77,62 @@ void Player::decLife()
 
 }
 //=============================================================================
+//	Move for player function
 void Player::Move(std::vector<Objects *> &_objects)
 {
-	vector<Objects*>::const_iterator it ;
+	vector<Objects*>::const_iterator it ;	//	vector iterator
 
-	if(_way == KEY_BOMB  )
+	if(_way == KEY_BOMB  )					//	if key put bomb
 	{
-		bool can_put_B = true;
+		bool can_put_B = true;				//	bool indicaton in can put momb
+		//	cheking if the space for put bomb is correct
 		for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 		{
 			if((*it) != this && (*it)->isEnabled() && (*it)->checkCollision(_cord,PIC_WIDTH,PIC_WIDTH))
 			{
-				can_put_B = false;
+				can_put_B = false;			//	if not return false
 				break;
 			}
 		}
+
 		if(can_put_B)
 		{
-
+			//	check if bomb can be puted so put the bomb
 			Bomb *new_bomb = new Bomb();
 			new_bomb->setCord(_cord);
 			_objects.push_back(new_bomb);
 			Grafic::addObject(new_bomb);
 		}
-		_way =		_way_prev;
+		_way =		_way_prev;				//	set way direction to be
+		//	previuos direction way
 	}
 	else 
 	{
-		bool _have_move = true;
-
-		_new_cord = _cord;
-		mathNewCord();
+		bool _have_move = true;				//	bool varibale indication to check
+											//	if can move
+		_new_cord = _cord;					//	set new cord
+		mathNewCord();						//	get new cord
+		//	checking colisions
 		for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 			if((*it) != this && !(*it)->getMovable() && (*it)->isEnabled() )
 				//	check if have collision in new and old coordinate need for get out from bomb
 				if((*it)->checkCollision(_new_cord,PIC_WIDTH,PIC_WIDTH) 
 					&& !(*it)->checkCollision(_cord,PIC_WIDTH,PIC_WIDTH))
 					if(typeid(**it) == typeid(Fire))
-					{
-						_alive = false;
-						//decLife();
-						//std::cout << "Your life is " << getLife() << "\n";
-					}
+						_alive = false;		//	step on fire
 					else
-					{
+					{						//	give true for move
 						_have_move = false;
 						break;
 
 					}
-
+		//	present logic for taking
 		if(_have_move)
 			for( it =  _objects.begin() ; it < _objects.end() ; it++ )
 				if((*it) != this && (*it)->isTakeable() && (*it)->isEnabled() )
 					if((*it)->checkCollision(_new_cord,PIC_WIDTH,PIC_WIDTH))
 						(*it)->setTaked();
-
+		//	set real coordinate be new mathed coordinates
 		if(_have_move)
 			_cord = _new_cord;
 
@@ -139,8 +140,10 @@ void Player::Move(std::vector<Objects *> &_objects)
 }
 
 //=============================================================================
+//	Math and get new coordinate which be puted in new coordinate variable
 void Player::mathNewCord()
 {
+	//	simple switch by direction
 	switch(_way) 
 	{
 		case KEY_UP:
@@ -161,17 +164,9 @@ void Player::mathNewCord()
 //=============================================================================
 void Player::changeNewCord(const float &x,const float &y)
 {
-	_new_cord._x+=x;
-	_new_cord._y+=y;
+	_new_cord._x+=x;			//	set new x coordiante
+	_new_cord._y+=y;			//	set new y coordinate
 }
-
-//=============================================================================
-void Player::changeCord(const float &x,const float &y)
-{
-	_cord._x+=x;
-	_cord._y+=y;
-}
-
 
 
 //=============================================================================

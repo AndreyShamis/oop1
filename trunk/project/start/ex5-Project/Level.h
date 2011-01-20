@@ -1,7 +1,7 @@
 /*
 
-	This class provide 
-
+	This class provide level indication object
+	for more inforamtion about all function look to cpp file
 
 	
 */

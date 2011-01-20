@@ -15,7 +15,7 @@ int Sprite::getWidth()
 	return(_width);
 }
 //=============================================================================
-// Constructor
+//	Class constructor 
 Sprite::Sprite(const char* filename) {
 
 
