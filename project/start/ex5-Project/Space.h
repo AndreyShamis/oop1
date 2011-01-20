@@ -1,7 +1,7 @@
 /*
 
 	This class provide  empty space cell
-
+	for more inforamtion about all function look to cpp file
 */
 
 #pragma once

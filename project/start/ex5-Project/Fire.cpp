@@ -1,6 +1,8 @@
 #include "Fire.h"
 
 //=============================================================================
+//	Class constructor geting filename for fire picture
+//	and time for runing
 Fire::Fire(const char *filename,const short int &time)
 {
 	_sprite.push_back(filename);
@@ -10,12 +12,15 @@ Fire::Fire(const char *filename,const short int &time)
 	setSize();
 }
 
-
+//=============================================================================
+//	destructor
 Fire::~Fire()
 {
 	_sprite.clear();
 }
+
 //=============================================================================
+//	Draw function
 void Fire::Draw()
 {
 	if(_sprite.size() > 0)

@@ -1,6 +1,8 @@
 #include "Menu.h"
 
 //=============================================================================
+//	Class constructor geting bool for know if the menu indication
+//	of user or player
 Menu::Menu(const bool &comp)
 {
 	if(comp)
@@ -20,6 +22,7 @@ Menu::Menu(const bool &comp)
 }
 
 //=============================================================================
+//	draw function
 void Menu::Draw()
 {
 	vector <Sprite>::iterator it;
@@ -48,6 +51,7 @@ void Menu::Draw()
 }
 
 //=============================================================================
+//	set life for each menu it is another life
 void Menu::setLife(const short int &value)
 {
 	_life = value;

@@ -1,5 +1,7 @@
 #include "Level.h"
 
+//=============================================================================
+//	Class constructor 
 Level::Level()
 {
 	_sprite.push_back(LEVEL_1_PIC);
@@ -12,6 +14,7 @@ Level::Level()
 
 
 //=============================================================================
+//	Function to draw object
 void Level::Draw()
 {
 	vector <Sprite>::iterator it;
@@ -25,6 +28,7 @@ void Level::Draw()
 }
 
 //=============================================================================
+//	Function to set level
 void Level::setLevel(const int &level)
 {
 	_level =level;

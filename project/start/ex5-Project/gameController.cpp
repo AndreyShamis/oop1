@@ -79,11 +79,9 @@ void gameController::applyPresents()
 				PutRandomBomb((int)_dneedit._x);	//	Call to function
 			}
 			else if((*it)->getPresentType() == PRESENT_TIME)
-				//	Increasing all timer for all bombs
-				IncreaseAllBombsTimers();
+				IncreaseAllBombsTimers();	//	Increasing all timer for all bombs
 			else if((*it)->getPresentType() == PRESENT_LIGHT)
-				//	Exploading all boms
-				ExplodeAllBombsTimers();
+				ExplodeAllBombsTimers();	//	Exploading all boms
 
 			(*it)->Disable();
 
@@ -134,8 +132,6 @@ Vertex gameController::GetEmptyCellCord(const int &i)
 
 		_new_cord._x = x;		//	seting the coordinates
 		_new_cord._y = y;		//	seting the coordinates
-
-		
 		
 		for( it =  _objects.begin() ; it != _objects.end() ; it++ )
 		{
@@ -148,9 +144,10 @@ Vertex gameController::GetEmptyCellCord(const int &i)
 				
 			}
 			//	If not found any colision return coordinated
-			if(copm)
-				return(_new_cord);
+
 		}
+		if(copm)
+			return(_new_cord);
 		trys--;					//	decriasing number of trys
 		if(trys < 0)			//	if smaller than zero
 			break;	
@@ -289,7 +286,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 						Present *new_present;
 						new_present = new Present();
 						new_present->setCord((*it)->getCord());
-						Grafic::_objectsDrow.push_back(new_present);
+						Grafic::addObject(new_present);
 						_objects.push_back(new_present);
 					}
 
@@ -304,7 +301,7 @@ void  gameController::explodeBomb(const Vertex &_cord)
 			//	Drawing fire
 			new_fire = new Fire(pic_fire,13);
 			new_fire->setCord(_fire_cord);
-			Grafic::_objectsDrow.push_back(new_fire);
+			Grafic::addObject(new_fire);
 			_objects.push_back(new_fire);
 		}
 	}
@@ -349,8 +346,8 @@ void gameController::decreaseTimer()
 void gameController::prepareGame()
 {
 	//	deliting Drawable objects and Keybord
-	gameController::getInstance()->_graf._objectsDrow.clear();
-	gameController::getInstance()->_kboard._objects.clear();
+	gameController::getInstance()->_graf.ClearVector();
+	gameController::getInstance()->_kboard.ClearObjects();
 
 	vector<Objects*>::iterator iter ;			//	vector iterator
 	for( iter =  _objects.begin() ; iter !=_objects.end() ; iter++ )

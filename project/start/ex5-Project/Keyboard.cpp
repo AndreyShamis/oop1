@@ -2,6 +2,7 @@
 vector<Objects*> Keyboard:: _objects;
 
 //=============================================================================
+//	Special key  function used in glud
 void Keyboard::Press(unsigned char key, int x, int y)
 {
 	vector<Objects*>::iterator it ;
@@ -11,6 +12,7 @@ void Keyboard::Press(unsigned char key, int x, int y)
 }
 
 //=============================================================================
+//	Special key press function used in glud
 void Keyboard::SpecPress(int key, int x, int y)
 {
 	vector<Objects*>::iterator it ;
@@ -20,7 +22,15 @@ void Keyboard::SpecPress(int key, int x, int y)
 }
 
 //=============================================================================
+//	add object to vector
 void Keyboard::addObject(Objects *newObject)
 {
 	_objects.push_back(newObject);
+}
+
+//=============================================================================
+//	Clear object from vector
+void Keyboard::ClearObjects()
+{
+	_objects.clear();
 }

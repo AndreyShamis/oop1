@@ -1,7 +1,7 @@
 /*
 
-	This class provide 
-
+	This class provide indication menu for user
+	for more inforamtion about all function look to cpp file
 
 	
 */
