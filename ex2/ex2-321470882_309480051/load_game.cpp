@@ -14,11 +14,11 @@
 //=============================================================================
 // Input: array to put map , and path to map file															
 // Output: true if the map load was secsesful.
-bool LoadMap(char map[][MAP_X], char path[MAP_PATH_LEN])
+bool LoadMap()
 {
 	// Open file.
 	ifstream myReadFile;
-	myReadFile.open(path);
+	myReadFile.open("MAPS/map1.txt");
 
 	// If the file is opened - load the map.
 	if (myReadFile.is_open()) 
